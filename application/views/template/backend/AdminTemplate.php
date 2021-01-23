@@ -36,25 +36,25 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/buttons.datatables.min.css') ?>">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/responsive.bootstrap4.min.css') ?>">
 
-    <link rel="stylesheet" type="text/css" href="<?= echo base_url('assets/css/bootstrap.min.css')?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/bootstrap.min.css')?>">
 
-    <link rel="stylesheet" href="<?= echo base_url('assets/css/waves.min.css')?>" type="text/css" media="all">
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/waves.min.css')?>" type="text/css" media="all">
 
-    <link rel="stylesheet" type="text/css" href="<?= echo base_url('assets/css/feather.css')?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/feather.css')?>">
 
-    <link rel="stylesheet" type="text/css" href="<?= echo base_url('assets/css/themify-icons.css')?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/themify-icons.css')?>">
 
-    <link rel="stylesheet" type="text/css" href="<?= echo base_url('assets/css/font-awesome.min.css')?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/font-awesome.min.css')?>">
 
-    <link rel="stylesheet" type="text/css" href="<?= echo base_url('assets/css/icofont.css')?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/icofont.css')?>">
 
-    <link rel="stylesheet" type="text/css" href="<?= echo base_url('assets/css/style.css')?>">
-    <link rel="stylesheet" type="text/css" href="<?= echo base_url('assets/css/pages.css')?>">
-    <link rel="stylesheet" type="text/css" href="<?= echo base_url('assets/css/widget.css')?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/style.css')?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/pages.css')?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/widget.css')?>">
 
-    <link rel="stylesheet" type="text/css" href="<?= echo base_url('assets/css/font-awesome-n.min.css')?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/font-awesome-n.min.css')?>">
 
-    <link rel="stylesheet" href="<?= echo base_url('assets/css/chartist.css')?>" type="text/css" media="all">
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/chartist.css')?>" type="text/css" media="all">
 
     <link rel="stylesheet" href="<?php echo base_url('assets/css/select2.min.css') ?>" />
 
