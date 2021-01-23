@@ -45,7 +45,7 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/widget.css')?>">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/font-awesome-n.min.css')?>">
     <link rel="stylesheet" href="<?php echo base_url('assets/css/chartist.css')?>" type="text/css" media="all">
-    <link rel="stylesheet" href="<?php echo base_url('assets/css/select2.min.css') ?>" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">	
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.16/css/bootstrap-multiselect.css">	
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/multi-select.css') ?>" />
 
