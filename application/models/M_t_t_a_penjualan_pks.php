@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class m_t_t_a_penjualan_pks extends CI_Model {
+class M_t_t_a_penjualan_pks extends CI_Model {
     
     
 
