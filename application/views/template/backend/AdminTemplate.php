@@ -31,14 +31,14 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Quicksand:500,700" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/datatables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/buttons.datatables.min.css">
     <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/responsive.bootstrap4.min.css">	
     <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/waves.min.css">
     <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/feather.css">
     <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/themify-icons.css">
-    <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/fontawesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/icofont.css">
     <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/style.css">
     <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/pages.css">
