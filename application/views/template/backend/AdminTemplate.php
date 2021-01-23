@@ -30,24 +30,34 @@
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Quicksand:500,700" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/datatables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/buttons.datatables.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/responsive.bootstrap4.min.css">
 
-    <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/datatables.bootstrap4.min.css">
-    <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/buttons.datatables.min.css">
-    <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/responsive.bootstrap4.min.css">	
-    <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/waves.min.css">
-    <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/feather.css">
-    <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/themify-icons.css">
-    <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/icofont.css">
-    <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/style.css">
-    <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/pages.css">
-    <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/widget.css">
-    <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/font-awesome-n.min.css">
-    <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/chartist.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">	
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.16/css/bootstrap-multiselect.css">	
-   <link rel="stylesheet" type="text/css" href="https://kasir-acien.online/static/image/css/multi-select.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url()?>assets/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="<?= base_url()?>assets/css/waves.min.css" type="text/css" media="all">
+
+    <link rel="stylesheet" type="text/css" href="<?= base_url()?>assets/css/feather.css">
+
+    <link rel="stylesheet" type="text/css" href="<?= base_url()?>assets/css/themify-icons.css">
+
+    <link rel="stylesheet" type="text/css" href="<?= base_url()?>assets/css/font-awesome.min.css">
+
+    <link rel="stylesheet" type="text/css" href="<?= base_url()?>assets/css/icofont.css">
+
+    <link rel="stylesheet" type="text/css" href="<?= base_url()?>assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url()?>assets/css/pages.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url()?>assets/css/widget.css">
+
+    <link rel="stylesheet" type="text/css" href="<?= base_url()?>assets/css/font-awesome-n.min.css">
+
+    <link rel="stylesheet" href="<?= base_url()?>assets/css/chartist.css" type="text/css" media="all">
+
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/select2.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/bootstrap-multiselect.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/multi-select.css" />
 
 
 </head>
