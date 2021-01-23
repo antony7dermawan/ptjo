@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class m_setting_db_supplier_coa extends CI_Model {
+class M_setting_db_supplier_coa extends CI_Model {
     
 
 
