@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class c_laporan extends MY_Controller {
+class C_laporan extends MY_Controller {
 
 	  public function __construct()
   {

@@ -1,5 +1,5 @@
 	<?php
-	class m_laporan extends CI_Model
+	class M_laporan extends CI_Model
 	{ 
 
         //Untuk menampilkan jurnal pengeluaran kas

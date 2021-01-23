@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class m_t_m_d_company extends CI_Model {
+class M_t_m_d_company extends CI_Model {
     
     public function get($username){
         $this->db->where('USERNAME', $username); // Untuk menambahkan Where Clause : username='$username'

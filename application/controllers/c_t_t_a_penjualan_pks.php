@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class c_t_t_a_penjualan_pks extends MY_Controller
+class C_t_t_a_penjualan_pks extends MY_Controller
 {
 
   public function __construct()
