@@ -33,31 +33,20 @@
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.bootstrap4.min.css">
-	
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.bootstrap4.min.css">	
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="<?php echo base_url('assets/css/waves.min.css')?>" type="text/css" media="all">
-
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/feather.css')?>">
-
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/themify-icons.css')?>">
-
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/font-awesome.min.css')?>">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/feather-css@1.0.4/feather.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/cd-themify-icons@0.0.1/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/fontawesome.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/icofont.css')?>">
-
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/style.css')?>">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/pages.css')?>">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/widget.css')?>">
-
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/font-awesome-n.min.css')?>">
-
     <link rel="stylesheet" href="<?php echo base_url('assets/css/chartist.css')?>" type="text/css" media="all">
-
     <link rel="stylesheet" href="<?php echo base_url('assets/css/select2.min.css') ?>" />
-
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/bootstrap-multiselect.css') ?>" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.16/css/bootstrap-multiselect.css">	
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/multi-select.css') ?>" />
 
 
