@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class m_t_ak_jurnal_edit extends CI_Model {
+class M_t_ak_jurnal_edit extends CI_Model {
     
     
 

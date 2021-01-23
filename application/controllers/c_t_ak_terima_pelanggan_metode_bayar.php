@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class c_t_ak_terima_pelanggan_metode_bayar extends MY_Controller
+class C_t_ak_terima_pelanggan_metode_bayar extends MY_Controller
 {
 
   public function __construct()

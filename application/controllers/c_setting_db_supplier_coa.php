@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class c_setting_db_supplier_coa extends MY_Controller
+class C_setting_db_supplier_coa extends MY_Controller
 {
 
   public function __construct()

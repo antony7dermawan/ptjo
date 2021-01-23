@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class c_change_password extends MY_Controller {
+class C_change_password extends MY_Controller {
 
 	  public function __construct()
   {

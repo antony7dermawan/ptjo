@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class m_t_ak_terima_pelanggan_metode_bayar extends CI_Model {
+class M_t_ak_terima_pelanggan_metode_bayar extends CI_Model {
     
     
 

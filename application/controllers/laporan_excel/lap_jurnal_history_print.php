@@ -18,7 +18,7 @@
       use PhpOffice\PhpSpreadsheet\Worksheet\ColumnDimension;
       use PhpOffice\PhpSpreadsheet\Worksheet;
 
-      class lap_jurnal_history_print extends CI_Controller{
+      class Lap_jurnal_history_print extends CI_Controller{
 
             public function __construct()
             {
