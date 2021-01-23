@@ -36,7 +36,7 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/buttons.datatables.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/responsive.bootstrap4.min.css">
 
-    <link rel="stylesheet" type="text/css" href="<?= base_url()?>assets/css/bootstrap.min.css">
+    <link rel="stylesheet" uic-remove type="text/css" href="<?= base_url()?>assets/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="<?= base_url()?>assets/css/waves.min.css" type="text/css" media="all">
 
