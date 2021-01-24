@@ -15,7 +15,7 @@ class C_setting_db_supplier_coa extends MY_Controller
   public function index()
   {
     $data = [
-      "c_setting_db_supplier_coa" => $this->m_setting_db_supplier_coa->select('2021-01-01','2100-01-01'),
+      "c_setting_db_supplier_coa" => $this->m_setting_db_supplier_coa->select('2021-01-01', '2100-01-01'),
       "no_akun_option" => $this->m_ak_m_coa->select_no_akun(),
       "title" => "SETTING SUPPLIER COA",
       "description" => "Pilihan COA Supplier untuk nampil di DASHBOARD"
@@ -28,7 +28,7 @@ class C_setting_db_supplier_coa extends MY_Controller
   public function delete($id)
   {
     $this->m_setting_db_supplier_coa->delete($id);
-    $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data User Berhasil Dihapus!</p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data Berhasil Dihapus!</p></div>');
     redirect('/c_setting_db_supplier_coa');
   }
 
@@ -37,7 +37,7 @@ class C_setting_db_supplier_coa extends MY_Controller
   {
     $coa_id = intval($this->input->post("coa_id"));
 
-//Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
+    //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
     $data = array(
       'COA_ID' => $coa_id,
       'CREATED_BY' => $this->session->userdata('username'),
@@ -46,7 +46,7 @@ class C_setting_db_supplier_coa extends MY_Controller
 
     $this->m_setting_db_supplier_coa->tambah($data);
 
-    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data User Berhasil Ditambahkan!</strong></p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
     redirect('c_setting_db_supplier_coa');
   }
 
@@ -54,7 +54,7 @@ class C_setting_db_supplier_coa extends MY_Controller
 
 
 
-/*
+  /*
   public function edit_action()
   {
     $id = $this->input->post("id");
@@ -68,7 +68,7 @@ class C_setting_db_supplier_coa extends MY_Controller
     );
 
     $this->m_ak_m_type->update($data, $id);
-    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data User Berhasil Diupdate!</strong></p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');
     redirect('/c_setting_db_bank_coa');
   }
 */

@@ -26,7 +26,7 @@ class C_t_ak_terima_pelanggan_print_setting extends MY_Controller
   public function delete($id)
   {
     $this->m_t_ak_terima_pelanggan_print_setting->delete($id);
-    $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data User Berhasil Dihapus!</p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data Berhasil DIhapus!</p></div>');
     redirect('/c_t_ak_terima_pelanggan_print_setting');
   }
 
@@ -37,7 +37,7 @@ class C_t_ak_terima_pelanggan_print_setting extends MY_Controller
     $setting_name = $this->input->post("setting_name");
     $setting_value = $this->input->post("setting_value");
 
-//Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
+    //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
     $data = array(
       'SETTING_ID' => $setting_id,
       'SETTING_NAME' => $setting_name,
@@ -46,7 +46,7 @@ class C_t_ak_terima_pelanggan_print_setting extends MY_Controller
 
     $this->m_t_ak_terima_pelanggan_print_setting->tambah($data);
 
-    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data User Berhasil Ditambahkan!</strong></p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
     redirect('c_t_ak_terima_pelanggan_print_setting');
   }
 
@@ -62,16 +62,15 @@ class C_t_ak_terima_pelanggan_print_setting extends MY_Controller
     $setting_name = $this->input->post("setting_name");
     $setting_value = $this->input->post("setting_value");
 
-//Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
+    //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
     $data = array(
       'SETTING_ID' => $setting_id,
       'SETTING_NAME' => $setting_name,
       'SETTING_VALUE' => $setting_value
     );
-    
+
     $this->m_t_ak_terima_pelanggan_print_setting->update($data, $id);
-    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data User Berhasil Diupdate!</strong></p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');
     redirect('/c_t_ak_terima_pelanggan_print_setting');
   }
-
 }

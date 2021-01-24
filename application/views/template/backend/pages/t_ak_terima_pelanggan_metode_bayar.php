@@ -34,7 +34,8 @@
             <th>No</th>
             <th>Nomor COA</th>
             <th>Bank</th>
-            <th>Jumlah</th>
+            <th>Jumlah Pembayaran</th>
+            <th>ADM Bank</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -61,7 +62,7 @@
             echo "<td>".$value->NAMA_AKUN."</td>";
             
             echo "<td>Rp".number_format(intval($value->JUMLAH))."</td>";
-          
+            echo "<td>Rp".number_format(intval($value->ADM_BANK))."</td>";
 
             echo "<td>";
               
@@ -134,11 +135,24 @@
 
 
           <div class="col-md-6">
+            
+          </div>
+
+          <div class="col-md-6">
             <fieldset class="form-group">
-              <label>Jumlah</label>
+              <label>Jumlah Pembayaran</label>
               <input type='text' class='form-control' placeholder='Harus Angka' name='jumlah'>
             </fieldset>
           </div>
+
+          <div class="col-md-6">
+            <fieldset class="form-group">
+              <label>Biaya Adm Bank</label>
+              <input type='text' class='form-control' placeholder='Harus Angka' name='adm_bank'>
+            </fieldset>
+          </div>
+
+          
 
 
         </div> <!-- Membungkus Row !-->

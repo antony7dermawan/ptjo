@@ -37,7 +37,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
   public function delete($id)
   {
     $this->m_t_ak_faktur_penjualan->delete($id);
-    $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data User Berhasil Dihapus!</p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data Berhasil Dihapus!</p></div>');
     redirect('/c_t_ak_faktur_penjualan');
   }
 
@@ -173,7 +173,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
         $coa_id_piutang_dagang=$value->ID;
         $db_k_id=$value->DB_K_ID;
       }
-      $piutang_dagang = $sum_total_penjualan + $ppn;
+      $piutang_dagang = intval($sum_total_penjualan) + intval($ppn);
       if($db_k_id==1)#kode 1 debit / 2 kredit
       {
         $data = array(
@@ -245,7 +245,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
 
     $this->m_t_ak_faktur_penjualan->tambah($data);
 
-    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data User Berhasil Ditambahkan!</strong></p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
     redirect('c_t_ak_faktur_penjualan');
   }
 
@@ -305,7 +305,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
       'UANG_JALAN' => $uang_jalan
     );
     $this->m_t_ak_faktur_penjualan->update($data, $id);
-    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data User Berhasil Diupdate!</strong></p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');
     redirect('/c_t_ak_faktur_penjualan');
   }
 

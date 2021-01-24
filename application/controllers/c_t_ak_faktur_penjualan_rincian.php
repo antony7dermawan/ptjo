@@ -19,7 +19,7 @@ class C_t_ak_faktur_penjualan_rincian extends MY_Controller
   }
 
 
-  public function index($id,$pks_id)
+  public function index($id, $pks_id)
   {
     $data = [
       "c_t_ak_faktur_penjualan_rincian" => $this->m_t_ak_faktur_penjualan_rincian->select($id),
@@ -37,55 +37,54 @@ class C_t_ak_faktur_penjualan_rincian extends MY_Controller
     $this->render_backend('template/backend/pages/t_ak_faktur_penjualan_rincian', $data);
   }
 
-  
 
-  function create_faktur_penjualan($id,$pks_id)
+
+  function create_faktur_penjualan($id, $pks_id)
   {
     $date_from_select_penjualan = ($this->input->post("date_from_select_penjualan"));
     $date_to_select_penjualan = ($this->input->post("date_to_select_penjualan"));
 
     $this->session->set_userdata('date_from_select_penjualan', $date_from_select_penjualan);
     $this->session->set_userdata('date_to_select_penjualan', $date_to_select_penjualan);
-    
+
 
     #$this->m_t_ak_faktur_penjualan_rincian->delete_id($id);
 
 
-    $read_select = $this->m_t_t_a_penjualan_pks->select_date($pks_id,$date_from_select_penjualan,$date_to_select_penjualan);
-    foreach ($read_select as $key => $value) 
-    {
-      $penjualan_pks_id=$value->ID;
+    $read_select = $this->m_t_t_a_penjualan_pks->select_date($pks_id, $date_from_select_penjualan, $date_to_select_penjualan);
+    foreach ($read_select as $key => $value) {
+      $penjualan_pks_id = $value->ID;
 
       $data = array(
-      'DATE' => date('Y-m-d'),
-      'TIME' => date('H:i:s'),
-      'FAKTUR_PENJUALAN_ID' => $id,
-      'PENJUALAN_PKS_ID' => $penjualan_pks_id,
-      'CREATED_BY' => $this->session->userdata('username'),
-      'UPDATED_BY' => $this->session->userdata('username'),
-      'KETERANGAN' => 'PENJUALAN TBS'
+        'DATE' => date('Y-m-d'),
+        'TIME' => date('H:i:s'),
+        'FAKTUR_PENJUALAN_ID' => $id,
+        'PENJUALAN_PKS_ID' => $penjualan_pks_id,
+        'CREATED_BY' => $this->session->userdata('username'),
+        'UPDATED_BY' => $this->session->userdata('username'),
+        'KETERANGAN' => 'PENJUALAN TBS'
       );
 
       $this->m_t_ak_faktur_penjualan_rincian->tambah($data);
 
       $data = array(
-      'ENABLE_EDIT' => 0
+        'ENABLE_EDIT' => 0
       );
       $this->m_t_t_a_penjualan_pks->update($data, $penjualan_pks_id);
     }
 
 
-    
 
-    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data User Berhasil Ditambahkan!</strong></p></div>');
-    redirect('c_t_ak_faktur_penjualan_rincian/index/'.$id.'/'.$pks_id);
+
+    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
+    redirect('c_t_ak_faktur_penjualan_rincian/index/' . $id . '/' . $pks_id);
   }
 
 
   public function delete($id)
   {
     $this->m_t_ak_faktur_penjualan->delete($id);
-    $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data User Berhasil Dihapus!</p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data Berhasil DIhapus!</p></div>');
     redirect('/c_t_ak_faktur_penjualan_rincian');
   }
 
@@ -96,7 +95,7 @@ class C_t_ak_faktur_penjualan_rincian extends MY_Controller
     $pks_id = intval($this->input->post("pks_id"));
     $keterangan = '';
     $no_faktur = ($this->input->post("no_faktur"));
-    
+
 
     $data = array(
       'DATE' => date('Y-m-d'),
@@ -110,12 +109,7 @@ class C_t_ak_faktur_penjualan_rincian extends MY_Controller
 
     $this->m_t_ak_faktur_penjualan->tambah($data);
 
-    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data User Berhasil Ditambahkan!</strong></p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
     redirect('c_t_ak_faktur_penjualan_rincian');
   }
-
-
-
-
-
 }

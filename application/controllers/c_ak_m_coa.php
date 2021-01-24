@@ -23,7 +23,7 @@ class C_ak_m_coa extends MY_Controller
       "c_ak_m_db_k" => $this->m_ak_m_db_k->select(),
       "c_ak_m_family" => $this->m_ak_m_family->select(),
       "c_ak_m_type" => $this->m_ak_m_type->select(),
-      "c_t_ak_jurnal" => $this->m_t_ak_jurnal->select('2020-01-01','2100-01-01'),
+      "c_t_ak_jurnal" => $this->m_t_ak_jurnal->select('2020-01-01', '2100-01-01'),
       "title" => "Master Coa",
       "description" => "Coa untuk Accounting"
     ];
@@ -34,42 +34,35 @@ class C_ak_m_coa extends MY_Controller
   public function update_coa_saldo($coa_id)
   {
     $read_select = $this->m_ak_m_coa->select_coa_id($coa_id);
-    foreach ($read_select as $key => $value) 
-    {
+    foreach ($read_select as $key => $value) {
       $sum_kredit = 0;
       $sum_debit = 0;
 
       $read_select_1 = $this->m_t_ak_jurnal->select_sum_kredit_detail($coa_id);
-      foreach ($read_select_1 as $key_1 => $value_1) 
-      {
+      foreach ($read_select_1 as $key_1 => $value_1) {
         $sum_kredit = $value_1->KREDIT;
       }
       $read_select_1 = $this->m_t_ak_jurnal->select_sum_debit_detail($coa_id);
-      foreach ($read_select_1 as $key_1 => $value_1) 
-      {
+      foreach ($read_select_1 as $key_1 => $value_1) {
         $sum_debit = $value_1->DEBIT;
       }
 
 
 
 
-      if($value->DB_K_ID==1)
-      {
-        $saldo = $sum_debit-$sum_kredit;
+      if ($value->DB_K_ID == 1) {
+        $saldo = $sum_debit - $sum_kredit;
       }
-      if($value->DB_K_ID==2)
-      {
-        $saldo = $sum_kredit-$sum_debit;
+      if ($value->DB_K_ID == 2) {
+        $saldo = $sum_kredit - $sum_debit;
       }
 
-      if($value->FAMILY_ID==3)
-      {
+      if ($value->FAMILY_ID == 3) {
         $data = array(
-        'SALDO' => $saldo
+          'SALDO' => $saldo
         );
         $this->m_ak_m_coa->update($data, $coa_id);
       }
-      
     }
   }
 
@@ -77,7 +70,7 @@ class C_ak_m_coa extends MY_Controller
   public function delete($id)
   {
     $this->m_ak_m_coa->delete($id);
-    $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data User Berhasil Dihapus!</p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data Berhasil DIhapus!</p></div>');
     redirect('/c_ak_m_coa');
   }
 
@@ -97,7 +90,7 @@ class C_ak_m_coa extends MY_Controller
     $db_k_id = intval($this->input->post("db_k_id"));
     $family_id = intval($this->input->post("family_id"));
 
-//Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
+    //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
     $data = array(
       'NO_AKUN_1' => $no_akun_1,
       'NAMA_AKUN' => $nama_akun,
@@ -111,7 +104,7 @@ class C_ak_m_coa extends MY_Controller
 
     $this->m_ak_m_coa->tambah($data);
 
-    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data User Berhasil Ditambahkan!</strong></p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
     redirect('c_ak_m_coa');
   }
 
@@ -133,7 +126,7 @@ class C_ak_m_coa extends MY_Controller
     $nama_akun = ($this->input->post("nama_akun"));
 
 
-//Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
+    //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
     $data = array(
       'NO_AKUN_1' => $no_akun_1,
       'NAMA_AKUN' => $nama_akun,
@@ -141,8 +134,7 @@ class C_ak_m_coa extends MY_Controller
       'NO_AKUN_3' => $no_akun_3
     );
     $this->m_ak_m_coa->update($data, $id);
-    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data User Berhasil Diupdate!</strong></p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');
     redirect('/c_ak_m_coa');
   }
-
 }

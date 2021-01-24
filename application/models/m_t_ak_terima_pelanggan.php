@@ -26,6 +26,8 @@ public function update($data, $id)
     $this->db->select("SUM_JUMLAH");
 
     $this->db->select("SUM_DISKON");
+
+    $this->db->select("SUM_ADM_BANK");
     
 
     $this->db->select("T_M_A_PKS.NO_PELANGGAN");
@@ -47,6 +49,8 @@ public function update($data, $id)
 
 
     $this->db->join("(select \"TERIMA_PELANGGAN_ID\",sum(\"JUMLAH\")\"SUM_DISKON\" from \"T_AK_TERIMA_PELANGGAN_DISKON\" group by \"TERIMA_PELANGGAN_ID\") as t_sum_3", 'T_AK_TERIMA_PELANGGAN.ID = t_sum_3.TERIMA_PELANGGAN_ID', 'left');
+
+    $this->db->join("(select \"TERIMA_PELANGGAN_ID\",sum(\"ADM_BANK\")\"SUM_ADM_BANK\" from \"T_AK_TERIMA_PELANGGAN_METODE_BAYAR\" group by \"TERIMA_PELANGGAN_ID\") as t_sum_4", 'T_AK_TERIMA_PELANGGAN.ID = t_sum_4.TERIMA_PELANGGAN_ID', 'left');
 
     
     $this->db->where('T_AK_TERIMA_PELANGGAN.DATE',$date_terima_pelanggan);

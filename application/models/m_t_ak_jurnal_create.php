@@ -12,7 +12,7 @@ public function update($data, $id)
 
 public function update_all($data)
 {
-  $this->db->where('CREATED_BY', $this->session->userdata('name'));
+  $this->db->where('CREATED_BY', $this->session->userdata('username'));
   return $this->db->update('T_AK_JURNAL_CREATE', $data);
 }
 
@@ -42,7 +42,7 @@ public function update_all($data)
     $this->db->from('T_AK_JURNAL_CREATE');
     $this->db->join('AK_M_COA', 'AK_M_COA.ID = T_AK_JURNAL_CREATE.COA_ID', 'left');
 
-    $this->db->where("T_AK_JURNAL_CREATE.CREATED_BY='{$this->session->userdata('name')}'");
+    $this->db->where("T_AK_JURNAL_CREATE.CREATED_BY='{$this->session->userdata('username')}'");
     $this->db->order_by("T_AK_JURNAL_CREATE.ID", "asc");
 
     $akun = $this->db->get ();

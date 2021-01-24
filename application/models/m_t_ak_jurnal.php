@@ -40,7 +40,6 @@ public function select_used_jurnal($type_id,$from_date,$to_date)
     $this->db->select("SUM_KREDIT");
 
 
-
     $this->db->from('AK_M_COA');
 
 
@@ -101,12 +100,13 @@ public function select_created_id($created_id)
     $this->db->select("T_AK_JURNAL.CREATED_BY");
     $this->db->select("T_AK_JURNAL.UPDATED_BY");
     $this->db->select("T_AK_JURNAL.CREATED_ID");
+    $this->db->select("T_AK_JURNAL.CHECKED_ID");
+    $this->db->select("T_AK_JURNAL.SPECIAL_ID");
 
     $this->db->from('T_AK_JURNAL');
     $this->db->join('AK_M_COA', 'AK_M_COA.ID = T_AK_JURNAL.COA_ID', 'left');
 
     $this->db->where("T_AK_JURNAL.CREATED_ID='{$created_id}'");
-    $this->db->order_by("T_AK_JURNAL.ID", "asc");
 
     $akun = $this->db->get ();
     return $akun->result ();
@@ -150,7 +150,8 @@ public function select_created_id($created_id)
     {
         $this->db->where("T_AK_JURNAL.CREATED_BY='{$username}'");
     }
-    $this->db->order_by("T_AK_JURNAL.ID", "asc");
+    
+    $this->db->order_by("T_AK_JURNAL.DATE,T_AK_JURNAL.TIME", "asc");
 
     $akun = $this->db->get ();
     return $akun->result ();

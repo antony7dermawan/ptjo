@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-header">
-    <h5>Master Uang Jalan</h5>
+    <h5></h5>
   </div>
   <div class="card-block">
     <!-- Menampilkan notif !-->

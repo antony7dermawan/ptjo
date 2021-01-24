@@ -19,15 +19,13 @@ class C_t_ak_jurnal_create extends MY_Controller
   {
     $ada_data = '';
     $read_select = $this->m_t_ak_jurnal_create->select();
-    foreach ($read_select as $key => $value) 
-    {
+    foreach ($read_select as $key => $value) {
       $ada_data = $value->ID;
     }
-    if($ada_data=='')
-    {
+    if ($ada_data == '') {
       $this->read_no_voucer();
     }
- 
+
 
     $data = [
       "c_t_ak_jurnal_create" => $this->m_t_ak_jurnal_create->select(),
@@ -58,23 +56,21 @@ class C_t_ak_jurnal_create extends MY_Controller
 
   public function read_no_voucer()
   {
-    $read_last_no_voucer='';
+    $read_last_no_voucer = '';
     $read_select = $this->m_t_ak_jurnal->select_no_voucer();
-    foreach ($read_select as $key => $value) 
-    {
+    foreach ($read_select as $key => $value) {
       $read_last_no_voucer = $value->NO_VOUCER;
     }
-    $last_no_voucer = intval(substr($read_last_no_voucer, -4))+1;
+    $last_no_voucer = intval(substr($read_last_no_voucer, -4)) + 1;
 
-    $now_no_voucer = substr($read_last_no_voucer, 0, -4).sprintf('%04d',$last_no_voucer);
+    $now_no_voucer = substr($read_last_no_voucer, 0, -4) . sprintf('%04d', $last_no_voucer);
     $this->session->set_userdata('now_no_voucer_keep', $now_no_voucer);
-     
   }
 
   public function delete($id)
   {
     $this->m_t_ak_jurnal_create->delete($id);
-    $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data User Berhasil Dihapus!</p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data Berhasil DIhapus!</p></div>');
     redirect('/c_t_ak_jurnal_create');
   }
 
@@ -82,20 +78,25 @@ class C_t_ak_jurnal_create extends MY_Controller
 
   function tambah()
   {
+
+    $date_jurnal_create = ($this->input->post("date"));
+    $this->session->set_userdata('date_jurnal_create', $date_jurnal_create);
+
+
     $coa_id = ($this->input->post("coa_id"));
 
 
     $debit = intval($this->input->post("debit"));
     $kredit = intval($this->input->post("kredit"));
-    $catatan = ($this->input->post("catatan"));
-    $departemen = ($this->input->post("departemen"));
+    $catatan = substr(($this->input->post("catatan")), 0, 200);
+    $departemen = substr(($this->input->post("departemen")), 0, 50);
     $no_voucer = $this->session->userdata('now_no_voucer');
+    $date = $this->input->post("date");
 
-
-    if($this->session->userdata('now_no_voucer')!='')
+    if ($this->session->userdata('now_no_voucer') != '') 
     {
       $data = array(
-        'DATE' => date('Y-m-d'),
+        'DATE' => $date,
         'TIME' => date('H:i:s'),
         'CREATED_BY' => $this->session->userdata('username'),
         'UPDATED_BY' => $this->session->userdata('username'),
@@ -105,18 +106,17 @@ class C_t_ak_jurnal_create extends MY_Controller
         'CATATAN' => $catatan,
         'DEPARTEMEN' => $departemen,
         'NO_VOUCER' => $no_voucer
-        
+
       );
 
       $this->m_t_ak_jurnal_create->tambah($data);
 
-      $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data User Berhasil Ditambahkan!</strong></p></div>');
+      $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
     }
-    if($this->session->userdata('now_no_voucer')=='')
-    {
+    if ($this->session->userdata('now_no_voucer') == '') {
       $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>GAGAL!</strong> NO VOUCER BELUM DIISI!</p></div>');
     }
-    
+
     redirect('c_t_ak_jurnal_create');
   }
 
@@ -124,15 +124,13 @@ class C_t_ak_jurnal_create extends MY_Controller
   {
     $this->session->set_userdata('now_no_voucer', '');
     $read_select = $this->m_t_ak_jurnal_create->select();
-    foreach ($read_select as $key => $value) 
-    {
-      if($key==0)
-      {
+    foreach ($read_select as $key => $value) {
+      if ($key == 0) {
         $created_id = $value->ID;
       }
       $data = array(
-        'DATE' => date('Y-m-d'),
-        'TIME' => date('H:i:s'),
+        'DATE' => $value->DATE,
+        'TIME' => $value->TIME,
         'CREATED_BY' => $this->session->userdata('username'),
         'UPDATED_BY' => $this->session->userdata('username'),
         'COA_ID' => $value->COA_ID,
@@ -144,7 +142,7 @@ class C_t_ak_jurnal_create extends MY_Controller
         'CREATED_ID' => $created_id,
         'CHECKED_ID' => 1,
         'SPECIAL_ID' => 0
-        
+
       );
 
       $this->m_t_ak_jurnal->tambah($data);
@@ -158,90 +156,77 @@ class C_t_ak_jurnal_create extends MY_Controller
   public function update_coa_saldo($coa_id)
   {
     $read_select = $this->m_ak_m_coa->select_coa_id($coa_id);
-    foreach ($read_select as $key => $value) 
-    {
+    foreach ($read_select as $key => $value) {
       $sum_kredit = 0;
       $sum_debit = 0;
 
       $read_select_1 = $this->m_t_ak_jurnal->select_sum_kredit_detail($coa_id);
-      foreach ($read_select_1 as $key_1 => $value_1) 
-      {
+      foreach ($read_select_1 as $key_1 => $value_1) {
         $sum_kredit = $value_1->KREDIT;
       }
       $read_select_1 = $this->m_t_ak_jurnal->select_sum_debit_detail($coa_id);
-      foreach ($read_select_1 as $key_1 => $value_1) 
-      {
+      foreach ($read_select_1 as $key_1 => $value_1) {
         $sum_debit = $value_1->DEBIT;
       }
 
 
 
 
-      if($value->DB_K_ID==1)
-      {
-        $saldo = $sum_debit-$sum_kredit;
+      if ($value->DB_K_ID == 1) {
+        $saldo = $sum_debit - $sum_kredit;
       }
-      if($value->DB_K_ID==2)
-      {
-        $saldo = $sum_kredit-$sum_debit;
+      if ($value->DB_K_ID == 2) {
+        $saldo = $sum_kredit - $sum_debit;
       }
 
-      
-        $data = array(
+
+      $data = array(
         'SALDO' => $saldo
-        );
-        $this->m_ak_m_coa->update($data, $coa_id);
+      );
+      $this->m_ak_m_coa->update($data, $coa_id);
 
-        
-      if($value->NO_AKUN_2!='' and $value->NO_AKUN_1!='' and $value->NO_AKUN_3!='')
-      {       
+
+      if ($value->NO_AKUN_2 != '' and $value->NO_AKUN_1 != '' and $value->NO_AKUN_3 != '') {
         $read_select_1 = $this->m_ak_m_coa->select_sum_saldo_no_akun_3($value->NO_AKUN_2);
-        foreach ($read_select_1 as $key_1 => $value_1) 
-        {
+        foreach ($read_select_1 as $key_1 => $value_1) {
           $sum_saldo_parent_2 = $value_1->SALDO;
         }
         $data = array(
-        'SALDO' => $sum_saldo_parent_2
+          'SALDO' => $sum_saldo_parent_2
         );
         $this->m_ak_m_coa->update_saldo_parent_2($data, $value->NO_AKUN_2);
 
         $read_select_1 = $this->m_ak_m_coa->select_sum_saldo_no_akun_2($value->NO_AKUN_1);
-        foreach ($read_select_1 as $key_1 => $value_1) 
-        {
+        foreach ($read_select_1 as $key_1 => $value_1) {
           $sum_saldo_parent_1 = $value_1->SALDO;
         }
         $data = array(
-        'SALDO' => $sum_saldo_parent_1
-        );
-        $this->m_ak_m_coa->update_saldo_parent_1($data, $value->NO_AKUN_1);
-      }
-      
-      if($value->NO_AKUN_1!='' and $value->NO_AKUN_2=='' and $value->NO_AKUN_3!='')
-      {
-        $read_select_1 = $this->m_ak_m_coa->select_sum_saldo_no_akun_4($value->NO_AKUN_1);
-        foreach ($read_select_1 as $key_1 => $value_1) 
-        {
-          $sum_saldo_parent_1 = $value_1->SALDO;
-        }
-        $data = array(
-        'SALDO' => $sum_saldo_parent_1
+          'SALDO' => $sum_saldo_parent_1
         );
         $this->m_ak_m_coa->update_saldo_parent_1($data, $value->NO_AKUN_1);
       }
 
-      if($value->NO_AKUN_1!='' and $value->NO_AKUN_2!='' and $value->NO_AKUN_3=='')
-      {
-        $read_select_1 = $this->m_ak_m_coa->select_sum_saldo_no_akun_5($value->NO_AKUN_1);
-        foreach ($read_select_1 as $key_1 => $value_1) 
-        {
+      if ($value->NO_AKUN_1 != '' and $value->NO_AKUN_2 == '' and $value->NO_AKUN_3 != '') {
+        $read_select_1 = $this->m_ak_m_coa->select_sum_saldo_no_akun_4($value->NO_AKUN_1);
+        foreach ($read_select_1 as $key_1 => $value_1) {
           $sum_saldo_parent_1 = $value_1->SALDO;
         }
         $data = array(
-        'SALDO' => $sum_saldo_parent_1
+          'SALDO' => $sum_saldo_parent_1
         );
         $this->m_ak_m_coa->update_saldo_parent_1($data, $value->NO_AKUN_1);
       }
-      
+
+      if ($value->NO_AKUN_1 != '' and $value->NO_AKUN_2 != '' and $value->NO_AKUN_3 == '') {
+        $read_select_1 = $this->m_ak_m_coa->select_sum_saldo_no_akun_5($value->NO_AKUN_1);
+        foreach ($read_select_1 as $key_1 => $value_1) {
+          $sum_saldo_parent_1 = $value_1->SALDO;
+        }
+        $data = array(
+          'SALDO' => $sum_saldo_parent_1
+        );
+        $this->m_ak_m_coa->update_saldo_parent_1($data, $value->NO_AKUN_1);
+      }
     }
   }
 
@@ -259,7 +244,7 @@ class C_t_ak_jurnal_create extends MY_Controller
 
 
 
-//Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
+    //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
     $data = array(
       'DATE' => date('Y-m-d'),
       'TIME' => date('H:i:s'),
@@ -269,12 +254,11 @@ class C_t_ak_jurnal_create extends MY_Controller
       'CATATAN' => $catatan,
       'DEPARTEMEN' => $departemen,
       'NO_VOUCER' => $no_voucer
-      
+
     );
 
     $this->m_t_ak_jurnal_create->update($data, $id);
-    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data User Berhasil Diupdate!</strong></p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');
     redirect('/c_t_ak_jurnal_create');
   }
-
 }
