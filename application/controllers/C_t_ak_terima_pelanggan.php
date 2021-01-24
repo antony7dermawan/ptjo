@@ -19,6 +19,9 @@ class C_t_ak_terima_pelanggan extends MY_Controller
     $this->load->model('m_ak_m_coa');
     $this->load->model('m_t_ak_terima_pelanggan_print_setting');
     $this->load->model('m_t_ak_jurnal');
+    $this->load->model('m_t_ak_terima_pelanggan_metode_bayar');
+
+    
   }
 
   public function index()
@@ -62,51 +65,61 @@ class C_t_ak_terima_pelanggan extends MY_Controller
       $created_id = strtotime(date('Y-m-d H:i:s'));
       $coa_id = 0;
 
-//ini salah
-      $coa_id_total_pembayaran = 0;
-      $read_select = $this->m_t_ak_terima_pelanggan_print_setting->select_id(5);
-      foreach ($read_select as $key => $value) {
-        $setting_value = $value->SETTING_VALUE;
-      }
-      $read_select = $this->m_ak_m_coa->read_coa_id_from_no_akun($setting_value);
-      foreach ($read_select as $key => $value) {
-        $coa_id_total_pembayaran = $value->ID;
-        $db_k_id = $value->DB_K_ID;
+      // metode bayar 
+      
+
+      $read_select = $this->m_t_ak_terima_pelanggan_metode_bayar->select($id);
+      foreach ($read_select as $key => $value) 
+      {
+        $coa_id = $value->COA_ID;
+        $jumlah_per_bank = $value->JUMLAH;
+
+        $read_select_in = $this->m_ak_m_coa->select_coa_id($coa_id);
+        foreach ($read_select_in as $key_in => $value_in) 
+        {
+          $coa_id_total_pembayaran = $value_in->ID;
+          $db_k_id = $value_in->DB_K_ID;
+          if ($db_k_id == 1) #kode 1 debit / 2 kredit
+          {
+            $data = array(
+              'DATE' => date('Y-m-d'),
+              'TIME' => date('H:i:s'),
+              'CREATED_BY' => $this->session->userdata('username'),
+              'UPDATED_BY' => $this->session->userdata('username'),
+              'COA_ID' => $coa_id_total_pembayaran,
+              'DEBIT' => intval($jumlah_per_bank),
+              'KREDIT' => 0,
+              'CATATAN' => 'Pembayaran TBS : ' . $no_form,
+              'DEPARTEMEN' => '0',
+              'NO_VOUCER' => $no_form,
+              'CREATED_ID' => $created_id
+            );
+          }
+          if ($db_k_id == 2) #kode 1 debit / 2 kredit
+          {
+            $data = array(
+              'DATE' => date('Y-m-d'),
+              'TIME' => date('H:i:s'),
+              'CREATED_BY' => $this->session->userdata('username'),
+              'UPDATED_BY' => $this->session->userdata('username'),
+              'COA_ID' => $coa_id_total_pembayaran,
+              'DEBIT' => 0,
+              'KREDIT' => intval($jumlah_per_bank),
+              'CATATAN' => 'Pembayaran TBS : ' . $no_form,
+              'DEPARTEMEN' => '0',
+              'NO_VOUCER' => $no_form,
+              'CREATED_ID' => $created_id
+            );
+          }
+          $this->m_t_ak_jurnal->tambah($data);
+          $sum_total_penjualan = intval($sum_total_penjualan) + intval($jumlah_per_bank);
+        }
       }
 
-      if ($db_k_id == 1) #kode 1 debit / 2 kredit
-      {
-        $data = array(
-          'DATE' => date('Y-m-d'),
-          'TIME' => date('H:i:s'),
-          'CREATED_BY' => $this->session->userdata('username'),
-          'UPDATED_BY' => $this->session->userdata('username'),
-          'COA_ID' => $coa_id_total_pembayaran,
-          'DEBIT' => intval($sum_total_penjualan),
-          'KREDIT' => 0,
-          'CATATAN' => 'Pembayaran TBS : ' . $no_form,
-          'DEPARTEMEN' => '0',
-          'NO_VOUCER' => $no_form,
-          'CREATED_ID' => $created_id
-        );
-      }
-      if ($db_k_id == 2) #kode 1 debit / 2 kredit
-      {
-        $data = array(
-          'DATE' => date('Y-m-d'),
-          'TIME' => date('H:i:s'),
-          'CREATED_BY' => $this->session->userdata('username'),
-          'UPDATED_BY' => $this->session->userdata('username'),
-          'COA_ID' => $coa_id_total_pembayaran,
-          'DEBIT' => 0,
-          'KREDIT' => intval($sum_total_penjualan),
-          'CATATAN' => 'Pembayaran TBS : ' . $no_form,
-          'DEPARTEMEN' => '0',
-          'NO_VOUCER' => $no_form,
-          'CREATED_ID' => $created_id
-        );
-      }
-      $this->m_t_ak_jurnal->tambah($data);
+
+
+
+      
       #.....................................................................................done 
 
 
