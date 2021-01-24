@@ -56,7 +56,7 @@
             echo "<td>";
               
 
-              echo "<a href='".site_url('c_t_ak_terima_pelanggan_no_faktur/delete/' . $value->ID)."' ";
+              echo "<a href='".site_url('c_t_ak_terima_pelanggan_no_faktur/delete/' . $value->ID.'/'.$terima_pelanggan_id.'/'.$pks_id)."' ";
               
               echo "onclick=\"return confirm('Apakah kamu yakin ingin menghapus data ini?')\"";
 

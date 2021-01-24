@@ -1314,7 +1314,7 @@
 
 
                   $writer = new Xlsx($spreadsheet);
-                  $filename = 'Jurnal_Umum';
+                  $filename = 'lap_laba_rugi';
                   
                   header('Content-Type: application/vnd.ms-excel');
                   header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 

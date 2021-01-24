@@ -10,6 +10,18 @@
             <input type="submit" name="submit_no_voucer" class='btn btn-primary waves-effect waves-light' value="Create">
           </th>
         </tr>
+        <?php
+        if($this->session->userdata('now_no_voucer')=='')
+        {
+          echo "<tr>";
+          echo "<th>";
+            echo $this->session->userdata('now_no_voucer_keep');
+          echo "</th>";
+          echo "</tr>";
+        }
+
+        ?>
+        
       </table>
       
       
@@ -19,7 +31,14 @@
     <!-- Menampilkan notif !-->
     <?= $this->session->flashdata('notif') ?>
     <!-- Tombol untuk menambah data akun !-->
-    <button data-toggle='modal' data-target='#addModal' class='btn btn-success waves-effect waves-light'>New Data</button>
+    <?php
+    if($this->session->userdata('now_no_voucer')!='')
+    {
+      echo "<button data-toggle='modal' data-target='#addModal' class='btn btn-success waves-effect waves-light'>New Data</button>";
+    }
+
+    ?>
+    
 
     <div class="table-responsive dt-responsive">
       <table id="dom-jqry" class="table table-striped table-bordered nowrap">
@@ -31,6 +50,7 @@
             <th>Debit</th>
             <th>Kredit</th>
             <th>Catatan</th>
+            <th>No Voucer</th>
             <th>Departemen</th>
             <th>Action</th>
           </tr>
@@ -66,6 +86,8 @@
               echo "<td>Rp".number_format(intval($value->DEBIT))."</td>";
               echo "<td>Rp".number_format(intval($value->KREDIT))."</td>";
               echo "<td>".$value->CATATAN."</td>";
+
+              echo "<td>".$value->NO_VOUCER."</td>";
               echo "<td>".$value->DEPARTEMEN."</td>";
            
               echo "<td>";
@@ -152,7 +174,10 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">New Data</h4>
+          <h4 class="modal-title">Tanggal Transaksi:
+            <form action='/action_page.php'>
+              <input type='date' class='form-control' name='date' value='<?= $this->session->userdata('date_jurnal_create') ?>'>
+          </h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

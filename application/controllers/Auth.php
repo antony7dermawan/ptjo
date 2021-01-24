@@ -11,7 +11,7 @@ class Auth extends MY_Controller {
 
   public function index(){
     if($this->session->userdata('authenticated')) // Jika user sudah login (Session authenticated ditemukan)
-      redirect('page/c_dashboard'); // Redirect ke page home
+      redirect('c_dashboard'); // Redirect ke page home
 
     // function render_login tersebut dari file core/MY_Controller.php
     $this->render_login('login'); // Load view login.php
@@ -48,7 +48,9 @@ class Auth extends MY_Controller {
           'date_to_select_jurnal'=>date('Y-m-d'),
           'coa_id_jurnal_history'=>52,
           'date_from_dashboard'=>date('Y-m-d'),
-          'date_to_dashboard'=>date('Y-m-d')
+          'date_to_dashboard'=>date('Y-m-d'),
+          'date_jurnal_create'=>date('Y-m-d')
+          
 
           
           

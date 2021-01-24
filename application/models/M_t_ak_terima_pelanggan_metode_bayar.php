@@ -16,6 +16,7 @@ class M_t_ak_terima_pelanggan_metode_bayar extends CI_Model {
     $this->db->select("T_AK_TERIMA_PELANGGAN_METODE_BAYAR.JUMLAH");
     $this->db->select("T_AK_TERIMA_PELANGGAN_METODE_BAYAR.CREATED_BY");
     $this->db->select("T_AK_TERIMA_PELANGGAN_METODE_BAYAR.UPDATED_BY");
+    $this->db->select("T_AK_TERIMA_PELANGGAN_METODE_BAYAR.ADM_BANK");
 
 
     $this->db->select("AK_M_COA.NO_AKUN_1");

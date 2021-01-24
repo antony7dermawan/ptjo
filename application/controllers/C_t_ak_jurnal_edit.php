@@ -33,7 +33,7 @@ class C_t_ak_jurnal_edit extends MY_Controller
   public function delete($id)
   {
     $this->m_t_ak_jurnal_edit->delete($id);
-    $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data User Berhasil Dihapus!</p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data Berhasil DIhapus!</p></div>');
     redirect('/c_t_ak_jurnal_edit');
   }
 
@@ -51,50 +51,57 @@ class C_t_ak_jurnal_edit extends MY_Controller
 
     $no_voucer = '';
     $read_select = $this->m_t_ak_jurnal_edit->select();
-    foreach ($read_select as $key => $value) 
-    {
-      if($key==0)
-      {
+    foreach ($read_select as $key => $value) {
+      if ($key == 0) {
         $no_voucer = $value->NO_VOUCER;
       }
     }
 
     $new_id = 0;
     $read_select = $this->m_t_ak_jurnal_edit->select_last_id();
-    foreach ($read_select as $key => $value) 
-    {
+    foreach ($read_select as $key => $value) {
       $new_id = $value->ID + 1;
     }
 
+    $created_id = 0;
     $read_select = $this->m_t_ak_jurnal_edit->select_created_id();
-    foreach ($read_select as $key => $value) 
-    {
+    foreach ($read_select as $key => $value) {
       $created_id = $value->CREATED_ID;
       $date = $value->DATE;
       $time = $value->TIME;
     }
 
-//Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
-    $data = array(
-      'ID' => $new_id,
-      'DATE' => $date,
-      'TIME' => $time,
-      'CREATED_BY' => $this->session->userdata('username'),
-      'UPDATED_BY' => $this->session->userdata('username'),
-      'COA_ID' => $coa_id,
-      'DEBIT' => $debit,
-      'KREDIT' => $kredit,
-      'CATATAN' => $catatan,
-      'DEPARTEMEN' => $departemen,
-      'NO_VOUCER' => $no_voucer,
-      'CREATED_ID' => $created_id,
-      'CHECKED_ID' => 1,
-      'SPECIAL_ID' => 0
-    );
+    //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
+    if($created_id != 0)
+    {
+      $data = array(
+        'ID' => $new_id,
+        'DATE' => $date,
+        'TIME' => $time,
+        'CREATED_BY' => $this->session->userdata('username'),
+        'UPDATED_BY' => $this->session->userdata('username'),
+        'COA_ID' => $coa_id,
+        'DEBIT' => $debit,
+        'KREDIT' => $kredit,
+        'CATATAN' => $catatan,
+        'DEPARTEMEN' => $departemen,
+        'NO_VOUCER' => $no_voucer,
+        'CREATED_ID' => $created_id,
+        'CHECKED_ID' => 1,
+        'SPECIAL_ID' => 0
+      );
 
-    $this->m_t_ak_jurnal_edit->tambah($data);
+      $this->m_t_ak_jurnal_edit->tambah($data);
 
-    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data User Berhasil Ditambahkan!</strong></p></div>');
+      $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
+    }
+
+
+    if($created_id == 0)
+    {
+      $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal Insert!</strong> Harus Create No Voucer Baru!</p></div>');
+    }
+    
     redirect('c_t_ak_jurnal_edit');
   }
 
@@ -102,10 +109,8 @@ class C_t_ak_jurnal_edit extends MY_Controller
   {
 
     $read_select = $this->m_t_ak_jurnal_edit->select();
-    foreach ($read_select as $key => $value) 
-    {
-      if($key==0)
-      {
+    foreach ($read_select as $key => $value) {
+      if ($key == 0) {
         $this->m_t_ak_jurnal->delete_created_id($value->CREATED_ID);
       }
       $data = array(
@@ -122,7 +127,7 @@ class C_t_ak_jurnal_edit extends MY_Controller
         'CREATED_ID' => $value->CREATED_ID,
         'CHECKED_ID' => $value->CHECKED_ID,
         'SPECIAL_ID' => $value->SPECIAL_ID
-        
+
       );
 
       $this->m_t_ak_jurnal->tambah($data);
@@ -135,89 +140,76 @@ class C_t_ak_jurnal_edit extends MY_Controller
   public function update_coa_saldo($coa_id)
   {
     $read_select = $this->m_ak_m_coa->select_coa_id($coa_id);
-    foreach ($read_select as $key => $value) 
-    {
+    foreach ($read_select as $key => $value) {
       $sum_kredit = 0;
       $sum_debit = 0;
 
       $read_select_1 = $this->m_t_ak_jurnal->select_sum_kredit_detail($coa_id);
-      foreach ($read_select_1 as $key_1 => $value_1) 
-      {
+      foreach ($read_select_1 as $key_1 => $value_1) {
         $sum_kredit = $value_1->KREDIT;
       }
       $read_select_1 = $this->m_t_ak_jurnal->select_sum_debit_detail($coa_id);
-      foreach ($read_select_1 as $key_1 => $value_1) 
-      {
+      foreach ($read_select_1 as $key_1 => $value_1) {
         $sum_debit = $value_1->DEBIT;
       }
 
 
 
 
-      if($value->DB_K_ID==1)
-      {
-        $saldo = $sum_debit-$sum_kredit;
+      if ($value->DB_K_ID == 1) {
+        $saldo = $sum_debit - $sum_kredit;
       }
-      if($value->DB_K_ID==2)
-      {
-        $saldo = $sum_kredit-$sum_debit;
+      if ($value->DB_K_ID == 2) {
+        $saldo = $sum_kredit - $sum_debit;
       }
 
-      
-        $data = array(
+
+      $data = array(
         'SALDO' => $saldo
-        );
-        $this->m_ak_m_coa->update($data, $coa_id);
+      );
+      $this->m_ak_m_coa->update($data, $coa_id);
 
-      if($value->NO_AKUN_2!='' and $value->NO_AKUN_1!='' and $value->NO_AKUN_3!='')
-      {       
+      if ($value->NO_AKUN_2 != '' and $value->NO_AKUN_1 != '' and $value->NO_AKUN_3 != '') {
         $read_select_1 = $this->m_ak_m_coa->select_sum_saldo_no_akun_3($value->NO_AKUN_2);
-        foreach ($read_select_1 as $key_1 => $value_1) 
-        {
+        foreach ($read_select_1 as $key_1 => $value_1) {
           $sum_saldo_parent_2 = $value_1->SALDO;
         }
         $data = array(
-        'SALDO' => $sum_saldo_parent_2
+          'SALDO' => $sum_saldo_parent_2
         );
         $this->m_ak_m_coa->update_saldo_parent_2($data, $value->NO_AKUN_2);
 
         $read_select_1 = $this->m_ak_m_coa->select_sum_saldo_no_akun_2($value->NO_AKUN_1);
-        foreach ($read_select_1 as $key_1 => $value_1) 
-        {
+        foreach ($read_select_1 as $key_1 => $value_1) {
           $sum_saldo_parent_1 = $value_1->SALDO;
         }
         $data = array(
-        'SALDO' => $sum_saldo_parent_1
-        );
-        $this->m_ak_m_coa->update_saldo_parent_1($data, $value->NO_AKUN_1);
-      }
-      
-      if($value->NO_AKUN_1!='' and $value->NO_AKUN_2=='' and $value->NO_AKUN_3!='')
-      {
-        $read_select_1 = $this->m_ak_m_coa->select_sum_saldo_no_akun_4($value->NO_AKUN_1);
-        foreach ($read_select_1 as $key_1 => $value_1) 
-        {
-          $sum_saldo_parent_1 = $value_1->SALDO;
-        }
-        $data = array(
-        'SALDO' => $sum_saldo_parent_1
+          'SALDO' => $sum_saldo_parent_1
         );
         $this->m_ak_m_coa->update_saldo_parent_1($data, $value->NO_AKUN_1);
       }
 
-      if($value->NO_AKUN_1!='' and $value->NO_AKUN_2!='' and $value->NO_AKUN_3=='')
-      {
-        $read_select_1 = $this->m_ak_m_coa->select_sum_saldo_no_akun_5($value->NO_AKUN_1);
-        foreach ($read_select_1 as $key_1 => $value_1) 
-        {
+      if ($value->NO_AKUN_1 != '' and $value->NO_AKUN_2 == '' and $value->NO_AKUN_3 != '') {
+        $read_select_1 = $this->m_ak_m_coa->select_sum_saldo_no_akun_4($value->NO_AKUN_1);
+        foreach ($read_select_1 as $key_1 => $value_1) {
           $sum_saldo_parent_1 = $value_1->SALDO;
         }
         $data = array(
-        'SALDO' => $sum_saldo_parent_1
+          'SALDO' => $sum_saldo_parent_1
         );
         $this->m_ak_m_coa->update_saldo_parent_1($data, $value->NO_AKUN_1);
       }
-      
+
+      if ($value->NO_AKUN_1 != '' and $value->NO_AKUN_2 != '' and $value->NO_AKUN_3 == '') {
+        $read_select_1 = $this->m_ak_m_coa->select_sum_saldo_no_akun_5($value->NO_AKUN_1);
+        foreach ($read_select_1 as $key_1 => $value_1) {
+          $sum_saldo_parent_1 = $value_1->SALDO;
+        }
+        $data = array(
+          'SALDO' => $sum_saldo_parent_1
+        );
+        $this->m_ak_m_coa->update_saldo_parent_1($data, $value->NO_AKUN_1);
+      }
     }
   }
 
@@ -234,17 +226,15 @@ class C_t_ak_jurnal_edit extends MY_Controller
     $departemen = ($this->input->post("departemen"));
     $no_voucer = '';
     $read_select = $this->m_t_ak_jurnal_edit->select();
-    foreach ($read_select as $key => $value) 
-    {
-      if($key==0)
-      {
+    foreach ($read_select as $key => $value) {
+      if ($key == 0) {
         $no_voucer = $value->NO_VOUCER;
       }
     }
 
 
 
-//Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
+    //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
     $data = array(
       'DATE' => date('Y-m-d'),
       'TIME' => date('H:i:s'),
@@ -254,12 +244,11 @@ class C_t_ak_jurnal_edit extends MY_Controller
       'CATATAN' => $catatan,
       'DEPARTEMEN' => $departemen,
       'NO_VOUCER' => $no_voucer
-      
+
     );
 
     $this->m_t_ak_jurnal_edit->update($data, $id);
-    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data User Berhasil Diupdate!</strong></p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');
     redirect('/c_t_ak_jurnal_edit');
   }
-
 }

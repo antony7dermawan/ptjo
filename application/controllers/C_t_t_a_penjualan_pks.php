@@ -15,8 +15,6 @@ class C_t_t_a_penjualan_pks extends MY_Controller
     $this->load->model('m_t_m_a_kendaraan');
     $this->load->model('m_t_m_a_supir');
     $this->load->model('m_t_m_a_uang_jalan');
-
-
   }
 
   public function index()
@@ -40,12 +38,12 @@ class C_t_t_a_penjualan_pks extends MY_Controller
     $this->session->set_userdata('date_penjualan_pks', $date_penjualan_pks);
     redirect('/c_t_t_a_penjualan_pks');
   }
-  
+
 
   public function delete($id)
   {
     $this->m_t_t_a_penjualan_pks->delete($id);
-    $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data User Berhasil Dihapus!</p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data Berhasil DIhapus!</p></div>');
     redirect('/c_t_t_a_penjualan_pks');
   }
 
@@ -61,20 +59,19 @@ class C_t_t_a_penjualan_pks extends MY_Controller
     $no_tiket = ($this->input->post("no_tiket"));
     $bruto = floatval($this->input->post("bruto"));
     $sortase_percentage = floatval($this->input->post("sortase_percentage"));
-    
+
     $date = ($this->input->post("date"));
 
 
 
-    $sortase_kg = floatval($bruto * $sortase_percentage)/100; #rumus dari excel
+    $sortase_kg = floatval($bruto * $sortase_percentage) / 100; #rumus dari excel
     $neto = $bruto - $sortase_kg; #rumus dari excel
 
 
     $uang_jalan = 0;
-    $read_select = $this->m_t_m_a_uang_jalan->select_uang_jalan($no_polisi_id,$pks_id,$divisi_id,$kendaraan_id);
-    foreach ($read_select as $key => $value) 
-    {
-      $uang_jalan=intval($value->UANG_JALAN);
+    $read_select = $this->m_t_m_a_uang_jalan->select_uang_jalan($no_polisi_id, $pks_id, $divisi_id, $kendaraan_id);
+    foreach ($read_select as $key => $value) {
+      $uang_jalan = intval($value->UANG_JALAN);
     }
 
     $tambahan = floatval($this->input->post("tambahan"));
@@ -83,15 +80,14 @@ class C_t_t_a_penjualan_pks extends MY_Controller
     $total_penjualan = $neto * $harga; #rumus dari excel
     $ppn = floatval($total_penjualan * 0.1);
 
-    
-    $inv_int=0;
-    
+
+    $inv_int = 0;
+
     $read_select = $this->m_t_t_a_penjualan_pks->select_inv_int();
-    foreach ($read_select as $key => $value) 
-    {
-      $inv_int=($value->INV_INT)+1;
+    foreach ($read_select as $key => $value) {
+      $inv_int = ($value->INV_INT) + 1;
     }
-    $inv = 'INV-'.$inv_int;
+    $inv = 'INV-' . $inv_int;
 
     $data = array(
       'DATE' => $date,
@@ -125,14 +121,14 @@ class C_t_t_a_penjualan_pks extends MY_Controller
 
     $this->m_t_t_a_penjualan_pks->tambah($data);
 
-    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data User Berhasil Ditambahkan!</strong></p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
     redirect('c_t_t_a_penjualan_pks');
   }
 
 
 
-  
-  
+
+
 
   public function checked_ok($id)
   {
@@ -140,7 +136,7 @@ class C_t_t_a_penjualan_pks extends MY_Controller
       'CHECKED_ID' => 1
     );
     $this->m_t_t_a_penjualan_pks->update($data, $id);
-    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data User Berhasil Diupdate!</strong></p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');
     redirect('/c_t_t_a_penjualan_pks');
   }
 
@@ -156,13 +152,13 @@ class C_t_t_a_penjualan_pks extends MY_Controller
     $harga = intval($this->input->post("harga"));
 
 
-    $sortase_kg = floatval($bruto * $sortase_percentage)/100; #rumus dari excel
+    $sortase_kg = floatval($bruto * $sortase_percentage) / 100; #rumus dari excel
     $neto = $bruto - $sortase_kg; #rumus dari excel
     $total_penjualan = $neto * $harga; #rumus dari excel
     $ppn = floatval($total_penjualan * 0.1);
-    
 
-//Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
+
+    //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
     $data = array(
       'BRUTO' => $bruto,
       'SORTASE_PERCENTAGE' => $sortase_percentage,
@@ -174,8 +170,7 @@ class C_t_t_a_penjualan_pks extends MY_Controller
       'UPDATED_BY' => $this->session->userdata('username')
     );
     $this->m_t_t_a_penjualan_pks->update($data, $id);
-    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data User Berhasil Diupdate!</strong></p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');
     redirect('/c_t_t_a_penjualan_pks');
   }
-
 }

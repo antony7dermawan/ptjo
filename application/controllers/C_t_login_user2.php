@@ -26,7 +26,7 @@ class C_t_login_user extends MY_Controller
   public function delete($id)
   {
     $this->m_t_login_user->delete($id);
-    $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data User Berhasil Dihapus!</p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data Berhasil DIhapus!</p></div>');
     redirect('/c_t_login_user');
   }
 
@@ -40,7 +40,7 @@ class C_t_login_user extends MY_Controller
     $company_id = $this->input->post("company_id");
     $level_user_id = $this->input->post("level_user_id");
 
-//Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
+    //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
     $data = array(
       'NAME' => $name,
       'USERNAME' => $username,
@@ -52,7 +52,7 @@ class C_t_login_user extends MY_Controller
 
     $this->m_t_login_user->tambah($data);
 
-    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data User Berhasil Ditambahkan!</strong></p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
     redirect('c_t_login_user');
   }
 
@@ -80,8 +80,7 @@ class C_t_login_user extends MY_Controller
       'LEVEL_USER_ID' => $level_user_id
     );
     $this->m_t_login_user->update($data, $id);
-    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data User Berhasil Diupdate!</strong></p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');
     redirect('/c_t_login_user');
   }
-
 }

@@ -20,7 +20,7 @@ class C_t_ak_jurnal extends MY_Controller
   {
     $this->m_t_ak_jurnal->delete_created_by();
     $data = [
-      "c_t_ak_jurnal" => $this->m_t_ak_jurnal->select($this->session->userdata('date_from_select_jurnal'),$this->session->userdata('date_to_select_jurnal')),
+      "c_t_ak_jurnal" => $this->m_t_ak_jurnal->select($this->session->userdata('date_from_select_jurnal'), $this->session->userdata('date_to_select_jurnal')),
       "no_akun_option" => $this->m_ak_m_coa->select_no_akun(),
       "c_ak_m_family" => $this->m_ak_m_family->select(),
       "c_ak_m_type" => $this->m_ak_m_type->select(),
@@ -44,7 +44,7 @@ class C_t_ak_jurnal extends MY_Controller
   public function delete($id)
   {
     $this->m_t_ak_jurnal->delete($id);
-    $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data User Berhasil Dihapus!</p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data Berhasil DIhapus!</p></div>');
     redirect('/c_t_ak_jurnal');
   }
 
@@ -63,7 +63,7 @@ class C_t_ak_jurnal extends MY_Controller
 
 
 
-//Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
+    //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
     $data = array(
       'DATE' => date('Y-m-d'),
       'TIME' => date('H:i:s'),
@@ -75,12 +75,12 @@ class C_t_ak_jurnal extends MY_Controller
       'CATATAN' => $catatan,
       'DEPARTEMEN' => $departemen,
       'NO_VOUCER' => $no_voucer
-      
+
     );
 
     $this->m_t_ak_jurnal->tambah($data);
 
-    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data User Berhasil Ditambahkan!</strong></p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
     redirect('c_t_ak_jurnal');
   }
 
@@ -90,20 +90,22 @@ class C_t_ak_jurnal extends MY_Controller
       'CHECKED_ID' => 1
     );
     $this->m_t_ak_jurnal->update($data, $id);
-    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data User Berhasil Diupdate!</strong></p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');
     redirect('/c_t_ak_jurnal');
   }
 
   function move($created_id)
   {
+
     $read_select = $this->m_t_ak_jurnal->select_created_id($created_id);
-    foreach ($read_select as $key => $value) 
-    {
+    foreach ($read_select as $key => $value) {
+
+      $this->m_t_ak_jurnal_edit->delete($value->ID);
 
       $data = array(
         'ID' => $value->ID,
-        'DATE' => date('Y-m-d'),
-        'TIME' => date('H:i:s'),
+        'DATE' => $value->DATE,
+        'TIME' => $value->TIME,
         'CREATED_BY' => $this->session->userdata('username'),
         'UPDATED_BY' => $this->session->userdata('username'),
         'COA_ID' => $value->COA_ID,
@@ -115,10 +117,9 @@ class C_t_ak_jurnal extends MY_Controller
         'CREATED_ID' => $created_id,
         'CHECKED_ID' => $value->CHECKED_ID,
         'SPECIAL_ID' => $value->SPECIAL_ID
-        
+
       );
       $this->m_t_ak_jurnal_edit->tambah($data);
-
     }
     redirect('c_t_ak_jurnal_edit');
   }
@@ -139,7 +140,7 @@ class C_t_ak_jurnal extends MY_Controller
 
 
 
-//Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
+    //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
     $data = array(
       'DATE' => date('Y-m-d'),
       'TIME' => date('H:i:s'),
@@ -149,12 +150,11 @@ class C_t_ak_jurnal extends MY_Controller
       'CATATAN' => $catatan,
       'DEPARTEMEN' => $departemen,
       'NO_VOUCER' => $no_voucer
-      
+
     );
 
     $this->m_t_ak_jurnal->update($data, $id);
-    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data User Berhasil Diupdate!</strong></p></div>');
+    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');
     redirect('/c_t_ak_jurnal');
   }
-
 }

@@ -23,18 +23,18 @@ class c_faktur_penjualan_print extends MY_Controller
     
     #.............................paper head
 
-    $pdf->Image('http://chart.googleapis.com/chart?cht=p3&chd=t:60,40&chs=250x100&chl=Hello|World',10,10,0);
+    //$pdf->Image('http://chart.googleapis.com/chart?cht=p3&chd=t:60,40&chs=250x100&chl=Hello|World',10,10,0);
 
     $pdf->SetFont('','B',12);
-    $pdf->Cell(30, 11, "", 0, 0, 'L');
+    //$pdf->Cell(30, 11, "", 0, 0, 'L');
     $pdf->Cell(100, 11, "PT. JO PERDANA AGRI TECHNOLOGY", 0, 1, 'L');
 
     $pdf->SetFont('','',12);
-    $pdf->Cell(30, 8, "", 0, 0, 'L');
+    //$pdf->Cell(30, 8, "", 0, 0, 'L');
     $pdf->Cell(100, 6, "JL. RAYA BENGKAYANG DUSUN BARABAS BARU 1 RT.1 RW.1", 0, 1, 'L');
-    $pdf->Cell(30, 8, "", 0, 0, 'L');
+    //$pdf->Cell(30, 8, "", 0, 0, 'L');
     $pdf->Cell(100, 6, "MEKAR BARU - MONTERADO", 0, 1, 'L');
-    $pdf->Cell(30, 8, "", 0, 0, 'L');
+    //$pdf->Cell(30, 8, "", 0, 0, 'L');
     $pdf->Cell(100, 6, "KALIMANTAN BARAT", 0, 1, 'L');
 
     $pdf->Cell( 190,5,'','B',1,'C');
@@ -165,9 +165,9 @@ class c_faktur_penjualan_print extends MY_Controller
     $pdf->Cell( $size[3]+$size[4]+$size[5]+$size[6]-0.1,8,number_format(intval($ppn)),'T',0,'R');
     $pdf->Cell( 0.1,8,'','L',1,'R');
 
-    $pph_22 = (0.25 * intval($dpp))/100;
+    $pph_22 = intval(0.25 * floatval($dpp))/100;
     $pdf->Cell( 0.1,8,'','L',0,'R');
-    $pdf->Cell( $size[0]+$size[1]-0.1,8,'PNN','T',0,'L');
+    $pdf->Cell( $size[0]+$size[1]-0.1,8,'PPH 22 (0.25%)','T',0,'L');
     $pdf->Cell( $size[2],8,':','T',0,'L');
     $pdf->Cell( $size[3]+$size[4]+$size[5]+$size[6]-0.1,8,number_format(intval($pph_22)),'T',0,'R');
     $pdf->Cell( 0.1,8,'','L',1,'R');

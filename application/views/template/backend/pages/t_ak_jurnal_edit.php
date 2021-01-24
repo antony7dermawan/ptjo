@@ -90,7 +90,7 @@
             echo "</tfoot>";
           }
 
-          if($total_debit==$total_kredit and $total_debit!=0)
+          if($total_debit==$total_kredit and $total_debit>=0)
           {
             echo "<tr>";
             echo "<th></th>";

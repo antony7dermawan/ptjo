@@ -21,7 +21,7 @@ public function update($data, $id)
     $this->db->select("SUM_KREDIT");
 
 
-    $this->db->select("AK_M_COA.ID");
+    $this->db->select("SETTING_DB_BANK_COA.ID");
     $this->db->select("AK_M_COA.NO_AKUN_1");
     $this->db->select("AK_M_COA.NO_AKUN_2");
     $this->db->select("AK_M_COA.NO_AKUN_3");
@@ -46,12 +46,14 @@ public function update($data, $id)
 
 
 
-
   public function delete($id)
   {
     $this->db->where('ID',$id);
     $this->db->delete('SETTING_DB_BANK_COA');
   }
+
+
+ 
 
   function tambah($data)
   {
