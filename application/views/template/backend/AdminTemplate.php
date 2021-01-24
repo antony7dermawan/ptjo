@@ -30,8 +30,6 @@
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Quicksand:500,700" rel="stylesheet">
-
-
     <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/datatables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/buttons.datatables.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/responsive.bootstrap4.min.css">
