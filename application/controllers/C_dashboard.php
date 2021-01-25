@@ -23,7 +23,7 @@ class C_dashboard extends MY_Controller
       "select_no_faktur" => $this->m_t_ak_faktur_penjualan->select_no_faktur(),
       "pengiriman_select" => $this->m_t_t_a_penjualan_pks->select_sum_in_date($this->session->userdata('date_from_dashboard'),$this->session->userdata('date_to_dashboard')),
       "title" => "Dashboard",
-      "description" => "Web Version:21-01-25 00:14"
+      "description" => "Web Version:21-01-25 20:28"
     ];
 
     $this->render_backend('template/backend/pages/dashboard', $data);

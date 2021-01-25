@@ -41,9 +41,9 @@ class C_t_ak_jurnal extends MY_Controller
   }
 
 
-  public function delete($id)
+  public function delete($created_id)
   {
-    $this->m_t_ak_jurnal->delete($id);
+    $this->m_t_ak_jurnal->delete($created_id);
     $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data Berhasil DIhapus!</p></div>');
     redirect('/c_t_ak_jurnal');
   }

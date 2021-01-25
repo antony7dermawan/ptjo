@@ -228,7 +228,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
   {
     $pks_id = intval($this->input->post("pks_id"));
     $keterangan = '';
-    $no_faktur = ($this->input->post("no_faktur"));
+    $no_faktur = substr($this->input->post("no_faktur"), 0, 100);
     
 
     $data = array(

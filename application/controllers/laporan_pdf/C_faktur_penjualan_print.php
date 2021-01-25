@@ -83,7 +83,8 @@ class c_faktur_penjualan_print extends MY_Controller
         $pdf->Cell( 40,5,'NAMA','0',0,'L');
         $pdf->Cell( 100,5,':'.$nama,'0',1,'L');
         $pdf->Cell( 40,5,'ALAMAT','0',0,'L');
-        $pdf->Cell( 100,5,':'.$alamat,'0',1,'L');
+        $pdf->MultiCell(100, 5, ':'.substr($alamat, 0, 200), 0, 'L',0,1);
+
         $pdf->Cell( 40,5,'NPWP','0',0,'L');
         $pdf->Cell( 100,5,':'.$npwp,'0',1,'L');
         $pdf->Cell( 40,5,'TELEPON','0',0,'L');
@@ -160,7 +161,7 @@ class c_faktur_penjualan_print extends MY_Controller
 
     $ppn = (10 * intval($dpp))/100;
     $pdf->Cell( 0.1,8,'','L',0,'R');
-    $pdf->Cell( $size[0]+$size[1]-0.1,8,'PNN','T',0,'L');
+    $pdf->Cell( $size[0]+$size[1]-0.1,8,'PPN','T',0,'L');
     $pdf->Cell( $size[2],8,':','T',0,'L');
     $pdf->Cell( $size[3]+$size[4]+$size[5]+$size[6]-0.1,8,number_format(intval($ppn)),'T',0,'R');
     $pdf->Cell( 0.1,8,'','L',1,'R');
@@ -172,7 +173,7 @@ class c_faktur_penjualan_print extends MY_Controller
     $pdf->Cell( $size[3]+$size[4]+$size[5]+$size[6]-0.1,8,number_format(intval($pph_22)),'T',0,'R');
     $pdf->Cell( 0.1,8,'','L',1,'R');
 
-    $total_tagihan = $dpp + $ppn + $pph_22;
+    $total_tagihan = $dpp + $ppn - $pph_22;
     $pdf->Cell( 0.1,8,'','L',0,'R');
     $pdf->Cell( $size[0]+$size[1]-0.1,8,'Total Tagihan','T',0,'L');
     $pdf->Cell( $size[2],8,':','T',0,'L');

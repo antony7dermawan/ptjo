@@ -13,6 +13,10 @@ class C_terima_pelanggan_print extends MY_Controller
     $this->load->model('m_t_ak_terima_pelanggan_no_faktur');
     $this->load->model('m_t_ak_terima_pelanggan');
     $this->load->model('m_t_ak_terima_pelanggan_print_setting');
+    $this->load->model('m_t_ak_terima_pelanggan_diskon');
+    $this->load->model('m_t_ak_terima_pelanggan_metode_bayar');
+
+
   }
 
   public function index($id,$pks_id)
@@ -53,7 +57,7 @@ class C_terima_pelanggan_print extends MY_Controller
     $pdf->Cell(30, 6, "Diterima dr:", 1, 0, 'C');
     $pdf->Cell(150, 6, $nama, 1, 1, 'L');
     $pdf->Cell(30, 6, "Alamat:", 1, 0, 'C');
-    $pdf->Cell(150, 6, $alamat, 1, 1, 'L');
+    $pdf->MultiCell(150, 6, ':'.substr($alamat, 0, 200), 1, 'L',0,1);
 
 
     $pdf->Cell(30, 1, "", 0, 1, 'C');
@@ -103,7 +107,7 @@ class C_terima_pelanggan_print extends MY_Controller
     $pdf->SetFont('','',12);
 
 
-
+    $sum_total_penjualan=0;
     $total_hutang = 0;
     $read_select = $this->m_t_ak_terima_pelanggan_no_faktur->select($id);
     foreach ($read_select as $key => $value) 
@@ -121,8 +125,8 @@ class C_terima_pelanggan_print extends MY_Controller
         $sum_diskon = $sum_diskon+$get_sum_diskon;
       }
 
-      $terutang = intval($value->TOTAL_PENJUALAN) - (intval($sum_metode_bayar)+intval($sum_diskon));
-
+      //$terutang = intval($value->TOTAL_PENJUALAN) - (intval($sum_metode_bayar)+intval($sum_diskon));
+      $terutang = 0;
       $total_awal = intval($value->TOTAL_PENJUALAN) - intval($terutang);
 
       $pdf->Cell(45, 6, $value->NO_FAKTUR, 'L', 0, 'C');
@@ -132,8 +136,8 @@ class C_terima_pelanggan_print extends MY_Controller
       $pdf->Cell(35, 6, number_format(intval($total_awal)), 'L', 0, 'R');
       $pdf->Cell(0.01, 6, '', 'L', 1, 'R');
 
-
-      $total_hutang = $total_hutang+intval($total_awal);
+      $sum_total_penjualan = $sum_total_penjualan + intval($value->TOTAL_PENJUALAN);
+      $total_hutang = $total_hutang + intval($total_awal);
     }
     $last_row = 10;
     if($key<$last_row)
@@ -162,6 +166,17 @@ class C_terima_pelanggan_print extends MY_Controller
       $total_diskon = $total_diskon+intval($value->JUMLAH);
     }
 
+    $read_select = $this->m_t_ak_terima_pelanggan_metode_bayar->select($id);
+    foreach ($read_select as $key => $value) 
+    {
+      $total_diskon = intval($total_diskon) + intval($value->ADM_BANK);
+    }
+
+    $pph_22 = intval(0.25 * floatval($sum_total_penjualan))/100;
+
+    $total_diskon = intval($total_diskon) + $pph_22;
+
+    
 
         $pdf->Cell(45, 6, '', 0, 0, 'C');
         $pdf->Cell(30, 6, '', 0, 0, 'C');

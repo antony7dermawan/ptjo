@@ -78,12 +78,12 @@ class C_ak_m_coa extends MY_Controller
 
   function tambah()
   {
-    $no_akun_1 = ($this->input->post("no_akun_1"));
-    $no_akun_2 = ($this->input->post("no_akun_2"));
-    $no_akun_3 = ($this->input->post("no_akun_3"));
+    $no_akun_1 = substr($this->input->post("no_akun_1"), 0, 50);
+    $no_akun_2 = substr($this->input->post("no_akun_2"), 0, 50);
+    $no_akun_3 = substr($this->input->post("no_akun_3"), 0, 50);
 
 
-    $nama_akun = ($this->input->post("nama_akun"));
+    $nama_akun = substr($this->input->post("nama_akun"), 0, 100);
 
     $type_id = intval($this->input->post("type_id"));
     $saldo = 0;

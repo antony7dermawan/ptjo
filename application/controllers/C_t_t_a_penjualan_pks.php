@@ -56,7 +56,9 @@ class C_t_t_a_penjualan_pks extends MY_Controller
     $no_polisi_id = intval($this->input->post("no_polisi_id"));
     $supir_id = intval($this->input->post("supir_id"));
     $kendaraan_id = intval($this->input->post("kendaraan_id"));
-    $no_tiket = ($this->input->post("no_tiket"));
+    $no_tiket = substr($this->input->post("no_tiket"), 0, 50);
+
+    
     $bruto = floatval($this->input->post("bruto"));
     $sortase_percentage = floatval($this->input->post("sortase_percentage"));
 
