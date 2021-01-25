@@ -34,12 +34,12 @@ class C_t_m_a_pks extends MY_Controller
   function tambah()
   {
     $pks_id = intval($this->input->post("pks_id"));
-    $pks = $this->input->post("pks");
-    $no_pelanggan = $this->input->post("no_pelanggan");
-    $nama = $this->input->post("nama");
-    $alamat = $this->input->post("alamat");
-    $npwp = $this->input->post("npwp");
-    $telepon = $this->input->post("telepon");
+    $pks = substr($this->input->post("pks"), 0, 50) ;
+    $no_pelanggan = substr($this->input->post("no_pelanggan"), 0, 10) ;
+    $nama = substr($this->input->post("nama"), 0, 100) ;
+    $alamat = substr($this->input->post("alamat"), 0, 200) ;
+    $npwp = substr($this->input->post("npwp"), 0, 50) ;
+    $telepon =  substr($this->input->post("telepon"), 0, 50) ;
     $created_by = $this->session->userdata('name');
     $updated_by = $this->session->userdata('name');
 

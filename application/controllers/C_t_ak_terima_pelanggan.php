@@ -20,6 +20,8 @@ class C_t_ak_terima_pelanggan extends MY_Controller
     $this->load->model('m_t_ak_terima_pelanggan_print_setting');
     $this->load->model('m_t_ak_jurnal');
     $this->load->model('m_t_ak_terima_pelanggan_metode_bayar');
+    $this->load->model('m_t_ak_terima_pelanggan_diskon');
+
 
     
   }
@@ -117,11 +119,62 @@ class C_t_ak_terima_pelanggan extends MY_Controller
         }
       }
 
-
-
-
-      
       #.....................................................................................done 
+
+
+       // diskon
+      
+      $sum_all_diskon = 0;
+      $read_select = $this->m_t_ak_terima_pelanggan_diskon->select($id);
+      foreach ($read_select as $key => $value) 
+      {
+        $coa_id = $value->COA_ID;
+        $jumlah_per_diskon = $value->JUMLAH;
+
+        $read_select_in = $this->m_ak_m_coa->select_coa_id($coa_id);
+        foreach ($read_select_in as $key_in => $value_in) 
+        {
+          $db_k_id = $value_in->DB_K_ID;
+          if ($db_k_id == 1) #kode 1 debit / 2 kredit
+          {
+            $data = array(
+              'DATE' => date('Y-m-d'),
+              'TIME' => date('H:i:s'),
+              'CREATED_BY' => $this->session->userdata('username'),
+              'UPDATED_BY' => $this->session->userdata('username'),
+              'COA_ID' => $coa_id,
+              'DEBIT' => intval($jumlah_per_diskon),
+              'KREDIT' => 0,
+              'CATATAN' => 'Pembayaran TBS : ' . $no_form,
+              'DEPARTEMEN' => '0',
+              'NO_VOUCER' => $no_form,
+              'CREATED_ID' => $created_id
+            );
+          }
+          if ($db_k_id == 2) #kode 1 debit / 2 kredit
+          {
+            $data = array(
+              'DATE' => date('Y-m-d'),
+              'TIME' => date('H:i:s'),
+              'CREATED_BY' => $this->session->userdata('username'),
+              'UPDATED_BY' => $this->session->userdata('username'),
+              'COA_ID' => $coa_id,
+              'DEBIT' => 0,
+              'KREDIT' => intval($jumlah_per_diskon),
+              'CATATAN' => 'Pembayaran TBS : ' . $no_form,
+              'DEPARTEMEN' => '0',
+              'NO_VOUCER' => $no_form,
+              'CREATED_ID' => $created_id
+            );
+          }
+          $this->m_t_ak_jurnal->tambah($data);
+          $sum_all_diskon = intval($sum_all_diskon) + intval($jumlah_per_diskon);
+        }
+      }
+
+      #.....................................................................................done 
+
+
 
 
       /*
@@ -184,6 +237,8 @@ class C_t_ak_terima_pelanggan extends MY_Controller
         $coa_pasal_22 = $value->ID;
         $db_k_id = $value->DB_K_ID;
       }
+
+      $sum_total_penjualan = ($sum_total_penjualan * 100)/110;
 
       $nilai_pasal_22 = intval(0.25 * floatval($sum_total_penjualan))/100;
 
@@ -287,7 +342,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
       }
 
 
-      $total_transaksi = intval($sum_all_payment) + intval($nilai_pasal_22) + intval($total_adm_bank);
+      $total_transaksi = intval($sum_all_payment) + intval($nilai_pasal_22) + intval($total_adm_bank) -  intval($sum_all_diskon);
 
       $up_total_transaksi = ceil($total_transaksi);
 
@@ -414,8 +469,11 @@ class C_t_ak_terima_pelanggan extends MY_Controller
   function tambah()
   {
     $pks_id = intval($this->input->post("pks_id"));
-    $keterangan = ($this->input->post("ket"));;
-    $no_form = ($this->input->post("no_form"));
+    $keterangan = substr($this->input->post("ket"), 0, 200);
+
+    
+
+    $no_form = substr($this->input->post("no_form"), 0, 50);
     $date = ($this->input->post("date"));
 
     $data = array(

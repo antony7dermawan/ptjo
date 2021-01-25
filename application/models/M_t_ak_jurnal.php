@@ -157,9 +157,9 @@ public function select_created_id($created_id)
     return $akun->result ();
   }
 
-  public function delete($id)
+  public function delete($created_id)
   {
-    $this->db->where('ID',$id);
+    $this->db->where('CREATED_ID',$created_id);
     $this->db->delete('T_AK_JURNAL');
   }
   public function delete_created_by()

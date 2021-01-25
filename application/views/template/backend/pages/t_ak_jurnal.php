@@ -166,6 +166,14 @@
               echo "</script>";
 
 
+
+              echo "<a href='" . site_url('c_t_ak_jurnal/delete/' . $value->CREATED_ID) . "' ";
+              ?>
+              onclick="return confirm('Apakah kamu yakin ingin menghapus data ini?')"
+          <?php
+              echo "> <i class='feather icon-trash-2 f-w-600 f-16 text-c-red'></i></a>";
+
+
               echo "</td>";
             }
 
