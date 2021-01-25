@@ -19,6 +19,9 @@ class C_t_ak_terima_pelanggan extends MY_Controller
     $this->load->model('m_ak_m_coa');
     $this->load->model('m_t_ak_terima_pelanggan_print_setting');
     $this->load->model('m_t_ak_jurnal');
+    $this->load->model('m_t_ak_terima_pelanggan_metode_bayar');
+
+    
   }
 
   public function index()
@@ -54,59 +57,70 @@ class C_t_ak_terima_pelanggan extends MY_Controller
   function update_enable_edit($id, $sum_total_penjualan, $sum_jumlah, $sum_diskon, $enable_edit,$sum_adm_bank)
   {
     $read_select = $this->m_t_ak_terima_pelanggan->select_by_id($id);
-    foreach ($read_select as $key => $value) {
+    foreach ($read_select as $key => $value) 
+    {
       $no_form = $value->NO_FORM;
     }
 
-    if ($enable_edit == 1) {
+    if ($enable_edit == 1) 
+    {
       $created_id = strtotime(date('Y-m-d H:i:s'));
       $coa_id = 0;
 
-//ini salah
-      $coa_id_total_pembayaran = 0;
-      $read_select = $this->m_t_ak_terima_pelanggan_print_setting->select_id(5);
-      foreach ($read_select as $key => $value) {
-        $setting_value = $value->SETTING_VALUE;
-      }
-      $read_select = $this->m_ak_m_coa->read_coa_id_from_no_akun($setting_value);
-      foreach ($read_select as $key => $value) {
-        $coa_id_total_pembayaran = $value->ID;
-        $db_k_id = $value->DB_K_ID;
+      // metode bayar 
+      
+      $sum_all_payment = 0;
+      $read_select = $this->m_t_ak_terima_pelanggan_metode_bayar->select($id);
+      foreach ($read_select as $key => $value) 
+      {
+        $coa_id = $value->COA_ID;
+        $jumlah_per_bank = $value->JUMLAH;
+
+        $read_select_in = $this->m_ak_m_coa->select_coa_id($coa_id);
+        foreach ($read_select_in as $key_in => $value_in) 
+        {
+          $db_k_id = $value_in->DB_K_ID;
+          if ($db_k_id == 1) #kode 1 debit / 2 kredit
+          {
+            $data = array(
+              'DATE' => date('Y-m-d'),
+              'TIME' => date('H:i:s'),
+              'CREATED_BY' => $this->session->userdata('username'),
+              'UPDATED_BY' => $this->session->userdata('username'),
+              'COA_ID' => $coa_id,
+              'DEBIT' => intval($jumlah_per_bank),
+              'KREDIT' => 0,
+              'CATATAN' => 'Pembayaran TBS : ' . $no_form,
+              'DEPARTEMEN' => '0',
+              'NO_VOUCER' => $no_form,
+              'CREATED_ID' => $created_id
+            );
+          }
+          if ($db_k_id == 2) #kode 1 debit / 2 kredit
+          {
+            $data = array(
+              'DATE' => date('Y-m-d'),
+              'TIME' => date('H:i:s'),
+              'CREATED_BY' => $this->session->userdata('username'),
+              'UPDATED_BY' => $this->session->userdata('username'),
+              'COA_ID' => $coa_id,
+              'DEBIT' => 0,
+              'KREDIT' => intval($jumlah_per_bank),
+              'CATATAN' => 'Pembayaran TBS : ' . $no_form,
+              'DEPARTEMEN' => '0',
+              'NO_VOUCER' => $no_form,
+              'CREATED_ID' => $created_id
+            );
+          }
+          $this->m_t_ak_jurnal->tambah($data);
+          $sum_all_payment = intval($sum_all_payment) + intval($jumlah_per_bank);
+        }
       }
 
-      if ($db_k_id == 1) #kode 1 debit / 2 kredit
-      {
-        $data = array(
-          'DATE' => date('Y-m-d'),
-          'TIME' => date('H:i:s'),
-          'CREATED_BY' => $this->session->userdata('username'),
-          'UPDATED_BY' => $this->session->userdata('username'),
-          'COA_ID' => $coa_id_total_pembayaran,
-          'DEBIT' => intval($sum_total_penjualan),
-          'KREDIT' => 0,
-          'CATATAN' => 'Pembayaran TBS : ' . $no_form,
-          'DEPARTEMEN' => '0',
-          'NO_VOUCER' => $no_form,
-          'CREATED_ID' => $created_id
-        );
-      }
-      if ($db_k_id == 2) #kode 1 debit / 2 kredit
-      {
-        $data = array(
-          'DATE' => date('Y-m-d'),
-          'TIME' => date('H:i:s'),
-          'CREATED_BY' => $this->session->userdata('username'),
-          'UPDATED_BY' => $this->session->userdata('username'),
-          'COA_ID' => $coa_id_total_pembayaran,
-          'DEBIT' => 0,
-          'KREDIT' => intval($sum_total_penjualan),
-          'CATATAN' => 'Pembayaran TBS : ' . $no_form,
-          'DEPARTEMEN' => '0',
-          'NO_VOUCER' => $no_form,
-          'CREATED_ID' => $created_id
-        );
-      }
-      $this->m_t_ak_jurnal->tambah($data);
+
+
+
+      
       #.....................................................................................done 
 
 
@@ -273,7 +287,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
       }
 
 
-      $total_transaksi = intval($sum_total_penjualan) + intval($nilai_pasal_22) + intval($total_adm_bank);
+      $total_transaksi = intval($sum_all_payment) + intval($nilai_pasal_22) + intval($total_adm_bank);
 
       $up_total_transaksi = ceil($total_transaksi);
 
@@ -384,7 +398,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
 
     $this->m_t_ak_terima_pelanggan->update($data, $id);
 
-    $this->session->set_flashdata('notif', "<div class='alert alert-info icons-alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'> <i class='icofont icofont-close-line-circled'></i></button><p><strong>TEST</strong></p></div>");
+    $this->session->set_flashdata('notif', "<div class='alert alert-info icons-alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'> <i class='icofont icofont-close-line-circled'></i></button><p><strong>Jurnal Berhasil Dibuat</strong></p></div>");
 
 
     #$this->render_backend('template/backend/pages/laporan_pdf/faktur_penjualan_print/3', $data);
