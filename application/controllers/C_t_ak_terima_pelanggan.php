@@ -40,6 +40,24 @@ class C_t_ak_terima_pelanggan extends MY_Controller
     $this->render_backend('template/backend/pages/t_ak_terima_pelanggan', $data);
   }
 
+  public function undo($id)
+  {
+
+    $data = array(
+      'ENABLE_EDIT' => 1
+    );
+    $this->m_t_ak_terima_pelanggan->update($data, $id);
+    
+    $read_select = $this->m_t_ak_terima_pelanggan->select_by_id($id);
+    foreach ($read_select as $key => $value) 
+    {
+      $no_form = $value->NO_FORM;
+    }
+    $this->m_t_ak_jurnal->delete_no_voucer($no_form);
+
+    $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data Berhasil Dibatalkan!</p></div>');
+    redirect('/c_t_ak_terima_pelanggan');
+  }
 
   public function delete($id)
   {
@@ -95,7 +113,9 @@ class C_t_ak_terima_pelanggan extends MY_Controller
               'CATATAN' => 'Pembayaran TBS : ' . $no_form,
               'DEPARTEMEN' => '0',
               'NO_VOUCER' => $no_form,
-              'CREATED_ID' => $created_id
+              'CREATED_ID' => $created_id,
+              'CHECKED_ID' => 1,
+              'SPECIAL_ID' => 0
             );
           }
           if ($db_k_id == 2) #kode 1 debit / 2 kredit
@@ -111,7 +131,9 @@ class C_t_ak_terima_pelanggan extends MY_Controller
               'CATATAN' => 'Pembayaran TBS : ' . $no_form,
               'DEPARTEMEN' => '0',
               'NO_VOUCER' => $no_form,
-              'CREATED_ID' => $created_id
+              'CREATED_ID' => $created_id,
+              'CHECKED_ID' => 1,
+              'SPECIAL_ID' => 0
             );
           }
           $this->m_t_ak_jurnal->tambah($data);
@@ -148,7 +170,9 @@ class C_t_ak_terima_pelanggan extends MY_Controller
               'CATATAN' => 'Pembayaran TBS : ' . $no_form,
               'DEPARTEMEN' => '0',
               'NO_VOUCER' => $no_form,
-              'CREATED_ID' => $created_id
+              'CREATED_ID' => $created_id,
+              'CHECKED_ID' => 1,
+              'SPECIAL_ID' => 0
             );
           }
           if ($db_k_id == 2) #kode 1 debit / 2 kredit
@@ -164,7 +188,9 @@ class C_t_ak_terima_pelanggan extends MY_Controller
               'CATATAN' => 'Pembayaran TBS : ' . $no_form,
               'DEPARTEMEN' => '0',
               'NO_VOUCER' => $no_form,
-              'CREATED_ID' => $created_id
+              'CREATED_ID' => $created_id,
+              'CHECKED_ID' => 1,
+              'SPECIAL_ID' => 0
             );
           }
           $this->m_t_ak_jurnal->tambah($data);
@@ -255,7 +281,9 @@ class C_t_ak_terima_pelanggan extends MY_Controller
           'CATATAN' => 'Pembayaran TBS : ' . $no_form,
           'DEPARTEMEN' => '0',
           'NO_VOUCER' => $no_form,
-          'CREATED_ID' => $created_id
+          'CREATED_ID' => $created_id,
+          'CHECKED_ID' => 1,
+          'SPECIAL_ID' => 0
         );
       }
       if ($db_k_id == 2) #kode 1 debit / 2 kredit
@@ -271,7 +299,9 @@ class C_t_ak_terima_pelanggan extends MY_Controller
           'CATATAN' => 'Pembayaran TBS : ' . $no_form,
           'DEPARTEMEN' => '0',
           'NO_VOUCER' => $no_form,
-          'CREATED_ID' => $created_id
+          'CREATED_ID' => $created_id,
+          'CHECKED_ID' => 1,
+          'SPECIAL_ID' => 0
         );
       }
       $this->m_t_ak_jurnal->tambah($data);
@@ -305,7 +335,9 @@ class C_t_ak_terima_pelanggan extends MY_Controller
           'CATATAN' => 'Pembayaran TBS : ' . $no_form,
           'DEPARTEMEN' => '0',
           'NO_VOUCER' => $no_form,
-          'CREATED_ID' => $created_id
+          'CREATED_ID' => $created_id,
+          'CHECKED_ID' => 1,
+          'SPECIAL_ID' => 0
         );
       }
       if ($db_k_id == 2) #kode 1 debit / 2 kredit
@@ -321,7 +353,9 @@ class C_t_ak_terima_pelanggan extends MY_Controller
           'CATATAN' => 'Pembayaran TBS : ' . $no_form,
           'DEPARTEMEN' => '0',
           'NO_VOUCER' => $no_form,
-          'CREATED_ID' => $created_id
+          'CREATED_ID' => $created_id,
+          'CHECKED_ID' => 1,
+          'SPECIAL_ID' => 0
         );
       }
       $this->m_t_ak_jurnal->tambah($data);
@@ -363,7 +397,9 @@ class C_t_ak_terima_pelanggan extends MY_Controller
           'CATATAN' => 'Pembayaran TBS : ' . $no_form,
           'DEPARTEMEN' => '0',
           'NO_VOUCER' => $no_form,
-          'CREATED_ID' => $created_id
+          'CREATED_ID' => $created_id,
+          'CHECKED_ID' => 1,
+          'SPECIAL_ID' => 0
         );
       }
       if ($db_k_id == 2) #kode 1 debit / 2 kredit
@@ -379,7 +415,9 @@ class C_t_ak_terima_pelanggan extends MY_Controller
           'CATATAN' => 'Pembayaran TBS : ' . $no_form,
           'DEPARTEMEN' => '0',
           'NO_VOUCER' => $no_form,
-          'CREATED_ID' => $created_id
+          'CREATED_ID' => $created_id,
+          'CHECKED_ID' => 1,
+          'SPECIAL_ID' => 0
         );
       }
       $this->m_t_ak_jurnal->tambah($data);
@@ -436,7 +474,9 @@ class C_t_ak_terima_pelanggan extends MY_Controller
           'CATATAN' => 'Pembayaran TBS : ' . $no_form,
           'DEPARTEMEN' => '0',
           'NO_VOUCER' => $no_form,
-          'CREATED_ID' => $created_id
+          'CREATED_ID' => $created_id,
+          'CHECKED_ID' => 1,
+          'SPECIAL_ID' => 0
         );
       
       $this->m_t_ak_jurnal->tambah($data);
@@ -476,20 +516,40 @@ class C_t_ak_terima_pelanggan extends MY_Controller
     $no_form = substr($this->input->post("no_form"), 0, 50);
     $date = ($this->input->post("date"));
 
-    $data = array(
-      'DATE' => $date,
-      'TIME' => date('H:i:s'),
-      'KET' => $keterangan,
-      'CREATED_BY' => $this->session->userdata('username'),
-      'UPDATED_BY' => $this->session->userdata('username'),
-      'ENABLE_EDIT' => 1,
-      'NO_FORM' => $no_form,
-      'PKS_ID' => $pks_id
-    );
+    if($no_form!='')
+    {
+      $logic_no_form = 0;
+      $read_select = $this->m_t_ak_terima_pelanggan->read_no_form($no_form);
+      foreach ($read_select as $key => $value) 
+      {
+        $logic_no_form = 1;
+        $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal!</strong> No Form Sudah Digunakan!</p></div>');
+      }
+      if($logic_no_form == 0)
+      {
+        $data = array(
+          'DATE' => $date,
+          'TIME' => date('H:i:s'),
+          'KET' => $keterangan,
+          'CREATED_BY' => $this->session->userdata('username'),
+          'UPDATED_BY' => $this->session->userdata('username'),
+          'ENABLE_EDIT' => 1,
+          'NO_FORM' => $no_form,
+          'PKS_ID' => $pks_id
+        );
 
-    $this->m_t_ak_terima_pelanggan->tambah($data);
+        $this->m_t_ak_terima_pelanggan->tambah($data);
 
-    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
+        $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
+      }
+
+      
+    }
+    if($no_form=='')
+    {
+      $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal!</strong> No Faktur Tidak Boleh Kosong!</p></div>');
+    }
+    
     redirect('c_t_ak_terima_pelanggan');
   }
 

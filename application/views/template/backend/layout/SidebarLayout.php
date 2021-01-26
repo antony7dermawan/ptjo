@@ -162,7 +162,7 @@ if($level_user_id==1 or $level_user_id==2 or $level_user_id==3)
 
 
 <?php
-if($level_user_id==1 or $level_user_id==4 or $level_user_id==5)
+if($level_user_id==1 or $level_user_id==2 or $level_user_id==4 or $level_user_id==5)
 {
     ?>
     <!-- Menu ke dua -->
@@ -187,7 +187,7 @@ if($level_user_id==1 or $level_user_id==4 or $level_user_id==5)
         </ul>
 
         <?php
-        if($level_user_id==1 or $level_user_id==5)
+        if($level_user_id==1 or $level_user_id==2 or $level_user_id==5)
         {
             ?>
             <ul class="pcoded-submenu">

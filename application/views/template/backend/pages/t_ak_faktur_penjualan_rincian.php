@@ -55,6 +55,7 @@
             <th>Jumlah</th>
             <th>Harga Satuan</th>
             <th>Jumlah Tagihan</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -70,6 +71,16 @@
             echo "<td>" . number_format(intval($value->HARGA)) . "</td>";
             echo "<td>" . number_format(intval($value->TOTAL_PENJUALAN)) . "</td>";
 
+
+            echo "<td>";
+            if($disabled=='')
+            {
+              echo "<a href='" . site_url('c_t_ak_faktur_penjualan_rincian/delete/' . $value->ID) . "/" . $value->PENJUALAN_PKS_ID ."/" . $faktur_penjualan_id ."/" . $pks_id . "' ";
+              echo "onclick=\"return confirm('Apakah kamu yakin ingin menghapus data ini?')\"";
+              echo "> <i class='feather icon-trash-2 f-w-600 f-16 text-c-red'></i></a>";
+            }
+              
+            echo "</td>";
 
             echo "</tr>";
           }

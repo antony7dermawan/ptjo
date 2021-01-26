@@ -33,6 +33,24 @@ class C_t_ak_faktur_penjualan extends MY_Controller
     $this->render_backend('template/backend/pages/t_ak_faktur_penjualan', $data);
   }
 
+  public function undo($id)
+  {
+
+    $data = array(
+      'ENABLE_EDIT' => 1
+    );
+    $this->m_t_ak_faktur_penjualan->update($data, $id);
+    $read_select = $this->m_t_ak_faktur_penjualan->select_by_id($id);
+    foreach ($read_select as $key => $value) 
+    {
+      $no_faktur=$value->NO_FAKTUR;
+    }
+    $this->m_t_ak_jurnal->delete_no_voucer($no_faktur);
+
+    $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data Berhasil Dibatalkan!</p></div>');
+    redirect('/c_t_ak_faktur_penjualan');
+  }
+
 
   public function delete($id)
   {
@@ -88,7 +106,9 @@ class C_t_ak_faktur_penjualan extends MY_Controller
         'CATATAN' => 'FAKTUR PENJUALAN : '.$no_faktur,
         'DEPARTEMEN' => '0',
         'NO_VOUCER' => $no_faktur,
-        'CREATED_ID' => $created_id
+        'CREATED_ID' => $created_id,
+        'CHECKED_ID' => 1,
+        'SPECIAL_ID' => 0
         );
       }
       if($db_k_id==2)#kode 1 debit / 2 kredit
@@ -104,7 +124,9 @@ class C_t_ak_faktur_penjualan extends MY_Controller
         'CATATAN' => 'FAKTUR PENJUALAN : '.$no_faktur,
         'DEPARTEMEN' => '0',
         'NO_VOUCER' => $no_faktur,
-        'CREATED_ID' => $created_id
+        'CREATED_ID' => $created_id,
+        'CHECKED_ID' => 1,
+        'SPECIAL_ID' => 0
         );
       }
       $this->m_t_ak_jurnal->tambah($data);
@@ -139,7 +161,9 @@ class C_t_ak_faktur_penjualan extends MY_Controller
         'CATATAN' => 'FAKTUR PENJUALAN : '.$no_faktur,
         'DEPARTEMEN' => '0',
         'NO_VOUCER' => $no_faktur,
-        'CREATED_ID' => $created_id
+        'CREATED_ID' => $created_id,
+        'CHECKED_ID' => 1,
+        'SPECIAL_ID' => 0
         );
       }
       if($db_k_id==2)#kode 1 debit / 2 kredit
@@ -155,7 +179,9 @@ class C_t_ak_faktur_penjualan extends MY_Controller
         'CATATAN' => 'FAKTUR PENJUALAN : '.$no_faktur,
         'DEPARTEMEN' => '0',
         'NO_VOUCER' => $no_faktur,
-        'CREATED_ID' => $created_id
+        'CREATED_ID' => $created_id,
+        'CHECKED_ID' => 1,
+        'SPECIAL_ID' => 0
         );
       }
       $this->m_t_ak_jurnal->tambah($data);
@@ -187,7 +213,9 @@ class C_t_ak_faktur_penjualan extends MY_Controller
         'CATATAN' => 'FAKTUR PENJUALAN : '.$no_faktur,
         'DEPARTEMEN' => '0',
         'NO_VOUCER' => $no_faktur,
-        'CREATED_ID' => $created_id
+        'CREATED_ID' => $created_id,
+        'CHECKED_ID' => 1,
+        'SPECIAL_ID' => 0
         );
       }
       if($db_k_id==2)#kode 1 debit / 2 kredit
@@ -203,7 +231,9 @@ class C_t_ak_faktur_penjualan extends MY_Controller
         'CATATAN' => 'FAKTUR PENJUALAN : '.$no_faktur,
         'DEPARTEMEN' => '0',
         'NO_VOUCER' => $no_faktur,
-        'CREATED_ID' => $created_id
+        'CREATED_ID' => $created_id,
+        'CHECKED_ID' => 1,
+        'SPECIAL_ID' => 0
         );
       }
       $this->m_t_ak_jurnal->tambah($data);
@@ -230,22 +260,42 @@ class C_t_ak_faktur_penjualan extends MY_Controller
     $keterangan = '';
     $no_faktur = substr($this->input->post("no_faktur"), 0, 100);
     
+    if($no_faktur!='')
+    {
 
-    $data = array(
-      'DATE' => date('Y-m-d'),
-      'TIME' => date('H:i:s'),
-      'PKS_ID' => $pks_id,
-      'CREATED_BY' => $this->session->userdata('username'),
-      'UPDATED_BY' => $this->session->userdata('username'),
-      'KETERANGAN' => $keterangan,
-      'NO_FAKTUR' => $no_faktur,
-      'ENABLE_EDIT' => 1,
-      'TOTAL_PEMBAYARAN' => 0
-    );
+      $logic_no_faktur = 0;
+      $read_select = $this->m_t_ak_faktur_penjualan->read_no_faktur($no_faktur);
+      foreach ($read_select as $key => $value) 
+      {
+        $logic_no_faktur = 1;
+        $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal!</strong> No Faktur Sudah Digunakan!</p></div>');
+      }
 
-    $this->m_t_ak_faktur_penjualan->tambah($data);
+      if($logic_no_faktur == 0)
+      {
+        $data = array(
+          'DATE' => date('Y-m-d'),
+          'TIME' => date('H:i:s'),
+          'PKS_ID' => $pks_id,
+          'CREATED_BY' => $this->session->userdata('username'),
+          'UPDATED_BY' => $this->session->userdata('username'),
+          'KETERANGAN' => $keterangan,
+          'NO_FAKTUR' => $no_faktur,
+          'ENABLE_EDIT' => 1,
+          'TOTAL_PEMBAYARAN' => 0
+        );
 
-    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
+        $this->m_t_ak_faktur_penjualan->tambah($data);
+
+        $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
+      }
+      
+    }
+    if($no_faktur=='')
+    {
+      $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal!</strong> No Faktur Tidak Boleh Kosong!</p></div>');
+    }
+    
     redirect('c_t_ak_faktur_penjualan');
   }
 

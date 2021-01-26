@@ -39,6 +39,17 @@ public function select_no_faktur()
     return $akun->result ();
 }
 
+
+ public function read_no_faktur($no_faktur)
+ {
+    $this->db->select("NO_FAKTUR");
+    $this->db->from('T_AK_FAKTUR_PENJUALAN');
+    $this->db->where('NO_FAKTUR',$no_faktur);
+    $akun = $this->db->get ();
+    return $akun->result ();
+ }
+
+
 /*
 public function select_no_faktur()
 {

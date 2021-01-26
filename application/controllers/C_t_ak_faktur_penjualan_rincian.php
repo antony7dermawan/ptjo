@@ -81,11 +81,16 @@ class C_t_ak_faktur_penjualan_rincian extends MY_Controller
   }
 
 
-  public function delete($id)
+  public function delete($id_faktur_penjualan_rincian,$penjualan_pks_id,$id_faktur_penjualan,$pks_id)
   {
-    $this->m_t_ak_faktur_penjualan->delete($id);
+    $data = array(
+        'ENABLE_EDIT' => 1
+      );
+      $this->m_t_t_a_penjualan_pks->update($data, $penjualan_pks_id);
+
+    $this->m_t_ak_faktur_penjualan_rincian->delete($id_faktur_penjualan_rincian);
     $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data Berhasil DIhapus!</p></div>');
-    redirect('/c_t_ak_faktur_penjualan_rincian');
+    redirect('c_t_ak_faktur_penjualan_rincian/index/' . $id_faktur_penjualan . '/' . $pks_id);
   }
 
 

@@ -32,12 +32,33 @@ class C_t_ak_jurnal extends MY_Controller
 
   public function search_date()
   {
+
     $date_from_select_jurnal = ($this->input->post("date_from_select_jurnal"));
     $this->session->set_userdata('date_from_select_jurnal', $date_from_select_jurnal);
 
     $date_to_select_jurnal = ($this->input->post("date_to_select_jurnal"));
     $this->session->set_userdata('date_to_select_jurnal', $date_to_select_jurnal);
+
+    if(isset($_POST['tutup_buku']))
+    {
+      $data = array(
+      'CHECKED_ID' => 0
+    );
+
+      $this->m_t_ak_jurnal->update_tutup_buku($data,$this->session->userdata('date_from_select_jurnal'), $this->session->userdata('date_to_select_jurnal'));
+    }
+
+    if(isset($_POST['buka_buku']))
+    {
+      $data = array(
+      'CHECKED_ID' => 1
+    );
+
+      $this->m_t_ak_jurnal->update_tutup_buku($data,$this->session->userdata('date_from_select_jurnal'), $this->session->userdata('date_to_select_jurnal'));
+    }
+
     redirect('/c_t_ak_jurnal');
+    
   }
 
 
