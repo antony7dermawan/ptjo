@@ -162,9 +162,17 @@ public function select_created_id($created_id)
     $this->db->where('CREATED_ID',$created_id);
     $this->db->delete('T_AK_JURNAL');
   }
+
+  public function delete_no_voucer($no_voucer)
+  {
+    $this->db->where('NO_VOUCER',$no_voucer);
+    $this->db->delete('T_AK_JURNAL');
+  }
+
+
   public function delete_created_by()
   {
-    $this->db->where('CREATED_BY',$this->session->userdata('name'));
+    $this->db->where('CREATED_BY',$this->session->userdata('username'));
     $this->db->delete('T_AK_JURNAL_EDIT');
   }
   public function delete_created_id($created_id)
@@ -172,6 +180,14 @@ public function select_created_id($created_id)
     $this->db->where('CREATED_ID',$created_id);
     $this->db->delete('T_AK_JURNAL');
   }
+
+    public function update_tutup_buku($data, $date_from_select_jurnal,$date_to_select_jurnal)
+    {
+        $this->db->where("DATE>='{$date_from_select_jurnal}'");
+        $this->db->where("DATE<='{$date_to_select_jurnal}'");
+        return $this->db->update('T_AK_JURNAL', $data);
+    }
+
   
 
   function tambah($data)

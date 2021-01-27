@@ -83,22 +83,32 @@
             echo "<td>";
 
 
+            if (intval($value->SUM_TOTAL_PENJUALAN) != 0)
+            {
+              echo "<a href='" . site_url('c_t_ak_terima_pelanggan/update_enable_edit/' . $value->ID) . "/" . intval($value->SUM_TOTAL_PENJUALAN) . "/" . intval($value->SUM_JUMLAH) . "/" . intval($value->SUM_DISKON) . "/" . $value->ENABLE_EDIT . "/" . intval($value->SUM_ADM_BANK) . "'"; #/1 ini artinya kena pajak
 
-            echo "<a href='" . site_url('c_t_ak_terima_pelanggan/update_enable_edit/' . $value->ID) . "/" . intval($value->SUM_TOTAL_PENJUALAN) . "/" . intval($value->SUM_JUMLAH) . "/" . intval($value->SUM_DISKON) . "/" . $value->ENABLE_EDIT . "/" . intval($value->SUM_ADM_BANK) . "'"; #/1 ini artinya kena pajak
+              echo "onclick= 'p_1_" . $key . "()'";
+              if ($value->ENABLE_EDIT == 1) {
+                echo "> <i class='fa fa-print text-c-black'></i></a> ";
+              }
+              if ($value->ENABLE_EDIT == 0) {
+                echo "> <i class='fa fa-print text-c-green'></i></a> ";
+                if($this->session->userdata('level_user_id')==1)
+                {
+                  echo "<a href='" . site_url('c_t_ak_terima_pelanggan/undo/' . $value->ID) . "' ";
+                  echo "onclick=\"return confirm('Apakah kamu yakin ingin memperbaiki data ini?')\"";
+                  echo "> <i class='fa fa-refresh f-w-600 f-16 text-c-red'></i></a>";
+                }
+              }
 
-            echo "onclick= 'p_1_" . $key . "()'";
-            if ($value->ENABLE_EDIT == 1) {
-              echo "> <i class='fa fa-print text-c-black'></i></a> ";
+              echo "<script>";
+              echo "function p_1_" . $key . "()";
+              echo "{";
+              echo "window.open('laporan_pdf/c_terima_pelanggan_print/index/" . $value->ID . "/" . $value->PKS_ID . "');";
+              echo "}";
+              echo "</script>";
             }
-            if ($value->ENABLE_EDIT == 0) {
-              echo "> <i class='fa fa-print text-c-green'></i></a> ";
-            }
-            echo "<script>";
-            echo "function p_1_" . $key . "()";
-            echo "{";
-            echo "window.open('laporan_pdf/c_terima_pelanggan_print/index/" . $value->ID . "/" . $value->PKS_ID . "');";
-            echo "}";
-            echo "</script>";
+            
 
 
 

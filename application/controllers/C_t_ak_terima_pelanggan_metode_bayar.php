@@ -9,6 +9,7 @@ class C_t_ak_terima_pelanggan_metode_bayar extends MY_Controller
     parent::__construct();
 
     $this->load->model('m_t_ak_terima_pelanggan_metode_bayar');
+    $this->load->model('m_t_ak_terima_pelanggan');
     $this->load->model('m_t_ak_faktur_penjualan');
     $this->load->model('m_ak_m_coa');
   }
@@ -17,6 +18,7 @@ class C_t_ak_terima_pelanggan_metode_bayar extends MY_Controller
   {
     $data = [
       "c_t_ak_terima_pelanggan_metode_bayar" => $this->m_t_ak_terima_pelanggan_metode_bayar->select($id),
+      "c_t_ak_terima_pelanggan" => $this->m_t_ak_terima_pelanggan-> select_by_id($id),
       "terima_pelanggan_id" => $id,
       "no_akun_option" => $this->m_ak_m_coa->select_no_akun(),
       "select_no_faktur" => $this->m_t_ak_faktur_penjualan->select_no_faktur(),

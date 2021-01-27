@@ -9,7 +9,14 @@ public function update($data, $id)
     return $this->db->update('T_AK_TERIMA_PELANGGAN', $data);
 }
 
-
+    public function read_no_form($no_form)
+ {
+    $this->db->select("NO_FORM");
+    $this->db->from('T_AK_TERIMA_PELANGGAN');
+    $this->db->where('NO_FORM',$no_form);
+    $akun = $this->db->get ();
+    return $akun->result ();
+ }
   public function select($date_terima_pelanggan)
   {
     $this->db->select("T_AK_TERIMA_PELANGGAN.ID");

@@ -7,15 +7,13 @@
     $today = date('Y-m-d');
 
     $disabled = '';
-    /*
-    foreach ($c_t_ak_faktur_penjualan as $key => $value) 
-    {
-      if($value->ENABLE_EDIT==0)
-      {
+
+    foreach ($c_t_ak_terima_pelanggan as $key => $value) {
+      if ($value->ENABLE_EDIT == 0) {
         $disabled = 'disabled';
       }
     }
-    */
+    
     ?>
     
   </div>
@@ -25,8 +23,14 @@
     <!-- Tombol untuk menambah data akun !-->
     
     <a href="<?= base_url("c_t_ak_terima_pelanggan"); ?>" class="btn waves-effect waves-light btn-inverse"><i class="icofont icofont-double-left"></i>Back</a>
-          
-    <button data-toggle="modal" data-target="#addModal" class="btn btn-success waves-effect waves-light">New Data</button>
+    
+    <?php
+    if($disabled == '')
+    {
+      echo "<button data-toggle='modal' data-target='#addModal' class='btn btn-success waves-effect waves-light'>New Data</button>";
+    }
+    ?>
+    
 
     <div class="table-responsive dt-responsive">
       <table id="dom-jqry" class="table table-striped table-bordered nowrap">
@@ -55,13 +59,14 @@
 
             echo "<td>";
               
-
+            if($disabled == '')
+            {
               echo "<a href='".site_url('c_t_ak_terima_pelanggan_no_faktur/delete/' . $value->ID.'/'.$terima_pelanggan_id.'/'.$pks_id)."' ";
-              
               echo "onclick=\"return confirm('Apakah kamu yakin ingin menghapus data ini?')\"";
-
-
               echo "> <i class='feather icon-trash-2 f-w-600 f-16 text-c-red'></i></a>";
+            }
+              
+
             echo "</td>";
 
             echo "</tr>";

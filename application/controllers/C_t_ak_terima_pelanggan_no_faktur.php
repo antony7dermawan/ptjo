@@ -9,6 +9,7 @@ class C_t_ak_terima_pelanggan_no_faktur extends MY_Controller
     parent::__construct();
 
     $this->load->model('m_t_ak_terima_pelanggan_no_faktur');
+    $this->load->model('m_t_ak_terima_pelanggan');
     $this->load->model('m_t_ak_faktur_penjualan');
   }
 
@@ -16,6 +17,7 @@ class C_t_ak_terima_pelanggan_no_faktur extends MY_Controller
   {
     $data = [
       "c_t_ak_terima_pelanggan_no_faktur" => $this->m_t_ak_terima_pelanggan_no_faktur->select($id),
+      "c_t_ak_terima_pelanggan" => $this->m_t_ak_terima_pelanggan-> select_by_id($id),
       "terima_pelanggan_id" => $id,
       "select_no_faktur" => $this->m_t_ak_faktur_penjualan->select_no_faktur(),
       "pks_id" => $pks_id,

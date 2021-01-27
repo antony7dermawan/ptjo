@@ -13,10 +13,33 @@
               <input type='date' class='form-control' name='date_to_select_jurnal' value='<?php echo $this->session->userdata('date_to_select_jurnal'); ?>'>
           </th>
           <th>
-            <input type="submit" name="submit" class='btn btn-primary waves-effect waves-light' value="Search">
+            <input type="submit" name="search" class='btn btn-primary waves-effect waves-light' value="Search">
+          </th>
+
+          
+        </tr>
+
+        
+      </table>
+  <?php
+  if($this->session->userdata('level_user_id')==1)
+  {
+    ?>
+      <table>
+        <tr>
+          <th>
+            <input type='submit' name='tutup_buku' class='btn btn-warning waves-effect waves-light' value='Tutup Buku' onclick="if(!confirm('Apakah Kamu Yakin Tutup Buku?')){return false;}">
+          </th>
+
+          <th>
+            <input type='submit' name='buka_buku' class='btn btn-primary waves-effect waves-light' value='Buka Buku' onclick="if(!confirm('Apakah Kamu Yakin Buka Buku?')){return false;}">
           </th>
         </tr>
       </table>
+    <?php
+  }
+  ?>
+      
 
 
     </form>
@@ -79,7 +102,7 @@
               }
               if ($value->SPECIAL_ID > 0) {
                 echo "<a href='" . site_url('c_t_ak_jurnal/checked_ok/' . $value->ID) . "' ";
-          ?>
+              ?>
                 onclick="return confirm('Apakah kamu yakin ini BENAR?')"
               <?php
 
@@ -87,11 +110,15 @@
               }
 
 
-              echo "<a href='" . site_url('c_t_ak_jurnal/move/' . $value->CREATED_ID) . "' ";
-              ?>
-              onclick="return confirm('Edit Data?')"
-              <?php
-              echo "> <i class='fa fa-search-plus text-c-blue'></i></a>";
+              if($value->CHECKED_ID == 1)
+              {
+                echo "<a href='" . site_url('c_t_ak_jurnal/move/' . $value->CREATED_ID) . "' ";
+                ?>
+                onclick="return confirm('Edit Data?')"
+                <?php
+                echo "> <i class='fa fa-search-plus text-c-blue'></i></a>";
+              }
+              
 
 
 
@@ -137,11 +164,14 @@
               }
 
 
-              echo "<a href='" . site_url('c_t_ak_jurnal/move/' . $value->CREATED_ID) . "' ";
-              ?>
-              onclick="return confirm('Edit Data?')"
-          <?php
-              echo "> <i class='fa fa-search-plus text-c-blue'></i></a>";
+              if($value->CHECKED_ID == 1)
+              {
+                echo "<a href='" . site_url('c_t_ak_jurnal/move/' . $value->CREATED_ID) . "' ";
+                ?>
+                onclick="return confirm('Edit Data?')"
+                <?php
+                echo "> <i class='fa fa-search-plus text-c-blue'></i></a>";
+              }
 
 
 
@@ -166,12 +196,16 @@
               echo "</script>";
 
 
+              if($value->CHECKED_ID == 1)
+              {
+                echo "<a href='" . site_url('c_t_ak_jurnal/delete/' . $value->CREATED_ID) . "' ";
+                ?>
+                    onclick="return confirm('Apakah kamu yakin ingin menghapus data ini?')"
+                <?php
+                echo "> <i class='feather icon-trash-2 f-w-600 f-16 text-c-red'></i></a>";
+              }
 
-              echo "<a href='" . site_url('c_t_ak_jurnal/delete/' . $value->CREATED_ID) . "' ";
-              ?>
-              onclick="return confirm('Apakah kamu yakin ingin menghapus data ini?')"
-          <?php
-              echo "> <i class='feather icon-trash-2 f-w-600 f-16 text-c-red'></i></a>";
+              
 
 
               echo "</td>";
