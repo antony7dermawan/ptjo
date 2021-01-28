@@ -129,8 +129,10 @@
                   $total_pendapatan_operasi = 0;
                   $read_select = $this->m_ak_m_coa->select_type(5,$date_from_laporan,$date_to_laporan);
 
+                  $logic_db=0;
                   foreach ($read_select as $key => $value) 
                   {
+                    $logic_db=1;
                     $sum_debit=0;
                     $sum_kredit=0;
                     if($value->FAMILY_ID==3)
@@ -186,6 +188,32 @@
                         $p_family_id[]=$value->FAMILY_ID;
                         $p_saldo[]=$read_saldo;
                       }
+                  }
+                  if($logic_db==0)
+                  {
+                        $p_coa_id[0]='';
+                        $p_no_akun_1[0]='';
+                        $p_no_akun_2[0]='';
+                        $p_no_akun_3[0]='';
+                        $p_nama_akun[0]='';
+                        $p_type_id[0]='';
+                        $p_type[0]='';
+                        $p_db_k_id[0]='';
+                        $p_family_id[0]='';
+                        $p_saldo[0]='';
+                  }
+                  if($logic_db==0)
+                  {
+                        $p_coa_id[0]='';
+                        $p_no_akun_1[0]='';
+                        $p_no_akun_2[0]='';
+                        $p_no_akun_3[0]='';
+                        $p_nama_akun[0]='';
+                        $p_type_id[0]='';
+                        $p_type[0]='';
+                        $p_db_k_id[0]='';
+                        $p_family_id[0]='';
+                        $p_saldo[0]='';
                   }
                   foreach( array_keys($p_coa_id) as $total_p_coa_id){}
 
@@ -352,8 +380,10 @@
                   $total_cost_of_goods_sold = 0;
                   $read_select = $this->m_ak_m_coa->select_type(12,$date_from_laporan,$date_to_laporan);
 
+                  $logic_db=0;
                   foreach ($read_select as $key => $value) 
                   {
+                    $logic_db=1;
                     $sum_debit=0;
                     $sum_kredit=0;
                     if($value->FAMILY_ID==3)
@@ -409,6 +439,20 @@
                         $cg_family_id[]=$value->FAMILY_ID;
                         $cg_saldo[]=$read_saldo;
                       }
+                  }
+
+                  if($logic_db==0)
+                  {
+                        $cg_coa_id[0]='';
+                        $cg_no_akun_1[0]='';
+                        $cg_no_akun_2[0]='';
+                        $cg_no_akun_3[0]='';
+                        $cg_nama_akun[0]='';
+                        $cg_type_id[0]='';
+                        $cg_type[0]='';
+                        $cg_db_k_id[0]='';
+                        $cg_family_id[0]='';
+                        $cg_saldo[0]='';
                   }
                   foreach( array_keys($cg_coa_id) as $total_cg_coa_id){}
 
@@ -594,8 +638,10 @@
                   $total_beban_operasi = 0;
                   $read_select = $this->m_ak_m_coa->select_type(15,$date_from_laporan,$date_to_laporan);
 
+                  $logic_db=0;
                   foreach ($read_select as $key => $value) 
                   {
+                    $logic_db=1;
                     $sum_debit=0;
                     $sum_kredit=0;
                     if($value->FAMILY_ID==3)
@@ -651,6 +697,19 @@
                         $bo_family_id[]=$value->FAMILY_ID;
                         $bo_saldo[]=$read_saldo;
                       }
+                  }
+                  if($logic_db==0)
+                  {
+                        $bo_coa_id[0]='';
+                        $bo_no_akun_1[0]='';
+                        $bo_no_akun_2[0]='';
+                        $bo_no_akun_3[0]='';
+                        $bo_nama_akun[0]='';
+                        $bo_type_id[0]='';
+                        $bo_type[0]='';
+                        $bo_db_k_id[0]='';
+                        $bo_family_id[0]='';
+                        $bo_saldo[0]='';
                   }
                   foreach( array_keys($bo_coa_id) as $total_bo_coa_id){}
 
@@ -844,8 +903,10 @@
                   $total_pendapatan_lain = 0;
                   $read_select = $this->m_ak_m_coa->select_type(12,$date_from_laporan,$date_to_laporan);
 
+                  $logic_db=0;
                   foreach ($read_select as $key => $value) 
                   {
+                    $logic_db=1;
                     $sum_debit=0;
                     $sum_kredit=0;
                     if($value->FAMILY_ID==3)
@@ -901,6 +962,19 @@
                         $pl_family_id[]=$value->FAMILY_ID;
                         $pl_saldo[]=$read_saldo;
                       }
+                  }
+                  if($logic_db==0)
+                  {
+                        $pl_coa_id[0]='';
+                        $pl_no_akun_1[0]='';
+                        $pl_no_akun_2[0]='';
+                        $pl_no_akun_3[0]='';
+                        $pl_nama_akun[0]='';
+                        $pl_type_id[0]='';
+                        $pl_type[0]='';
+                        $pl_db_k_id[0]='';
+                        $pl_family_id[0]='';
+                        $pl_saldo[0]='';
                   }
                   foreach( array_keys($pl_coa_id) as $total_pl_coa_id){}
 
@@ -1057,8 +1131,10 @@
                   $total_beban_lain_lain = 0;
                   $read_select = $this->m_ak_m_coa->select_type(10,$date_from_laporan,$date_to_laporan);
 
+                  $logic_db=0;
                   foreach ($read_select as $key => $value) 
                   {
+                    $logic_db=1;
                     $sum_debit=0;
                     $sum_kredit=0;
                     if($value->FAMILY_ID==3)
@@ -1114,6 +1190,19 @@
                         $bl_family_id[]=$value->FAMILY_ID;
                         $bl_saldo[]=$read_saldo;
                       }
+                  }
+                  if($logic_db==0)
+                  {
+                        $bl_coa_id[0]='';
+                        $bl_no_akun_1[0]='';
+                        $bl_no_akun_2[0]='';
+                        $bl_no_akun_3[0]='';
+                        $bl_nama_akun[0]='';
+                        $bl_type_id[0]='';
+                        $bl_type[0]='';
+                        $bl_db_k_id[0]='';
+                        $bl_family_id[0]='';
+                        $bl_saldo[0]='';
                   }
                   foreach( array_keys($bl_coa_id) as $total_bl_coa_id){}
 
