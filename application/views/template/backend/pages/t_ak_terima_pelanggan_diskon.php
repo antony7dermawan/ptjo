@@ -34,7 +34,7 @@
           <tr>
             <th>No</th>
             <th>Nomor COA</th>
-            <th>Bank</th>
+            <th>Nama Akun</th>
             <th>Jumlah</th>
             <th>Action</th>
           </tr>

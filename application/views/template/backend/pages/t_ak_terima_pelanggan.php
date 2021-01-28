@@ -32,7 +32,9 @@
             <th>No Form</th>
 
             <th>No Faktur</th>
-            <th>Jumlah</th>
+            <th>Sudah Dibayar</th>
+            <th>Payment</th>
+
             <th>Diskon</th>
             <th>Action</th>
           </tr>
@@ -57,13 +59,23 @@
             //satu button
 
 
+            //satu button
+            echo "<td>";
+            
+            echo " Rp" . number_format(intval($value->SUM_PAYMENT_T)) . "</td>";
+            //satu button
+
 
             //satu button
             echo "<td>";
-            echo "<a href='" . site_url('c_t_ak_terima_pelanggan_metode_bayar/index/' . $value->ID) . "/" . $value->PKS_ID . "' ";
-            echo "onclick=\"return confirm('Lanjut?')\"";
-            echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
-            echo " Rp" . number_format(intval($value->SUM_JUMLAH)) . "</td>";
+            if(intval($value->SUM_TOTAL_PENJUALAN)>0 or intval($value->SUM_JUMLAH)>0)
+            {
+              echo "<a href='" . site_url('c_t_ak_terima_pelanggan_metode_bayar/index/' . $value->ID) . "/" . $value->PKS_ID . "' ";
+              echo "onclick=\"return confirm('Lanjut?')\"";
+              echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
+            }
+            echo " Rp" . number_format(intval($value->SUM_JUMLAH));
+            echo "</td>";
             //satu button
 
 
@@ -72,10 +84,14 @@
 
             //satu button
             echo "<td>";
-            echo "<a href='" . site_url('c_t_ak_terima_pelanggan_diskon/index/' . $value->ID) . "/" . $value->PKS_ID . "' ";
-            echo "onclick=\"return confirm('Lanjut?')\"";
-            echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
-            echo " Rp" . number_format(intval($value->SUM_DISKON)) . "</td>";
+            if(intval($value->SUM_JUMLAH)>0 or intval($value->SUM_DISKON)>0)
+            {
+              echo "<a href='" . site_url('c_t_ak_terima_pelanggan_diskon/index/' . $value->ID) . "/" . $value->PKS_ID . "' ";
+              echo "onclick=\"return confirm('Lanjut?')\"";
+              echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
+            }
+            echo " Rp" . number_format(intval($value->SUM_DISKON));
+            echo "</td>";
             //satu button
 
 
@@ -85,7 +101,7 @@
 
             if (intval($value->SUM_TOTAL_PENJUALAN) != 0)
             {
-              echo "<a href='" . site_url('c_t_ak_terima_pelanggan/update_enable_edit/' . $value->ID) . "/" . intval($value->SUM_TOTAL_PENJUALAN) . "/" . intval($value->SUM_JUMLAH) . "/" . intval($value->SUM_DISKON) . "/" . $value->ENABLE_EDIT . "/" . intval($value->SUM_ADM_BANK) . "'"; #/1 ini artinya kena pajak
+              echo "<a href='" . site_url('c_t_ak_terima_pelanggan/update_enable_edit/' . $value->ID) . "/" . intval($value->SUM_TOTAL_PENJUALAN) . "/" . intval($value->SUM_JUMLAH) . "/" . intval($value->SUM_DISKON) . "/" . $value->ENABLE_EDIT . "/" . intval($value->SUM_ADM_BANK) . "/" . intval($value->SUM_PAYMENT_T) . "'"; #/1 ini artinya kena pajak
 
               echo "onclick= 'p_1_" . $key . "()'";
               if ($value->ENABLE_EDIT == 1) {

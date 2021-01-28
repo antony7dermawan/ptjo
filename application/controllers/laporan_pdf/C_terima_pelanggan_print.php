@@ -108,30 +108,64 @@ class C_terima_pelanggan_print extends MY_Controller
 
 
     $sum_total_penjualan=0;
+    $sum_payment_t=0;
     $total_hutang = 0;
+    $vivo_paymen = 0;
     $read_select = $this->m_t_ak_terima_pelanggan_no_faktur->select($id);
     foreach ($read_select as $key => $value) 
     {
       // BACA TERUTANG
-      $read_select_in = $this->m_t_ak_terima_pelanggan->select_no_faktur_terutang($value->FAKTUR_PENJUALAN_ID);
-      $sum_metode_bayar = 0;
-      $sum_diskon = 0;
-      foreach ($read_select_in as $key_in => $value_in) 
-      {
-        $get_sum_metode_bayar = $value_in->SUM_JUMLAH;
-        $get_sum_diskon = $value_in->SUM_DISKON;
+      if($key == 0)
+      { 
+        $read_select_in = $this->m_t_ak_terima_pelanggan->select_no_faktur_terutang($value->FAKTUR_PENJUALAN_ID);
+        $sum_metode_bayar = 0;
+        $sum_diskon = 0;
+        foreach ($read_select_in as $key_in => $value_in) 
+        {
+          $get_sum_metode_bayar = $value_in->SUM_JUMLAH;
+          $get_sum_diskon = $value_in->SUM_DISKON;
+          $sum_payment_t  = $value_in->SUM_PAYMENT_T;
+          $sum_metode_bayar = $sum_metode_bayar+$get_sum_metode_bayar;
+          $sum_diskon = $sum_diskon+$get_sum_diskon;
+        }
 
-        $sum_metode_bayar = $sum_metode_bayar+$get_sum_metode_bayar;
-        $sum_diskon = $sum_diskon+$get_sum_diskon;
+        $vivo_paymen = $total_pembayaran;
       }
+      
 
       //$terutang = intval($value->TOTAL_PENJUALAN) - (intval($sum_metode_bayar)+intval($sum_diskon));
       $terutang = 0;
-      $total_awal = intval($value->TOTAL_PENJUALAN) - intval($terutang);
+      $payment_t = intval($value->PAYMENT_T);
+
+      $total_awal = intval($value->TOTAL_PENJUALAN);
+
+/*
+      if($payment_t==$total_awal)
+      {
+        $total_awal = intval($value->TOTAL_PENJUALAN);
+        $vivo_paymen = $vivo_paymen - intval($value->TOTAL_PENJUALAN);
+      }
+      
+      if($payment_t<$total_awal)
+      {
+        $total_awal = intval($value->TOTAL_PENJUALAN)- ($payment_t-$vivo_paymen);
+        $vivo_paymen = $vivo_paymen - intval($value->TOTAL_PENJUALAN);
+      }
+      */
+      
+/*
+      if($sum_payment_t > $get_sum_metode_bayar)
+      {
+        $total_awal =  ($total_awal-($payment_t-$total_pembayaran))+$sum_diskon;
+
+        $sum_metode_bayar = $sum_metode_bayar-$total_awal;
+      }
+     */ //$total_awal = intval($value->TOTAL_PENJUALAN);
+      
 
       $pdf->Cell(45, 6, $value->NO_FAKTUR, 'L', 0, 'C');
       $pdf->Cell(30, 6, $value->DATE, 'L', 0, 'C');
-      $pdf->Cell(35, 6, number_format(intval($value->TOTAL_PENJUALAN)), 'L', 0, 'R');
+      $pdf->Cell(35, 6, number_format(intval($total_awal)), 'L', 0, 'R');
       $pdf->Cell(35, 6, number_format(intval($terutang)), 'L', 0, 'R');
       $pdf->Cell(35, 6, number_format(intval($total_awal)), 'L', 0, 'R');
       $pdf->Cell(0.01, 6, '', 'L', 1, 'R');

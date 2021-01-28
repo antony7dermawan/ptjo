@@ -92,7 +92,7 @@ class c_t_ak_jurnal_print extends MY_Controller
     {
       $rmd=(float)($i/$total_baris_1_bon);
       $rmd=($rmd-(int)$rmd)*$total_baris_1_bon;
-      if($i>$total_baris_1_bon and $rmd==0)
+      if($i>=$total_baris_1_bon and $rmd==0)
       {
         $pdf->AddPage('P', 'mm', 'A4');
         $pdf->SetFont('','B',12);
