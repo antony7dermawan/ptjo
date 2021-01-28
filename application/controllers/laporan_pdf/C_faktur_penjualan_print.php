@@ -22,19 +22,20 @@ class c_faktur_penjualan_print extends MY_Controller
         // Add Header
     
     #.............................paper head
+    $image_name = 'logo_jo.jpg';
 
-    //$pdf->Image('http://chart.googleapis.com/chart?cht=p3&chd=t:60,40&chs=250x100&chl=Hello|World',10,10,0);
+    $pdf->Image('https://i.ibb.co/P9Y6QHR/logo-jo.jpg',10,10,0);
 
     $pdf->SetFont('','B',12);
-    //$pdf->Cell(30, 11, "", 0, 0, 'L');
+    $pdf->Cell(30, 11, "", 0, 0, 'L');
     $pdf->Cell(100, 11, "PT. JO PERDANA AGRI TECHNOLOGY", 0, 1, 'L');
 
     $pdf->SetFont('','',12);
-    //$pdf->Cell(30, 8, "", 0, 0, 'L');
+    $pdf->Cell(30, 8, "", 0, 0, 'L');
     $pdf->Cell(100, 6, "JL. RAYA BENGKAYANG DUSUN BARABAS BARU 1 RT.1 RW.1", 0, 1, 'L');
-    //$pdf->Cell(30, 8, "", 0, 0, 'L');
+    $pdf->Cell(30, 8, "", 0, 0, 'L');
     $pdf->Cell(100, 6, "MEKAR BARU - MONTERADO", 0, 1, 'L');
-    //$pdf->Cell(30, 8, "", 0, 0, 'L');
+    $pdf->Cell(30, 8, "", 0, 0, 'L');
     $pdf->Cell(100, 6, "KALIMANTAN BARAT", 0, 1, 'L');
 
     $pdf->Cell( 190,5,'','B',1,'C');
