@@ -63,11 +63,15 @@
               if ($value->ENABLE_EDIT == 0) {
                 echo "> <i class='fa fa-print text-c-green'></i></a> ";
 
-                if($this->session->userdata('level_user_id')==1)
+                if($this->session->userdata('level_user_id')==1 and $value->PAYMENT_T==0)
                 {
                   echo "<a href='" . site_url('c_t_ak_faktur_penjualan/undo/' . $value->ID) . "' ";
                   echo "onclick=\"return confirm('Apakah kamu yakin ingin memperbaiki data ini?')\"";
                   echo "> <i class='fa fa-refresh f-w-600 f-16 text-c-red'></i></a>";
+                }
+                if($value->PAYMENT_T>0)
+                {
+                  echo "Sudah Dibayar";
                 }
                 
               }

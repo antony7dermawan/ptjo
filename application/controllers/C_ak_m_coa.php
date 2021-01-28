@@ -99,7 +99,8 @@ class C_ak_m_coa extends MY_Controller
       'DB_K_ID' => $db_k_id,
       'FAMILY_ID' => $family_id,
       'NO_AKUN_2' => $no_akun_2,
-      'NO_AKUN_3' => $no_akun_3
+      'NO_AKUN_3' => $no_akun_3,
+      'COMPANY_ID' => $this->session->userdata('company_id')
     );
 
     $this->m_ak_m_coa->tambah($data);

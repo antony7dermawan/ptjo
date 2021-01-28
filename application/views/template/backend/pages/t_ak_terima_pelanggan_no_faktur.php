@@ -40,7 +40,7 @@
             <th>No Faktur</th>
             <th>Tanggal</th>
             <th>Jumlah</th>
-            <th>Terutang</th>
+            <th>Sudah Dibayar</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -54,22 +54,35 @@
             echo "<td>".date('d-m-Y', strtotime($value->DATE))."</td>";
             echo "<td>Rp".number_format(intval($value->TOTAL_PENJUALAN))."</td>";
             
-            echo "<td>Rp".number_format(intval($value->TOTAL_PEMBAYARAN))."</td>";
+            echo "<td>Rp".number_format(intval($value->PAYMENT_T))."</td>";
           
 
+            
             echo "<td>";
-              
             if($disabled == '')
             {
+
               echo "<a href='".site_url('c_t_ak_terima_pelanggan_no_faktur/delete/' . $value->ID.'/'.$terima_pelanggan_id.'/'.$pks_id)."' ";
               echo "onclick=\"return confirm('Apakah kamu yakin ingin menghapus data ini?')\"";
               echo "> <i class='feather icon-trash-2 f-w-600 f-16 text-c-red'></i></a>";
+              
+              if(intval($value->PAYMENT_T)>0)
+              {
+                echo "Sudah Ditagih";
+              }
+              
             }
+            echo "</td>";
+              
+            
+
+            
               
 
-            echo "</td>";
+            
 
             echo "</tr>";
+            
 
           }
           ?>

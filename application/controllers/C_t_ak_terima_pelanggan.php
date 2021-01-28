@@ -74,7 +74,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
   }
 
 
-  function update_enable_edit($id, $sum_total_penjualan, $sum_jumlah, $sum_diskon, $enable_edit,$sum_adm_bank)
+  function update_enable_edit($id, $sum_total_penjualan, $sum_jumlah, $sum_diskon, $enable_edit,$sum_adm_bank,$sum_payment_t)
   {
     $read_select = $this->m_t_ak_terima_pelanggan->select_by_id($id);
     foreach ($read_select as $key => $value) 
@@ -264,7 +264,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
         $db_k_id = $value->DB_K_ID;
       }
 
-      $sum_total_penjualan = ($sum_total_penjualan * 100)/110;
+      $sum_total_penjualan = $sum_total_penjualan-($sum_payment_t-$sum_jumlah);
 
       $nilai_pasal_22 = intval(0.25 * floatval($sum_total_penjualan))/100;
 

@@ -32,8 +32,24 @@ class C_t_ak_terima_pelanggan_no_faktur extends MY_Controller
 
   public function delete($id, $terima_pelanggan_id,$pks_id)
   {
-    $this->m_t_ak_terima_pelanggan_no_faktur->delete($id);
-    $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data Berhasil DIhapus!</p></div>');
+    $read_select = $this->m_t_ak_terima_pelanggan_no_faktur->select_by_id($id);
+    foreach ($read_select as $key => $value) 
+    {
+      $payment_t = intval($value->PAYMENT_T);
+    }
+    //if($payment_t==0)
+    //{
+      $this->m_t_ak_terima_pelanggan_no_faktur->delete($id);
+      $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data Berhasil DIhapus!</p></div>');
+   // }
+
+    /*
+    if($payment_t>0)
+    {
+      $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal!</strong> Data Sudah Dibayar!</p></div>');
+    }
+    */
+    
     redirect('/c_t_ak_terima_pelanggan_no_faktur/index/'.$terima_pelanggan_id.'/'.$pks_id);
   }
 
