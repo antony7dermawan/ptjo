@@ -204,9 +204,9 @@ public function update($data, $id)
 
     $this->db->from('AK_M_COA');
 
-    $this->db->join("(select \"AK_M_COA\".\"NO_AKUN_2\",sum(\"T_AK_JURNAL\".\"DEBIT\")\"SUM_DEBIT\" from \"T_AK_JURNAL\" LEFT OUTER JOIN \"AK_M_COA\" ON \"AK_M_COA\".\"ID\" = \"T_AK_JURNAL\".\"COA_ID\" where \"T_AK_JURNAL\".\"DATE\">='{$from_date}' and \"T_AK_JURNAL\".\"DATE\"<='{$to_date}' group by \"NO_AKUN_2\") as t_sum", 'AK_M_COA.NO_AKUN_2 = t_sum.NO_AKUN_2', 'left');
+    $this->db->join("(select \"AK_M_COA\".\"NO_AKUN_2\",sum(\"T_AK_JURNAL\".\"DEBIT\")\"SUM_DEBIT\" from \"T_AK_JURNAL\" LEFT OUTER JOIN \"AK_M_COA\" ON \"AK_M_COA\".\"ID\" = \"T_AK_JURNAL\".\"COA_ID\" where \"T_AK_JURNAL\".\"DATE\">='{$from_date}' and \"T_AK_JURNAL\".\"DATE\"<='{$to_date}' group by \"AK_M_COA\".\"NO_AKUN_2\") as t_sum", 'AK_M_COA.NO_AKUN_2 = t_sum.NO_AKUN_2', 'left');
 
-    $this->db->join("(select \"AK_M_COA\".\"NO_AKUN_2\",sum(\"T_AK_JURNAL\".\"KREDIT\")\"SUM_KREDIT\" from \"T_AK_JURNAL\" LEFT OUTER JOIN \"AK_M_COA\" ON \"AK_M_COA\".\"ID\" = \"T_AK_JURNAL\".\"COA_ID\" where \"T_AK_JURNAL\".\"DATE\">='{$from_date}' and \"T_AK_JURNAL\".\"DATE\"<='{$to_date}' group by \"NO_AKUN_2\") as t_sum_2", 'AK_M_COA.NO_AKUN_2 = t_sum_2.NO_AKUN_2', 'left');
+    $this->db->join("(select \"AK_M_COA\".\"NO_AKUN_2\",sum(\"T_AK_JURNAL\".\"KREDIT\")\"SUM_KREDIT\" from \"T_AK_JURNAL\" LEFT OUTER JOIN \"AK_M_COA\" ON \"AK_M_COA\".\"ID\" = \"T_AK_JURNAL\".\"COA_ID\" where \"T_AK_JURNAL\".\"DATE\">='{$from_date}' and \"T_AK_JURNAL\".\"DATE\"<='{$to_date}' group by \"AK_M_COA\".\"NO_AKUN_2\") as t_sum_2", 'AK_M_COA.NO_AKUN_2 = t_sum_2.NO_AKUN_2', 'left');
     
 
 
@@ -228,9 +228,9 @@ public function update($data, $id)
 
     $this->db->from('AK_M_COA');
 
-    $this->db->join("(select \"AK_M_COA\".\"NO_AKUN_1\",sum(\"T_AK_JURNAL\".\"DEBIT\")\"SUM_DEBIT\" from \"T_AK_JURNAL\" LEFT OUTER JOIN \"AK_M_COA\" ON \"AK_M_COA\".\"ID\" = \"T_AK_JURNAL\".\"COA_ID\" where \"T_AK_JURNAL\".\"DATE\">='{$from_date}' and \"T_AK_JURNAL\".\"DATE\"<='{$to_date}' group by \"NO_AKUN_1\") as t_sum", 'AK_M_COA.NO_AKUN_1 = t_sum.NO_AKUN_1', 'left');
+    $this->db->join("(select \"AK_M_COA\".\"NO_AKUN_1\",sum(\"T_AK_JURNAL\".\"DEBIT\")\"SUM_DEBIT\" from \"T_AK_JURNAL\" LEFT OUTER JOIN \"AK_M_COA\" ON \"AK_M_COA\".\"ID\" = \"T_AK_JURNAL\".\"COA_ID\" where \"T_AK_JURNAL\".\"DATE\">='{$from_date}' and \"T_AK_JURNAL\".\"DATE\"<='{$to_date}' group by \"AK_M_COA\".\"NO_AKUN_1\") as t_sum", 'AK_M_COA.NO_AKUN_1 = t_sum.NO_AKUN_1', 'left');
 
-    $this->db->join("(select \"AK_M_COA\".\"NO_AKUN_1\",sum(\"T_AK_JURNAL\".\"KREDIT\")\"SUM_KREDIT\" from \"T_AK_JURNAL\" LEFT OUTER JOIN \"AK_M_COA\" ON \"AK_M_COA\".\"ID\" = \"T_AK_JURNAL\".\"COA_ID\" where \"T_AK_JURNAL\".\"DATE\">='{$from_date}' and \"T_AK_JURNAL\".\"DATE\"<='{$to_date}' group by \"NO_AKUN_1\") as t_sum_2", 'AK_M_COA.NO_AKUN_1 = t_sum_2.NO_AKUN_1', 'left');
+    $this->db->join("(select \"AK_M_COA\".\"NO_AKUN_1\",sum(\"T_AK_JURNAL\".\"KREDIT\")\"SUM_KREDIT\" from \"T_AK_JURNAL\" LEFT OUTER JOIN \"AK_M_COA\" ON \"AK_M_COA\".\"ID\" = \"T_AK_JURNAL\".\"COA_ID\" where \"T_AK_JURNAL\".\"DATE\">='{$from_date}' and \"T_AK_JURNAL\".\"DATE\"<='{$to_date}' group by \"AK_M_COA\".\"NO_AKUN_1\") as t_sum_2", 'AK_M_COA.NO_AKUN_1 = t_sum_2.NO_AKUN_1', 'left');
     
 
 
