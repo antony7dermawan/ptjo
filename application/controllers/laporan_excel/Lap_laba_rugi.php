@@ -132,7 +132,7 @@
                   $logic_db=0;
                   foreach ($read_select as $key => $value) 
                   {
-                    $logic_db=1;
+                    
                     $sum_debit=0;
                     $sum_kredit=0;
                     if($value->FAMILY_ID==3)
@@ -173,6 +173,7 @@
 
                       if($read_saldo!=0)
                       {
+                        $logic_db=1;
                         if($value->FAMILY_ID==3)
                         {
                           $total_pendapatan_operasi = $total_pendapatan_operasi + $read_saldo;
@@ -383,7 +384,7 @@
                   $logic_db=0;
                   foreach ($read_select as $key => $value) 
                   {
-                    $logic_db=1;
+                    
                     $sum_debit=0;
                     $sum_kredit=0;
                     if($value->FAMILY_ID==3)
@@ -424,6 +425,7 @@
 
                       if($read_saldo!=0)
                       {
+                        $logic_db=1;
                         if($value->FAMILY_ID==3)
                         {
                           $total_cost_of_goods_sold = $total_cost_of_goods_sold + $read_saldo;
@@ -641,7 +643,7 @@
                   $logic_db=0;
                   foreach ($read_select as $key => $value) 
                   {
-                    $logic_db=1;
+                    
                     $sum_debit=0;
                     $sum_kredit=0;
                     if($value->FAMILY_ID==3)
@@ -682,6 +684,7 @@
 
                       if($read_saldo!=0)
                       {
+                        $logic_db=1;
                         if($value->FAMILY_ID==3)
                         {
                           $total_beban_operasi = $total_beban_operasi + $read_saldo;
@@ -906,7 +909,7 @@
                   $logic_db=0;
                   foreach ($read_select as $key => $value) 
                   {
-                    $logic_db=1;
+                    
                     $sum_debit=0;
                     $sum_kredit=0;
                     if($value->FAMILY_ID==3)
@@ -947,6 +950,7 @@
 
                       if($read_saldo!=0)
                       {
+                        $logic_db=1;
                         if($value->FAMILY_ID==3)
                         {
                           $total_pendapatan_lain = $total_pendapatan_lain + $read_saldo;
@@ -1134,7 +1138,7 @@
                   $logic_db=0;
                   foreach ($read_select as $key => $value) 
                   {
-                    $logic_db=1;
+                    
                     $sum_debit=0;
                     $sum_kredit=0;
                     if($value->FAMILY_ID==3)
@@ -1175,6 +1179,7 @@
 
                       if($read_saldo!=0)
                       {
+                        $logic_db=1;
                         if($value->FAMILY_ID==3)
                         {
                           $total_beban_lain_lain = $total_beban_lain_lain + $read_saldo;
