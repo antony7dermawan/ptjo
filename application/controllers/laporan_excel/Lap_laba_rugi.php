@@ -378,7 +378,7 @@
                   $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('left');
 
                   $total_cost_of_goods_sold = 0;
-                  $read_select = $this->m_ak_m_coa->select_type(12,$date_from_laporan,$date_to_laporan);
+                  $read_select = $this->m_ak_m_coa->select_type(1,$date_from_laporan,$date_to_laporan);
 
                   $logic_db=0;
                   foreach ($read_select as $key => $value) 
