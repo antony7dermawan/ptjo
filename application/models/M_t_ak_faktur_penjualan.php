@@ -89,7 +89,7 @@ public function select_no_faktur()
     $this->db->select("T_M_A_PKS.TELEPON");
 
 
-    $this->db->select("T_AK_TERIMA_PELANGGAN_NO_FAKTUR.PAYMENT_T");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.PAYMENT_T");
 
 
     $this->db->select("sum as \"SUM_TOTAL_PENJUALAN\"");
