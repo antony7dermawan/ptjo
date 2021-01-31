@@ -35,7 +35,7 @@
 
             public function index($date_from_laporan,$date_to_laporan)
             {
-              $total_baris_1_page = 55;
+              $total_baris_1_page = 44;
               $baris_1_page = 0;
                   $spreadsheet = new Spreadsheet();
 
@@ -283,7 +283,7 @@
                         $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('left');
 
 
-                        $row=$row+5;
+                        $row=$row+1;
 
                         $baris_1_page = $baris_1_page+1;
                         $spreadsheet->getActiveSheet()->getStyle('A'.$row)->getFont()->setBold(true);
@@ -520,7 +520,7 @@
                         $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('left');
 
 
-                        $row=$row+5;
+                        $row=$row+1;
                         $baris_1_page = $baris_1_page+1;
                         $spreadsheet->getActiveSheet()->getStyle('A'.$row)->getFont()->setBold(true);
                         $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':M'.$row);
@@ -778,7 +778,7 @@
                         $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('left');
 
 
-                        $row=$row+5;
+                        $row=$row+1;
                         $baris_1_page = $baris_1_page+1;
                         $spreadsheet->getActiveSheet()->getStyle('A'.$row)->getFont()->setBold(true);
                         $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':M'.$row);
@@ -1044,7 +1044,7 @@
                         $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('left');
 
 
-                        $row=$row+5;
+                        $row=$row+1;
                         $baris_1_page = $baris_1_page+1;
                         $spreadsheet->getActiveSheet()->getStyle('A'.$row)->getFont()->setBold(true);
                         $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':M'.$row);
@@ -1273,7 +1273,7 @@
                         $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('left');
 
 
-                        $row=$row+5;
+                        $row=$row+1;
                         $baris_1_page = $baris_1_page+1;
                         $spreadsheet->getActiveSheet()->getStyle('A'.$row)->getFont()->setBold(true);
                         $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':M'.$row);

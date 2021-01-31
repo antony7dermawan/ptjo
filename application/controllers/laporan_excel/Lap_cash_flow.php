@@ -35,6 +35,14 @@
 
             public function index($date_from_laporan,$date_to_laporan)
             {
+              $total_day=intval(((round(abs(strtotime($date_from_laporan) - strtotime($date_to_laporan)) / (60*60*24),0))+1)/2);
+
+
+                $date=date_create($date_from_laporan);
+                date_add($date,date_interval_create_from_date_string("{$total_day} days"));
+                $month_int = intval(date_format($date,"m"));
+
+
                   $spreadsheet = new Spreadsheet();
 
 
@@ -196,7 +204,7 @@
                         $sheet->setCellValue('I'.$row, $sum_total_penjualan);
 
 
-                        $sheet->setCellValue('M'.$row, intval($sum_total_penjualan/10));
+                        $sheet->setCellValue('M'.$row, intval($sum_total_penjualan/$month_int));
                         $sheet->setCellValue('O'.$row, intval($sum_total_penjualan/30));
 
                         $spreadsheet->getActiveSheet()
@@ -232,7 +240,7 @@
                   $sheet->setCellValue('K'.$row, $total_sum_total_penjualan);
 
 
-                  $sheet->setCellValue('N'.$row, intval($total_sum_total_penjualan/10));
+                  $sheet->setCellValue('N'.$row, intval($total_sum_total_penjualan/$month_int));
                   $sheet->setCellValue('P'.$row, intval($total_sum_total_penjualan/30));
 
                   $spreadsheet->getActiveSheet()
@@ -299,8 +307,9 @@
                         $a_5_db_k_id[$key]=$value->DB_K_ID;
                         $a_5_type_id[$key]=$value->TYPE_ID;
                         $a_5_nama_akun[$key]=$value->NAMA_AKUN;
-                        $a_5_sum_debit[$key]=$value->SUM_DEBIT;
-                        $a_5_sum_kredit[$key]=$value->SUM_KREDIT;
+                        $a_5_sum_debit[$key]=$value->DEBIT;
+                        $a_5_sum_kredit[$key]=$value->KREDIT;
+                        $a_5_no_voucer[$key]=$value->NO_VOUCER;
                   }
 
                   $total_a_5_coa_id = $key;
@@ -309,6 +318,7 @@
                   {
                         for($i=0;$i<=$total_a_5_coa_id;$i++)
                         {
+                          /*
                               $saldo=0;
                               if($a_5_db_k_id[$i]==1)//debit == 1
                               {
@@ -319,6 +329,9 @@
                               {
                                     $saldo = $a_5_sum_kredit[$i]-$a_5_sum_debit[$i];
                               }
+                              */
+
+                              $saldo = $a_5_sum_kredit[$i];
 
                               $total_saldo = $total_saldo + $saldo;
                               
@@ -335,12 +348,12 @@
                                     $no_akun=$a_5_no_akun_1[$i];
                               }
                               $row=$row+1;
-                              $sheet->setCellValue('B'.$row, $no_akun.'/'.$a_5_nama_akun[$i]);
+                              $sheet->setCellValue('B'.$row, $a_5_no_voucer[$i].'/'.$a_5_nama_akun[$i]);
                               $sheet->setCellValue('H'.$row, 'Rp');
                               $sheet->setCellValue('I'.$row, $saldo);
 
 
-                              $sheet->setCellValue('M'.$row, intval($saldo/10));
+                              $sheet->setCellValue('M'.$row, intval($saldo/$month_int));
                               $sheet->setCellValue('O'.$row, intval($saldo/30));
 
                               $spreadsheet->getActiveSheet()
@@ -373,7 +386,7 @@
                         $sheet->setCellValue('K'.$row, $total_saldo);
 
 
-                        $sheet->setCellValue('N'.$row, intval($total_saldo/10));
+                        $sheet->setCellValue('N'.$row, intval($total_saldo/$month_int));
                         $sheet->setCellValue('P'.$row, intval($total_saldo/30));
 
                         $spreadsheet->getActiveSheet()
@@ -436,7 +449,7 @@
                         $sheet->setCellValue('K'.$row, $total_pendapatan_kotor);
 
 
-                        $sheet->setCellValue('N'.$row, intval($total_pendapatan_kotor/10));
+                        $sheet->setCellValue('N'.$row, intval($total_pendapatan_kotor/$month_int));
                         $sheet->setCellValue('P'.$row, intval($total_pendapatan_kotor/30));
 
                         $spreadsheet->getActiveSheet()
@@ -522,8 +535,9 @@
                         $a_7_db_k_id[$key]=$value->DB_K_ID;
                         $a_7_type_id[$key]=$value->TYPE_ID;
                         $a_7_nama_akun[$key]=$value->NAMA_AKUN;
-                        $a_7_sum_debit[$key]=$value->SUM_DEBIT;
-                        $a_7_sum_kredit[$key]=$value->SUM_KREDIT;
+                        $a_7_sum_debit[$key]=$value->DEBIT;
+                        $a_7_sum_kredit[$key]=$value->KREDIT;
+                        $a_7_no_voucer[$key]=$value->NO_VOUCER;
                   }
 
                   $total_a_7_coa_id = $key;
@@ -532,6 +546,7 @@
                   {
                         for($i=0;$i<=$total_a_7_coa_id;$i++)
                         {
+                          /*
                               $saldo=0;
                               if($a_7_db_k_id[$i]==1)//debit == 1
                               {
@@ -542,6 +557,9 @@
                               {
                                     $saldo = $a_7_sum_kredit[$i]-$a_7_sum_debit[$i];
                               }
+                              */
+
+                              $saldo = $a_7_sum_debit[$i];
 
                               $total_saldo = $total_saldo + $saldo;
                               
@@ -558,12 +576,12 @@
                                     $no_akun=$a_7_no_akun_1[$i];
                               }
                               $row=$row+1;
-                              $sheet->setCellValue('B'.$row, $no_akun.'/'.$a_7_nama_akun[$i]);
+                              $sheet->setCellValue('B'.$row, $a_7_no_voucer[$i].'/'.$a_7_nama_akun[$i]);
                               $sheet->setCellValue('H'.$row, 'Rp');
                               $sheet->setCellValue('I'.$row, $saldo);
 
 
-                              $sheet->setCellValue('M'.$row, intval($saldo/10));
+                              $sheet->setCellValue('M'.$row, intval($saldo/$month_int));
                               $sheet->setCellValue('O'.$row, intval($saldo/30));
 
                               $spreadsheet->getActiveSheet()
@@ -596,7 +614,7 @@
                         $sheet->setCellValue('K'.$row, $total_saldo);
 
 
-                        $sheet->setCellValue('N'.$row, intval($total_saldo/10));
+                        $sheet->setCellValue('N'.$row, intval($total_saldo/$month_int));
                         $sheet->setCellValue('P'.$row, intval($total_saldo/30));
 
                         $spreadsheet->getActiveSheet()
@@ -659,7 +677,7 @@
                         $sheet->setCellValue('K'.$row, $total_pengeluaran);
 
 
-                        $sheet->setCellValue('N'.$row, intval($total_pengeluaran/10));
+                        $sheet->setCellValue('N'.$row, intval($total_pengeluaran/$month_int));
                         $sheet->setCellValue('P'.$row, intval($total_pengeluaran/30));
 
                         $spreadsheet->getActiveSheet()
@@ -717,7 +735,7 @@
                         $sheet->setCellValue('K'.$row, $total_cash_flow_bersih);
 
 
-                        $sheet->setCellValue('N'.$row, intval($total_cash_flow_bersih/10));
+                        $sheet->setCellValue('N'.$row, intval($total_cash_flow_bersih/$month_int));
                         $sheet->setCellValue('P'.$row, intval($total_cash_flow_bersih/30));
 
                         $spreadsheet->getActiveSheet()
