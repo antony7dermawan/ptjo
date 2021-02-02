@@ -1,5 +1,14 @@
 <div class="card">
   <div class="card-header">
+
+    <?php
+    $disabled = '';
+    foreach ($c_t_ak_jurnal_create as $key => $value) 
+    {
+      $disabled = 'disabled';
+    }
+    ?>
+
     <form action="<?php echo base_url('c_t_ak_jurnal_create/create_no_voucer') ?>" class='no_voucer_area' method="post" id=''>
       <table>
         <tr>
@@ -7,7 +16,7 @@
             <input type='text' class='form-control' placeholder='<?= $this->session->userdata('now_no_voucer_keep') ?>' name='no_voucer_textbox' value='<?= $this->session->userdata('now_no_voucer') ?>'>
           </th>
           <th>
-            <input type="submit" name="submit_no_voucer" class='btn btn-primary waves-effect waves-light' value="Create">
+            <input type="submit" name="submit_no_voucer" class='btn btn-primary waves-effect waves-light' value="Create" <?=$disabled?>>
           </th>
         </tr>
         <?php

@@ -71,6 +71,7 @@ class C_t_ak_jurnal extends MY_Controller
 
 
 
+
   function tambah()
   {
     $coa_id = ($this->input->post("coa_id"));
