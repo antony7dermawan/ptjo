@@ -22,26 +22,9 @@ class c_faktur_penjualan_print extends MY_Controller
         // Add Header
     
     #.............................paper head
-    $image_name = 'logo_jo.jpg';
+    
 
-    $pdf->Image('https://i.ibb.co/P9Y6QHR/logo-jo.jpg',10,10,0);
-
-    $pdf->SetFont('','B',12);
-    $pdf->Cell(30, 11, "", 0, 0, 'L');
-    $pdf->Cell(100, 11, "PT. JO PERDANA AGRI TECHNOLOGY", 0, 1, 'L');
-
-    $pdf->SetFont('','',12);
-    $pdf->Cell(30, 8, "", 0, 0, 'L');
-    $pdf->Cell(100, 6, "JL. RAYA BENGKAYANG DUSUN BARABAS BARU 1 RT.1 RW.1", 0, 1, 'L');
-    $pdf->Cell(30, 8, "", 0, 0, 'L');
-    $pdf->Cell(100, 6, "MEKAR BARU - MONTERADO", 0, 1, 'L');
-    $pdf->Cell(30, 8, "", 0, 0, 'L');
-    $pdf->Cell(100, 6, "KALIMANTAN BARAT", 0, 1, 'L');
-
-    $pdf->Cell( 190,5,'','B',1,'C');
-
-    $pdf->SetFont('','B',16);
-    $pdf->Cell( 190,10,'Faktur Penjualan','0',1,'C');
+    
 
 
     $pdf->SetFont('','',12);
@@ -75,6 +58,30 @@ class c_faktur_penjualan_print extends MY_Controller
 
       if($key==0 or ($key>=$total_row_1_bon and $rmd==0))
       {
+        if($key>=$total_row_1_bon and $rmd==0)
+        {
+          $pdf->AddPage();
+        }
+        $pdf->Image('assets/images/logo-jo.jpg',10,10,0);
+
+        $pdf->SetFont('','B',12);
+        $pdf->Cell(30, 11, "", 0, 0, 'L');
+        $pdf->Cell(100, 11, "PT. JO PERDANA AGRI TECHNOLOGY", 0, 1, 'L');
+
+        $pdf->SetFont('','',12);
+        $pdf->Cell(30, 8, "", 0, 0, 'L');
+        $pdf->Cell(100, 6, "JL. RAYA BENGKAYANG DUSUN BARABAS BARU 1 RT.1 RW.1", 0, 1, 'L');
+        $pdf->Cell(30, 8, "", 0, 0, 'L');
+        $pdf->Cell(100, 6, "MEKAR BARU - MONTERADO", 0, 1, 'L');
+        $pdf->Cell(30, 8, "", 0, 0, 'L');
+        $pdf->Cell(100, 6, "KALIMANTAN BARAT", 0, 1, 'L');
+
+        $pdf->Cell( 190,5,'','B',1,'C');
+
+        $pdf->SetFont('','B',16);
+        $pdf->Cell( 190,10,'Faktur Penjualan','0',1,'C');
+
+        $pdf->SetFont('','',12);
         $pdf->Cell( 40,5,'NO PELANGGAN','0',0,'L');
         $pdf->Cell( 100,5,':'.$no_pelanggan,'0',1,'L');
         $pdf->Cell( 40,5,'NO FAKTUR','0',0,'L');
@@ -110,10 +117,7 @@ class c_faktur_penjualan_print extends MY_Controller
         $pdf->Cell( $size[5],8,'Harga','1',0,'C');
         $pdf->Cell( $size[6],8,'Jumlah','1',1,'C');
       }
-      if($key>=$total_row_1_bon and $rmd==0)
-      {
-        $pdf->AddPage();
-      }
+      
       
       $pdf->SetFont('','',10);
       $pdf->Cell( $size[0],6,$key+1,'L',0,'C');
