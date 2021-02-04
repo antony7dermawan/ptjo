@@ -28,12 +28,20 @@
       <table>
         <tr>
           <th>
-            <input type='submit' name='tutup_buku' class='btn btn-warning waves-effect waves-light' value='Tutup Buku' onclick="if(!confirm('Apakah Kamu Yakin Tutup Buku?')){return false;}">
-          </th>
+            <input type='button' name='' class='btn btn-primary waves-effect waves-light' onclick='send_to_cloud()' value='Send to Cloud'>
 
-          <th>
-            <input type='submit' name='buka_buku' class='btn btn-primary waves-effect waves-light' value='Buka Buku' onclick="if(!confirm('Apakah Kamu Yakin Buka Buku?')){return false;}">
-          </th>
+
+              <script>
+              function send_to_cloud()
+              {
+                if(confirm('Sudah Yakin Data Ini Semua Benar?!?'))
+                {
+                  window.open('send_cloud/send_t_ak_jurnal');
+                }
+                
+              }
+              </script>
+            </th>
         </tr>
       </table>
     <?php
@@ -97,7 +105,7 @@
 
 
               $ok_color = 'red';
-              if ($value->CHECKED_ID == 1) {
+              if ($value->CHECKED_ID == 0) {
                 $ok_color = 'green';
               }
               if ($value->SPECIAL_ID > 0) {
@@ -110,7 +118,7 @@
               }
 
 
-              if($value->CHECKED_ID == 1)
+              if($value->CHECKED_ID == 0)
               {
                 echo "<a href='" . site_url('c_t_ak_jurnal/move/' . $value->CREATED_ID) . "' ";
                 ?>
@@ -126,6 +134,11 @@
               echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#Modal_Edit' class='btn-edit' data-id='" . $value->ID . "'>";
               echo "<i class='icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green'></i>";
               echo "</a>";
+
+              if($value->CHECKED_ID == 1)
+              {
+                echo "Sent";
+              }
 
 
 
@@ -151,7 +164,7 @@
 
 
               $ok_color = 'red';
-              if ($value->CHECKED_ID == 1) {
+              if ($value->CHECKED_ID == 0) {
                 $ok_color = 'green';
               }
               if ($value->SPECIAL_ID > 0) {
@@ -164,7 +177,7 @@
               }
 
 
-              if($value->CHECKED_ID == 1)
+              if($value->CHECKED_ID == 0)
               {
                 echo "<a href='" . site_url('c_t_ak_jurnal/move/' . $value->CREATED_ID) . "' ";
                 ?>
@@ -196,13 +209,19 @@
               echo "</script>";
 
 
-              if($value->CHECKED_ID == 1)
+              if($value->CHECKED_ID == 0)
               {
                 echo "<a href='" . site_url('c_t_ak_jurnal/delete/' . $value->CREATED_ID) . "' ";
                 ?>
                     onclick="return confirm('Apakah kamu yakin ingin menghapus data ini?')"
                 <?php
                 echo "> <i class='feather icon-trash-2 f-w-600 f-16 text-c-red'></i></a>";
+              }
+
+
+              if($value->CHECKED_ID == 1)
+              {
+                echo "Sent";
               }
 
               

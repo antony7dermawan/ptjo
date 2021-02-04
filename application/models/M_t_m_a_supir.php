@@ -30,6 +30,17 @@ public function update($data, $id)
     return $akun->result ();
   }
 
+
+  public function select_by_id($id)
+  {
+    $this->db->select('*');
+    $this->db->from('T_M_A_SUPIR');
+    $this->db->where('ID',$id);
+    
+    $akun = $this->db->get ();
+    return $akun->result ();
+  }
+
   public function delete($id)
   {
     $this->db->where('ID',$id);

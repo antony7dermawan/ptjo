@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------
@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '18.216.115.189',
-	'username' => 'antony',
-	'password' => 'DZ}LPb^u7X<P3E@{',
-	'database' => 'ptjo',
+	'hostname' => 'localhost',
+	'username' => 'postgres',
+	'password' => '123',
+	'database' => 'offlinejo',
 	'dbdriver' => 'postgre',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

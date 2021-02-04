@@ -140,7 +140,7 @@ class C_t_ak_jurnal_create extends MY_Controller
         'DEPARTEMEN' => $value->DEPARTEMEN,
         'NO_VOUCER' => $value->NO_VOUCER,
         'CREATED_ID' => $created_id,
-        'CHECKED_ID' => 1,
+        'CHECKED_ID' => 0, //nol  belum di send
         'SPECIAL_ID' => 0
 
       );

@@ -117,7 +117,7 @@ class C_t_t_a_penjualan_pks extends MY_Controller
       'INV' => $inv,
       'INV_INT' => $inv_int,
       'ENABLE_EDIT' => 1,
-      'CHECKED_ID' => 1,
+      'CHECKED_ID' => 0, //nol belum di send to cloud
       'SPECIAL_ID' => 0
     );
 
@@ -131,7 +131,7 @@ class C_t_t_a_penjualan_pks extends MY_Controller
 
 
 
-
+/* versi offline no check
   public function checked_ok($id)
   {
     $data = array(
@@ -141,6 +141,7 @@ class C_t_t_a_penjualan_pks extends MY_Controller
     $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');
     redirect('/c_t_t_a_penjualan_pks');
   }
+  */
 
   public function edit_action()
   {

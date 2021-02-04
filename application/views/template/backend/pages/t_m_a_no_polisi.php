@@ -6,7 +6,33 @@
     <!-- Menampilkan notif !-->
     <?= $this->session->flashdata('notif') ?>
     <!-- Tombol untuk menambah data akun !-->
-    <button data-toggle="modal" data-target="#addModal" class="btn btn-success waves-effect waves-light">New Data</button>
+    <?php
+    if($this->session->userdata('level_user_id')==1)
+    {
+      ?>
+        <table>
+          <tr>
+            <th>
+              <input type='button' name='' class='btn btn-primary waves-effect waves-light' onclick='receive_from_cloud()' value='Receive From Cloud'>
+
+
+                <script>
+                function receive_from_cloud()
+                {
+                  if(confirm('Yakin Untuk Menarik Data?!?'))
+                  {
+                    window.open('receive_cloud/receive_t_m_a_no_polisi');
+                  }
+                  
+                }
+                </script>
+              </th>
+          </tr>
+        </table>
+      <?php
+    }
+    ?>
+
 
     <div class="table-responsive dt-responsive">
       <table id="dom-jqry" class="table table-striped table-bordered nowrap">
@@ -28,7 +54,8 @@
             echo "<td>".$value->NO_POLISI."</td>";
           
             echo "<td>";
-             
+            
+            /*
             echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#Modal_Edit' class='btn-edit' data-id='".$value->ID."'>";
               echo "<i class='icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green'></i>";
             echo "</a>";
@@ -38,7 +65,7 @@
             onclick="return confirm('Apakah kamu yakin ingin menghapus data ini?')"
             <?php
             echo "> <i class='feather icon-trash-2 f-w-600 f-16 text-c-red'></i></a>";
-
+            */
             echo "</td>";
 
 

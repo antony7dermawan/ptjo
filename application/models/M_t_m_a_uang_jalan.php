@@ -10,6 +10,15 @@ public function update($data, $id)
     return $this->db->update('T_M_A_UANG_JALAN', $data);
 }
 
+public function select_by_id($id)
+{
+  $this->db->select('*');
+  $this->db->from('T_M_A_UANG_JALAN');
+  $this->db->where('ID', $id);
+  $akun = $this->db->get ();
+  return $akun->result ();
+}
+
 
 
 

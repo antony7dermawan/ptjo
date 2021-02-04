@@ -145,7 +145,7 @@ public function select_inv_int()
     #$this->db->where('T_T_A_PENJUALAN_PKS.AREA_ID',$this->session->userdata('area_id'));
     $this->db->where('T_T_A_PENJUALAN_PKS.DATE',$date_penjualan_pks);
 
-    $this->db->order_by("T_T_A_PENJUALAN_PKS.ID", "asc");
+    $this->db->order_by("T_T_A_PENJUALAN_PKS.ID", "desc");
 
     $akun = $this->db->get ();
     return $akun->result ();

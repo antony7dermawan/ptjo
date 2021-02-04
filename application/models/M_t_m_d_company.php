@@ -16,9 +16,20 @@ public function update($data, $id)
 
 public function select_id($id)
 {
-  $this->db->select('COMPANY_ID');
+  $this->db->select('*');
   $this->db->from('T_M_D_COMPANY');
   $this->db->where('COMPANY', $id);
+  $akun = $this->db->get ();
+  return $akun->result ();
+}
+
+
+
+public function select_by_id($id)
+{
+  $this->db->select('*');
+  $this->db->from('T_M_D_COMPANY');
+  $this->db->where('ID', $id);
   $akun = $this->db->get ();
   return $akun->result ();
 }

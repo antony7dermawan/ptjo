@@ -21,6 +21,15 @@ public function select_id($id)
 }
 
 
+  public function select_by_id($id)
+  {
+    $this->db->select('*');
+    $this->db->from('AK_M_TYPE');
+    $this->db->where('ID',$id);
+    $akun = $this->db->get ();
+    return $akun->result ();
+  }
+
 
 
 

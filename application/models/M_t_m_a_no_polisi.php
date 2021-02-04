@@ -25,6 +25,15 @@ public function select_id($id)
   return $akun->result ();
 }
 
+public function select_by_id($id)
+{
+  $this->db->select('*');
+  $this->db->from('T_M_A_NO_POLISI');
+  $this->db->where('ID', $id);
+  $akun = $this->db->get ();
+  return $akun->result ();
+}
+
 
 
 

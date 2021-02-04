@@ -87,7 +87,7 @@ class C_t_ak_jurnal_edit extends MY_Controller
         'DEPARTEMEN' => $departemen,
         'NO_VOUCER' => $no_voucer,
         'CREATED_ID' => $created_id,
-        'CHECKED_ID' => 1,
+        'CHECKED_ID' => 0,
         'SPECIAL_ID' => 0
       );
 

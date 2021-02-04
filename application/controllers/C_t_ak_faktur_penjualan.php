@@ -69,6 +69,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
 
   function update_enable_edit($id,$sum_total_penjualan,$ppn_logic,$enable_edit)
   {
+    /*
     $read_select = $this->m_t_ak_faktur_penjualan->select_by_id($id);
     foreach ($read_select as $key => $value) 
     {
@@ -239,7 +240,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
       $this->m_t_ak_jurnal->tambah($data);
       #.....................................................................................done jurnal dpp
     }
-
+    */
     $data = array(
       'ENABLE_EDIT' => 0
     );
@@ -247,7 +248,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
     $this->m_t_ak_faktur_penjualan->update($data, $id);
 
     $this->session->set_flashdata('notif', "<div class='alert alert-info icons-alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'> <i class='icofont icofont-close-line-circled'></i></button><p><strong>TEST</strong></p></div>");
-
+    
     
     #$this->render_backend('template/backend/pages/laporan_pdf/faktur_penjualan_print/3', $data);
     #redirect('/laporan_pdf/faktur_penjualan_print/3');

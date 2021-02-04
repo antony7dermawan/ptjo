@@ -10,6 +10,32 @@
             <form action='/action_page.php'>
               <input type='date' class='form-control' name='date_penjualan_pks' value='<?= $this->session->userdata('date_penjualan_pks') ?>' onchange='this.form.submit();'>
           </th>
+          <?php
+            if($this->session->userdata('level_user_id')==1)
+            {
+              ?>
+                <th>
+                  <input type='button' name='' class='btn btn-primary waves-effect waves-light' onclick='send_to_cloud()' value='Send to Cloud'>
+
+
+                    <script>
+                    function send_to_cloud()
+                    {
+                      if(confirm('Sudah Yakin Data Ini Semua Benar?!?'))
+                      {
+                        window.open('send_cloud/send_t_t_a_penjualan_pks');
+                      }
+                      
+                    }
+                    </script>
+                  
+                </th>
+              <?php
+            }
+            ?>
+
+            
+          
         </tr>
       </table>
 
@@ -56,21 +82,24 @@
             echo "<td>" . $value->NO_TIKET . "</td>";
 
 
-            if ($value->ENABLE_EDIT == 1) {
+            if ($value->CHECKED_ID == 0) {
               echo "<td>";
 
-              $ok_color = 'red';
-              if ($value->CHECKED_ID == 1) {
+              /*$ok_color = 'red';
+              if ($value->CHECKED_ID == 1) 
+              {
                 $ok_color = 'green';
               }
               if ($value->SPECIAL_ID > 0) {
                 echo "<a href='" . site_url('c_t_t_a_penjualan_pks/checked_ok/' . $value->ID) . "' ";
-          ?>
+              ?>
                 onclick="return confirm('Apakah kamu yakin ini BENAR?')"
               <?php
 
                 echo "> <i class='fa fa-check f-w-600 f-16 text-c-" . $ok_color . "'></i></a>";
-              }
+              }*/
+              
+
 
               echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#Modal_Edit' class='btn-edit' data-id='" . $value->ID . "'>";
               echo "<i class='icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green'></i>";
@@ -79,15 +108,15 @@
               
               echo "<a href='" . site_url('c_t_t_a_penjualan_pks/delete/' . $value->ID) . "' ";
               ?>
-              onclick="return confirm('Apakah kamu yakin ingin menghapus data ini?')"
-          <?php
+                  onclick="return confirm('Apakah kamu yakin ingin menghapus data ini?')"
+              <?php
               echo "> <i class='feather icon-trash-2 f-w-600 f-16 text-c-red'></i></a>";
 
               echo "</td>";
             }
-            if ($value->ENABLE_EDIT == 0) {
+            if ($value->CHECKED_ID == 1) {
               echo "<td class='text-c-green'>";
-              echo "Sudah Ditagih";
+              echo "Sent";
               echo "</td>";
             }
 
