@@ -35,7 +35,7 @@
 
             public function index($date_from_laporan,$date_to_laporan)
             {
-              $total_baris_1_page = 44;
+              $total_baris_1_page = 45;
               $baris_1_page = 0;
                   $spreadsheet = new Spreadsheet();
 

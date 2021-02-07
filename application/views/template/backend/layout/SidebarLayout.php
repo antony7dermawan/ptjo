@@ -15,7 +15,7 @@
 
 <?php
 $level_user_id = $this->session->userdata('level_user_id');
-if($level_user_id==1)
+if($level_user_id==1 or $level_user_id==6)
 {
     ?>
     <li class="pcoded-hasmenu">
@@ -137,7 +137,7 @@ if($level_user_id==1)
 
 
 <?php
-if($level_user_id==1 or $level_user_id==2 or $level_user_id==3)
+if($level_user_id==1 or  $level_user_id==2 or $level_user_id==3 or $level_user_id==6)
 {
     ?>
     <!-- Menu ke dua -->
@@ -169,7 +169,7 @@ if($level_user_id==1 or $level_user_id==2 or $level_user_id==3)
 
 
 <?php
-if($level_user_id==1 or $level_user_id==2 or $level_user_id==4 or $level_user_id==5)
+if($level_user_id==1 or $level_user_id==2 or $level_user_id==4 or $level_user_id==5 or $level_user_id==6)
 {
     ?>
     <!-- Menu ke dua -->
@@ -194,7 +194,7 @@ if($level_user_id==1 or $level_user_id==2 or $level_user_id==4 or $level_user_id
         </ul>
 
         <?php
-        if($level_user_id==1 or $level_user_id==2 or $level_user_id==5)
+        if($level_user_id==1 or $level_user_id==2 or $level_user_id==5 or $level_user_id==6)
         {
             ?>
             <ul class="pcoded-submenu">
@@ -252,6 +252,17 @@ if($level_user_id==1)
     </li>
 
 
+    
+    <?php
+}
+
+?>
+
+
+<?php
+if($level_user_id==1 or $level_user_id==6)
+{
+    ?>
     <li class="pcoded-hasmenu">
         <a href="javascript:void(0)" class="waves-effect waves-dark">
             <span class="pcoded-micon"><i class="feather icon-layers"></i></span>
@@ -266,10 +277,17 @@ if($level_user_id==1)
             
         </ul>
     </li>
+
+
+    
     <?php
 }
 
 ?>
+
+
+
+
 
 
     
