@@ -40,6 +40,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
     $this->render_backend('template/backend/pages/t_ak_terima_pelanggan', $data);
   }
 
+
   public function undo($id)
   {
 
@@ -103,7 +104,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
           if ($db_k_id == 1) #kode 1 debit / 2 kredit
           {
             $data = array(
-              'DATE' => date('Y-m-d'),
+              'DATE' => $this->session->userdata('date_terima_pelanggan'),
               'TIME' => date('H:i:s'),
               'CREATED_BY' => $this->session->userdata('username'),
               'UPDATED_BY' => $this->session->userdata('username'),
@@ -121,7 +122,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
           if ($db_k_id == 2) #kode 1 debit / 2 kredit
           {
             $data = array(
-              'DATE' => date('Y-m-d'),
+              'DATE' => $this->session->userdata('date_terima_pelanggan'),
               'TIME' => date('H:i:s'),
               'CREATED_BY' => $this->session->userdata('username'),
               'UPDATED_BY' => $this->session->userdata('username'),
@@ -160,7 +161,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
           if ($db_k_id == 1) #kode 1 debit / 2 kredit
           {
             $data = array(
-              'DATE' => date('Y-m-d'),
+              'DATE' => $this->session->userdata('date_terima_pelanggan'),
               'TIME' => date('H:i:s'),
               'CREATED_BY' => $this->session->userdata('username'),
               'UPDATED_BY' => $this->session->userdata('username'),
@@ -178,7 +179,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
           if ($db_k_id == 2) #kode 1 debit / 2 kredit
           {
             $data = array(
-              'DATE' => date('Y-m-d'),
+              'DATE' => $this->session->userdata('date_terima_pelanggan'),
               'TIME' => date('H:i:s'),
               'CREATED_BY' => $this->session->userdata('username'),
               'UPDATED_BY' => $this->session->userdata('username'),
@@ -271,7 +272,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
       if ($db_k_id == 1) #kode 1 debit / 2 kredit
       {
         $data = array(
-          'DATE' => date('Y-m-d'),
+          'DATE' => $this->session->userdata('date_terima_pelanggan'),
           'TIME' => date('H:i:s'),
           'CREATED_BY' => $this->session->userdata('username'),
           'UPDATED_BY' => $this->session->userdata('username'),
@@ -289,7 +290,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
       if ($db_k_id == 2) #kode 1 debit / 2 kredit
       {
         $data = array(
-          'DATE' => date('Y-m-d'),
+          'DATE' => $this->session->userdata('date_terima_pelanggan'),
           'TIME' => date('H:i:s'),
           'CREATED_BY' => $this->session->userdata('username'),
           'UPDATED_BY' => $this->session->userdata('username'),
@@ -325,7 +326,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
       if ($db_k_id == 1) #kode 1 debit / 2 kredit
       {
         $data = array(
-          'DATE' => date('Y-m-d'),
+          'DATE' => $this->session->userdata('date_terima_pelanggan'),
           'TIME' => date('H:i:s'),
           'CREATED_BY' => $this->session->userdata('username'),
           'UPDATED_BY' => $this->session->userdata('username'),
@@ -343,7 +344,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
       if ($db_k_id == 2) #kode 1 debit / 2 kredit
       {
         $data = array(
-          'DATE' => date('Y-m-d'),
+          'DATE' => $this->session->userdata('date_terima_pelanggan'),
           'TIME' => date('H:i:s'),
           'CREATED_BY' => $this->session->userdata('username'),
           'UPDATED_BY' => $this->session->userdata('username'),
@@ -387,7 +388,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
       if ($db_k_id == 1) #kode 1 debit / 2 kredit
       {
         $data = array(
-          'DATE' => date('Y-m-d'),
+          'DATE' => $this->session->userdata('date_terima_pelanggan'),
           'TIME' => date('H:i:s'),
           'CREATED_BY' => $this->session->userdata('username'),
           'UPDATED_BY' => $this->session->userdata('username'),
@@ -405,7 +406,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
       if ($db_k_id == 2) #kode 1 debit / 2 kredit
       {
         $data = array(
-          'DATE' => date('Y-m-d'),
+          'DATE' => $this->session->userdata('date_terima_pelanggan'),
           'TIME' => date('H:i:s'),
           'CREATED_BY' => $this->session->userdata('username'),
           'UPDATED_BY' => $this->session->userdata('username'),
@@ -464,7 +465,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
       */
       
         $data = array(
-          'DATE' => date('Y-m-d'),
+          'DATE' => $this->session->userdata('date_terima_pelanggan'),
           'TIME' => date('H:i:s'),
           'CREATED_BY' => $this->session->userdata('username'),
           'UPDATED_BY' => $this->session->userdata('username'),
@@ -515,6 +516,12 @@ class C_t_ak_terima_pelanggan extends MY_Controller
 
     $no_form = substr($this->input->post("no_form"), 0, 50);
     $date = ($this->input->post("date"));
+
+
+    $date_terima_pelanggan = $date;
+    $this->session->set_userdata('date_terima_pelanggan', $date_terima_pelanggan);
+
+
 
     if($no_form!='')
     {

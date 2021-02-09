@@ -66,8 +66,8 @@ class C_t_t_a_penjualan_pks extends MY_Controller
 
 
 
-    $sortase_kg = floatval($bruto * $sortase_percentage) / 100; #rumus dari excel
-    $neto = $bruto - $sortase_kg; #rumus dari excel
+    $sortase_kg = intval(floatval($bruto * $sortase_percentage) / 100); #rumus dari excel
+    $neto = intval($bruto - $sortase_kg); #rumus dari excel
 
 
     $uang_jalan = 0;

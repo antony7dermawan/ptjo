@@ -161,7 +161,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Tanggal:
+          <h4 class="modal-title">Tanggal Transaksi
             <form action='/action_page.php'>
               <input type='date' class='form-control' name='date' value='<?= $this->session->userdata('date_terima_pelanggan') ?>'>
           </h4>
