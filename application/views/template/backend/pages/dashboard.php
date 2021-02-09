@@ -118,7 +118,7 @@
 
 
           <!-- !-->
-          <div class="col-xl-8 col-md-12">
+          <div class="col-md-12">
             <div class="card">
               <div class="card-header">
                 <h5>Rekap Transaksi Pengiriman</h5>
@@ -202,14 +202,26 @@
 
 
 
-          <div class="col-xl-4 col-md-12">
-            <div class="card sale-card">
+
+
+
+
+
+
+
+
+
+          <!-- !-->
+          <div class="col-xl-8 col-md-12">
+            <div class="card">
               <div class="card-header">
-                <h5>Hutang Supplier</h5>
+                <h5>Rekap Transaksi Pengiriman</h5>
+
+                
               </div>
               <div class="card-block">
-                <div id="realtime-profit" style="height:315px">
-                  <table id="order-table" class="table table-striped table-bordered nowrap">
+                <div class="dt-responsive table-responsive">
+                   <table id="order-table" class="table table-striped table-bordered nowrap">
                     <thead>
                       <th>Nama Akun</th>
                       <th>Saldo</th>
@@ -240,6 +252,10 @@
               </div>
             </div>
           </div>
+
+
+
+          
 
 
         </div>
