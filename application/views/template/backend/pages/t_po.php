@@ -58,7 +58,7 @@
 
 
 
-            /*
+            
               echo "<a "; #/1 ini artinya kena pajak
 
               echo "onclick= 'p_1_" . $key . "()'";
@@ -72,14 +72,14 @@
               echo "}";
               echo "</script>";
 
-            */
-        
-            if(intval($value->SUM_TOTAL)==0)
-            {
-              
+            
               echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#Modal_Edit' class='btn-edit' data-id='".$value->ID."'>";
               echo "<i class='icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green'></i>";
               echo "</a>";
+            if(intval($value->SUM_TOTAL)==0)
+            {
+              
+              
 
               echo "<a href='".site_url('c_t_po/delete/' . $value->ID)."' ";
               ?>
@@ -128,6 +128,26 @@
               <input type='text' class='form-control' placeholder='Input Number' name='supplier' value=''>
           </div>
 
+          <div class="row">
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Alamat Supplier</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='alamat_supplier'>
+              </fieldset>
+
+            </div><!-- Membungkus Row Kedua !-->
+
+
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Telp Supplier</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='telp_supplier'>  
+              </fieldset>
+            </div> <!-- Membungkus Row !-->
+          </div>
+
 
 
 
@@ -135,6 +155,83 @@
               <label>Keterangan</label>
               <textarea rows='4' cols='20' name='ket' id='' form='add_data' class='form-control'></textarea>
         </div>
+
+
+          <div class="row">
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Nama Penerima</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='nama_penerima'>
+              </fieldset>
+
+            </div><!-- Membungkus Row Kedua !-->
+
+
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Telp Penerima</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='telp_penerima'>  
+              </fieldset>
+            </div> <!-- Membungkus Row !-->
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Metode Pembayaran</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='payment_method'>
+              </fieldset>
+
+            </div><!-- Membungkus Row Kedua !-->
+
+
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Nama Bank</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='nama_bank'>  
+              </fieldset>
+            </div> <!-- Membungkus Row !-->
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Nomor Rekening</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='norek'>
+              </fieldset>
+
+            </div><!-- Membungkus Row Kedua !-->
+
+
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Atas Nama</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='atas_nama'>  
+              </fieldset>
+            </div> <!-- Membungkus Row !-->
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Cabang</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='cabang'>
+              </fieldset>
+
+            </div><!-- Membungkus Row Kedua !-->
+
+
+          </div>
 
 
 
@@ -168,27 +265,125 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+        
+
+
         <div class="modal-body">
-          <div class="row">
-            <div class="col-md-6">
-              <input type="hidden" name="id" value="" class="form-control">
-
-
+          <input type="hidden" name="id" value="" class="form-control">
+          <div class="form-group">
               <label>No PO</label>
               <input type='text' class='form-control' placeholder='Input Text' name='no_po' value=''>
               <label>Supplier</label>
               <input type='text' class='form-control' placeholder='Input Number' name='supplier' value=''>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Alamat Supplier</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='alamat_supplier'>
+              </fieldset>
 
             </div><!-- Membungkus Row Kedua !-->
 
-            <div class="form-group">
+
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Telp Supplier</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='telp_supplier'>  
+              </fieldset>
+            </div> <!-- Membungkus Row !-->
+          </div>
+
+
+
+
+        <div class="form-group">
               <label>Keterangan</label>
-              <textarea rows='4' cols='20' name='ket' id='' form='edit_data' class='form-control'></textarea>
-            </div>
+              <textarea rows='4' cols='20' name='ket' id='' form='add_data' class='form-control'></textarea>
+        </div>
+
+
+          <div class="row">
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Nama Penerima</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='nama_penerima'>
+              </fieldset>
+
+            </div><!-- Membungkus Row Kedua !-->
+
+
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Telp Penerima</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='telp_penerima'>  
+              </fieldset>
+            </div> <!-- Membungkus Row !-->
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Metode Pembayaran</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='payment_method'>
+              </fieldset>
+
+            </div><!-- Membungkus Row Kedua !-->
+
+
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Nama Bank</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='nama_bank'>  
+              </fieldset>
+            </div> <!-- Membungkus Row !-->
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Nomor Rekening</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='norek'>
+              </fieldset>
+
+            </div><!-- Membungkus Row Kedua !-->
+
+
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Atas Nama</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='atas_nama'>  
+              </fieldset>
+            </div> <!-- Membungkus Row !-->
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Cabang</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='cabang'>
+              </fieldset>
+
+            </div><!-- Membungkus Row Kedua !-->
+
+
+          </div>
 
 
 
-          </div> <!-- Membungkus Row !-->
         </div>
 
 
@@ -217,7 +412,17 @@
               ID,
               NO_PO: no_po,
               SUPPLIER: supplier,
-              KET: ket
+              KET: ket,
+              PAYMENT_METHOD: payment_method,
+              NAMA_BANK: nama_bank,
+              NOREK: norek,
+              ATAS_NAMA: atas_nama,
+              CABANG: cabang,
+              NAMA_PENERIMA: nama_penerima,
+              TELP_PENERIMA: telp_penerima,
+              TELP_SUPPLIER: telp_supplier,
+              ALAMAT_SUPPLIER: alamat_supplier
+
             } = User[0];
 
             elModalEdit.querySelector("[name=id]").value = ID;
@@ -226,6 +431,16 @@
             elModalEdit.querySelector("[name=no_po]").value = no_po;
             elModalEdit.querySelector("[name=supplier]").value = supplier;
             elModalEdit.querySelector("[name=ket]").value = ket;
+
+            elModalEdit.querySelector("[name=payment_method]").value = payment_method;
+            elModalEdit.querySelector("[name=nama_bank]").value = nama_bank;
+            elModalEdit.querySelector("[name=norek]").value = norek;
+            elModalEdit.querySelector("[name=atas_nama]").value = atas_nama;
+            elModalEdit.querySelector("[name=cabang]").value = cabang;
+            elModalEdit.querySelector("[name=nama_penerima]").value = nama_penerima;
+            elModalEdit.querySelector("[name=telp_penerima]").value = telp_penerima;
+            elModalEdit.querySelector("[name=telp_supplier]").value = telp_supplier;
+            elModalEdit.querySelector("[name=alamat_supplier]").value = alamat_supplier;
 
 
 
