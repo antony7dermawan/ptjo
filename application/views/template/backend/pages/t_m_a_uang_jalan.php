@@ -15,7 +15,7 @@
             <th>No</th>
             <th>No Polisi</th>
             <th>PKS</th>
-            <th>Divisi</th>
+            
             <th>Kendaraan</th>
             <th>Uang Jalan</th>
             <th>Action</th>
@@ -29,7 +29,7 @@
             echo "<td>".($key + 1)."</td>";
             echo "<td>".$value->NO_POLISI."</td>";
             echo "<td>".$value->PKS."</td>";
-            echo "<td>".$value->DIVISI."</td>";
+            //echo "<td>".$value->DIVISI."</td>";
             echo "<td>".$value->KENDARAAN."</td>";
             echo "<td>Rp".number_format(intval($value->UANG_JALAN))."</td>";
           
@@ -101,17 +101,7 @@
               </select>
             </div>
 
-            <div class="form-group">
-              <label>Divisi</label>
-              <select name="divisi_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
-              <?php
-              foreach ($c_t_m_a_divisi as $key => $value) 
-              {
-                echo "<option value='".$value->DIVISI_ID."'>".$value->DIVISI."</option>";
-              }
-              ?>
-              </select>
-            </div>
+            
 
             <div class="form-group">
               <label>Kendaraan</label>
@@ -199,20 +189,7 @@
 
 
 
-            <div class="form-group">
-              <label>Divisi</label>
-              <div class="searchable">
-                  <input type="text" name='divisi' placeholder="search" onkeyup="filterFunction(this,event)">
-                  <ul>
-                    <?php
-                    foreach ($c_t_m_a_divisi as $key => $value) 
-                    {
-                      echo "<li>".$value->DIVISI."</li>";
-                    }
-                    ?>
-                  </ul>
-              </div>
-            </div>
+            
 
 
 
@@ -266,7 +243,7 @@
         ID,
         NO_POLISI : no_polisi,
         PKS : pks,
-        DIVISI : divisi,
+        
         KENDARAAN : kendaraan,
         UANG_JALAN : uang_jalan
       } = User[0];
@@ -276,7 +253,7 @@
       
       elModalEdit.querySelector("[name=no_polisi]").value = no_polisi;
       elModalEdit.querySelector("[name=pks]").value = pks;
-      elModalEdit.querySelector("[name=divisi]").value = divisi;
+      
       elModalEdit.querySelector("[name=kendaraan]").value = kendaraan;
 
       elModalEdit.querySelector("[name=uang_jalan]").value = uang_jalan;
