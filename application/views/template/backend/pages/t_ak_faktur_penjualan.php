@@ -125,8 +125,12 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">New Data</h4>
+          <h4 class="modal-title"> Tanggal Transaksi
+            <form action='/action_page.php'>
+              <input type='date' class='form-control' name='date' value='<?= $this->session->userdata('date_faktur_penjualan') ?>'>
+          </h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            
             <span aria-hidden="true">&times;</span>
           </button>
         </div>

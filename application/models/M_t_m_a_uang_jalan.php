@@ -29,7 +29,7 @@ public function select_by_id($id)
     
     $this->db->where('NO_POLISI_ID',$no_polisi_id);
     $this->db->where('PKS_ID',$pks_id);
-    $this->db->where('DIVISI_ID',$divisi_id);
+    //$this->db->where('DIVISI_ID',$divisi_id);
     $this->db->where('KENDARAAN_ID',$kendaraan_id);
 
     $akun = $this->db->get ();
@@ -39,11 +39,11 @@ public function select_by_id($id)
 
   public function select()
   {
-    $this->db->select("T_M_A_UANG_JALAN.ID,T_M_A_UANG_JALAN.UANG_JALAN,T_M_A_NO_POLISI.NO_POLISI_ID,T_M_A_NO_POLISI.NO_POLISI,T_M_A_PKS.PKS_ID,T_M_A_PKS.PKS,T_M_A_DIVISI.DIVISI_ID,T_M_A_DIVISI.DIVISI,T_M_A_KENDARAAN.KENDARAAN_ID,T_M_A_KENDARAAN.KENDARAAN");
+    $this->db->select("T_M_A_UANG_JALAN.ID,T_M_A_UANG_JALAN.UANG_JALAN,T_M_A_NO_POLISI.NO_POLISI_ID,T_M_A_NO_POLISI.NO_POLISI,T_M_A_PKS.PKS_ID,T_M_A_PKS.PKS,T_M_A_KENDARAAN.KENDARAAN_ID,T_M_A_KENDARAAN.KENDARAAN");
     $this->db->from('T_M_A_UANG_JALAN');
     $this->db->join('T_M_A_NO_POLISI', 'T_M_A_NO_POLISI.NO_POLISI_ID = T_M_A_UANG_JALAN.NO_POLISI_ID', 'left');
     $this->db->join('T_M_A_PKS', 'T_M_A_PKS.PKS_ID = T_M_A_UANG_JALAN.PKS_ID', 'left');
-    $this->db->join('T_M_A_DIVISI', 'T_M_A_DIVISI.DIVISI_ID = T_M_A_UANG_JALAN.DIVISI_ID', 'left');
+    //$this->db->join('T_M_A_DIVISI', 'T_M_A_DIVISI.DIVISI_ID = T_M_A_UANG_JALAN.DIVISI_ID', 'left');
     $this->db->join('T_M_A_KENDARAAN', 'T_M_A_KENDARAAN.KENDARAAN_ID = T_M_A_UANG_JALAN.KENDARAAN_ID', 'left');
 
     $this->db->order_by("T_M_A_UANG_JALAN.ID", "asc");

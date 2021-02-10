@@ -26,9 +26,9 @@ class Receive_t_m_a_uang_jalan extends MY_Controller
         $r_id[] = ($value[0]);
         $r_no_polisi_id[] = ($value[1]);
         $r_pks_id[] = ($value[2]);
-        $r_divisi_id[] = ($value[3]);
-        $r_kendaraan_id[] = ($value[4]);
-        $r_uang_jalan[] = ($value[5]);
+        //$r_divisi_id[] = ($value[3]);
+        $r_kendaraan_id[] = ($value[3]);
+        $r_uang_jalan[] = ($value[4]);
       }
       foreach( array_keys($r_id) as $total_r_id){}
 
@@ -48,7 +48,7 @@ class Receive_t_m_a_uang_jalan extends MY_Controller
           $data = array(
             'NO_POLISI_ID' => $r_no_polisi_id[$i],
             'PKS_ID' => $r_pks_id[$i],
-            'DIVISI_ID' => $r_divisi_id[$i],
+            //'DIVISI_ID' => $r_divisi_id[$i],
             'KENDARAAN_ID' => $r_kendaraan_id[$i],
             'UANG_JALAN' => $r_uang_jalan[$i]
           );
@@ -62,7 +62,7 @@ class Receive_t_m_a_uang_jalan extends MY_Controller
             'ID' => $r_id[$i],
             'NO_POLISI_ID' => $r_no_polisi_id[$i],
             'PKS_ID' => $r_pks_id[$i],
-            'DIVISI_ID' => $r_divisi_id[$i],
+            //'DIVISI_ID' => $r_divisi_id[$i],
             'KENDARAAN_ID' => $r_kendaraan_id[$i],
             'UANG_JALAN' => $r_uang_jalan[$i]
           );

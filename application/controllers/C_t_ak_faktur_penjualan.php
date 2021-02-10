@@ -97,7 +97,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
       if($db_k_id==1)#kode 1 debit / 2 kredit
       {
         $data = array(
-        'DATE' => date('Y-m-d'),
+        'DATE' => $this->session->userdata('date_faktur_penjualan'),
         'TIME' => date('H:i:s'),
         'CREATED_BY' => $this->session->userdata('username'),
         'UPDATED_BY' => $this->session->userdata('username'),
@@ -115,7 +115,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
       if($db_k_id==2)#kode 1 debit / 2 kredit
       {
         $data = array(
-        'DATE' => date('Y-m-d'),
+        'DATE' => $this->session->userdata('date_faktur_penjualan'),
         'TIME' => date('H:i:s'),
         'CREATED_BY' => $this->session->userdata('username'),
         'UPDATED_BY' => $this->session->userdata('username'),
@@ -152,7 +152,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
       if($db_k_id==1)#kode 1 debit / 2 kredit
       {
         $data = array(
-        'DATE' => date('Y-m-d'),
+        'DATE' => $this->session->userdata('date_faktur_penjualan'),
         'TIME' => date('H:i:s'),
         'CREATED_BY' => $this->session->userdata('username'),
         'UPDATED_BY' => $this->session->userdata('username'),
@@ -170,7 +170,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
       if($db_k_id==2)#kode 1 debit / 2 kredit
       {
         $data = array(
-        'DATE' => date('Y-m-d'),
+        'DATE' => $this->session->userdata('date_faktur_penjualan'),
         'TIME' => date('H:i:s'),
         'CREATED_BY' => $this->session->userdata('username'),
         'UPDATED_BY' => $this->session->userdata('username'),
@@ -204,7 +204,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
       if($db_k_id==1)#kode 1 debit / 2 kredit
       {
         $data = array(
-        'DATE' => date('Y-m-d'),
+        'DATE' => $this->session->userdata('date_faktur_penjualan'),
         'TIME' => date('H:i:s'),
         'CREATED_BY' => $this->session->userdata('username'),
         'UPDATED_BY' => $this->session->userdata('username'),
@@ -222,7 +222,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
       if($db_k_id==2)#kode 1 debit / 2 kredit
       {
         $data = array(
-        'DATE' => date('Y-m-d'),
+        'DATE' => $this->session->userdata('date_faktur_penjualan'),
         'TIME' => date('H:i:s'),
         'CREATED_BY' => $this->session->userdata('username'),
         'UPDATED_BY' => $this->session->userdata('username'),
@@ -241,6 +241,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
       #.....................................................................................done jurnal dpp
     }
     */
+
     $data = array(
       'ENABLE_EDIT' => 0
     );
@@ -248,7 +249,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
     $this->m_t_ak_faktur_penjualan->update($data, $id);
 
     $this->session->set_flashdata('notif', "<div class='alert alert-info icons-alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'> <i class='icofont icofont-close-line-circled'></i></button><p><strong>TEST</strong></p></div>");
-    
+
     
     #$this->render_backend('template/backend/pages/laporan_pdf/faktur_penjualan_print/3', $data);
     #redirect('/laporan_pdf/faktur_penjualan_print/3');
@@ -260,7 +261,12 @@ class C_t_ak_faktur_penjualan extends MY_Controller
     $pks_id = intval($this->input->post("pks_id"));
     $keterangan = '';
     $no_faktur = substr($this->input->post("no_faktur"), 0, 100);
-    
+    $date = ($this->input->post("date"));
+
+    $date_faktur_penjualan = $date;
+    $this->session->set_userdata('date_faktur_penjualan', $date_faktur_penjualan);
+
+
     if($no_faktur!='')
     {
 
@@ -275,7 +281,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
       if($logic_no_faktur == 0)
       {
         $data = array(
-          'DATE' => date('Y-m-d'),
+          'DATE' => $date,
           'TIME' => date('H:i:s'),
           'PKS_ID' => $pks_id,
           'CREATED_BY' => $this->session->userdata('username'),

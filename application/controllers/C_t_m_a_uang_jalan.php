@@ -44,7 +44,7 @@ class C_t_m_a_uang_jalan extends MY_Controller
   {
     $no_polisi_id = intval($this->input->post("no_polisi_id"));
     $pks_id = intval($this->input->post("pks_id"));
-    $divisi_id = intval($this->input->post("divisi_id"));
+    //$divisi_id = intval($this->input->post("divisi_id"));
     $kendaraan_id = intval($this->input->post("kendaraan_id"));
     $uang_jalan = intval($this->input->post("uang_jalan"));
 
@@ -52,7 +52,7 @@ class C_t_m_a_uang_jalan extends MY_Controller
     $data = array(
       'NO_POLISI_ID' => $no_polisi_id,
       'PKS_ID' => $pks_id,
-      'DIVISI_ID' => $divisi_id,
+      //'DIVISI_ID' => $divisi_id,
       'KENDARAAN_ID' => $kendaraan_id,
       'UANG_JALAN' => $uang_jalan
     );
@@ -90,13 +90,13 @@ class C_t_m_a_uang_jalan extends MY_Controller
     }
 
 
-
+/*
     $divisi = ($this->input->post("divisi"));
     $read_select = $this->m_t_m_a_divisi->select_id($divisi);
     foreach ($read_select as $key => $value) {
       $divisi_id = $value->DIVISI_ID;
     }
-
+*/
 
 
     $kendaraan = ($this->input->post("kendaraan"));
@@ -110,7 +110,7 @@ class C_t_m_a_uang_jalan extends MY_Controller
     $data = array(
       'NO_POLISI_ID' => $no_polisi_id,
       'PKS_ID' => $pks_id,
-      'DIVISI_ID' => $divisi_id,
+      //'DIVISI_ID' => $divisi_id,
       'KENDARAAN_ID' => $kendaraan_id,
       'UANG_JALAN' => $uang_jalan
     );
