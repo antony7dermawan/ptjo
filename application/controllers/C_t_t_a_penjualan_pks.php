@@ -66,8 +66,8 @@ class C_t_t_a_penjualan_pks extends MY_Controller
 
 
 
-    $sortase_kg = intval(floatval($bruto * $sortase_percentage) / 100); #rumus dari excel
-    $neto = intval($bruto - $sortase_kg); #rumus dari excel
+    $sortase_kg = round(floatval($bruto * $sortase_percentage) / 100); #rumus dari excel
+    $neto = round($bruto - $sortase_kg); #rumus dari excel
 
 
     $uang_jalan = 0;
@@ -154,8 +154,8 @@ class C_t_t_a_penjualan_pks extends MY_Controller
     $harga = intval($this->input->post("harga"));
 
 
-    $sortase_kg = intval(floatval($bruto * $sortase_percentage) / 100); #rumus dari excel
-    $neto = intval($bruto - $sortase_kg); #rumus dari excel
+    $sortase_kg = round(floatval($bruto * $sortase_percentage) / 100); #rumus dari excel
+    $neto = round($bruto - $sortase_kg); #rumus dari excel
     $total_penjualan = $neto * $harga; #rumus dari excel
     $ppn = floatval($total_penjualan * 0.1);
 
