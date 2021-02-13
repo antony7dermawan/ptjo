@@ -41,6 +41,7 @@
         </thead>
         <tbody>
           <?php
+          $sum_total_penjualan = 0;
           foreach ($c_t_t_a_penjualan_pks as $key => $value) {
             echo "<tr>";
             echo "<td>" . ($key + 1) . "</td>";
@@ -55,6 +56,7 @@
             echo "<td>Rp" . number_format(intval($value->TOTAL_PENJUALAN)) . "</td>";
             echo "<td>" . $value->NO_TIKET . "</td>";
 
+            $sum_total_penjualan = $sum_total_penjualan+intval($value->TOTAL_PENJUALAN);
 
             if ($value->ENABLE_EDIT == 1) {
               echo "<td>";
@@ -65,7 +67,7 @@
               }
               if ($value->SPECIAL_ID > 0) {
                 echo "<a href='" . site_url('c_t_t_a_penjualan_pks/checked_ok/' . $value->ID) . "' ";
-          ?>
+              ?>
                 onclick="return confirm('Apakah kamu yakin ini BENAR?')"
               <?php
 
@@ -98,6 +100,23 @@
           }
           ?>
         </tbody>
+
+        <tfoot>
+          <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>Total</th>
+            <th>Rp<?=number_format(intval($sum_total_penjualan))?></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </tfoot>
+
+
       </table>
     </div>
   </div>

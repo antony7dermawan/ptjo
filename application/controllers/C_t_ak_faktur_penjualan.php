@@ -287,7 +287,8 @@ class C_t_ak_faktur_penjualan extends MY_Controller
           'KETERANGAN' => $keterangan,
           'NO_FAKTUR' => $no_faktur,
           'ENABLE_EDIT' => 1,
-          'TOTAL_PEMBAYARAN' => 0
+          'TOTAL_PEMBAYARAN' => 0,
+          'PAYMENT_T' =>0
         );
 
         $this->m_t_ak_faktur_penjualan->tambah($data);

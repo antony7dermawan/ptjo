@@ -134,6 +134,7 @@ class c_faktur_penjualan_print extends MY_Controller
       $dpp = $total_sub;
     }
 
+/*
     for($i=0;$i<=1;$i++)
     {
       $pdf->Cell( $size[0],6,'','L',0,'C');
@@ -145,6 +146,7 @@ class c_faktur_penjualan_print extends MY_Controller
       $pdf->Cell( $size[6]-0.1,6,'','L',0,'R');
       $pdf->Cell( 0.1,6,'','L',1,'R'); 
     }
+    */
 
     #.............................paper head end
     $pdf->Cell( $size[0]+$size[1]+$size[2]+$size[3]+$size[4],8,'Total Kuantitas   '.number_format(intval($total_kuantitas)),'1',0,'R');
@@ -218,7 +220,7 @@ class c_faktur_penjualan_print extends MY_Controller
       $setting_value=$value->SETTING_VALUE;
     }
     $pdf->Cell( 20,5,'','0',0,'L');
-    $pdf->Cell( 100,5,$setting_value,'0',1,'L');
+    $pdf->MultiCell(170, 8, substr($setting_value, 0, 500), '0', 'L',0,1);
 
 
 
@@ -256,13 +258,7 @@ class c_faktur_penjualan_print extends MY_Controller
     $pdf->Cell( 50,4,$setting_value,'0',1,'C');
 
 
-    $read_select = $this->m_t_ak_faktur_penjualan_print_setting->select_id(9);
-    foreach ($read_select as $key => $value) 
-    {
-      $setting_value=$value->SETTING_VALUE;
-    }
-    $pdf->Cell( 140,4,'','0',0,'L');
-    $pdf->Cell( 50,4,$setting_value,'0',1,'C');
+    
 
     $read_select = $this->m_t_ak_faktur_penjualan_print_setting->select_id(10);
     foreach ($read_select as $key => $value) 
@@ -272,7 +268,13 @@ class c_faktur_penjualan_print extends MY_Controller
     $pdf->Cell( 140,4,'','0',0,'L');
     $pdf->Cell( 50,4,$setting_value,'0',1,'C');
 
+    $read_select = $this->m_t_ak_faktur_penjualan_print_setting->select_id(9);
+    foreach ($read_select as $key => $value) 
+    {
+      $setting_value=$value->SETTING_VALUE;
+    }
     
+    $pdf->Cell( 190,4,$setting_value,'T',1,'C');
 
 
     $pdf->Output("faktur_penjualan_".$no_faktur.".pdf");
