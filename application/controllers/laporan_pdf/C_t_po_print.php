@@ -52,9 +52,9 @@ class C_t_po_print extends MY_Controller
     }
 
 
-    
+    $total_sub_1 = 0;
     $total_row_1_bon = 10;
-
+    $total_ppn = 0;
     $total_sub = 0;
     $read_select = $this->m_t_po_rincian->select($r_id);
     $sum_total_harga = 0;
@@ -69,21 +69,9 @@ class C_t_po_print extends MY_Controller
         {
           $pdf->AddPage();
         }
-        $pdf->Image('assets/images/logo-jo.jpg',10,10,0);
+        
 
-        $pdf->SetFont('','B',12);
-        $pdf->Cell(30, 11, "", 0, 0, 'L');
-        $pdf->Cell(100, 11, "PT. JO PERDANA AGRI TECHNOLOGY", 0, 1, 'L');
-
-        $pdf->SetFont('','',12);
-        $pdf->Cell(30, 8, "", 0, 0, 'L');
-        $pdf->Cell(100, 6, "JL. RAYA BENGKAYANG DUSUN BARABAS BARU 1 RT.1 RW.1", 0, 1, 'L');
-        $pdf->Cell(30, 8, "", 0, 0, 'L');
-        $pdf->Cell(100, 6, "MEKAR BARU - MONTERADO", 0, 1, 'L');
-        $pdf->Cell(30, 8, "", 0, 0, 'L');
-        $pdf->Cell(100, 6, "KALIMANTAN BARAT", 0, 1, 'L');
-
-        $pdf->Cell( 190,5,'','B',1,'C');
+        $pdf->Cell( 190,30,'','0',1,'C');
 
         $pdf->SetFont('','B',16);
         $pdf->Cell( 190,10,'Purchase Order','0',1,'C');
@@ -91,21 +79,21 @@ class C_t_po_print extends MY_Controller
         $pdf->SetFont('','',12);
 
         $pdf->Cell( 20,5,'Kepada','0',0,'L');
-        $pdf->Cell( 80,5,':'.$r_supplier,'0',0,'L');
+        $pdf->Cell( 95,5,':'.$r_supplier,'0',0,'L');
         $pdf->Cell( 20,5,'Tanggal','0',0,'L');
-        $pdf->Cell( 80,5,':'.date('d-m-Y', strtotime($r_date)),'0',1,'L');
+        $pdf->Cell( 95,5,':'.date('d-m-Y', strtotime($r_date)),'0',1,'L');
 
 
         $pdf->Cell( 20,5,'Alamat','0',0,'L');
-        $pdf->Cell( 80,5,':'.$r_alamat_supplier,'0',0,'L');
+        $pdf->Cell( 95,5,':'.$r_alamat_supplier,'0',0,'L');
         $pdf->Cell( 20,5,'NO PO','0',0,'L');
-        $pdf->Cell( 80,5,':'.$r_no_po,'0',1,'L');
+        $pdf->Cell( 95,5,':'.$r_no_po,'0',1,'L');
 
 
         $pdf->Cell( 20,5,'Telp','0',0,'L');
-        $pdf->Cell( 80,5,':'.$r_alamat_supplier,'0',0,'L');
+        $pdf->Cell( 95,5,':'.$r_telp_supplier,'0',0,'L');
         $pdf->Cell( 20,5,'Penerima','0',0,'L');
-        $pdf->Cell( 80,5,':'.$r_nama_penerima,'0',1,'L');
+        $pdf->Cell( 95,5,':'.$r_nama_penerima,'0',1,'L');
 
         $pdf->Cell( 20,5,'Lainnya','0',0,'L');
         $pdf->MultiCell(100, 5, ':'.substr($r_ket, 0, 200), 0, 'L',0,1);
@@ -138,10 +126,13 @@ class C_t_po_print extends MY_Controller
       $pdf->Cell( $size[2],6,$value->QTY,'L',0,'C');
       $pdf->Cell( $size[3],6,$value->SATUAN,'L',0,'C');
       $pdf->Cell( $size[4],6,number_format(intval($value->HARGA)),'L',0,'R');
-      $pdf->Cell( $size[5]-0.1,6,number_format(intval($value->SUB_TOTAL)),'L',0,'R');
+      $pdf->Cell( $size[5]-0.1,6,number_format(intval($value->HARGA)*intval($value->QTY)),'L',0,'R');
 
       $pdf->Cell( 0.1,6,'','L',1,'R');
 
+
+      $total_sub_1 = $total_sub_1 + intval($value->HARGA)*intval($value->QTY);
+      $total_ppn = $total_ppn+intval($value->PPN);
       $total_sub = $total_sub+intval($value->SUB_TOTAL);
       $dpp = $total_sub;
     }
@@ -157,7 +148,15 @@ class C_t_po_print extends MY_Controller
       $pdf->Cell( 0.1,6,'','L',1,'R'); 
     }
 
+
+    $nilai_ppn = $total_ppn/($key+1);
     #.............................paper head end
+    $pdf->Cell( $size[0]+$size[1]+$size[2]+$size[3]+$size[4],8,'Sub Total','1',0,'R');
+    $pdf->Cell( $size[5],8,number_format(intval($total_sub_1)),'1',1,'R');
+
+    $pdf->Cell( $size[0]+$size[1]+$size[2]+$size[3]+$size[4],8,'PPN('.$nilai_ppn.'%)','1',0,'R');
+    $pdf->Cell( $size[5],8,number_format((intval($total_sub_1)*$nilai_ppn)/100),'1',1,'R');
+
     $pdf->Cell( $size[0]+$size[1]+$size[2]+$size[3]+$size[4],8,'Total','1',0,'R');
     $pdf->Cell( $size[5],8,number_format(intval($total_sub)),'1',1,'R');
 
