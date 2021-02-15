@@ -21,6 +21,8 @@ class C_t_ak_jurnal_history_print extends MY_Controller
   public function index()
   {
     $pdf = new \TCPDF();
+    $pdf->SetPrintHeader(false);
+    $pdf->SetPrintFooter(false);
     $pdf->AddPage('P', 'mm', 'A4');
     $pdf->SetAutoPageBreak(true, 0);
  
@@ -86,6 +88,8 @@ class C_t_ak_jurnal_history_print extends MY_Controller
       $rmd=($rmd-(int)$rmd)*$total_baris_1_bon;
       if($i>$total_baris_1_bon and $rmd==0)
       {
+        $pdf->SetPrintHeader(false);
+        $pdf->SetPrintFooter(false);
         $pdf->AddPage('P', 'mm', 'A4');
         $pdf->SetFont('','B',12);
         $pdf->Cell(90, 11, "PT. JO PERDANA AGRI TECHNOLOGY", 0, 0, 'L');

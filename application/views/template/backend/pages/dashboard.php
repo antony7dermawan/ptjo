@@ -74,6 +74,7 @@
                     <thead>
                       <tr>
                         <th>No</th>
+                        <th>PKS</th>
                         <th>No Faktur</th>
                         <th>Tanggal</th>
                         <th>Jumlah</th>
@@ -84,6 +85,7 @@
                       foreach ($select_no_faktur as $key => $value) {
                         echo "<tr>";
                         echo "<td>" . ($key + 1) . "</td>";
+                        echo "<td>" . $value->PKS . "</td>";
                         echo "<td>" . $value->NO_FAKTUR . "</td>";
                         echo "<td>" . date('d-m-Y', strtotime($value->DATE)) . "</td>";
                         echo "<td>Rp" . number_format(intval($value->SUM_TOTAL_PENJUALAN)) . "</td>";
@@ -215,7 +217,7 @@
           <div class="col-xl-8 col-md-12">
             <div class="card">
               <div class="card-header">
-                <h5>Rekap Transaksi Pengiriman</h5>
+                <h5>Hutang Supplier</h5>
 
                 
               </div>

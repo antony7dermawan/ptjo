@@ -42,6 +42,9 @@
         <tbody>
           <?php
           $sum_total_penjualan = 0;
+          $sum_bruto = 0;
+          $sum_neto = 0;
+          $sum_uang_jalan = 0;
           foreach ($c_t_t_a_penjualan_pks as $key => $value) {
             echo "<tr>";
             echo "<td>" . ($key + 1) . "</td>";
@@ -57,7 +60,9 @@
             echo "<td>" . $value->NO_TIKET . "</td>";
 
             $sum_total_penjualan = $sum_total_penjualan+intval($value->TOTAL_PENJUALAN);
-
+            $sum_bruto = $sum_bruto + $value->BRUTO;
+            $sum_neto = $sum_neto + (intval($value->NETO * 100) / 100);
+            $sum_uang_jalan = $sum_uang_jalan + intval($value->UANG_JALAN + $value->TAMBAHAN);
             if ($value->ENABLE_EDIT == 1) {
               echo "<td>";
 
@@ -105,11 +110,11 @@
           <tr>
             <th></th>
             <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
             <th>Total</th>
+            <th><?=number_format(intval($sum_bruto))?></th>
+            <th></th>
+            <th><?=number_format(intval($sum_neto))?></th>
+            <th>Rp<?=number_format(intval($sum_uang_jalan))?></th>
             <th>Rp<?=number_format(intval($sum_total_penjualan))?></th>
             <th></th>
             <th></th>

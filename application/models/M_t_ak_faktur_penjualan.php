@@ -25,6 +25,9 @@ public function select_no_faktur()
     $this->db->select("T_AK_FAKTUR_PENJUALAN.ENABLE_EDIT");
 
 
+    $this->db->select("T_M_A_PKS.PKS");
+
+
     $this->db->select("T_AK_FAKTUR_PENJUALAN.PAYMENT_T");
 
     $this->db->select("SUM_TOTAL_PENJUALAN");
@@ -33,7 +36,7 @@ public function select_no_faktur()
     $this->db->from("T_AK_FAKTUR_PENJUALAN");
     $this->db->join('T_AK_TERIMA_PELANGGAN_NO_FAKTUR', 'T_AK_TERIMA_PELANGGAN_NO_FAKTUR.FAKTUR_PENJUALAN_ID = T_AK_FAKTUR_PENJUALAN.ID', 'left');
 
-
+    $this->db->join('T_M_A_PKS', 'T_M_A_PKS.PKS_ID = T_AK_FAKTUR_PENJUALAN.PKS_ID', 'left');
 
 
     $this->db->join("(select \"T_AK_FAKTUR_PENJUALAN_RINCIAN\".\"FAKTUR_PENJUALAN_ID\",sum(\"T_T_A_PENJUALAN_PKS\".\"TOTAL_PENJUALAN\") as \"SUM_TOTAL_PENJUALAN\" from \"T_T_A_PENJUALAN_PKS\" LEFT OUTER JOIN \"T_AK_FAKTUR_PENJUALAN_RINCIAN\" ON \"T_AK_FAKTUR_PENJUALAN_RINCIAN\".\"PENJUALAN_PKS_ID\" = \"T_T_A_PENJUALAN_PKS\".\"ID\" group by \"FAKTUR_PENJUALAN_ID\") as t_sum", 'T_AK_FAKTUR_PENJUALAN.ID = t_sum.FAKTUR_PENJUALAN_ID', 'left');

@@ -16,6 +16,8 @@ class c_faktur_penjualan_print extends MY_Controller
   public function index($id,$pks_id)
   {
     $pdf = new \TCPDF();
+    $pdf->SetPrintHeader(false);
+    $pdf->SetPrintFooter(false);
     $pdf->AddPage('P', 'mm', 'A4');
     $pdf->SetAutoPageBreak(true, 0);
  
@@ -60,6 +62,8 @@ class c_faktur_penjualan_print extends MY_Controller
       {
         if($key>=$total_row_1_bon and $rmd==0)
         {
+          $pdf->SetPrintHeader(false);
+          $pdf->SetPrintFooter(false);
           $pdf->AddPage();
         }
         $pdf->Image('assets/images/logo-jo.jpg',10,10,0);
@@ -219,8 +223,8 @@ class c_faktur_penjualan_print extends MY_Controller
     {
       $setting_value=$value->SETTING_VALUE;
     }
-    $pdf->Cell( 20,5,'','0',0,'L');
-    $pdf->MultiCell(170, 8, substr($setting_value, 0, 500), '0', 'L',0,1);
+    
+    $pdf->MultiCell(190, 8, substr($setting_value, 0, 500), '0', 'L',0,1);
 
 
 
@@ -233,15 +237,17 @@ class c_faktur_penjualan_print extends MY_Controller
     $pdf->MultiCell(190 ,10,$setting_value,0,'L');
 
 
-
     $pdf->SetFont('','',9);
-    $read_select = $this->m_t_ak_faktur_penjualan_print_setting->select_id(11);
+    $read_select = $this->m_t_ak_faktur_penjualan_print_setting->select_id(12);
     foreach ($read_select as $key => $value) 
     {
       $setting_value=$value->SETTING_VALUE;
     }
     $pdf->Cell( 140,5,'','0',0,'L');
     $pdf->Cell( 50,5,$setting_value.','.date('d-m-Y'),'0',1,'C');
+
+    $pdf->SetFont('','',9);
+    
 
 
 
@@ -268,13 +274,24 @@ class c_faktur_penjualan_print extends MY_Controller
     $pdf->Cell( 140,4,'','0',0,'L');
     $pdf->Cell( 50,4,$setting_value,'0',1,'C');
 
+
+    $read_select = $this->m_t_ak_faktur_penjualan_print_setting->select_id(11);
+    foreach ($read_select as $key => $value) 
+    {
+      $setting_value=$value->SETTING_VALUE;
+    }
+    $pdf->Cell( 140,5,'','0',0,'L');
+    $pdf->Cell( 50,5,$setting_value,'0',1,'C');
+
+    
+
     $read_select = $this->m_t_ak_faktur_penjualan_print_setting->select_id(9);
     foreach ($read_select as $key => $value) 
     {
       $setting_value=$value->SETTING_VALUE;
     }
     
-    $pdf->Cell( 190,4,$setting_value,'T',1,'C');
+    $pdf->Cell( 190,4,$setting_value,'0',1,'C');
 
 
     $pdf->Output("faktur_penjualan_".$no_faktur.".pdf");

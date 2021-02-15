@@ -15,9 +15,11 @@ class C_t_po_print extends MY_Controller
   public function index($id)
   {
     $pdf = new \TCPDF();
+    $pdf->SetPrintHeader(false);
+    $pdf->SetPrintFooter(false);
     $pdf->AddPage('P', 'mm', 'A4');
     $pdf->SetAutoPageBreak(true, 0);
- 
+    
         // Add Header
     
     #.............................paper head
@@ -67,6 +69,8 @@ class C_t_po_print extends MY_Controller
       {
         if($key>=$total_row_1_bon and $rmd==0)
         {
+          $pdf->SetPrintHeader(false);
+          $pdf->SetPrintFooter(false);
           $pdf->AddPage();
         }
         
@@ -186,7 +190,7 @@ class C_t_po_print extends MY_Controller
 
         $pdf->Cell( 40,5,'','B',0,'L');
         $pdf->Cell( 110,5,'',0,0,'L');
-        $pdf->Cell( 40,5,'','B',1,'R');
+        $pdf->Cell( 40,5,'Nata, B.Sc','B',1,'C');
 
 
         $pdf->Cell( 80,5,'','0',1,'L');
@@ -213,13 +217,13 @@ class C_t_po_print extends MY_Controller
 
 
         $pdf->Cell( 0.01,10,'','L',0,'L');
-        $pdf->Cell( 45,10,'','B',0,'L');
+        $pdf->Cell( 45,10,'Yenny Salean','B',0,'L');
         $pdf->Cell( 0.01,10,'','L',0,'L');
         $pdf->Cell( 45,10,'Jabatan: Direktur','B',0,'L');
         $pdf->Cell( 0.01,10,'','L',0,'L');
         $pdf->Cell( 10,10,'','0',0,'L');
         $pdf->Cell( 0.01,10,'','L',0,'L');
-        $pdf->Cell( 45,10,'','B',0,'L');
+        $pdf->Cell( 45,10,'Christopher, B.Sc','B',0,'L');
         $pdf->Cell( 0.01,10,'','L',0,'L');
         $pdf->Cell( 45,10,'Jabatan: Direktur Utama','B',0,'L');
         $pdf->Cell( 0.01,10,'','L',1,'L');
