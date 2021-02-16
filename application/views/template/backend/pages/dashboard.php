@@ -232,8 +232,7 @@
                     <tbody>
                       <?php
                       foreach ($c_setting_db_supplier_coa as $key => $value) {
-                        echo "<tr>";
-                        echo "<td>" . $value->NAMA_AKUN . "</td>";
+                        
 
 
                         if ($value->DB_K_ID == 1) {
@@ -242,10 +241,16 @@
                         if ($value->DB_K_ID == 2) {
                           $read_saldo = $value->SUM_KREDIT - $value->SUM_DEBIT;
                         }
-                        echo "<td> Rp" . number_format(intval($read_saldo)) . "</td>";
 
+                        
 
-                        echo "</tr>";
+                        if($read_saldo>0)
+                        {
+                          echo "<tr>";
+                          echo "<td>" . $value->NAMA_AKUN . "</td>";
+                          echo "<td> Rp" . number_format(intval($read_saldo)) . "</td>";
+                          echo "</tr>";
+                        }
                       }
                       ?>
                     </tbody>

@@ -77,27 +77,28 @@ class C_t_po_print extends MY_Controller
 
         $pdf->Cell( 190,30,'','0',1,'C');
 
-        $pdf->SetFont('','B',16);
+        $pdf->SetFont('','B',14);
         $pdf->Cell( 190,10,'Purchase Order','0',1,'C');
 
-        $pdf->SetFont('','',12);
+        $pdf->SetFont('','',11);
 
         $pdf->Cell( 20,5,'Kepada','0',0,'L');
-        $pdf->Cell( 95,5,':'.$r_supplier,'0',0,'L');
+        $pdf->Cell( 75,5,':'.$r_supplier,'0',0,'L');
         $pdf->Cell( 20,5,'Tanggal','0',0,'L');
-        $pdf->Cell( 95,5,':'.date('d-m-Y', strtotime($r_date)),'0',1,'L');
+        $pdf->Cell( 75,5,':'.date('d-m-Y', strtotime($r_date)),'0',1,'L');
 
 
-        $pdf->Cell( 20,5,'Alamat','0',0,'L');
-        $pdf->Cell( 95,5,':'.$r_alamat_supplier,'0',0,'L');
-        $pdf->Cell( 20,5,'NO PO','0',0,'L');
-        $pdf->Cell( 95,5,':'.$r_no_po,'0',1,'L');
+        $pdf->MultiCell(20, 10, 'Alamat', '0', 'L',0,0);
+        $pdf->MultiCell(75, 10,':'.substr($r_alamat_supplier, 0, 200), '0', 'L',0,0);
+        $pdf->Cell( 20,10,'NO PO','0',0,'L');
+        $pdf->Cell( 75,10,':'.$r_no_po,'0',1,'L');
+
 
 
         $pdf->Cell( 20,5,'Telp','0',0,'L');
-        $pdf->Cell( 95,5,':'.$r_telp_supplier,'0',0,'L');
+        $pdf->Cell( 75,5,':'.$r_telp_supplier,'0',0,'L');
         $pdf->Cell( 20,5,'Penerima','0',0,'L');
-        $pdf->Cell( 95,5,':'.$r_nama_penerima,'0',1,'L');
+        $pdf->Cell( 75,5,':'.$r_nama_penerima,'0',1,'L');
 
         $pdf->Cell( 20,5,'Lainnya','0',0,'L');
         $pdf->MultiCell(100, 5, ':'.substr($r_ket, 0, 200), 0, 'L',0,1);
@@ -106,13 +107,13 @@ class C_t_po_print extends MY_Controller
 
         $pdf->Cell( 100,3,'','0',1,'L');
 
-        $pdf->SetFont('','B',13);
+        $pdf->SetFont('','B',9);
         $size[0]=10;
-        $size[1]=70;
+        $size[1]=90;
         $size[2]=20;
         $size[3]=20;
         $size[4]=25;
-        $size[5]=50;
+        $size[5]=30;
         $size[6]=50;
         
         $pdf->Cell( $size[0],8,'No.','1',0,'C');
@@ -124,7 +125,7 @@ class C_t_po_print extends MY_Controller
       }
       
       
-      $pdf->SetFont('','',10);
+      $pdf->SetFont('','',11);
       $pdf->Cell( $size[0],6,$key+1,'L',0,'C');
       $pdf->Cell( $size[1],6,$value->NAMA_BARANG,'L',0,'L');
       $pdf->Cell( $size[2],6,$value->QTY,'L',0,'C');
@@ -141,6 +142,7 @@ class C_t_po_print extends MY_Controller
       $dpp = $total_sub;
     }
 
+    /*
     for($i=0;$i<=1;$i++)
     {
       $pdf->Cell( $size[0],6,'','L',0,'C');
@@ -151,6 +153,8 @@ class C_t_po_print extends MY_Controller
       $pdf->Cell( $size[5]-0.1,6,'','L',0,'R');
       $pdf->Cell( 0.1,6,'','L',1,'R'); 
     }
+
+    */
 
 
     $nilai_ppn = $total_ppn/($key+1);
