@@ -16,7 +16,7 @@
             <th>NO AKUN</th>
             <th>Nama Akun</th>
             <th>Type</th>
-            <th>Saldo</th>
+            
             <th>Db/K</th>
             <th>Family</th>
             <th>Action</th>
@@ -44,7 +44,7 @@
               }
               echo "<td class='parent_1'>".$value->NAMA_AKUN."</td>";
               echo "<td class='parent_1'>".$value->TYPE."</td>";
-              echo "<td class='parent_1'>Rp".number_format(intval($value->SALDO))."</td>";
+              //echo "<td class='parent_1'>Rp".number_format(intval($value->SALDO))."</td>";
               echo "<td class='parent_1'>".$value->DB_K."</td>";
               echo "<td class='parent_1'>".$value->FAMILY."</td>";
             }
@@ -65,7 +65,7 @@
               }
               echo "<td class='parent_2'>".$value->NAMA_AKUN."</td>";
               echo "<td class='parent_2'>".$value->TYPE."</td>";
-              echo "<td class='parent_2'>Rp".number_format(intval($value->SALDO))."</td>";
+              //echo "<td class='parent_2'>Rp".number_format(intval($value->SALDO))."</td>";
               echo "<td class='parent_2'>".$value->DB_K."</td>";
               echo "<td class='parent_2'>".$value->FAMILY."</td>";
             }
@@ -87,7 +87,7 @@
               
               echo "<td class='parent_3'>".$value->NAMA_AKUN."</td>";
               echo "<td class='parent_3'>".$value->TYPE."</td>";
-              echo "<td class='parent_3'>Rp".number_format(intval($value->SALDO))."</td>";
+              //echo "<td class='parent_3'>Rp".number_format(intval($value->SALDO))."</td>";
               echo "<td class='parent_3'>".$value->DB_K."</td>";
               echo "<td class='parent_3'>".$value->FAMILY."</td>";
             }
