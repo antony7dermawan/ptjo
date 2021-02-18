@@ -236,8 +236,6 @@ class C_t_ak_jurnal_edit extends MY_Controller
 
     //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
     $data = array(
-      'DATE' => date('Y-m-d'),
-      'TIME' => date('H:i:s'),
       'UPDATED_BY' => $this->session->userdata('username'),
       'DEBIT' => $debit,
       'KREDIT' => $kredit,
