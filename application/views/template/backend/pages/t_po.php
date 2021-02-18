@@ -32,6 +32,7 @@
             <th>No Po</th>
             <th>Supplier</th>
             <th>Jumlah</th>
+            <th>Jatuh Tempo</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -53,6 +54,30 @@
             echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
             echo " Rp" . number_format(intval($value->SUM_TOTAL)) . "</td>";
             //satu button
+
+
+            
+
+
+            echo "<td>";
+              $ok_color = 'red';
+              if ($value->ENABLE_EDIT == 0) {
+                $ok_color = 'green';
+              }
+              if ($value->ENABLE_EDIT >= 0) {
+                echo "<a href='" . site_url('c_t_po/checked_ok/' . $value->ID) . "' ";
+              ?>
+                onclick="return confirm('Apakah kamu yakin ini BENAR?')"
+              <?php
+
+                echo "> <i class='fa fa-check f-w-600 f-16 text-c-" . $ok_color . "'></i></a>";
+              }
+
+              echo date('d-m-Y', strtotime($value->EXPIRE_DATE));
+            echo "</td>";
+
+
+
 
             echo "<td>";
 
@@ -121,11 +146,34 @@
 
         <div class="modal-body">
           
+          
+          <div class="row">
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                
+
+                <label>No PO</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='no_po' value=''>
+              </fieldset>
+
+            </div><!-- Membungkus Row Kedua !-->
+
+
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Expire Date</label>
+                <form action='/action_page.php'>
+                <input type='date' class='form-control' name='expire_date' value='<?= $this->session->userdata('date_jurnal_create') ?>'>
+              </fieldset>
+            </div> <!-- Membungkus Row !-->
+          </div>
+
           <div class="form-group">
-              <label>No PO</label>
-              <input type='text' class='form-control' placeholder='Input Text' name='no_po' value=''>
               <label>Supplier</label>
               <input type='text' class='form-control' placeholder='Input Number' name='supplier' value=''>
+              
           </div>
 
           <div class="row">
@@ -270,9 +318,32 @@
 
         <div class="modal-body">
           <input type="hidden" name="id" value="" class="form-control">
+
+          <div class="row">
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                
+
+                <label>No PO</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='no_po' value=''>
+              </fieldset>
+
+            </div><!-- Membungkus Row Kedua !-->
+
+
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Expire Date</label>
+                <form action='/action_page.php'>
+                <input type='date' class='form-control' name='expire_date' value=''>
+              </fieldset>
+            </div> <!-- Membungkus Row !-->
+          </div>
+
           <div class="form-group">
-              <label>No PO</label>
-              <input type='text' class='form-control' placeholder='Input Text' name='no_po' value=''>
+              
               <label>Supplier</label>
               <input type='text' class='form-control' placeholder='Input Number' name='supplier' value=''>
           </div>
@@ -421,7 +492,8 @@
               NAMA_PENERIMA: nama_penerima,
               TELP_PENERIMA: telp_penerima,
               TELP_SUPPLIER: telp_supplier,
-              ALAMAT_SUPPLIER: alamat_supplier
+              ALAMAT_SUPPLIER: alamat_supplier,
+              EXPIRE_DATE: expire_date
 
             } = User[0];
 
@@ -441,6 +513,7 @@
             elModalEdit.querySelector("[name=telp_penerima]").value = telp_penerima;
             elModalEdit.querySelector("[name=telp_supplier]").value = telp_supplier;
             elModalEdit.querySelector("[name=alamat_supplier]").value = alamat_supplier;
+            elModalEdit.querySelector("[name=expire_date]").value = expire_date;
 
 
 

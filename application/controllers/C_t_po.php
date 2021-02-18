@@ -39,8 +39,21 @@ class C_t_po extends MY_Controller
 
 
 
+  public function checked_ok($id)
+  {
+    $data = array(
+      'ENABLE_EDIT' => 0
+    );
+    $this->m_t_po->update($data, $id);
+    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');
+    redirect('/c_t_po');
+  }
+
+
+
   function tambah()
   {
+    $expire_date = ($this->input->post("expire_date"));
     $date = ($this->input->post("date"));
     $no_po = substr($this->input->post("no_po"), 0, 100);
     $supplier = substr($this->input->post("supplier"), 0, 100);
@@ -59,7 +72,7 @@ class C_t_po extends MY_Controller
 
 
     
-    
+    $this->session->set_userdata('date_po', $date);
 
     $data = array(
       'DATE' => $date,
@@ -77,7 +90,10 @@ class C_t_po extends MY_Controller
       'NAMA_PENERIMA' => $nama_penerima,
       'TELP_PENERIMA' => $telp_penerima,
       'TELP_SUPPLIER' => $telp_supplier,
-      'ALAMAT_SUPPLIER' => $alamat_supplier
+      'ALAMAT_SUPPLIER' => $alamat_supplier,
+      'EXPIRE_DATE' => $expire_date,
+      'ENABLE_EDIT' => 1
+      
     );
 
     $this->m_t_po->tambah($data);
@@ -93,7 +109,7 @@ class C_t_po extends MY_Controller
   {
     $id = $this->input->post("id");
 
-
+    $expire_date = ($this->input->post("expire_date"));
     $no_po = substr($this->input->post("no_po"), 0, 100);
     $supplier = substr($this->input->post("supplier"), 0, 100);
     $ket = substr($this->input->post("ket"), 0, 500);
@@ -123,7 +139,8 @@ class C_t_po extends MY_Controller
       'NAMA_PENERIMA' => $nama_penerima,
       'TELP_PENERIMA' => $telp_penerima,
       'TELP_SUPPLIER' => $telp_supplier,
-      'ALAMAT_SUPPLIER' => $alamat_supplier
+      'ALAMAT_SUPPLIER' => $alamat_supplier,
+      'EXPIRE_DATE' => $expire_date
     );
     $this->m_t_po->update($data, $id);
     $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');

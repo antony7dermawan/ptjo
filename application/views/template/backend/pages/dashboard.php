@@ -111,9 +111,6 @@
                   </table>
                 </div>
               </div>
-
-
-
             </div>
           </div>
 
@@ -206,6 +203,84 @@
 
 
 
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h5>PO yang Belum Dibayarkan</h5>
+                <span>List PO Belum Dibayarkan</span>
+
+              </div>
+              <div class="card-block">
+
+                <div class="table-responsive dt-responsive">
+                  <table id="dom-jqry" class="table table-striped table-bordered nowrap">
+                    <thead>
+                      <tr>
+                        <th>No</th>
+                        <th>Date/Time</th>
+                        <th>No Po</th>
+                        <th>Supplier</th>
+                        <th>Jumlah</th>
+                        <th>Jatuh Tempo</th>
+                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php
+                      foreach ($c_t_po as $key => $value) {
+                        echo "<tr>";
+                        echo "<td>" . ($key + 1) . "</td>";
+                        echo "<td>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) ." / " . ($value->CREATED_BY) . "</td>";
+
+                        echo "<td>" . $value->NO_PO . "</td>";
+                        echo "<td>" . $value->SUPPLIER . "</td>";
+
+
+                        //satu button
+                        echo "<td>";
+                        echo "<a href='" . site_url('c_t_po_rincian/index/' . $value->ID) .  "' ";
+                        echo "onclick=\"return confirm('Lanjut?')\"";
+                        echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
+                        echo " Rp" . number_format(intval($value->SUM_TOTAL)) . "</td>";
+                        //satu button
+
+
+                        
+
+
+                        echo "<td>";
+                          $ok_color = 'red';
+                          if ($value->ENABLE_EDIT == 0) {
+                            $ok_color = 'green';
+                          }
+                          if ($value->ENABLE_EDIT >= 0) {
+                            echo "<a href='" . site_url('c_dashboard/checked_ok/' . $value->ID) . "' ";
+                          ?>
+                            onclick="return confirm('Apakah kamu yakin ini BENAR?')"
+                          <?php
+
+                            echo "> <i class='fa fa-check f-w-600 f-16 text-c-" . $ok_color . "'></i></a>";
+                          }
+
+                          echo date('d-m-Y', strtotime($value->EXPIRE_DATE));
+                        echo "</td>";
+
+
+
+
+                        
+
+
+
+                        echo "</tr>";
+                      }
+                      ?>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
 
 
 
