@@ -156,7 +156,7 @@
                             $sheet->setCellValue('C'.$row, $r_no_po[$i]);
                             $sheet->getStyle('C'.$row)->getAlignment()->setHorizontal('center');
                             $sheet->setCellValue('D'.$row, $value->NAMA_BARANG);
-                            $sheet->getStyle('D'.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->getStyle('D'.$row)->getAlignment()->setHorizontal('left');
                             $sheet->setCellValue('E'.$row, $value->QTY);
                             $sheet->getStyle('E'.$row)->getAlignment()->setHorizontal('center');
                             $sheet->setCellValue('F'.$row, $value->SATUAN);
@@ -180,7 +180,7 @@
                             $sheet->setCellValue('C'.$row, '');
                             $sheet->getStyle('C'.$row)->getAlignment()->setHorizontal('center');
                             $sheet->setCellValue('D'.$row, $value->NAMA_BARANG);
-                            $sheet->getStyle('D'.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->getStyle('D'.$row)->getAlignment()->setHorizontal('left');
                             $sheet->setCellValue('E'.$row, $value->QTY);
                             $sheet->getStyle('E'.$row)->getAlignment()->setHorizontal('center');
                             $sheet->setCellValue('F'.$row, $value->SATUAN);
