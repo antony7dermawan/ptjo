@@ -163,7 +163,7 @@
             <div class="col-md-6">
 
               <fieldset class="form-group">
-                <label>Expire Date</label>
+                <label>Jatuh Tempo</label>
                 <form action='/action_page.php'>
                 <input type='date' class='form-control' name='expire_date' value='<?= $this->session->userdata('date_jurnal_create') ?>'>
               </fieldset>
@@ -335,7 +335,7 @@
             <div class="col-md-6">
 
               <fieldset class="form-group">
-                <label>Expire Date</label>
+                <label>Jatuh Tempo</label>
                 <form action='/action_page.php'>
                 <input type='date' class='form-control' name='expire_date' value=''>
               </fieldset>

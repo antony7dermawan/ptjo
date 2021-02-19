@@ -109,19 +109,20 @@ class C_t_po_print extends MY_Controller
 
         $pdf->SetFont('','B',9);
         $size[0]=10;
-        $size[1]=90;
+        $size[1]=75;
         $size[2]=20;
-        $size[3]=20;
+        $size[3]=15;
         $size[4]=25;
-        $size[5]=30;
-        $size[6]=50;
+        $size[5]=15;
+        $size[6]=30;
         
         $pdf->Cell( $size[0],8,'No.','1',0,'C');
         $pdf->Cell( $size[1],8,'Nama/Jenis/Ukuran','1',0,'C');
         $pdf->Cell( $size[2],8,'Qty','1',0,'C');
         $pdf->Cell( $size[3],8,'Unit','1',0,'C');
         $pdf->Cell( $size[4],8,'Harga/Unit','1',0,'C');
-        $pdf->Cell( $size[5],8,'Jumlah','1',1,'C');
+        $pdf->Cell( $size[5],8,'Ppn(%)','1',0,'C');
+        $pdf->Cell( $size[6],8,'Jumlah','1',1,'C');
       }
       
       
@@ -130,15 +131,16 @@ class C_t_po_print extends MY_Controller
       $pdf->Cell( $size[1],6,$value->NAMA_BARANG,'L',0,'L');
       $pdf->Cell( $size[2],6,$value->QTY,'L',0,'C');
       $pdf->Cell( $size[3],6,$value->SATUAN,'L',0,'C');
-      $pdf->Cell( $size[4],6,number_format(intval($value->HARGA)),'L',0,'R');
-      $pdf->Cell( $size[5]-0.1,6,number_format(intval($value->HARGA)*intval($value->QTY)),'L',0,'R');
+      $pdf->Cell( $size[4],6,number_format((floatval(round($value->HARGA*100)))/100),'L',0,'R');
+      $pdf->Cell( $size[5],6,((floatval(round($value->PPN*10)))/10),'L',0,'R');
+      $pdf->Cell( $size[6]-0.1,6,number_format((floatval(round($value->SUB_TOTAL*100)))/100),'L',0,'R');
 
       $pdf->Cell( 0.1,6,'','L',1,'R');
 
 
       $total_sub_1 = $total_sub_1 + intval($value->HARGA)*intval($value->QTY);
       $total_ppn = $total_ppn+intval($value->PPN);
-      $total_sub = $total_sub+intval($value->SUB_TOTAL);
+      $total_sub = $total_sub+($value->SUB_TOTAL);
       $dpp = $total_sub;
     }
 
@@ -159,14 +161,14 @@ class C_t_po_print extends MY_Controller
 
     $nilai_ppn = $total_ppn/($key+1);
     #.............................paper head end
-    $pdf->Cell( $size[0]+$size[1]+$size[2]+$size[3]+$size[4],8,'Sub Total','1',0,'R');
-    $pdf->Cell( $size[5],8,number_format(intval($total_sub_1)),'1',1,'R');
+    //$pdf->Cell( $size[0]+$size[1]+$size[2]+$size[3]+$size[4]+$size[5],8,'Sub Total','1',0,'R');
+    //$pdf->Cell( $size[6],8,number_format(intval($total_sub_1)),'1',1,'R');
 
-    $pdf->Cell( $size[0]+$size[1]+$size[2]+$size[3]+$size[4],8,'PPN('.$nilai_ppn.'%)','1',0,'R');
-    $pdf->Cell( $size[5],8,number_format((intval($total_sub_1)*$nilai_ppn)/100),'1',1,'R');
+    //$pdf->Cell( $size[0]+$size[1]+$size[2]+$size[3]+$size[4]+$size[5],8,'PPN('.$nilai_ppn.'%)','1',0,'R');
+    //$pdf->Cell( $size[6],8,number_format((intval($total_sub_1)*$nilai_ppn)/100),'1',1,'R');
 
-    $pdf->Cell( $size[0]+$size[1]+$size[2]+$size[3]+$size[4],8,'Total','1',0,'R');
-    $pdf->Cell( $size[5],8,number_format(intval($total_sub)),'1',1,'R');
+    $pdf->Cell( $size[0]+$size[1]+$size[2]+$size[3]+$size[4]+$size[5],8,'Total','1',0,'R');
+    $pdf->Cell( $size[6],8,number_format((floatval(round($total_sub*100)))/100),'1',1,'R');
 
         $pdf->Cell( 80,5,'','0',1,'L');
         $pdf->Cell( 80,5,'Pembayaran','B',1,'L');
