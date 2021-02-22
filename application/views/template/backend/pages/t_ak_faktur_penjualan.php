@@ -47,7 +47,7 @@
             echo "<a href='" . site_url('c_t_ak_faktur_penjualan_rincian/index/' . $value->ID) . "/" . $value->PKS_ID . "' ";
             echo "onclick=\"return confirm('Isi Rincian?')\"";
             echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
-            echo "Rp" . number_format(intval($value->SUM_TOTAL_PENJUALAN)) . "</td>";
+            echo "Rp" . number_format(round($value->SUM_TOTAL_PENJUALAN)) . "</td>";
 
 
             echo "<td>";

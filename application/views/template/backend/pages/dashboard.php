@@ -78,6 +78,7 @@
                         <th>No Faktur</th>
                         <th>Tanggal</th>
                         <th>Jumlah</th>
+                        <th>Sudah Dibayarkan</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -88,7 +89,8 @@
                         echo "<td>" . $value->PKS . "</td>";
                         echo "<td>" . $value->NO_FAKTUR . "</td>";
                         echo "<td>" . date('d-m-Y', strtotime($value->DATE)) . "</td>";
-                        echo "<td>Rp" . number_format(intval($value->SUM_TOTAL_PENJUALAN)) . "</td>";
+                        echo "<td>Rp" . number_format(round($value->SUM_TOTAL_PENJUALAN)) . "</td>";
+                        echo "<td>Rp" . number_format(round($value->PAYMENT_T)) . "</td>";
 
 
                         /*
@@ -165,15 +167,15 @@
                         if ($value->SUM_TRIP == 0) {
                           $total_trip = 1;
                         }
-                        $sortase = (intval((floatval($value->SUM_SORTASE_PERCENTAGE) / $total_trip) * 100)) / 100;
+                        $sortase = (round((floatval($value->SUM_SORTASE_PERCENTAGE) / $total_trip) * 100)) / 100;
                         echo "<tr>";
                         echo "<td>" . ($key + 1) . "</td>";
                         echo "<td>" . $value->PKS . "</td>";
-                        echo "<td>" . number_format(intval($value->SUM_TRIP)) . "</td>";
-                        echo "<td>" . number_format(intval($value->SUM_BRUTO)) . "</td>";
+                        echo "<td>" . number_format(round($value->SUM_TRIP)) . "</td>";
+                        echo "<td>" . number_format(round($value->SUM_BRUTO)) . "</td>";
                         echo "<td>" . $sortase . "</td>";
-                        echo "<td>" . number_format(intval($value->SUM_NETO)) . "</td>";
-                        echo "<td>Rp" . number_format(intval($value->SUM_TOTAL_PENJUALAN)) . "</td>";
+                        echo "<td>" . number_format(round($value->SUM_NETO)) . "</td>";
+                        echo "<td>Rp" . number_format(round($value->SUM_TOTAL_PENJUALAN)) . "</td>";
 
 
                         /*

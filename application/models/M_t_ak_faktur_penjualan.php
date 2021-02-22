@@ -23,6 +23,7 @@ public function select_no_faktur()
     $this->db->select("T_AK_FAKTUR_PENJUALAN.KETERANGAN");
     $this->db->select("T_AK_FAKTUR_PENJUALAN.NO_FAKTUR");
     $this->db->select("T_AK_FAKTUR_PENJUALAN.ENABLE_EDIT");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.PAYMENT_T");
 
 
     $this->db->select("T_M_A_PKS.PKS");
