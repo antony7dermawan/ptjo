@@ -55,14 +55,14 @@
             echo "<a href='" . site_url('c_t_ak_terima_pelanggan_no_faktur/index/' . $value->ID) . "/" . $value->PKS_ID . "' ";
             echo "onclick=\"return confirm('Lanjut?')\"";
             echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
-            echo " Rp" . number_format(intval($value->SUM_TOTAL_PENJUALAN)) . "</td>";
+            echo " Rp" . number_format(round($value->SUM_TOTAL_PENJUALAN)) . "</td>";
             //satu button
 
 
             //satu button
             echo "<td>";
             
-            echo " Rp" . number_format(intval($value->SUM_PAYMENT_T)) . "</td>";
+            echo " Rp" . number_format(round($value->SUM_PAYMENT_T)) . "</td>";
             //satu button
 
 
@@ -74,7 +74,7 @@
               echo "onclick=\"return confirm('Lanjut?')\"";
               echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
             }
-            echo " Rp" . number_format(intval($value->SUM_JUMLAH));
+            echo " Rp" . number_format(round($value->SUM_JUMLAH));
             echo "</td>";
             //satu button
 
@@ -90,7 +90,7 @@
               echo "onclick=\"return confirm('Lanjut?')\"";
               echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
             }
-            echo " Rp" . number_format(intval($value->SUM_DISKON));
+            echo " Rp" . number_format(round($value->SUM_DISKON));
             echo "</td>";
             //satu button
 
@@ -99,9 +99,9 @@
             echo "<td>";
 
 
-            if (intval($value->SUM_TOTAL_PENJUALAN) != 0)
+            if (intval($value->SUM_TOTAL_PENJUALAN) != 0 and intval($value->SUM_JUMLAH) != 0)
             {
-              echo "<a href='" . site_url('c_t_ak_terima_pelanggan/update_enable_edit/' . $value->ID) . "/" . intval($value->SUM_TOTAL_PENJUALAN) . "/" . intval($value->SUM_JUMLAH) . "/" . intval($value->SUM_DISKON) . "/" . $value->ENABLE_EDIT . "/" . intval($value->SUM_ADM_BANK) . "/" . intval($value->SUM_PAYMENT_T) . "'"; #/1 ini artinya kena pajak
+              echo "<a href='" . site_url('c_t_ak_terima_pelanggan/update_enable_edit/' . $value->ID) . "/" . round($value->SUM_TOTAL_PENJUALAN) . "/" . round($value->SUM_JUMLAH) . "/" . round($value->SUM_DISKON) . "/" . $value->ENABLE_EDIT . "/" . round($value->SUM_ADM_BANK) . "/" . round($value->SUM_PAYMENT_T) . "'"; #/1 ini artinya kena pajak
 
               echo "onclick= 'p_1_" . $key . "()'";
               if ($value->ENABLE_EDIT == 1) {

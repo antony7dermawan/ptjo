@@ -253,7 +253,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
       */
 
 
-
+/*   ...........................................................ini pph22 yg auto ganti manual input di diskon
       $coa_pasal_22 = 0;
       $read_select = $this->m_t_ak_terima_pelanggan_print_setting->select_id(6);
       foreach ($read_select as $key => $value) {
@@ -308,7 +308,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
       $this->m_t_ak_jurnal->tambah($data);
       #.....................................................................................done
 
-
+*/
 
 
 

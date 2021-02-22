@@ -54,6 +54,7 @@
         <thead>
           <tr>
             <th>No</th>
+            <th>Date</th>
             <th>NO AKUN</th>
             <th>Nama Akun</th>
             <th>Debit</th>
@@ -90,6 +91,7 @@
             echo "<tr>";
 
               echo "<td>".($key + 1)."</td>";
+              echo "<td>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</td>";
               echo "<td>".$no_akun."</td>";
               echo "<td>".$value->NAMA_AKUN."</td>";
               echo "<td>Rp".number_format(intval($value->DEBIT))."</td>";
@@ -120,6 +122,7 @@
             echo "<tr>";
             echo "<th></th>";
             echo "<th></th>";
+            echo "<th></th>";
             echo "<th class='text_red'>TOTAL</th>";
             echo "<th class='text_red'>Rp".number_format(intval($total_debit))."</th>";
             echo "<th class='text_red'>Rp".number_format(intval($total_kredit))."</th>";
@@ -135,6 +138,7 @@
           if($total_debit==$total_kredit and $total_debit!=0)
           {
             echo "<tr>";
+            echo "<th></th>";
             echo "<th></th>";
             echo "<th></th>";
             echo "<th class='text_black'>TOTAL</th>";

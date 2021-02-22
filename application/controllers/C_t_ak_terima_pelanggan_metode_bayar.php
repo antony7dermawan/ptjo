@@ -25,8 +25,8 @@ class C_t_ak_terima_pelanggan_metode_bayar extends MY_Controller
       "no_akun_option" => $this->m_ak_m_coa->select_no_akun(),
       "select_no_faktur" => $this->m_t_ak_faktur_penjualan->select_no_faktur(),
       "pks_id" => $pks_id,
-      "title" => "Rincian Diskon",
-      "description" => "Isi Rincian Diskon"
+      "title" => "Rincian Metode Bayar",
+      "description" => "Isi Rincian Metode Bayar"
     ];
     $this->render_backend('template/backend/pages/t_ak_terima_pelanggan_metode_bayar', $data);
   }
@@ -41,7 +41,7 @@ class C_t_ak_terima_pelanggan_metode_bayar extends MY_Controller
     $read_select = $this->m_t_ak_terima_pelanggan_metode_bayar->select_by_id($id);
     foreach ($read_select as $key => $value) 
     {
-      $jumlah_dihapus = intval($value->JUMLAH);
+      $jumlah_dihapus = floatval($value->JUMLAH)+floatval($value->ADM_BANK);
     }
 
 
@@ -51,7 +51,7 @@ class C_t_ak_terima_pelanggan_metode_bayar extends MY_Controller
       $db_logic = 1;
       $faktur_penjualan_id[$key] =  $value->FAKTUR_PENJUALAN_ID;
       $total_penjualan[$key] =  $value->TOTAL_PENJUALAN;
-      $payment_t_saldo_awal[$key] = intval($value->PAYMENT_T);
+      $payment_t_saldo_awal[$key] = floatval($value->PAYMENT_T);
     }
     $total_db_data = $key;
 
@@ -90,9 +90,9 @@ class C_t_ak_terima_pelanggan_metode_bayar extends MY_Controller
 
   function tambah($terima_pelanggan_id, $pks_id)
   {
-    $jumlah = intval($this->input->post("jumlah"));
-    $coa_id = intval($this->input->post("coa_id"));
-    $adm_bank = intval($this->input->post("adm_bank"));
+    $jumlah = floatval($this->input->post("jumlah"));
+    $coa_id = floatval($this->input->post("coa_id"));
+    $adm_bank = floatval($this->input->post("adm_bank"));
 
 
     $db_logic = 0;
@@ -100,8 +100,8 @@ class C_t_ak_terima_pelanggan_metode_bayar extends MY_Controller
     foreach ($read_select as $key => $value) 
     {
       $db_logic = 1;
-      $sum_total_penjualan = $sum_total_penjualan+ intval($value->TOTAL_PENJUALAN);
-      $sum_payment_t_saldo_awal = $sum_payment_t_saldo_awal+intval($value->PAYMENT_T);
+      $sum_total_penjualan = $sum_total_penjualan+ floatval($value->TOTAL_PENJUALAN);
+      $sum_payment_t_saldo_awal = $sum_payment_t_saldo_awal+floatval($value->PAYMENT_T);
     }
 
     
@@ -124,7 +124,7 @@ class C_t_ak_terima_pelanggan_metode_bayar extends MY_Controller
         $db_logic = 1;
         $faktur_penjualan_id[$key] =  $value->FAKTUR_PENJUALAN_ID;
         $total_penjualan[$key] =  $value->TOTAL_PENJUALAN;
-        $payment_t_saldo_awal[$key] = intval($value->PAYMENT_T);
+        $payment_t_saldo_awal[$key] = floatval($value->PAYMENT_T);
       }
       $total_db_data = $key;
 

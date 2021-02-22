@@ -63,8 +63,9 @@ public function update($data, $id)
 
     $this->db->join("(select \"T_AK_TERIMA_PELANGGAN_NO_FAKTUR\".\"TERIMA_PELANGGAN_ID\",sum(\"T_AK_FAKTUR_PENJUALAN\".\"PAYMENT_T\")\"SUM_PAYMENT_T\" from \"T_AK_TERIMA_PELANGGAN_NO_FAKTUR\" LEFT OUTER JOIN \"T_AK_FAKTUR_PENJUALAN\" on \"T_AK_FAKTUR_PENJUALAN\".\"ID\"=\"T_AK_TERIMA_PELANGGAN_NO_FAKTUR\".\"FAKTUR_PENJUALAN_ID\" group by \"T_AK_TERIMA_PELANGGAN_NO_FAKTUR\".\"TERIMA_PELANGGAN_ID\") as t_sum_5", 'T_AK_TERIMA_PELANGGAN.ID = t_sum_5.TERIMA_PELANGGAN_ID', 'left');
 
-    
-    $this->db->where('T_AK_TERIMA_PELANGGAN.DATE',$date_terima_pelanggan);
+    $date_before = date($date_terima_pelanggan, strtotime('-30 days'));
+
+    $this->db->where("T_AK_TERIMA_PELANGGAN.DATE<='{$date_terima_pelanggan}' and T_AK_TERIMA_PELANGGAN.DATE>='{$date_before}'");
     $this->db->order_by("ID", "desc");
 
     $akun = $this->db->get ();
@@ -131,6 +132,7 @@ public function update($data, $id)
     
 
     $this->db->select("SUM_JUMLAH");
+    $this->db->select("SUM_ADM_BANK");
 
     $this->db->select("SUM_DISKON");
 
@@ -147,6 +149,9 @@ public function update($data, $id)
 
 
     $this->db->join("(select \"TERIMA_PELANGGAN_ID\",sum(\"JUMLAH\")\"SUM_DISKON\" from \"T_AK_TERIMA_PELANGGAN_DISKON\" group by \"TERIMA_PELANGGAN_ID\") as t_sum_3", 'T_AK_TERIMA_PELANGGAN_NO_FAKTUR.TERIMA_PELANGGAN_ID = t_sum_3.TERIMA_PELANGGAN_ID', 'left');
+
+
+    $this->db->join("(select \"TERIMA_PELANGGAN_ID\",sum(\"ADM_BANK\")\"SUM_ADM_BANK\" from \"T_AK_TERIMA_PELANGGAN_METODE_BAYAR\" group by \"TERIMA_PELANGGAN_ID\") as t_sum_1", 'T_AK_TERIMA_PELANGGAN_NO_FAKTUR.TERIMA_PELANGGAN_ID = t_sum_1.TERIMA_PELANGGAN_ID', 'left');
 
 
     $this->db->join("(select \"T_AK_TERIMA_PELANGGAN_NO_FAKTUR\".\"TERIMA_PELANGGAN_ID\",sum(\"T_AK_FAKTUR_PENJUALAN\".\"PAYMENT_T\")\"SUM_PAYMENT_T\" from \"T_AK_TERIMA_PELANGGAN_NO_FAKTUR\" LEFT OUTER JOIN \"T_AK_FAKTUR_PENJUALAN\" on \"T_AK_FAKTUR_PENJUALAN\".\"ID\"=\"T_AK_TERIMA_PELANGGAN_NO_FAKTUR\".\"FAKTUR_PENJUALAN_ID\" group by \"T_AK_TERIMA_PELANGGAN_NO_FAKTUR\".\"TERIMA_PELANGGAN_ID\") as t_sum_5", 'T_AK_TERIMA_PELANGGAN_NO_FAKTUR.TERIMA_PELANGGAN_ID = t_sum_5.TERIMA_PELANGGAN_ID', 'left');

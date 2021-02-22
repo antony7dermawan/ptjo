@@ -42,7 +42,7 @@ class C_t_ak_jurnal_edit extends MY_Controller
   function tambah()
   {
     $coa_id = ($this->input->post("coa_id"));
-
+    $date = ($this->input->post("date"));
 
     $debit = intval($this->input->post("debit"));
     $kredit = intval($this->input->post("kredit"));
@@ -67,7 +67,7 @@ class C_t_ak_jurnal_edit extends MY_Controller
     $read_select = $this->m_t_ak_jurnal_edit->select_created_id();
     foreach ($read_select as $key => $value) {
       $created_id = $value->CREATED_ID;
-      $date = $value->DATE;
+
       $time = $value->TIME;
     }
 

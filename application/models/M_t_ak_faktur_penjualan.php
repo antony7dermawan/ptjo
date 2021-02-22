@@ -107,7 +107,10 @@ public function select_no_faktur()
 
     $this->db->join("(select \"T_AK_FAKTUR_PENJUALAN_RINCIAN\".\"FAKTUR_PENJUALAN_ID\",sum(\"T_T_A_PENJUALAN_PKS\".\"TOTAL_PENJUALAN\") from \"T_T_A_PENJUALAN_PKS\" LEFT OUTER JOIN \"T_AK_FAKTUR_PENJUALAN_RINCIAN\" ON \"T_AK_FAKTUR_PENJUALAN_RINCIAN\".\"PENJUALAN_PKS_ID\" = \"T_T_A_PENJUALAN_PKS\".\"ID\" group by \"FAKTUR_PENJUALAN_ID\") as t_sum", 'T_AK_FAKTUR_PENJUALAN.ID = t_sum.FAKTUR_PENJUALAN_ID', 'left');
     
-    $this->db->where('T_AK_FAKTUR_PENJUALAN.DATE',$date_faktur_penjualan);
+    
+    $date_before = date($date_faktur_penjualan, strtotime('-30 days'));
+
+    $this->db->where("T_AK_FAKTUR_PENJUALAN.DATE<='{$date_faktur_penjualan}' and T_AK_FAKTUR_PENJUALAN.DATE>='{$date_before}'");
     $this->db->order_by("ID", "desc");
 
     $akun = $this->db->get ();
