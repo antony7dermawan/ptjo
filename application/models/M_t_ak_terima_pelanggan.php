@@ -63,7 +63,9 @@ public function update($data, $id)
 
     $this->db->join("(select \"T_AK_TERIMA_PELANGGAN_NO_FAKTUR\".\"TERIMA_PELANGGAN_ID\",sum(\"T_AK_FAKTUR_PENJUALAN\".\"PAYMENT_T\")\"SUM_PAYMENT_T\" from \"T_AK_TERIMA_PELANGGAN_NO_FAKTUR\" LEFT OUTER JOIN \"T_AK_FAKTUR_PENJUALAN\" on \"T_AK_FAKTUR_PENJUALAN\".\"ID\"=\"T_AK_TERIMA_PELANGGAN_NO_FAKTUR\".\"FAKTUR_PENJUALAN_ID\" group by \"T_AK_TERIMA_PELANGGAN_NO_FAKTUR\".\"TERIMA_PELANGGAN_ID\") as t_sum_5", 'T_AK_TERIMA_PELANGGAN.ID = t_sum_5.TERIMA_PELANGGAN_ID', 'left');
 
-    $date_before = date($date_terima_pelanggan, strtotime('-30 days'));
+
+
+    $date_before = date('Y-m-d',(strtotime ( '-30 day' , strtotime ( $date_terima_pelanggan) ) ));
 
     $this->db->where("T_AK_TERIMA_PELANGGAN.DATE<='{$date_terima_pelanggan}' and T_AK_TERIMA_PELANGGAN.DATE>='{$date_before}'");
     $this->db->order_by("ID", "desc");

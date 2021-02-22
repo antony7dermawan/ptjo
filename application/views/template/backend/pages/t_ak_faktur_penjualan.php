@@ -26,6 +26,7 @@
         <thead>
           <tr>
             <th>No</th>
+            <th>Date</th>
             <th>PKS</th>
             <th>No Faktur</th>
             <th>Total Tagihan</th>
@@ -37,6 +38,7 @@
           foreach ($c_t_ak_faktur_penjualan as $key => $value) {
             echo "<tr>";
             echo "<td>" . ($key + 1) . "</td>";
+            echo "<td>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</td>";
             echo "<td>" . $value->PKS . "</td>";
             echo "<td>" . $value->NO_FAKTUR . "</td>";
             #echo "<td>".date('d-m-Y', strtotime($value->DATE))." / ".date('H:i', strtotime($value->TIME))." / ".$value->CREATED_BY."</td>";
