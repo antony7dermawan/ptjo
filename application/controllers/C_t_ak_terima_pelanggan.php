@@ -109,7 +109,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
               'CREATED_BY' => $this->session->userdata('username'),
               'UPDATED_BY' => $this->session->userdata('username'),
               'COA_ID' => $coa_id,
-              'DEBIT' => intval($jumlah_per_bank),
+              'DEBIT' => round($jumlah_per_bank),
               'KREDIT' => 0,
               'CATATAN' => 'Pembayaran TBS : ' . $no_form,
               'DEPARTEMEN' => '0',
@@ -128,7 +128,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
               'UPDATED_BY' => $this->session->userdata('username'),
               'COA_ID' => $coa_id,
               'DEBIT' => 0,
-              'KREDIT' => intval($jumlah_per_bank),
+              'KREDIT' => round($jumlah_per_bank),
               'CATATAN' => 'Pembayaran TBS : ' . $no_form,
               'DEPARTEMEN' => '0',
               'NO_VOUCER' => $no_form,
@@ -138,7 +138,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
             );
           }
           $this->m_t_ak_jurnal->tambah($data);
-          $sum_all_payment = intval($sum_all_payment) + intval($jumlah_per_bank);
+          $sum_all_payment = floatval($sum_all_payment) + floatval($jumlah_per_bank);
         }
       }
 
@@ -166,7 +166,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
               'CREATED_BY' => $this->session->userdata('username'),
               'UPDATED_BY' => $this->session->userdata('username'),
               'COA_ID' => $coa_id,
-              'DEBIT' => intval($jumlah_per_diskon),
+              'DEBIT' => round($jumlah_per_diskon),
               'KREDIT' => 0,
               'CATATAN' => 'Pembayaran TBS : ' . $no_form,
               'DEPARTEMEN' => '0',
@@ -185,7 +185,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
               'UPDATED_BY' => $this->session->userdata('username'),
               'COA_ID' => $coa_id,
               'DEBIT' => 0,
-              'KREDIT' => intval($jumlah_per_diskon),
+              'KREDIT' => round($jumlah_per_diskon),
               'CATATAN' => 'Pembayaran TBS : ' . $no_form,
               'DEPARTEMEN' => '0',
               'NO_VOUCER' => $no_form,
@@ -195,7 +195,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
             );
           }
           $this->m_t_ak_jurnal->tambah($data);
-          $sum_all_diskon = intval($sum_all_diskon) + intval($jumlah_per_diskon);
+          $sum_all_diskon = floatval($sum_all_diskon) + floatval($jumlah_per_diskon);
         }
       }
 
@@ -322,7 +322,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
         $coa_id_beban_adm_bank = $value->ID;
         $db_k_id = $value->DB_K_ID;
       }
-      $total_adm_bank = intval($sum_adm_bank);
+      $total_adm_bank = floatval($sum_adm_bank);
       if ($db_k_id == 1) #kode 1 debit / 2 kredit
       {
         $data = array(
@@ -331,7 +331,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
           'CREATED_BY' => $this->session->userdata('username'),
           'UPDATED_BY' => $this->session->userdata('username'),
           'COA_ID' => $coa_id_beban_adm_bank,
-          'DEBIT' => intval($total_adm_bank),
+          'DEBIT' => round($total_adm_bank),
           'KREDIT' => 0,
           'CATATAN' => 'Pembayaran TBS : ' . $no_form,
           'DEPARTEMEN' => '0',
@@ -350,7 +350,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
           'UPDATED_BY' => $this->session->userdata('username'),
           'COA_ID' => $coa_id_beban_adm_bank,
           'DEBIT' => 0,
-          'KREDIT' => intval($total_adm_bank),
+          'KREDIT' => round($total_adm_bank),
           'CATATAN' => 'Pembayaran TBS : ' . $no_form,
           'DEPARTEMEN' => '0',
           'NO_VOUCER' => $no_form,
@@ -377,14 +377,14 @@ class C_t_ak_terima_pelanggan extends MY_Controller
       }
 
 
-      $total_transaksi = intval($sum_all_payment) + intval($nilai_pasal_22) + intval($total_adm_bank) -  intval($sum_all_diskon);
+      $total_transaksi = floatval($sum_all_payment) + floatval($nilai_pasal_22) + floatval($total_adm_bank) +  floatval($sum_all_diskon);
 
       $up_total_transaksi = ceil($total_transaksi);
 
 
 
 
-      $total_beban_selisih_pembulatan = intval($up_total_transaksi) - intval($total_transaksi);
+      $total_beban_selisih_pembulatan = floatval($up_total_transaksi) - floatval($total_transaksi);
       if ($db_k_id == 1) #kode 1 debit / 2 kredit
       {
         $data = array(
@@ -393,7 +393,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
           'CREATED_BY' => $this->session->userdata('username'),
           'UPDATED_BY' => $this->session->userdata('username'),
           'COA_ID' => $coa_id_beban_selisih_pembulatan,
-          'DEBIT' => intval($total_beban_selisih_pembulatan),
+          'DEBIT' => round($total_beban_selisih_pembulatan),
           'KREDIT' => 0,
           'CATATAN' => 'Pembayaran TBS : ' . $no_form,
           'DEPARTEMEN' => '0',
@@ -412,7 +412,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
           'UPDATED_BY' => $this->session->userdata('username'),
           'COA_ID' => $coa_id_beban_selisih_pembulatan,
           'DEBIT' => 0,
-          'KREDIT' => intval($total_beban_selisih_pembulatan),
+          'KREDIT' => round($total_beban_selisih_pembulatan),
           'CATATAN' => 'Pembayaran TBS : ' . $no_form,
           'DEPARTEMEN' => '0',
           'NO_VOUCER' => $no_form,
@@ -443,7 +443,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
 
 
 
-      $total_piutang_dagang = intval($up_total_transaksi);
+      $total_piutang_dagang = floatval($up_total_transaksi);
 
       /*
       if ($db_k_id == 1) #kode 1 debit / 2 kredit
@@ -471,7 +471,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
           'UPDATED_BY' => $this->session->userdata('username'),
           'COA_ID' => $coa_piutang_dagang,
           'DEBIT' => 0,
-          'KREDIT' => intval($total_piutang_dagang),
+          'KREDIT' => round($total_piutang_dagang),
           'CATATAN' => 'Pembayaran TBS : ' . $no_form,
           'DEPARTEMEN' => '0',
           'NO_VOUCER' => $no_form,

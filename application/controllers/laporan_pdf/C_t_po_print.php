@@ -126,20 +126,23 @@ class C_t_po_print extends MY_Controller
       }
       
       
-      $pdf->SetFont('','',11);
-      $pdf->Cell( $size[0],6,$key+1,'L',0,'C');
-      $pdf->Cell( $size[1],6,$value->NAMA_BARANG,'L',0,'L');
-      $pdf->Cell( $size[2],6,$value->QTY,'L',0,'C');
-      $pdf->Cell( $size[3],6,$value->SATUAN,'L',0,'C');
-      $pdf->Cell( $size[4],6,number_format((floatval(round($value->HARGA*100)))/100),'L',0,'R');
-      $pdf->Cell( $size[5],6,((floatval(round($value->PPN*10)))/10),'L',0,'R');
-      $pdf->Cell( $size[6]-0.1,6,number_format((floatval(round($value->SUB_TOTAL*100)))/100),'L',0,'R');
+      $pdf->SetFont('','',9);
+     
 
-      $pdf->Cell( 0.1,6,'','L',1,'R');
+      $pdf->MultiCell($size[0], 8, $key+1, 'L', 'C',0,0);
+      $pdf->MultiCell($size[1], 8, $value->NAMA_BARANG, 'L', 'L',0,0);
+      $pdf->MultiCell($size[2], 8, $value->QTY, 'L', 'C',0,0);
+      $pdf->MultiCell($size[3], 8, $value->SATUAN, 'L', 'C',0,0);
+      $pdf->MultiCell($size[4], 8, number_format((floatval(round($value->HARGA*100)))/100), 'L', 'R',0,0);
+      $pdf->MultiCell($size[5], 8, ((floatval(round($value->PPN*10)))/10), 'L', 'R',0,0);
+      $pdf->MultiCell($size[6]-0.1, 8, number_format((floatval(round($value->SUB_TOTAL*100)))/100), 'L', 'R',0,0);
+      $pdf->Cell( 0.1,8,'','L',1,'R');
 
 
-      $total_sub_1 = $total_sub_1 + intval($value->HARGA)*intval($value->QTY);
-      $total_ppn = $total_ppn+intval($value->PPN);
+
+
+      $total_sub_1 = $total_sub_1 + floatval($value->HARGA)*floatval($value->QTY);
+      $total_ppn = $total_ppn+floatval($value->PPN);
       $total_sub = $total_sub+($value->SUB_TOTAL);
       $dpp = $total_sub;
     }

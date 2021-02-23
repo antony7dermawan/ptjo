@@ -139,13 +139,13 @@ class c_faktur_penjualan_print extends MY_Controller
       $pdf->MultiCell($size[1], 8, substr($value->KETERANGAN, 0, 40), 'L', 'L',0,0);
       $pdf->MultiCell($size[2], 8, date('d-m-Y', strtotime($value->DATE)), 'L', 'L',0,0);
       $pdf->MultiCell($size[3], 8, substr($value->NO_TIKET, 0, 50), 'L', 'C',0,0);
-      $pdf->MultiCell($size[4], 8, number_format(intval($value->NETO)).' Kg', 'L', 'R',0,0);
-      $pdf->MultiCell($size[5], 8, number_format(intval($value->HARGA)), 'L', 'R',0,0);
-      $pdf->MultiCell($size[6]-0.1, 8, number_format(intval($value->TOTAL_PENJUALAN)), 'L', 'R',0,0);
+      $pdf->MultiCell($size[4], 8, number_format(round($value->NETO)).' Kg', 'L', 'R',0,0);
+      $pdf->MultiCell($size[5], 8, number_format(round($value->HARGA)), 'L', 'R',0,0);
+      $pdf->MultiCell($size[6]-0.1, 8, number_format(round($value->TOTAL_PENJUALAN)), 'L', 'R',0,0);
       $pdf->Cell( 0.1,8,'','L',1,'R');
 
-      $total_kuantitas = $total_kuantitas+intval($value->NETO);
-      $total_sub = $total_sub+intval($value->TOTAL_PENJUALAN);
+      $total_kuantitas = $total_kuantitas+floatval($value->NETO);
+      $total_sub = $total_sub+floatval($value->TOTAL_PENJUALAN);
       $dpp = $total_sub;
     }
 
@@ -164,42 +164,42 @@ class c_faktur_penjualan_print extends MY_Controller
     */
 
     #.............................paper head end
-    $pdf->Cell( $size[0]+$size[1]+$size[2]+$size[3]+$size[4],8,'Total Kuantitas   '.number_format(intval($total_kuantitas)),'1',0,'R');
+    $pdf->Cell( $size[0]+$size[1]+$size[2]+$size[3]+$size[4],8,'Total Kuantitas   '.number_format(round($total_kuantitas)),'1',0,'R');
     $pdf->Cell( $size[5]+$size[6],8,'','1',1,'L');
 
     $pdf->Cell( 0.1,8,'','L',0,'R');
     $pdf->Cell( $size[0]+$size[1]-0.1,8,'Total Sub','T',0,'L');
     $pdf->Cell( $size[2],8,':','T',0,'L');
-    $pdf->Cell( $size[3]+$size[4]+$size[5]+$size[6]-0.1,8,number_format(intval($total_sub)),'T',0,'R');
+    $pdf->Cell( $size[3]+$size[4]+$size[5]+$size[6]-0.1,8,number_format(round($total_sub)),'T',0,'R');
     $pdf->Cell( 0.1,8,'','L',1,'R');
 
 
     $pdf->Cell( 0.1,8,'','L',0,'R');
     $pdf->Cell( $size[0]+$size[1]-0.1,8,'Dasar Pengenaan Pajak','T',0,'L');
     $pdf->Cell( $size[2],8,':','T',0,'L');
-    $pdf->Cell( $size[3]+$size[4]+$size[5]+$size[6]-0.1,8,number_format(intval($dpp)),'T',0,'R');
+    $pdf->Cell( $size[3]+$size[4]+$size[5]+$size[6]-0.1,8,number_format(round($dpp)),'T',0,'R');
     $pdf->Cell( 0.1,8,'','L',1,'R');
 
 
-    $ppn = (10 * intval($dpp))/100;
+    $ppn = (10 * floatval($dpp))/100;
     $pdf->Cell( 0.1,8,'','L',0,'R');
     $pdf->Cell( $size[0]+$size[1]-0.1,8,'PPN','T',0,'L');
     $pdf->Cell( $size[2],8,':','T',0,'L');
-    $pdf->Cell( $size[3]+$size[4]+$size[5]+$size[6]-0.1,8,number_format(intval($ppn)),'T',0,'R');
+    $pdf->Cell( $size[3]+$size[4]+$size[5]+$size[6]-0.1,8,number_format(round($ppn)),'T',0,'R');
     $pdf->Cell( 0.1,8,'','L',1,'R');
 
-    $pph_22 = intval(0.25 * floatval($dpp))/100;
+    $pph_22 = round(0.25 * floatval($dpp))/100;
     $pdf->Cell( 0.1,8,'','L',0,'R');
     $pdf->Cell( $size[0]+$size[1]-0.1,8,'PPH 22 (0.25%)','T',0,'L');
     $pdf->Cell( $size[2],8,':','T',0,'L');
-    $pdf->Cell( $size[3]+$size[4]+$size[5]+$size[6]-0.1,8,number_format(intval($pph_22)),'T',0,'R');
+    $pdf->Cell( $size[3]+$size[4]+$size[5]+$size[6]-0.1,8,number_format(round($pph_22)),'T',0,'R');
     $pdf->Cell( 0.1,8,'','L',1,'R');
 
     $total_tagihan = $dpp + $ppn - $pph_22;
     $pdf->Cell( 0.1,8,'','L',0,'R');
     $pdf->Cell( $size[0]+$size[1]-0.1,8,'Total Tagihan','T',0,'L');
     $pdf->Cell( $size[2],8,':','T',0,'L');
-    $pdf->Cell( $size[3]+$size[4]+$size[5]+$size[6]-0.1,8,number_format(intval($total_tagihan)),'T',0,'R');
+    $pdf->Cell( $size[3]+$size[4]+$size[5]+$size[6]-0.1,8,number_format(round($total_tagihan)),'T',0,'R');
     $pdf->Cell( 0.1,8,'','L',1,'R');
 
 

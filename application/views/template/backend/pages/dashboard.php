@@ -122,7 +122,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h5>Rekap Transaksi Pengiriman</h5>
+                <h5>Rekap Transaksi Pengiriman
 
                 <form action='<?php echo base_url("c_dashboard/search_date"); ?>' class='no_voucer_area' method="post" id=''>
                   <table>
@@ -145,6 +145,7 @@
 
 
                 </form>
+                </h5>
               </div>
               <div class="card-block">
                 <div class="dt-responsive table-responsive">

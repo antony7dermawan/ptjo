@@ -98,15 +98,24 @@
                   $sheet->getStyle('F'.$row)->getAlignment()->setHorizontal('center');
                   $sheet->setCellValue('G'.$row, 'Harga Barang');
                   $sheet->getStyle('G'.$row)->getAlignment()->setHorizontal('center');
-                  $sheet->setCellValue('H'.$row, 'Total Harga');
+                  $sheet->setCellValue('H'.$row, 'PPN');
                   $sheet->getStyle('H'.$row)->getAlignment()->setHorizontal('center');
-                  $sheet->setCellValue('I'.$row, 'Keterangan');
+                  $sheet->setCellValue('I'.$row, 'Sub Total');
                   $sheet->getStyle('I'.$row)->getAlignment()->setHorizontal('center');
-                  $sheet->setCellValue('J'.$row, 'Created By');
+                  $sheet->setCellValue('J'.$row, 'Keterangan');
                   $sheet->getStyle('J'.$row)->getAlignment()->setHorizontal('center');
+                  
+                  $sheet->setCellValue('K'.$row, 'Total');
+                  $sheet->getStyle('K'.$row)->getAlignment()->setHorizontal('center');
+                  $sheet->setCellValue('L'.$row, 'Jatuh Tempo');
+                  $sheet->getStyle('L'.$row)->getAlignment()->setHorizontal('center');
+                  $sheet->setCellValue('M'.$row, 'Created By');
+                  $sheet->getStyle('M'.$row)->getAlignment()->setHorizontal('center');
+
+
 
                         $alp='A';
-                        $total_alp=9;
+                        $total_alp=12;
                         for($n=0;$n<=$total_alp;$n++)
                         {
                               $area = $alp.$row;
@@ -131,6 +140,8 @@
                         $r_no_po[$key]=$value->NO_PO;
                         $r_supplier[$key]=$value->SUPPLIER;
                         $r_ket[$key]=$value->KET;
+                        $r_expire_date[$key]=$value->EXPIRE_DATE;
+
                         $r_created_by[$key]=$value->CREATED_BY;
                   }
                   $total_po_id = $key;
@@ -163,12 +174,18 @@
                             $sheet->getStyle('F'.$row)->getAlignment()->setHorizontal('center');
                             $sheet->setCellValue('G'.$row, $value->HARGA);
                             $sheet->getStyle('G'.$row)->getAlignment()->setHorizontal('center');
-                            $sheet->setCellValue('H'.$row, $value->SUB_TOTAL);
+                            $sheet->setCellValue('H'.$row, $value->PPN);
                             $sheet->getStyle('H'.$row)->getAlignment()->setHorizontal('center');
-                            $sheet->setCellValue('I'.$row, $r_ket[$i]);
+                            $sheet->setCellValue('I'.$row, $value->SUB_TOTAL);
                             $sheet->getStyle('I'.$row)->getAlignment()->setHorizontal('center');
-                            $sheet->setCellValue('J'.$row, $r_created_by[$i]);
+                            $sheet->setCellValue('J'.$row, $r_ket[$i]);
                             $sheet->getStyle('J'.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->setCellValue('K'.$row, ''); //JUMLAH SKIP
+                            $sheet->getStyle('K'.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->setCellValue('L'.$row, $r_expire_date[$i]);
+                            $sheet->getStyle('L'.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->setCellValue('M'.$row, $r_created_by[$i]);
+                            $sheet->getStyle('M'.$row)->getAlignment()->setHorizontal('center');
                           }
                           if($key!=0)
                           {
@@ -187,12 +204,18 @@
                             $sheet->getStyle('F'.$row)->getAlignment()->setHorizontal('center');
                             $sheet->setCellValue('G'.$row, $value->HARGA);
                             $sheet->getStyle('G'.$row)->getAlignment()->setHorizontal('center');
-                            $sheet->setCellValue('H'.$row, $value->SUB_TOTAL);
+                            $sheet->setCellValue('H'.$row, $value->PPN);
                             $sheet->getStyle('H'.$row)->getAlignment()->setHorizontal('center');
-                            $sheet->setCellValue('I'.$row, $r_ket[$i]);
+                            $sheet->setCellValue('I'.$row, $value->SUB_TOTAL);
                             $sheet->getStyle('I'.$row)->getAlignment()->setHorizontal('center');
-                            $sheet->setCellValue('J'.$row, $r_created_by[$i]);
+                            $sheet->setCellValue('J'.$row, $r_ket[$i]);
                             $sheet->getStyle('J'.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->setCellValue('K'.$row, ''); //JUMLAH SKIP
+                            $sheet->getStyle('K'.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->setCellValue('L'.$row, '');
+                            $sheet->getStyle('L'.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->setCellValue('M'.$row, '');
+                            $sheet->getStyle('M'.$row)->getAlignment()->setHorizontal('center');
                           }
 
                           $sum_total_harga = $sum_total_harga + $value->SUB_TOTAL;
@@ -204,7 +227,7 @@
                                   ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
 
                           $spreadsheet->getActiveSheet()
-                                  ->getStyle('G'.$row.':H'.$row)
+                                  ->getStyle('G'.$row.':I'.$row)
                                   ->getNumberFormat()
                                   ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
                         }
@@ -212,15 +235,14 @@
                         $row = $row + 1;
 
 
-                            $sheet->setCellValue('G'.$row, "TOTAL");
-                            $sheet->getStyle('G'.$row)->getAlignment()->setHorizontal('center');
-                            $sheet->setCellValue('H'.$row, $sum_total_harga);
-                            $sheet->getStyle('H'.$row)->getAlignment()->setHorizontal('center');
+             
+                            $sheet->setCellValue('K'.$row, $sum_total_harga);
+                            $sheet->getStyle('K'.$row)->getAlignment()->setHorizontal('center');
 
                         $sum_sum_total_harga = $sum_sum_total_harga + $sum_total_harga;
 
                         $alp='A';
-                        $total_alp=9;
+                        $total_alp=12;
                         for($n=0;$n<=$total_alp;$n++)
                         {
                               $area = $alp.$row;
@@ -233,27 +255,23 @@
                         }
 
                           $spreadsheet->getActiveSheet()
-                                  ->getStyle('E'.$row.':E'.$row)
+                                  ->getStyle('K'.$row.':K'.$row)
                                   ->getNumberFormat()
                                   ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
 
-                          $spreadsheet->getActiveSheet()
-                                  ->getStyle('G'.$row.':H'.$row)
-                                  ->getNumberFormat()
-                                  ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
                         $row = $row + 1;
                         
                   }
 
 
                   $row = $row + 1;
-                            $sheet->setCellValue('G'.$row, "TOTAL KESELURUHAN:");
-                            $sheet->getStyle('G'.$row)->getAlignment()->setHorizontal('center');
-                            $sheet->setCellValue('H'.$row, $sum_sum_total_harga);
-                            $sheet->getStyle('H'.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->setCellValue('J'.$row, "TOTAL KESELURUHAN:");
+                            $sheet->getStyle('J'.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->setCellValue('K'.$row, $sum_sum_total_harga);
+                            $sheet->getStyle('K'.$row)->getAlignment()->setHorizontal('center');
 
                         $alp='A';
-                        $total_alp=9;
+                        $total_alp=12;
                         for($n=0;$n<=$total_alp;$n++)
                         {
                               $area = $alp.$row;
@@ -266,14 +284,10 @@
                         }
 
                           $spreadsheet->getActiveSheet()
-                                  ->getStyle('E'.$row.':E'.$row)
+                                  ->getStyle('K'.$row.':K'.$row)
                                   ->getNumberFormat()
                                   ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
 
-                          $spreadsheet->getActiveSheet()
-                                  ->getStyle('G'.$row.':H'.$row)
-                                  ->getNumberFormat()
-                                  ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
                   
 
 

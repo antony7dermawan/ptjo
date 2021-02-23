@@ -58,7 +58,10 @@ public function select_for_dashboard()
     $this->db->join("(select \"PO_ID\",sum(\"SUB_TOTAL\")\"SUM_TOTAL\" from \"T_PO_RINCIAN\" group by \"PO_ID\") as t_sum_1", 'T_PO.ID = t_sum_1.PO_ID', 'left');
 
 
-    $this->db->where('DATE',$date);
+    $date_before = date('Y-m-d',(strtotime ( '-30 day' , strtotime ( $date) ) ));
+
+    $this->db->where("DATE<='{$date}' and DATE>='{$date_before}'");
+
     $this->db->order_by("ID", "desc");
     $akun = $this->db->get ();
     return $akun->result ();

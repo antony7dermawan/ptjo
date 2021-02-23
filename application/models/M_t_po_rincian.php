@@ -25,7 +25,7 @@ public function update($data, $id)
     
 
     $this->db->where('PO_ID',$po_id);
-    $this->db->order_by("ID", "desc");
+    $this->db->order_by("ID", "asc");
     $akun = $this->db->get ();
     return $akun->result ();
   }

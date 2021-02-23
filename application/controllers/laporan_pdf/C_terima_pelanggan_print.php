@@ -30,16 +30,18 @@ class C_terima_pelanggan_print extends MY_Controller
         // Add Header
     
     #.............................paper head
+    $x_value = $pdf->GetX();
+    $y_value = $pdf->GetY();
+    $pdf->SetXY($x_value, $y_value-5);
 
+    $pdf->SetFont('','B',10);
+    $pdf->Cell(90, 8, "PT. JO PERDANA AGRI TECHNOLOGY", 0, 0, 'L');
 
     $pdf->SetFont('','B',12);
-    $pdf->Cell(90, 11, "PT. JO PERDANA AGRI TECHNOLOGY", 0, 0, 'L');
-
-    $pdf->SetFont('','B',18);
-    $pdf->Cell(90, 11, "Terima Pelanggan", 0, 1, 'R');
+    $pdf->Cell(90, 8, "Terima Pelanggan", 0, 1, 'R');
 
 
-    $pdf->SetFont('','',12);
+    $pdf->SetFont('','',9);
 
 
     $read_select = $this->m_t_ak_terima_pelanggan->select_by_id($id);
@@ -56,57 +58,64 @@ class C_terima_pelanggan_print extends MY_Controller
     }
 
 
-    $pdf->Cell(30, 6, "Diterima dr:", 1, 0, 'C');
-    $pdf->Cell(150, 6, $nama, 1, 1, 'L');
-    $pdf->Cell(30, 6, "Alamat:", 1, 0, 'C');
-    $pdf->MultiCell(150, 6, ':'.substr($alamat, 0, 200), 1, 'L',0,1);
+    $pdf->Cell(30, 5, "Diterima dr:", 1, 0, 'C');
+    $pdf->Cell(150, 5, $nama, 1, 1, 'L');
+    $pdf->Cell(30, 5, "Alamat:", 1, 0, 'C');
+    $pdf->MultiCell(150, 5, ':'.substr($alamat, 0, 200), 1, 'L',0,1);
 
 
-    $pdf->Cell(30, 1, "", 0, 1, 'C');
+    $x_value = $pdf->GetX();
+    $y_value = $pdf->GetY();
+    $pdf->SetXY($x_value, $y_value+2);
 
-    $pdf->Cell(45, 6, "Tanggal", 1, 0, 'C');
-    $pdf->Cell(45, 6, "No. Form", 1, 0, 'C');
-    $pdf->Cell(45, 6, "Tanggal Cek", 1, 0, 'C');
-    $pdf->Cell(45, 6, "No. Cek", 1, 1, 'C');
+    $pdf->Cell(45, 5, "Tanggal", 1, 0, 'C');
+    $pdf->Cell(45, 5, "No. Form", 1, 0, 'C');
+    $pdf->Cell(45, 5, "Tanggal Cek", 1, 0, 'C');
+    $pdf->Cell(45, 5, "No. Cek", 1, 1, 'C');
 
-    $pdf->Cell(45, 6, $tgl_faktur, 1, 0, 'C');
-    $pdf->Cell(45, 6, $no_form, 1, 0, 'C');
-    $pdf->Cell(45, 6, $tgl_faktur, 1, 0, 'C');
-    $pdf->Cell(45, 6, "", 1, 1, 'C');
-
-
+    $pdf->Cell(45, 5, $tgl_faktur, 1, 0, 'C');
+    $pdf->Cell(45, 5, $no_form, 1, 0, 'C');
+    $pdf->Cell(45, 5, $tgl_faktur, 1, 0, 'C');
+    $pdf->Cell(45, 5, "", 1, 1, 'C');
 
 
-    $pdf->Cell(30, 1, "", 0, 1, 'C');
 
-    $pdf->Cell(80, 6, "Bank:", 1, 0, 'C');
-    $pdf->Cell(30, 6, "Nilai Tukar", 1, 0, 'C');
-    $pdf->Cell(30, 6, "Mata Uang", 1, 0, 'C');
-    $pdf->Cell(40, 6, "Jumlah Cek", 1, 1, 'C');
+
+    $x_value = $pdf->GetX();
+    $y_value = $pdf->GetY();
+    $pdf->SetXY($x_value, $y_value+2);
+
+    $pdf->Cell(80, 5, "Bank:", 1, 0, 'C');
+    $pdf->Cell(30, 5, "Nilai Tukar", 1, 0, 'C');
+    $pdf->Cell(30, 5, "Mata Uang", 1, 0, 'C');
+    $pdf->Cell(40, 5, "Jumlah Cek", 1, 1, 'C');
 
 
     $total_pembayaran = 0;
     $read_select = $this->m_t_ak_terima_pelanggan_metode_bayar->select($id);
     foreach ($read_select as $key => $value) 
     {
-      $pdf->Cell(80, 6, $value->NAMA_AKUN, 1, 0, 'C');
-      $pdf->Cell(30, 6, "1", 1, 0, 'C');
-      $pdf->Cell(30, 6, "Rp", 1, 0, 'C');
-      $pdf->Cell(40, 6, number_format(intval($value->JUMLAH)), 1, 1, 'C');
+      $pdf->Cell(80, 5, $value->NAMA_AKUN, 1, 0, 'C');
+      $pdf->Cell(30, 5, "1", 1, 0, 'C');
+      $pdf->Cell(30, 5, "Rp", 1, 0, 'C');
+      $pdf->Cell(40, 5, number_format((floatval(intval($value->JUMLAH*100)))/100), 1, 1, 'C');
 
-      $total_pembayaran = $total_pembayaran+intval($value->JUMLAH);
+      $total_pembayaran = $total_pembayaran+floatval($value->JUMLAH);
     }
 
-    $pdf->Cell(30, 1, "", 0, 1, 'C');
-    $pdf->SetFont('','B',12);
+    $x_value = $pdf->GetX();
+    $y_value = $pdf->GetY();
+    $pdf->SetXY($x_value, $y_value+2);
+
+    $pdf->SetFont('','B',9);
 
 
-    $pdf->Cell(45, 6, "No. Faktur", 1, 0, 'C');
-    $pdf->Cell(30, 6, "Tanggal", 1, 0, 'C');
-    $pdf->Cell(35, 6, "Jumlah", 1, 0, 'C');
-    $pdf->Cell(35, 6, "Terutang", 1, 0, 'C');
-    $pdf->Cell(35, 6, "Total", 1, 1, 'C');
-    $pdf->SetFont('','',12);
+    $pdf->Cell(45, 5, "No. Faktur", 1, 0, 'C');
+    $pdf->Cell(30, 5, "Tanggal", 1, 0, 'C');
+    $pdf->Cell(35, 5, "Jumlah", 1, 0, 'C');
+    $pdf->Cell(35, 5, "Terutang", 1, 0, 'C');
+    $pdf->Cell(35, 5, "Total", 1, 1, 'C');
+    $pdf->SetFont('','',9);
 
 
     $sum_total_penjualan=0;
@@ -169,105 +178,101 @@ class C_terima_pelanggan_print extends MY_Controller
      */ //$total_awal = intval($value->TOTAL_PENJUALAN);
       
 
-      $pdf->Cell(45, 6, $value->NO_FAKTUR, 'L', 0, 'C');
-      $pdf->Cell(30, 6, $value->DATE, 'L', 0, 'C');
-      $pdf->Cell(35, 6, number_format(round($total_awal)), 'L', 0, 'R');
-      $pdf->Cell(35, 6, number_format(round($terutang)), 'L', 0, 'R');
-      $pdf->Cell(35, 6, number_format(round($total_awal)), 'L', 0, 'R');
-      $pdf->Cell(0.01, 6, '', 'L', 1, 'R');
+      $pdf->Cell(45, 5, $value->NO_FAKTUR, 'L', 0, 'C');
+      $pdf->Cell(30, 5, $value->DATE, 'L', 0, 'C');
+      $pdf->Cell(35, 5, number_format((floatval(intval($total_awal*100)))/100), 'L', 0, 'R');
+      $pdf->Cell(35, 5, number_format((floatval(intval($terutang*100)))/100), 'L', 0, 'R');
+      $pdf->Cell(35, 5, number_format((floatval(intval($total_awal*100)))/100), 'L', 0, 'R');
+      $pdf->Cell(0.01, 5, '', 'L', 1, 'R');
 
-      $sum_total_penjualan = $sum_total_penjualan + intval($value->TOTAL_PENJUALAN);
-      $total_hutang = $total_hutang + intval($total_awal);
+      $sum_total_penjualan = $sum_total_penjualan + floatval($value->TOTAL_PENJUALAN);
+      $total_hutang = $total_hutang + floatval($total_awal);
     }
-    $last_row = 10;
+    $last_row = $key+1;
     if($key<$last_row)
     {
       for($i=0; $i<=($last_row-$key);$i++)
       {
-        $pdf->Cell(45, 6, '', 'L', 0, 'C');
-        $pdf->Cell(30, 6, '', 'L', 0, 'C');
-        $pdf->Cell(35, 6, '', 'L', 0, 'R');
-        $pdf->Cell(35, 6, '', 'L', 0, 'R');
-        $pdf->Cell(35, 6, '', 'L', 0, 'R');
-        $pdf->Cell(0.01, 6, '', 'L', 1, 'R');
+        $pdf->Cell(45, 5, '', 'L', 0, 'C');
+        $pdf->Cell(30, 5, '', 'L', 0, 'C');
+        $pdf->Cell(35, 5, '', 'L', 0, 'R');
+        $pdf->Cell(35, 5, '', 'L', 0, 'R');
+        $pdf->Cell(35, 5, '', 'L', 0, 'R');
+        $pdf->Cell(0.01, 5, '', 'L', 1, 'R');
       }
     }
 
-        $pdf->Cell(45, 6, '', 'T', 0, 'C');
-        $pdf->Cell(30, 6, '', 'T', 0, 'C');
-        $pdf->Cell(70, 6, 'Total Hutang', 1, 0, 'R');
-        $pdf->Cell(35, 6, number_format(intval($total_hutang)), 1, 1, 'R');
+        $pdf->Cell(45, 5, '', 'T', 0, 'C');
+        $pdf->Cell(65, 5, '', 'T', 0, 'C');
+        $pdf->Cell(35, 5, 'Total Hutang', 1, 0, 'R');
+        $pdf->Cell(35, 5, number_format((floatval(intval($total_hutang*100)))/100), 1, 1, 'R');
 
 
     $total_diskon=0;
     $read_select = $this->m_t_ak_terima_pelanggan_diskon->select($id);
     foreach ($read_select as $key => $value) 
     {
-      $total_diskon = $total_diskon+intval($value->JUMLAH);
+      $total_diskon = $total_diskon+floatval($value->JUMLAH);
     }
 
     $read_select = $this->m_t_ak_terima_pelanggan_metode_bayar->select($id);
     foreach ($read_select as $key => $value) 
     {
-      $total_diskon = round($total_diskon) + round($value->ADM_BANK);
+      $total_diskon = floatval($total_diskon) + floatval($value->ADM_BANK);
     }
 
     //$pph_22 = intval(0.25 * floatval($sum_total_penjualan))/100;
 
     $pph_22 =0;
 
-    $total_diskon = intval($total_diskon) + $pph_22;
+    $total_diskon = floatval($total_diskon) + $pph_22;
 
     
 
-        $pdf->Cell(45, 6, '', 0, 0, 'C');
-        $pdf->Cell(30, 6, '', 0, 0, 'C');
-        $pdf->Cell(70, 6, 'Total Diskon', 1, 0, 'R');
-        $pdf->Cell(35, 6, number_format(intval($total_diskon)), 1, 1, 'R');
+        $pdf->Cell(45, 5, '', 0, 0, 'C');
+        $pdf->Cell(65, 5, '', 0, 0, 'C');
+        $pdf->Cell(35, 5, 'Total Diskon', 1, 0, 'R');
+        $pdf->Cell(35, 5, number_format((floatval(intval($total_diskon*100)))/100), 1, 1, 'R');
 
 
-        $pdf->Cell(45, 6, '', 0, 0, 'C');
-        $pdf->Cell(30, 6, '', 0, 0, 'C');
-        $pdf->Cell(70, 6, 'Total Pembayaran', 1, 0, 'R');
-        $pdf->Cell(35, 6, number_format(intval($total_pembayaran)), 1, 1, 'R');
+        $pdf->Cell(45, 5, '', 0, 0, 'C');
+        $pdf->Cell(65, 5, '', 0, 0, 'C');
+        $pdf->Cell(35, 5, 'Total Pembayaran', 1, 0, 'R');
+        $pdf->Cell(35, 5,number_format((floatval(intval($total_pembayaran*100)))/100), 1, 1, 'R');
 
 
-        $kelebihan_bayar = intval($total_pembayaran) - (intval($total_hutang) - intval($total_diskon));
-        $pdf->Cell(45, 6, '', 0, 0, 'C');
-        $pdf->Cell(30, 6, '', 0, 0, 'C');
-        $pdf->Cell(70, 6, 'Kelebihan Bayar', 1, 0, 'R');
-        $pdf->Cell(35, 6, number_format(intval($kelebihan_bayar)), 1, 1, 'R');
+        $kelebihan_bayar = floatval($total_pembayaran) - (floatval($total_hutang) - floatval($total_diskon));
+        $pdf->Cell(45, 5, '', 0, 0, 'C');
+        $pdf->Cell(65, 5, '', 0, 0, 'C');
+        $pdf->Cell(35, 5, 'Kelebihan Bayar', 1, 0, 'R');
+        $pdf->Cell(35, 5, number_format((floatval(intval($kelebihan_bayar*100)))/100), 1, 1, 'R');
 
+    $x_value = $pdf->GetX();
+    $y_value = $pdf->GetY();
+    $pdf->SetXY($x_value, $y_value-20);
 
     $pdf->Cell(0.01, 1, 'Terbilang', 0, 1, 'L');
-    $pdf->MultiCell(180 ,10,'#'.ucwords($this->terbilang($total_pembayaran)).' Rupiah#',1,'L');
+  
+    $pdf->MultiCell(105, 8, '#'.ucwords($this->terbilang($total_pembayaran)).' Rupiah#', '1', 'L',0,1);
 
     $pdf->Cell(0.01, 1, 'Catatan', 0, 1, 'L');
-    $pdf->MultiCell(180 ,10,$catatan,1,'L');
-
+    $pdf->MultiCell(105, 8, $catatan, '1', 'L',0,1);
 
 
     
 
-    $pdf->Cell(45, 6, "Dibuat", 0, 0, 'C');
-    $pdf->Cell(45, 6, "Diperiksa", 0, 0, 'C');
-    $pdf->Cell(45, 6, "Disetujui", 0, 0, 'C');
-    $pdf->Cell(45, 6, "Diketahui Oleh", 0, 1, 'C');
+    $pdf->Cell(45, 5, "Dibuat", 0, 0, 'C');
+    $pdf->Cell(45, 5, "Diperiksa", 0, 0, 'C');
+    $pdf->Cell(45, 5, "Disetujui", 0, 0, 'C');
+    $pdf->Cell(45, 5, "Diketahui Oleh", 0, 1, 'C');
 
-    $pdf->Cell(45, 6, "", 0, 0, 'C');
-    $pdf->Cell(45, 6, "", 0, 0, 'C');
-    $pdf->Cell(45, 6, "", 0, 0, 'C');
-    $pdf->Cell(45, 6, "", 0, 1, 'C');
+    $pdf->Cell(45, 7, "", 0, 0, 'C');
+    $pdf->Cell(45, 7, "", 0, 0, 'C');
+    $pdf->Cell(45, 7, "", 0, 0, 'C');
+    $pdf->Cell(45, 7, "", 0, 1, 'C');
 
-    $pdf->Cell(45, 6, "", 0, 0, 'C');
-    $pdf->Cell(45, 6, "", 0, 0, 'C');
-    $pdf->Cell(45, 6, "", 0, 0, 'C');
-    $pdf->Cell(45, 6, "", 0, 1, 'C');
 
-    $pdf->Cell(45, 6, "", 0, 0, 'C');
-    $pdf->Cell(45, 6, "", 0, 0, 'C');
-    $pdf->Cell(45, 6, "", 0, 0, 'C');
-    $pdf->Cell(45, 6, "", 0, 1, 'C');
+
 
 
     $read_select = $this->m_t_ak_terima_pelanggan_print_setting->select_id(1);
@@ -275,34 +280,34 @@ class C_terima_pelanggan_print extends MY_Controller
     {
       $setting_value=$value->SETTING_VALUE;
     }
-    $pdf->Cell(45, 6, $setting_value, 0, 0, 'C');
+    $pdf->Cell(45, 5, $setting_value, 0, 0, 'C');
 
     $read_select = $this->m_t_ak_terima_pelanggan_print_setting->select_id(2);
     foreach ($read_select as $key => $value) 
     {
       $setting_value=$value->SETTING_VALUE;
     }
-    $pdf->Cell(45, 6, $setting_value, 0, 0, 'C');
+    $pdf->Cell(45, 5, $setting_value, 0, 0, 'C');
 
     $read_select = $this->m_t_ak_terima_pelanggan_print_setting->select_id(3);
     foreach ($read_select as $key => $value) 
     {
       $setting_value=$value->SETTING_VALUE;
     }
-    $pdf->Cell(45, 6, $setting_value, 0, 0, 'C');
+    $pdf->Cell(45, 5, $setting_value, 0, 0, 'C');
 
     $read_select = $this->m_t_ak_terima_pelanggan_print_setting->select_id(4);
     foreach ($read_select as $key => $value) 
     {
       $setting_value=$value->SETTING_VALUE;
     }
-    $pdf->Cell(45, 6, $setting_value, 0, 1, 'C');
+    $pdf->Cell(45, 5, $setting_value, 0, 1, 'C');
 
 
-    $pdf->Cell(45, 6, "Tgl:", 0, 0, 'L');
-    $pdf->Cell(45, 6, "Tgl:", 0, 0, 'L');
-    $pdf->Cell(45, 6, "Tgl:", 0, 0, 'L');
-    $pdf->Cell(45, 6, "Tgl:", 0, 1, 'L');
+    $pdf->Cell(45, 5, "Tgl:", 0, 0, 'L');
+    $pdf->Cell(45, 5, "Tgl:", 0, 0, 'L');
+    $pdf->Cell(45, 5, "Tgl:", 0, 0, 'L');
+    $pdf->Cell(45, 5, "Tgl:", 0, 1, 'L');
 
 
 
