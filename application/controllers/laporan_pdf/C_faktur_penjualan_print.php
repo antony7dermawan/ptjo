@@ -255,7 +255,7 @@ class c_faktur_penjualan_print extends MY_Controller
       $setting_value=$value->SETTING_VALUE;
     }
     $pdf->Cell( 140,5,'','0',0,'L');
-    $pdf->Cell( 50,5,$setting_value.','.date('d-m-Y'),'0',1,'C');
+    $pdf->Cell( 50,5,$setting_value.','.date('d-m-Y', strtotime($tgl_faktur)),'0',1,'C');
 
     $pdf->SetFont('','',9);
     
