@@ -77,26 +77,26 @@ class C_t_po_print extends MY_Controller
 
         $pdf->Cell( 190,30,'','0',1,'C');
 
-        $pdf->SetFont('','B',14);
+        $pdf->SetFont('','B',12);
         $pdf->Cell( 190,10,'Purchase Order','0',1,'C');
 
-        $pdf->SetFont('','',11);
+        $pdf->SetFont('','',10);
 
         $pdf->Cell( 20,5,'Kepada','0',0,'L');
-        $pdf->Cell( 75,5,':'.$r_supplier,'0',0,'L');
+        $pdf->Cell( 85,5,':'.$r_supplier,'0',0,'L');
         $pdf->Cell( 20,5,'Tanggal','0',0,'L');
         $pdf->Cell( 75,5,':'.date('d-m-Y', strtotime($r_date)),'0',1,'L');
 
 
         $pdf->MultiCell(20, 10, 'Alamat', '0', 'L',0,0);
-        $pdf->MultiCell(75, 10,':'.substr($r_alamat_supplier, 0, 200), '0', 'L',0,0);
+        $pdf->MultiCell(85, 10,':'.substr($r_alamat_supplier, 0, 200), '0', 'L',0,0);
         $pdf->Cell( 20,10,'NO PO','0',0,'L');
         $pdf->Cell( 75,10,':'.$r_no_po,'0',1,'L');
 
 
 
         $pdf->Cell( 20,5,'Telp','0',0,'L');
-        $pdf->Cell( 75,5,':'.$r_telp_supplier,'0',0,'L');
+        $pdf->Cell( 85,5,':'.$r_telp_supplier,'0',0,'L');
         $pdf->Cell( 20,5,'Penerima','0',0,'L');
         $pdf->Cell( 75,5,':'.$r_nama_penerima,'0',1,'L');
 

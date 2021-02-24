@@ -300,6 +300,26 @@
         <input type="hidden" name="id" value="" class="form-control">
 
 
+
+        <div class="row">
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
+              <label>Tanggal Transaksi</label>
+              <form action='/action_page.php'>
+              <input type='date' class='form-control' name='date' value=''>
+            </fieldset>
+
+          </div><!-- Membungkus Row Kedua !-->
+
+
+          <div class="col-md-6">
+
+            
+          </div> <!-- Membungkus Row !-->
+        </div>
+
+        
         <div class="row">
           <div class="col-md-6">
 
@@ -367,7 +387,8 @@
         DEBIT : debit,
         KREDIT : kredit,
         CATATAN : catatan,
-        DEPARTEMEN : departemen
+        DEPARTEMEN : departemen,
+        DATE : date
       } = User[0];
 
       elModalEdit.querySelector("[name=id]").value = ID;
@@ -377,7 +398,7 @@
       elModalEdit.querySelector("[name=kredit]").value = kredit;
       elModalEdit.querySelector("[name=catatan]").value = catatan;
       elModalEdit.querySelector("[name=departemen]").value = departemen;
-
+      elModalEdit.querySelector("[name=date]").value = date;
   
 
 

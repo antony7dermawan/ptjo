@@ -30,7 +30,7 @@ class c_faktur_penjualan_print extends MY_Controller
     
 
 
-    $pdf->SetFont('','',12);
+    $pdf->SetFont('','',10);
 
     $read_select = $this->m_t_ak_faktur_penjualan->select_by_id($id);
     foreach ($read_select as $key => $value) 
@@ -69,7 +69,7 @@ class c_faktur_penjualan_print extends MY_Controller
         }
         $pdf->Image('assets/images/logo-jo.jpg',10,10,0);
 
-        $pdf->SetFont('','B',12);
+        $pdf->SetFont('','B',10);
         $pdf->Cell(30, 5, "", 0, 0, 'L');
         $pdf->Cell(100, 5, "PT. JO PERDANA AGRI TECHNOLOGY", 0, 1, 'L');
 
@@ -88,10 +88,10 @@ class c_faktur_penjualan_print extends MY_Controller
         $pdf->Cell( 30,5,'','0',0,'C');
         $pdf->Cell( 160,5,'','B',1,'C');
 
-        $pdf->SetFont('','B',16);
+        $pdf->SetFont('','B',12);
         $pdf->Cell( 190,5,'Faktur Penjualan','0',1,'C');
 
-        $pdf->SetFont('','',12);
+        $pdf->SetFont('','',10);
         $pdf->Cell( 40,5,'NO PELANGGAN','0',0,'L');
         $pdf->Cell( 100,5,':'.$no_pelanggan,'0',1,'L');
         $pdf->Cell( 40,5,'NO FAKTUR','0',0,'L');
@@ -110,7 +110,7 @@ class c_faktur_penjualan_print extends MY_Controller
 
         $pdf->Cell( 100,3,'','0',1,'L');
 
-        $pdf->SetFont('','B',13);
+        $pdf->SetFont('','B',10);
         $size[0]=10;
         $size[1]=40;
         $size[2]=30;
@@ -134,7 +134,7 @@ class c_faktur_penjualan_print extends MY_Controller
       
       
 
-      $pdf->SetFont('','',10);
+      $pdf->SetFont('','',9);
       $pdf->MultiCell($size[0], 8, $key+1, 'L', 'C',0,0);
       $pdf->MultiCell($size[1], 8, substr($value->KETERANGAN, 0, 40), 'L', 'L',0,0);
       $pdf->MultiCell($size[2], 8, date('d-m-Y', strtotime($value->DATE)), 'L', 'L',0,0);

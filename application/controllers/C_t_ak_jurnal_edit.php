@@ -219,7 +219,7 @@ class C_t_ak_jurnal_edit extends MY_Controller
   {
     $id = $this->input->post("id");
 
-
+    $date = $this->input->post("date");
     $debit = intval($this->input->post("debit"));
     $kredit = intval($this->input->post("kredit"));
     $catatan = ($this->input->post("catatan"));
@@ -241,7 +241,8 @@ class C_t_ak_jurnal_edit extends MY_Controller
       'KREDIT' => $kredit,
       'CATATAN' => $catatan,
       'DEPARTEMEN' => $departemen,
-      'NO_VOUCER' => $no_voucer
+      'NO_VOUCER' => $no_voucer,
+      'DATE' => $date
 
     );
 

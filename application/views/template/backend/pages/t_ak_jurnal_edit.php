@@ -262,6 +262,27 @@
           <div class="col-md-6">
 
             <fieldset class="form-group">
+              <label>Tanggal Transaksi</label>
+              <form action='/action_page.php'>
+              <input type='date' class='form-control' name='date' value=''>
+            </fieldset>
+
+          </div><!-- Membungkus Row Kedua !-->
+
+
+          <div class="col-md-6">
+
+            
+          </div> <!-- Membungkus Row !-->
+        </div>
+
+
+
+
+        <div class="row">
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
               <label>Debit</label>
               <input type='text' class='form-control' placeholder='Input Number' name='debit'>
             </fieldset>
@@ -326,7 +347,8 @@
         KREDIT : kredit,
         CATATAN : catatan,
         DEPARTEMEN : departemen,
-        NO_VOUCER : no_voucer
+        NO_VOUCER : no_voucer,
+        DATE : date
       } = User[0];
 
       elModalEdit.querySelector("[name=id]").value = ID;
@@ -336,6 +358,7 @@
       elModalEdit.querySelector("[name=kredit]").value = kredit;
       elModalEdit.querySelector("[name=catatan]").value = catatan;
       elModalEdit.querySelector("[name=departemen]").value = departemen;
+      elModalEdit.querySelector("[name=date]").value = date;
 
   
 

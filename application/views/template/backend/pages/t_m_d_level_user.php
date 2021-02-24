@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-header">
-    <h5>Master Divisi</h5>
+    <h5>Master Level User</h5>
   </div>
   <div class="card-block">
     <!-- Menampilkan notif !-->

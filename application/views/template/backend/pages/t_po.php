@@ -64,11 +64,17 @@
               if ($value->ENABLE_EDIT == 0) {
                 $ok_color = 'green';
               }
-              if ($value->ENABLE_EDIT >= 0) {
-                echo "<a href='" . site_url('c_t_po/checked_ok/' . $value->ID) . "' ";
-              ?>
-                onclick="return confirm('Apakah kamu yakin ini BENAR?')"
-              <?php
+              if ($value->ENABLE_EDIT >= 0) 
+              {
+                echo "<a ";
+                if($value->ENABLE_EDIT > 0)
+                {
+                  echo "href='" . site_url('c_t_po/checked_ok/' . $value->ID) . "' ";
+                  ?>
+                  onclick="return confirm('Apakah kamu yakin ini BENAR?')"
+                  <?php
+                }
+              
 
                 echo "> <i class='fa fa-check f-w-600 f-16 text-c-" . $ok_color . "'></i></a>";
               }
