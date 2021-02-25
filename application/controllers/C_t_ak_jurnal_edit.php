@@ -42,7 +42,7 @@ class C_t_ak_jurnal_edit extends MY_Controller
   function tambah()
   {
     $coa_id = ($this->input->post("coa_id"));
-
+    $date = ($this->input->post("date"));
 
     $debit = intval($this->input->post("debit"));
     $kredit = intval($this->input->post("kredit"));
@@ -67,7 +67,7 @@ class C_t_ak_jurnal_edit extends MY_Controller
     $read_select = $this->m_t_ak_jurnal_edit->select_created_id();
     foreach ($read_select as $key => $value) {
       $created_id = $value->CREATED_ID;
-      $date = $value->DATE;
+
       $time = $value->TIME;
     }
 
@@ -87,7 +87,7 @@ class C_t_ak_jurnal_edit extends MY_Controller
         'DEPARTEMEN' => $departemen,
         'NO_VOUCER' => $no_voucer,
         'CREATED_ID' => $created_id,
-        'CHECKED_ID' => 0,
+        'CHECKED_ID' => 1,
         'SPECIAL_ID' => 0
       );
 
@@ -219,7 +219,7 @@ class C_t_ak_jurnal_edit extends MY_Controller
   {
     $id = $this->input->post("id");
 
-
+    $date = $this->input->post("date");
     $debit = intval($this->input->post("debit"));
     $kredit = intval($this->input->post("kredit"));
     $catatan = ($this->input->post("catatan"));
@@ -236,14 +236,13 @@ class C_t_ak_jurnal_edit extends MY_Controller
 
     //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
     $data = array(
-      'DATE' => date('Y-m-d'),
-      'TIME' => date('H:i:s'),
       'UPDATED_BY' => $this->session->userdata('username'),
       'DEBIT' => $debit,
       'KREDIT' => $kredit,
       'CATATAN' => $catatan,
       'DEPARTEMEN' => $departemen,
-      'NO_VOUCER' => $no_voucer
+      'NO_VOUCER' => $no_voucer,
+      'DATE' => $date
 
     );
 

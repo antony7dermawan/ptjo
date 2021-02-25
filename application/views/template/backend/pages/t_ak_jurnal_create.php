@@ -8,6 +8,7 @@
       $disabled = 'disabled';
     }
     ?>
+
     <form action="<?php echo base_url('c_t_ak_jurnal_create/create_no_voucer') ?>" class='no_voucer_area' method="post" id=''>
       <table>
         <tr>
@@ -53,6 +54,7 @@
         <thead>
           <tr>
             <th>No</th>
+            <th>Date</th>
             <th>NO AKUN</th>
             <th>Nama Akun</th>
             <th>Debit</th>
@@ -89,6 +91,7 @@
             echo "<tr>";
 
               echo "<td>".($key + 1)."</td>";
+              echo "<td>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</td>";
               echo "<td>".$no_akun."</td>";
               echo "<td>".$value->NAMA_AKUN."</td>";
               echo "<td>Rp".number_format(intval($value->DEBIT))."</td>";
@@ -119,6 +122,7 @@
             echo "<tr>";
             echo "<th></th>";
             echo "<th></th>";
+            echo "<th></th>";
             echo "<th class='text_red'>TOTAL</th>";
             echo "<th class='text_red'>Rp".number_format(intval($total_debit))."</th>";
             echo "<th class='text_red'>Rp".number_format(intval($total_kredit))."</th>";
@@ -134,6 +138,7 @@
           if($total_debit==$total_kredit and $total_debit!=0)
           {
             echo "<tr>";
+            echo "<th></th>";
             echo "<th></th>";
             echo "<th></th>";
             echo "<th class='text_black'>TOTAL</th>";
@@ -295,6 +300,26 @@
         <input type="hidden" name="id" value="" class="form-control">
 
 
+
+        <div class="row">
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
+              <label>Tanggal Transaksi</label>
+              <form action='/action_page.php'>
+              <input type='date' class='form-control' name='date' value=''>
+            </fieldset>
+
+          </div><!-- Membungkus Row Kedua !-->
+
+
+          <div class="col-md-6">
+
+            
+          </div> <!-- Membungkus Row !-->
+        </div>
+
+        
         <div class="row">
           <div class="col-md-6">
 
@@ -362,7 +387,8 @@
         DEBIT : debit,
         KREDIT : kredit,
         CATATAN : catatan,
-        DEPARTEMEN : departemen
+        DEPARTEMEN : departemen,
+        DATE : date
       } = User[0];
 
       elModalEdit.querySelector("[name=id]").value = ID;
@@ -372,7 +398,7 @@
       elModalEdit.querySelector("[name=kredit]").value = kredit;
       elModalEdit.querySelector("[name=catatan]").value = catatan;
       elModalEdit.querySelector("[name=departemen]").value = departemen;
-
+      elModalEdit.querySelector("[name=date]").value = date;
   
 
 

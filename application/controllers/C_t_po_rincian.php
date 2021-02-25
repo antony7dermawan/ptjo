@@ -46,9 +46,12 @@ class C_t_po_rincian extends MY_Controller
     $qty = floatval($this->input->post("qty"));
     $satuan = substr($this->input->post("satuan"), 0, 50);
     $harga = floatval($this->input->post("harga"));
-    $sub_total = $qty * $harga;
-
     
+
+
+    $ppn = floatval($this->input->post("ppn"));
+
+    $sub_total = ($qty * $harga) * ((100+$ppn)/100);
     
 
     $data = array(
@@ -59,7 +62,8 @@ class C_t_po_rincian extends MY_Controller
       'HARGA' => $harga,
       'CREATED_BY' => $this->session->userdata('username'),
       'UPDATED_BY' => $this->session->userdata('username'),
-      'SUB_TOTAL' => $sub_total
+      'SUB_TOTAL' => $sub_total,
+      'PPN' => $ppn
     );
 
     $this->m_t_po_rincian->tambah($data);
@@ -80,7 +84,9 @@ class C_t_po_rincian extends MY_Controller
     $qty = floatval($this->input->post("qty"));
     $satuan = substr($this->input->post("satuan"), 0, 50);
     $harga = floatval($this->input->post("harga"));
-    $sub_total = $qty * $harga;
+    $ppn = floatval($this->input->post("ppn"));
+
+    $sub_total = ($qty * $harga) * ((100+$ppn)/100);
 
     
     
@@ -91,7 +97,8 @@ class C_t_po_rincian extends MY_Controller
       'SATUAN' => $satuan,
       'HARGA' => $harga,
       'UPDATED_BY' => $this->session->userdata('username'),
-      'SUB_TOTAL' => $sub_total
+      'SUB_TOTAL' => $sub_total,
+      'PPN' => $ppn
     );
     $this->m_t_po_rincian->update($data, $id);
     $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');

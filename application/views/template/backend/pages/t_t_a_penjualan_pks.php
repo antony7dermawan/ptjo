@@ -67,6 +67,10 @@
         </thead>
         <tbody>
           <?php
+          $sum_total_penjualan = 0;
+          $sum_bruto = 0;
+          $sum_neto = 0;
+          $sum_uang_jalan = 0;
           foreach ($c_t_t_a_penjualan_pks as $key => $value) {
             echo "<tr>";
             echo "<td>" . ($key + 1) . "</td>";
@@ -81,13 +85,15 @@
             echo "<td>Rp" . number_format(intval($value->TOTAL_PENJUALAN)) . "</td>";
             echo "<td>" . $value->NO_TIKET . "</td>";
 
-
-            if ($value->CHECKED_ID == 0) {
+            $sum_total_penjualan = $sum_total_penjualan+intval($value->TOTAL_PENJUALAN);
+            $sum_bruto = $sum_bruto + $value->BRUTO;
+            $sum_neto = $sum_neto + (intval($value->NETO * 100) / 100);
+            $sum_uang_jalan = $sum_uang_jalan + intval($value->UANG_JALAN + $value->TAMBAHAN);
+            if ($value->ENABLE_EDIT == 1) {
               echo "<td>";
 
-              /*$ok_color = 'red';
-              if ($value->CHECKED_ID == 1) 
-              {
+              $ok_color = 'red';
+              if ($value->CHECKED_ID == 1) {
                 $ok_color = 'green';
               }
               if ($value->SPECIAL_ID > 0) {
@@ -97,9 +103,7 @@
               <?php
 
                 echo "> <i class='fa fa-check f-w-600 f-16 text-c-" . $ok_color . "'></i></a>";
-              }*/
-              
-
+              }
 
               echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#Modal_Edit' class='btn-edit' data-id='" . $value->ID . "'>";
               echo "<i class='icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green'></i>";
@@ -108,15 +112,15 @@
               
               echo "<a href='" . site_url('c_t_t_a_penjualan_pks/delete/' . $value->ID) . "' ";
               ?>
-                  onclick="return confirm('Apakah kamu yakin ingin menghapus data ini?')"
-              <?php
+              onclick="return confirm('Apakah kamu yakin ingin menghapus data ini?')"
+          <?php
               echo "> <i class='feather icon-trash-2 f-w-600 f-16 text-c-red'></i></a>";
 
               echo "</td>";
             }
-            if ($value->CHECKED_ID == 1) {
+            if ($value->ENABLE_EDIT == 0) {
               echo "<td class='text-c-green'>";
-              echo "Sent";
+              echo "Sudah Ditagih";
               echo "</td>";
             }
 
@@ -127,6 +131,23 @@
           }
           ?>
         </tbody>
+
+        <tfoot>
+          <tr>
+            <th></th>
+            <th></th>
+            <th>Total</th>
+            <th><?=number_format(intval($sum_bruto))?></th>
+            <th></th>
+            <th><?=number_format(intval($sum_neto))?></th>
+            <th>Rp<?=number_format(intval($sum_uang_jalan))?></th>
+            <th>Rp<?=number_format(intval($sum_total_penjualan))?></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </tfoot>
+
+
       </table>
     </div>
   </div>

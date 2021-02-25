@@ -32,8 +32,8 @@ class C_t_ak_jurnal_create extends MY_Controller
       "no_akun_option" => $this->m_ak_m_coa->select_no_akun(),
       "c_ak_m_family" => $this->m_ak_m_family->select(),
       "c_ak_m_type" => $this->m_ak_m_type->select(),
-      "title" => "Master Coa",
-      "description" => "Coa untuk Accounting"
+      "title" => "Create No Voucer Baru",
+      "description" => "Harus isi nomor voucer dulu"
     ];
     $this->render_backend('template/backend/pages/t_ak_jurnal_create', $data);
   }
@@ -235,7 +235,7 @@ class C_t_ak_jurnal_create extends MY_Controller
   {
     $id = $this->input->post("id");
 
-
+    $date = $this->input->post("date");
     $debit = intval($this->input->post("debit"));
     $kredit = intval($this->input->post("kredit"));
     $catatan = ($this->input->post("catatan"));
@@ -253,7 +253,8 @@ class C_t_ak_jurnal_create extends MY_Controller
       'KREDIT' => $kredit,
       'CATATAN' => $catatan,
       'DEPARTEMEN' => $departemen,
-      'NO_VOUCER' => $no_voucer
+      'NO_VOUCER' => $no_voucer,
+      'DATE' => $date
 
     );
 

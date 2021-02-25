@@ -15,8 +15,8 @@ class C_ak_m_db_k extends MY_Controller
   {
     $data = [
       "c_ak_m_db_k" => $this->m_ak_m_db_k->select(),
-      "title" => "Master PKS",
-      "description" => "Pilihan PKS Untuk T Penjualan PKS"
+      "title" => "Master Debit Kredit",
+      "description" => "Nama Debit Kredit"
     ];
     $this->render_backend('template/backend/pages/ak_m_db_k', $data);
   }

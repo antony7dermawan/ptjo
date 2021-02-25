@@ -40,7 +40,7 @@
             echo "<td>" . $value->NAMA_BARANG . "</td>";
             
 
-            echo "<td> Rp" . number_format(intval($value->QTY)) . "</td>";
+            echo "<td>" . number_format(intval($value->QTY)) . "</td>";
             echo "<td>" . $value->SATUAN . "</td>";
             echo "<td> Rp" . number_format(intval($value->HARGA)) . "</td>";
             echo "<td> Rp" . number_format(intval($value->SUB_TOTAL)) . "</td>";
@@ -125,6 +125,11 @@
               <input type='text' class='form-control' placeholder='Input Number' name='harga' value=''>
           </div>
 
+          <div class="form-group">
+              <label>PPN</label>
+              <input type='text' class='form-control' placeholder='Input Dalam Persen (Contoh: 10)' name='ppn' value=''>
+          </div>
+
 
         </div>
 
@@ -192,6 +197,11 @@
               <label>Harga</label>
               <input type='text' class='form-control' placeholder='Input Number' name='harga' value=''>
           </div>
+
+          <div class="form-group">
+              <label>PPN</label>
+              <input type='text' class='form-control' placeholder='Input Dalam Persen (Contoh: 10)' name='ppn' value=''>
+          </div>
         </div>
 
 
@@ -221,7 +231,8 @@
               NAMA_BARANG: nama_barang,
               QTY: qty,
               SATUAN: satuan,
-              HARGA: harga
+              HARGA: harga,
+              PPN: ppn
             } = User[0];
 
             elModalEdit.querySelector("[name=id]").value = ID;
@@ -231,6 +242,7 @@
             elModalEdit.querySelector("[name=qty]").value = qty;
             elModalEdit.querySelector("[name=satuan]").value = satuan;
             elModalEdit.querySelector("[name=harga]").value = harga;
+            elModalEdit.querySelector("[name=ppn]").value = ppn;
 
 
 

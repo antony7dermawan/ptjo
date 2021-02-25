@@ -13,6 +13,7 @@
         <thead>
           <tr>
             <th>No</th>
+            <th>Date</th>
             <th>NO AKUN</th>
             <th>Nama Akun</th>
             <th>Debit</th>
@@ -49,6 +50,7 @@
             echo "<tr>";
 
               echo "<td>".($key + 1)."</td>";
+              echo "<td>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</td>";
               echo "<td>".$no_akun."</td>";
               echo "<td>".$value->NAMA_AKUN."</td>";
               echo "<td>Rp".number_format(intval($value->DEBIT))."</td>";
@@ -78,6 +80,7 @@
             echo "<tr>";
             echo "<th></th>";
             echo "<th></th>";
+            echo "<th></th>";
             echo "<th class='text_red'>TOTAL</th>";
             echo "<th class='text_red'>Rp".number_format(intval($total_debit))."</th>";
             echo "<th class='text_red'>Rp".number_format(intval($total_kredit))."</th>";
@@ -93,6 +96,7 @@
           if($total_debit==$total_kredit and $total_debit>=0)
           {
             echo "<tr>";
+            echo "<th></th>";
             echo "<th></th>";
             echo "<th></th>";
             echo "<th class='text_black'>TOTAL</th>";
@@ -141,7 +145,10 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">New Data</h4>
+          <h4 class="modal-title">Tanggal Transaksi:
+            <form action='/action_page.php'>
+              <input type='date' class='form-control' name='date' value='<?= $this->session->userdata('date_jurnal_create') ?>'>
+          </h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -255,6 +262,27 @@
           <div class="col-md-6">
 
             <fieldset class="form-group">
+              <label>Tanggal Transaksi</label>
+              <form action='/action_page.php'>
+              <input type='date' class='form-control' name='date' value=''>
+            </fieldset>
+
+          </div><!-- Membungkus Row Kedua !-->
+
+
+          <div class="col-md-6">
+
+            
+          </div> <!-- Membungkus Row !-->
+        </div>
+
+
+
+
+        <div class="row">
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
               <label>Debit</label>
               <input type='text' class='form-control' placeholder='Input Number' name='debit'>
             </fieldset>
@@ -319,7 +347,8 @@
         KREDIT : kredit,
         CATATAN : catatan,
         DEPARTEMEN : departemen,
-        NO_VOUCER : no_voucer
+        NO_VOUCER : no_voucer,
+        DATE : date
       } = User[0];
 
       elModalEdit.querySelector("[name=id]").value = ID;
@@ -329,6 +358,7 @@
       elModalEdit.querySelector("[name=kredit]").value = kredit;
       elModalEdit.querySelector("[name=catatan]").value = catatan;
       elModalEdit.querySelector("[name=departemen]").value = departemen;
+      elModalEdit.querySelector("[name=date]").value = date;
 
   
 

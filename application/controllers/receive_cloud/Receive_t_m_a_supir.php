@@ -58,7 +58,7 @@ class Receive_t_m_a_supir extends MY_Controller
             'SUPIR' => $r_supir[$i]
           );
 
-          $this->m_t_m_a_no_polisi->tambah($data);
+          $this->m_t_m_a_supir->tambah($data);
           echo "done insert ID={$r_id[$i]} , SUPIR={$r_supir[$i]} <br>";
         }
 

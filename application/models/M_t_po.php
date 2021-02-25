@@ -29,6 +29,26 @@ public function select_by_id($id)
   }
 
 
+
+public function select_for_dashboard()
+  {
+    $today = date('Y-m-d');
+    $this->db->select('*');
+    $this->db->select('SUM_TOTAL');
+    $this->db->from('T_PO');
+
+    $this->db->join("(select \"PO_ID\",sum(\"SUB_TOTAL\")\"SUM_TOTAL\" from \"T_PO_RINCIAN\" group by \"PO_ID\") as t_sum_1", 'T_PO.ID = t_sum_1.PO_ID', 'left');
+
+
+    $this->db->where("T_PO.EXPIRE_DATE<='{$today}'");
+
+    $this->db->where("T_PO.ENABLE_EDIT>'0'");
+    $this->db->order_by("ID", "desc");
+    $akun = $this->db->get ();
+    return $akun->result ();
+  }
+
+
   public function select($date)
   {
     $this->db->select('*');
@@ -38,7 +58,9 @@ public function select_by_id($id)
     $this->db->join("(select \"PO_ID\",sum(\"SUB_TOTAL\")\"SUM_TOTAL\" from \"T_PO_RINCIAN\" group by \"PO_ID\") as t_sum_1", 'T_PO.ID = t_sum_1.PO_ID', 'left');
 
 
-    $this->db->where('DATE',$date);
+
+    $this->db->where("DATE='{$date}'");
+
     $this->db->order_by("ID", "desc");
     $akun = $this->db->get ();
     return $akun->result ();
