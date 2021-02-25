@@ -203,7 +203,10 @@
           </div>
 
 
-
+        <div class="form-group">
+              <label>Lainnya</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='lainnya'>  
+        </div>
 
         <div class="form-group">
               <label>Keterangan</label>
@@ -374,12 +377,15 @@
             </div> <!-- Membungkus Row !-->
           </div>
 
-
+        <div class="form-group">
+              <label>Lainnya</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='lainnya'>  
+        </div>
 
 
         <div class="form-group">
               <label>Keterangan</label>
-              <textarea rows='4' cols='20' name='ket' id='' form='add_data' class='form-control'></textarea>
+              <textarea rows='4' cols='20' name='ket' id='' form='edit_data' class='form-control'></textarea>
         </div>
 
 
@@ -499,7 +505,8 @@
               TELP_PENERIMA: telp_penerima,
               TELP_SUPPLIER: telp_supplier,
               ALAMAT_SUPPLIER: alamat_supplier,
-              EXPIRE_DATE: expire_date
+              EXPIRE_DATE: expire_date,
+              LAINNYA: lainnya
 
             } = User[0];
 
@@ -520,6 +527,7 @@
             elModalEdit.querySelector("[name=telp_supplier]").value = telp_supplier;
             elModalEdit.querySelector("[name=alamat_supplier]").value = alamat_supplier;
             elModalEdit.querySelector("[name=expire_date]").value = expire_date;
+            elModalEdit.querySelector("[name=lainnya]").value = lainnya;
 
 
 

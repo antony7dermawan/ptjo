@@ -70,6 +70,8 @@ class C_t_po extends MY_Controller
     $telp_supplier = substr($this->input->post("telp_supplier"), 0, 50);
     $alamat_supplier = substr($this->input->post("alamat_supplier"), 0, 50);
 
+    $lainnya = substr($this->input->post("lainnya"), 0, 200);
+
 
     
     $this->session->set_userdata('date_po', $date);
@@ -92,7 +94,8 @@ class C_t_po extends MY_Controller
       'TELP_SUPPLIER' => $telp_supplier,
       'ALAMAT_SUPPLIER' => $alamat_supplier,
       'EXPIRE_DATE' => $expire_date,
-      'ENABLE_EDIT' => 1
+      'ENABLE_EDIT' => 1,
+      'LAINNYA' => $lainnya
       
     );
 
@@ -124,6 +127,10 @@ class C_t_po extends MY_Controller
     $telp_penerima = substr($this->input->post("telp_penerima"), 0, 50);
     $telp_supplier = substr($this->input->post("telp_supplier"), 0, 50);
     $alamat_supplier = substr($this->input->post("alamat_supplier"), 0, 50);
+    $lainnya = substr($this->input->post("lainnya"), 0, 200);
+
+
+    
 
     $data = array(
       'NO_PO' => $no_po,
@@ -140,7 +147,8 @@ class C_t_po extends MY_Controller
       'TELP_PENERIMA' => $telp_penerima,
       'TELP_SUPPLIER' => $telp_supplier,
       'ALAMAT_SUPPLIER' => $alamat_supplier,
-      'EXPIRE_DATE' => $expire_date
+      'EXPIRE_DATE' => $expire_date,
+      'LAINNYA' => $lainnya
     );
     $this->m_t_po->update($data, $id);
     $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');

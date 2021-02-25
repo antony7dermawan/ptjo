@@ -50,6 +50,7 @@ class C_t_po_print extends MY_Controller
       $r_telp_penerima=$value->TELP_PENERIMA;
       $r_telp_supplier=$value->TELP_SUPPLIER;
       $r_alamat_supplier=$value->ALAMAT_SUPPLIER;
+      $r_lainnya=$value->LAINNYA;
 
     }
 
@@ -101,7 +102,7 @@ class C_t_po_print extends MY_Controller
         $pdf->Cell( 75,5,':'.$r_nama_penerima,'0',1,'L');
 
         $pdf->Cell( 20,5,'Lainnya','0',0,'L');
-        $pdf->MultiCell(100, 5, ':'.substr($r_ket, 0, 200), 0, 'L',0,1);
+        $pdf->MultiCell(100, 5, ':'.substr($r_lainnya, 0, 200), 0, 'L',0,1);
 
        
 
@@ -238,6 +239,13 @@ class C_t_po_print extends MY_Controller
         $pdf->Cell( 0.01,10,'','L',1,'L');
 
 
+        if($r_ket!='')
+        {
+          $pdf->SetFont('','B',9);
+          $pdf->Cell( 45,5,'Keterangan','0',0,'L');
+          $pdf->MultiCell(100, 5, substr($r_ket, 0, 500), 0, 'L',0,1);
+        }
+        
         
 
 
