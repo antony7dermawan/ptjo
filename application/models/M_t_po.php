@@ -59,7 +59,7 @@ public function select_for_dashboard()
 
 
 
-    $this->db->where("DATE='{$date}'");
+    $this->db->where("T_PO.DATE='{$date}'");
 
     $this->db->order_by("ID", "desc");
     $akun = $this->db->get ();

@@ -74,9 +74,11 @@
                     <thead>
                       <tr>
                         <th>No</th>
+                        <th>PKS</th>
                         <th>No Faktur</th>
                         <th>Tanggal</th>
                         <th>Jumlah</th>
+                        <th>Sudah Dibayarkan</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -84,9 +86,11 @@
                       foreach ($select_no_faktur as $key => $value) {
                         echo "<tr>";
                         echo "<td>" . ($key + 1) . "</td>";
+                        echo "<td>" . $value->PKS . "</td>";
                         echo "<td>" . $value->NO_FAKTUR . "</td>";
                         echo "<td>" . date('d-m-Y', strtotime($value->DATE)) . "</td>";
-                        echo "<td>Rp" . number_format(intval($value->SUM_TOTAL_PENJUALAN)) . "</td>";
+                        echo "<td>Rp" . number_format(round($value->SUM_TOTAL_PENJUALAN)) . "</td>";
+                        echo "<td>Rp" . number_format(round($value->PAYMENT_T)) . "</td>";
 
 
                         /*
@@ -109,19 +113,16 @@
                   </table>
                 </div>
               </div>
-
-
-
             </div>
           </div>
 
 
 
           <!-- !-->
-          <div class="col-xl-8 col-md-12">
+          <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h5>Rekap Transaksi Pengiriman</h5>
+                <h5>Rekap Transaksi Pengiriman
 
                 <form action='<?php echo base_url("c_dashboard/search_date"); ?>' class='no_voucer_area' method="post" id=''>
                   <table>
@@ -144,6 +145,7 @@
 
 
                 </form>
+                </h5>
               </div>
               <div class="card-block">
                 <div class="dt-responsive table-responsive">
@@ -166,15 +168,15 @@
                         if ($value->SUM_TRIP == 0) {
                           $total_trip = 1;
                         }
-                        $sortase = (intval((floatval($value->SUM_SORTASE_PERCENTAGE) / $total_trip) * 100)) / 100;
+                        $sortase = (round((floatval($value->SUM_SORTASE_PERCENTAGE) / $total_trip) * 100)) / 100;
                         echo "<tr>";
                         echo "<td>" . ($key + 1) . "</td>";
                         echo "<td>" . $value->PKS . "</td>";
-                        echo "<td>" . number_format(intval($value->SUM_TRIP)) . "</td>";
-                        echo "<td>" . number_format(intval($value->SUM_BRUTO)) . "</td>";
+                        echo "<td>" . number_format(round($value->SUM_TRIP)) . "</td>";
+                        echo "<td>" . number_format(round($value->SUM_BRUTO)) . "</td>";
                         echo "<td>" . $sortase . "</td>";
-                        echo "<td>" . number_format(intval($value->SUM_NETO)) . "</td>";
-                        echo "<td>Rp" . number_format(intval($value->SUM_TOTAL_PENJUALAN)) . "</td>";
+                        echo "<td>" . number_format(round($value->SUM_NETO)) . "</td>";
+                        echo "<td>Rp" . number_format(round($value->SUM_TOTAL_PENJUALAN)) . "</td>";
 
 
                         /*
@@ -202,33 +204,75 @@
 
 
 
-          <div class="col-xl-4 col-md-12">
-            <div class="card sale-card">
+
+
+          <div class="col-md-12">
+            <div class="card">
               <div class="card-header">
-                <h5>Hutang Supplier</h5>
+                <h5>PO yang Belum Dibayarkan</h5>
+                <span>List PO Belum Dibayarkan</span>
+
               </div>
               <div class="card-block">
-                <div id="realtime-profit" style="height:315px">
-                  <table id="order-table" class="table table-striped table-bordered nowrap">
+
+                <div class="table-responsive dt-responsive">
+                  <table id="dom-jqry" class="table table-striped table-bordered nowrap">
                     <thead>
-                      <th>Nama Akun</th>
-                      <th>Saldo</th>
+                      <tr>
+                        <th>No</th>
+                        <th>Date/Time</th>
+                        <th>No Po</th>
+                        <th>Supplier</th>
+                        <th>Jumlah</th>
+                        <th>Jatuh Tempo</th>
+                        
                       </tr>
                     </thead>
                     <tbody>
                       <?php
-                      foreach ($c_setting_db_supplier_coa as $key => $value) {
+                      foreach ($c_t_po as $key => $value) {
                         echo "<tr>";
-                        echo "<td>" . $value->NAMA_AKUN . "</td>";
+                        echo "<td>" . ($key + 1) . "</td>";
+                        echo "<td>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) ." / " . ($value->CREATED_BY) . "</td>";
+
+                        echo "<td>" . $value->NO_PO . "</td>";
+                        echo "<td>" . $value->SUPPLIER . "</td>";
 
 
-                        if ($value->DB_K_ID == 1) {
-                          $read_saldo = $value->SUM_DEBIT - $value->SUM_KREDIT;
-                        }
-                        if ($value->DB_K_ID == 2) {
-                          $read_saldo = $value->SUM_KREDIT - $value->SUM_DEBIT;
-                        }
-                        echo "<td> Rp" . number_format(intval($read_saldo)) . "</td>";
+                        //satu button
+                        echo "<td>";
+                        echo "<a href='" . site_url('c_t_po_rincian/index/' . $value->ID) .  "' ";
+                        echo "onclick=\"return confirm('Lanjut?')\"";
+                        echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
+                        echo " Rp" . number_format(intval($value->SUM_TOTAL)) . "</td>";
+                        //satu button
+
+
+                        
+
+
+                        echo "<td>";
+                          $ok_color = 'red';
+                          if ($value->ENABLE_EDIT == 0) {
+                            $ok_color = 'green';
+                          }
+                          if ($value->ENABLE_EDIT >= 0) {
+                            echo "<a href='" . site_url('c_dashboard/checked_ok/' . $value->ID) . "' ";
+                          ?>
+                            onclick="return confirm('Apakah kamu yakin ini BENAR?')"
+                          <?php
+
+                            echo "> <i class='fa fa-check f-w-600 f-16 text-c-" . $ok_color . "'></i></a>";
+                          }
+
+                          echo date('d-m-Y', strtotime($value->EXPIRE_DATE));
+                        echo "</td>";
+
+
+
+
+                        
+
 
 
                         echo "</tr>";
@@ -240,6 +284,63 @@
               </div>
             </div>
           </div>
+
+
+
+
+
+
+
+          <!-- !-->
+          <div class="col-xl-8 col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h5>Hutang Supplier</h5>
+
+                
+              </div>
+              <div class="card-block">
+                <div class="dt-responsive table-responsive">
+                   <table id="order-table" class="table table-striped table-bordered nowrap">
+                    <thead>
+                      <th>Nama Akun</th>
+                      <th>Saldo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php
+                      foreach ($c_setting_db_supplier_coa as $key => $value) {
+                        
+
+
+                        if ($value->DB_K_ID == 1) {
+                          $read_saldo = $value->SUM_DEBIT - $value->SUM_KREDIT;
+                        }
+                        if ($value->DB_K_ID == 2) {
+                          $read_saldo = $value->SUM_KREDIT - $value->SUM_DEBIT;
+                        }
+
+                        
+
+                        if($read_saldo>0)
+                        {
+                          echo "<tr>";
+                          echo "<td>" . $value->NAMA_AKUN . "</td>";
+                          echo "<td> Rp" . number_format(intval($read_saldo)) . "</td>";
+                          echo "</tr>";
+                        }
+                      }
+                      ?>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          
 
 
         </div>

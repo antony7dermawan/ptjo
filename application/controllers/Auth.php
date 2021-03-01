@@ -49,7 +49,9 @@ class Auth extends MY_Controller {
           'coa_id_jurnal_history'=>52,
           'date_from_dashboard'=>date('Y-m-d'),
           'date_to_dashboard'=>date('Y-m-d'),
-          'date_jurnal_create'=>date('Y-m-d')
+          'date_jurnal_create'=>date('Y-m-d'),
+          'date_po'=>date('Y-m-d')
+          
           
 
           

@@ -12,12 +12,14 @@ class C_dashboard extends MY_Controller
     $this->load->model('m_setting_db_bank_coa');
     $this->load->model('m_t_ak_faktur_penjualan');
     $this->load->model('m_t_t_a_penjualan_pks');
+    $this->load->model('m_t_po');
   }
 
 
   public function index()
   {
     $data = [
+      "c_t_po" => $this->m_t_po->select_for_dashboard(),
       "c_setting_db_bank_coa" => $this->m_setting_db_bank_coa->select('2021-01-01','2100-01-01'),
       "c_setting_db_supplier_coa" => $this->m_setting_db_supplier_coa->select('2021-01-01','2100-01-01'),
       "select_no_faktur" => $this->m_t_ak_faktur_penjualan->select_no_faktur(),
@@ -39,4 +41,21 @@ class C_dashboard extends MY_Controller
     redirect('/c_dashboard');
   }
 
+
+  public function checked_ok($id)
+  {
+    $data = array(
+      'ENABLE_EDIT' => 0
+    );
+    $this->m_t_po->update($data, $id);
+    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');
+    redirect('/c_dashboard');
+  }
+
+
+  
+
 }
+
+
+
