@@ -9,13 +9,14 @@ class C_t_po extends MY_Controller
     parent::__construct();
 
     $this->load->model('m_t_po');
+    $this->load->model('m_t_m_d_company');
   }
 
   public function index()
   {
     $data = [
-      "c_t_po" => $this->m_t_po->select($this->session->userdata('date_po')),
-      
+      "c_t_po" => $this->m_t_po->select($this->session->userdata('date_po'),$this->session->userdata('po_company_id')),
+      "c_t_m_d_company" => $this->m_t_m_d_company->select(),
       "title" => "PO",
       "description" => "Menu Pembuatan PO"
     ];
@@ -26,6 +27,14 @@ class C_t_po extends MY_Controller
   {
     $date_po = ($this->input->post("date_po"));
     $this->session->set_userdata('date_po', $date_po);
+    redirect('/c_t_po');
+  }
+
+
+  public function change_company_id()
+  {
+    $po_company_id = ($this->input->post("company_id"));
+    $this->session->set_userdata('po_company_id', $po_company_id);
     redirect('/c_t_po');
   }
 
@@ -95,7 +104,8 @@ class C_t_po extends MY_Controller
       'ALAMAT_SUPPLIER' => $alamat_supplier,
       'EXPIRE_DATE' => $expire_date,
       'ENABLE_EDIT' => 1,
-      'LAINNYA' => $lainnya
+      'LAINNYA' => $lainnya,
+      'COMPANY_ID' => $this->session->userdata('company_id')
       
     );
 

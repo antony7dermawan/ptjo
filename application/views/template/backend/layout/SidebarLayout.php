@@ -140,16 +140,18 @@ if($level_user_id==1 or $level_user_id==6)
 
 
 
-<?php
-if($level_user_id==1 or  $level_user_id==2 or $level_user_id==3 or $level_user_id==6)
-{
-    ?>
+
     <!-- Menu ke dua -->
     <li class="pcoded-hasmenu">
         <a href="javascript:void(0)" class="waves-effect waves-dark">
             <span class="pcoded-micon"><i class="feather icon-list"></i></span>
             <span class="pcoded-mtext">Transaksi Kebun</span>
         </a>
+
+        <?php
+        if($level_user_id==1 or  $level_user_id==2 or $level_user_id==3 or $level_user_id==6)
+        {
+        ?>
         <ul class="pcoded-submenu">
             <li class="">
                 <a href="<?= base_url("c_t_t_a_penjualan_pks"); ?>" class="submenu waves-effect waves-dark">
@@ -157,6 +159,14 @@ if($level_user_id==1 or  $level_user_id==2 or $level_user_id==3 or $level_user_i
                 </a>
             </li>
         </ul>
+        <?php
+        }
+        ?>
+
+        <?php
+        if($level_user_id==1 or  $level_user_id==2 or $level_user_id==3 or $level_user_id==6 or $level_user_id==7)
+        {
+        ?>
         <ul class="pcoded-submenu">
             <li class="">
                 <a href="<?= base_url("c_t_po"); ?>" class="submenu waves-effect waves-dark">
@@ -164,11 +174,12 @@ if($level_user_id==1 or  $level_user_id==2 or $level_user_id==3 or $level_user_i
                 </a>
             </li>
         </ul>
-    </li>
-    <?php
-}
 
-?>
+        <?php
+        }
+        ?>
+    </li>
+
 
 
 

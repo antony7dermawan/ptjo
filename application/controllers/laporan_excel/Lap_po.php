@@ -130,10 +130,12 @@
                               $alp++;
                         }
 
-                        
+                  $logic_yes=0;
+                  $key=0;
                   $read_select = $this->m_t_po->select_range_date($date_from_laporan,$date_to_laporan);
                   foreach ($read_select as $key => $value) 
                   {
+                        $logic_yes=1;
                         $r_id[$key]=$value->ID;
                         $r_date[$key]=$value->DATE;
                         $r_time[$key]=$value->TIME;
@@ -149,7 +151,8 @@
 
 
                   $sum_sum_total_harga=0;
-
+                  if($logic_yes==1)
+                  {
                   for($i=0;$i<=$total_po_id;$i++)
                   {
                         $read_select = $this->m_t_po_rincian->select($r_id[$i]);
@@ -261,6 +264,7 @@
 
                         $row = $row + 1;
                         
+                  }
                   }
 
 

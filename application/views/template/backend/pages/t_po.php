@@ -1,5 +1,29 @@
 <div class="card">
   <div class="card-header">
+
+    <form action='<?php echo base_url("c_t_po/change_company_id"); ?>' class='' method="post" id=''>
+
+    <label>Pilih Company:</label>
+
+    <select name="company_id" class='' onchange='this.form.submit();' id='select-state' placeholder='Pick a state...'>
+
+      <?php
+      foreach ($c_t_m_d_company as $key => $value) 
+      {
+              if($this->session->userdata('po_company_id')==$value->COMPANY_ID)
+              {
+                echo "<option value='".$value->COMPANY_ID."' selected>".$value->COMPANY."</option>";
+              }
+              else
+              {
+                echo "<option value='".$value->COMPANY_ID."'>".$value->COMPANY."</option>";
+              }
+      }
+      ?>
+    </select>
+    </form>
+    <br>
+
     <form action='<?php echo base_url("c_t_po/date_po"); ?>' class='no_voucer_area' method="post" id=''>
       <table>
         <tr>

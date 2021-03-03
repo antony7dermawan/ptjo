@@ -49,7 +49,7 @@ public function select_for_dashboard()
   }
 
 
-  public function select($date)
+  public function select($date,$company_id)
   {
     $this->db->select('*');
     $this->db->select('SUM_TOTAL');
@@ -61,6 +61,9 @@ public function select_for_dashboard()
     $date_before = date('Y-m-d',(strtotime ( '-30 day' , strtotime ( $date) ) ));
 
     $this->db->where("DATE<='{$date}' and DATE>='{$date_before}'");
+    $this->db->where("T_PO.COMPANY_ID='{$company_id}'");
+    
+
 
     $this->db->order_by("ID", "desc");
     $akun = $this->db->get ();
@@ -78,6 +81,7 @@ public function select_for_dashboard()
 
 
     $this->db->where("DATE>='{$date_from}' and DATE<='{$date_to}'");
+    $this->db->where("COMPANY_ID='{$this->session->userdata('company_id')}'");
     $this->db->order_by("ID", "desc");
     $akun = $this->db->get ();
     return $akun->result ();
