@@ -1,3 +1,11 @@
+<?php
+$level_user_id = $this->session->userdata('level_user_id');
+if($level_user_id==1 or $level_user_id==2)
+{
+
+
+?>
+
 <div class="pcoded-inner-content">
   <div class="main-body">
     <div class="page-wrapper">
@@ -344,3 +352,8 @@
 
 
         </div>
+
+
+  <?php
+}
+?>

@@ -95,7 +95,8 @@ class C_t_po extends MY_Controller
       'ALAMAT_SUPPLIER' => $alamat_supplier,
       'EXPIRE_DATE' => $expire_date,
       'ENABLE_EDIT' => 1,
-      'LAINNYA' => $lainnya
+      'LAINNYA' => $lainnya,
+      'COMPANY_ID' => $this->session->userdata('company_id')
       
     );
 

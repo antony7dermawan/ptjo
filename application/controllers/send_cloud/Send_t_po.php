@@ -40,11 +40,12 @@ class Send_t_po extends MY_Controller
         $read_expire_date = $value->EXPIRE_DATE;
         $read_enable_edit = $value->ENABLE_EDIT;
         $read_lainnya = $value->LAINNYA;
+        $read_company_id = $value->COMPANY_ID;
       
 
         
 
-        $query = pg_query($conn, "INSERT INTO public.\"T_PO\"( \"DATE\", \"TIME\", \"NO_PO\", \"SUPPLIER\", \"KET\", \"CREATED_BY\", \"UPDATED_BY\", \"PAYMENT_METHOD\", \"NAMA_BANK\", \"NOREK\", \"ATAS_NAMA\", \"CABANG\", \"NAMA_PENERIMA\", \"TELP_PENERIMA\", \"TELP_SUPPLIER\", \"ALAMAT_SUPPLIER\", \"EXPIRE_DATE\", \"ENABLE_EDIT\", \"LAINNYA\") VALUES ( '{$read_date}', '{$read_time}', '{$read_no_po}', '{$read_supplier}', '{$read_ket}', '{$read_created_by}', '{$read_updated_by}', '{$read_payment_method}', '{$read_nama_bank}', '{$read_norek}', '{$read_atas_nama}', '{$read_cabang}', '{$read_nama_penerima}', '{$read_telp_penerima}', '{$read_telp_supplier}', '{$read_alamat_supplier}', '{$read_expire_date}', '{$read_enable_edit}', '{$read_lainnya}');");
+        $query = pg_query($conn, "INSERT INTO public.\"T_PO\"( \"DATE\", \"TIME\", \"NO_PO\", \"SUPPLIER\", \"KET\", \"CREATED_BY\", \"UPDATED_BY\", \"PAYMENT_METHOD\", \"NAMA_BANK\", \"NOREK\", \"ATAS_NAMA\", \"CABANG\", \"NAMA_PENERIMA\", \"TELP_PENERIMA\", \"TELP_SUPPLIER\", \"ALAMAT_SUPPLIER\", \"EXPIRE_DATE\", \"ENABLE_EDIT\", \"LAINNYA\", \"COMPANY_ID\") VALUES ( '{$read_date}', '{$read_time}', '{$read_no_po}', '{$read_supplier}', '{$read_ket}', '{$read_created_by}', '{$read_updated_by}', '{$read_payment_method}', '{$read_nama_bank}', '{$read_norek}', '{$read_atas_nama}', '{$read_cabang}', '{$read_nama_penerima}', '{$read_telp_penerima}', '{$read_telp_supplier}', '{$read_alamat_supplier}', '{$read_expire_date}', '{$read_enable_edit}', '{$read_lainnya}','{$read_company_id}');");
         if ( $query ) 
         {
             echo  "Record Successfully Added! for ID = {$read_id} / NO PO = {$read_no_po}<br>";
