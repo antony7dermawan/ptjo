@@ -1,6 +1,6 @@
 <?php
 $level_user_id = $this->session->userdata('level_user_id');
-if($level_user_id==1 or $level_user_id==2)
+if($level_user_id==1 or $level_user_id==6)
 {
 
 
