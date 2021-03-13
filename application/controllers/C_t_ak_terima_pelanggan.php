@@ -81,6 +81,8 @@ class C_t_ak_terima_pelanggan extends MY_Controller
     foreach ($read_select as $key => $value) 
     {
       $no_form = $value->NO_FORM;
+      $date_move = $value->DATE;
+      $time_move = $value->TIME;
     }
 
     if ($enable_edit == 1) 
@@ -104,8 +106,8 @@ class C_t_ak_terima_pelanggan extends MY_Controller
           if ($db_k_id == 1) #kode 1 debit / 2 kredit
           {
             $data = array(
-              'DATE' => $this->session->userdata('date_terima_pelanggan'),
-              'TIME' => date('H:i:s'),
+              'DATE' => $date_move,
+              'TIME' => $time_move,
               'CREATED_BY' => $this->session->userdata('username'),
               'UPDATED_BY' => $this->session->userdata('username'),
               'COA_ID' => $coa_id,
@@ -122,8 +124,8 @@ class C_t_ak_terima_pelanggan extends MY_Controller
           if ($db_k_id == 2) #kode 1 debit / 2 kredit
           {
             $data = array(
-              'DATE' => $this->session->userdata('date_terima_pelanggan'),
-              'TIME' => date('H:i:s'),
+              'DATE' => $date_move,
+              'TIME' => $time_move,
               'CREATED_BY' => $this->session->userdata('username'),
               'UPDATED_BY' => $this->session->userdata('username'),
               'COA_ID' => $coa_id,
@@ -161,8 +163,8 @@ class C_t_ak_terima_pelanggan extends MY_Controller
           if ($db_k_id == 1) #kode 1 debit / 2 kredit
           {
             $data = array(
-              'DATE' => $this->session->userdata('date_terima_pelanggan'),
-              'TIME' => date('H:i:s'),
+              'DATE' => $date_move,
+              'TIME' => $time_move,
               'CREATED_BY' => $this->session->userdata('username'),
               'UPDATED_BY' => $this->session->userdata('username'),
               'COA_ID' => $coa_id,
@@ -179,8 +181,8 @@ class C_t_ak_terima_pelanggan extends MY_Controller
           if ($db_k_id == 2) #kode 1 debit / 2 kredit
           {
             $data = array(
-              'DATE' => $this->session->userdata('date_terima_pelanggan'),
-              'TIME' => date('H:i:s'),
+              'DATE' => $date_move,
+              'TIME' => $time_move,
               'CREATED_BY' => $this->session->userdata('username'),
               'UPDATED_BY' => $this->session->userdata('username'),
               'COA_ID' => $coa_id,
@@ -326,8 +328,8 @@ class C_t_ak_terima_pelanggan extends MY_Controller
       if ($db_k_id == 1) #kode 1 debit / 2 kredit
       {
         $data = array(
-          'DATE' => $this->session->userdata('date_terima_pelanggan'),
-          'TIME' => date('H:i:s'),
+          'DATE' => $date_move,
+          'TIME' => $time_move,
           'CREATED_BY' => $this->session->userdata('username'),
           'UPDATED_BY' => $this->session->userdata('username'),
           'COA_ID' => $coa_id_beban_adm_bank,
@@ -344,8 +346,8 @@ class C_t_ak_terima_pelanggan extends MY_Controller
       if ($db_k_id == 2) #kode 1 debit / 2 kredit
       {
         $data = array(
-          'DATE' => $this->session->userdata('date_terima_pelanggan'),
-          'TIME' => date('H:i:s'),
+          'DATE' => $date_move,
+          'TIME' => $time_move,
           'CREATED_BY' => $this->session->userdata('username'),
           'UPDATED_BY' => $this->session->userdata('username'),
           'COA_ID' => $coa_id_beban_adm_bank,
@@ -388,8 +390,8 @@ class C_t_ak_terima_pelanggan extends MY_Controller
       if ($db_k_id == 1) #kode 1 debit / 2 kredit
       {
         $data = array(
-          'DATE' => $this->session->userdata('date_terima_pelanggan'),
-          'TIME' => date('H:i:s'),
+          'DATE' => $date_move,
+          'TIME' => $time_move,
           'CREATED_BY' => $this->session->userdata('username'),
           'UPDATED_BY' => $this->session->userdata('username'),
           'COA_ID' => $coa_id_beban_selisih_pembulatan,
@@ -406,8 +408,8 @@ class C_t_ak_terima_pelanggan extends MY_Controller
       if ($db_k_id == 2) #kode 1 debit / 2 kredit
       {
         $data = array(
-          'DATE' => $this->session->userdata('date_terima_pelanggan'),
-          'TIME' => date('H:i:s'),
+          'DATE' => $date_move,
+          'TIME' => $time_move,
           'CREATED_BY' => $this->session->userdata('username'),
           'UPDATED_BY' => $this->session->userdata('username'),
           'COA_ID' => $coa_id_beban_selisih_pembulatan,
@@ -465,8 +467,8 @@ class C_t_ak_terima_pelanggan extends MY_Controller
       */
       
         $data = array(
-          'DATE' => $this->session->userdata('date_terima_pelanggan'),
-          'TIME' => date('H:i:s'),
+          'DATE' => $date_move,
+          'TIME' => $time_move,
           'CREATED_BY' => $this->session->userdata('username'),
           'UPDATED_BY' => $this->session->userdata('username'),
           'COA_ID' => $coa_piutang_dagang,

@@ -73,6 +73,8 @@ class C_t_ak_faktur_penjualan extends MY_Controller
     foreach ($read_select as $key => $value) 
     {
       $no_faktur=$value->NO_FAKTUR;
+      $date_move = $value->DATE;
+      $time_move = $value->TIME;
     }
 
     
@@ -96,8 +98,8 @@ class C_t_ak_faktur_penjualan extends MY_Controller
       if($db_k_id==1)#kode 1 debit / 2 kredit
       {
         $data = array(
-        'DATE' => $this->session->userdata('date_faktur_penjualan'),
-        'TIME' => date('H:i:s'),
+        'DATE' => $date_move,
+        'TIME' => $time_move,
         'CREATED_BY' => $this->session->userdata('username'),
         'UPDATED_BY' => $this->session->userdata('username'),
         'COA_ID' => $coa_id_dpp,
@@ -114,8 +116,8 @@ class C_t_ak_faktur_penjualan extends MY_Controller
       if($db_k_id==2)#kode 1 debit / 2 kredit
       {
         $data = array(
-        'DATE' => $this->session->userdata('date_faktur_penjualan'),
-        'TIME' => date('H:i:s'),
+        'DATE' => $date_move,
+        'TIME' => $time_move,
         'CREATED_BY' => $this->session->userdata('username'),
         'UPDATED_BY' => $this->session->userdata('username'),
         'COA_ID' => $coa_id_dpp,
@@ -151,8 +153,8 @@ class C_t_ak_faktur_penjualan extends MY_Controller
       if($db_k_id==1)#kode 1 debit / 2 kredit
       {
         $data = array(
-        'DATE' => $this->session->userdata('date_faktur_penjualan'),
-        'TIME' => date('H:i:s'),
+        'DATE' => $date_move,
+        'TIME' => $time_move,
         'CREATED_BY' => $this->session->userdata('username'),
         'UPDATED_BY' => $this->session->userdata('username'),
         'COA_ID' => $coa_id_ppn,
@@ -169,8 +171,8 @@ class C_t_ak_faktur_penjualan extends MY_Controller
       if($db_k_id==2)#kode 1 debit / 2 kredit
       {
         $data = array(
-        'DATE' => $this->session->userdata('date_faktur_penjualan'),
-        'TIME' => date('H:i:s'),
+        'DATE' => $date_move,
+        'TIME' => $time_move,
         'CREATED_BY' => $this->session->userdata('username'),
         'UPDATED_BY' => $this->session->userdata('username'),
         'COA_ID' => $coa_id_ppn,
@@ -203,8 +205,8 @@ class C_t_ak_faktur_penjualan extends MY_Controller
       if($db_k_id==1)#kode 1 debit / 2 kredit
       {
         $data = array(
-        'DATE' => $this->session->userdata('date_faktur_penjualan'),
-        'TIME' => date('H:i:s'),
+        'DATE' => $date_move,
+        'TIME' => $time_move,
         'CREATED_BY' => $this->session->userdata('username'),
         'UPDATED_BY' => $this->session->userdata('username'),
         'COA_ID' => $coa_id_piutang_dagang,
@@ -221,8 +223,8 @@ class C_t_ak_faktur_penjualan extends MY_Controller
       if($db_k_id==2)#kode 1 debit / 2 kredit
       {
         $data = array(
-        'DATE' => $this->session->userdata('date_faktur_penjualan'),
-        'TIME' => date('H:i:s'),
+        'DATE' => $date_move,
+        'TIME' => $time_move,
         'CREATED_BY' => $this->session->userdata('username'),
         'UPDATED_BY' => $this->session->userdata('username'),
         'COA_ID' => $coa_id_piutang_dagang,
