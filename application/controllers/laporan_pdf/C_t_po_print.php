@@ -56,7 +56,7 @@ class C_t_po_print extends MY_Controller
 
 
     $total_sub_1 = 0;
-    $total_row_1_bon = 10;
+    $total_row_1_bon = 25;
     $total_ppn = 0;
     $total_sub = 0;
     $read_select = $this->m_t_po_rincian->select($r_id);
@@ -78,8 +78,8 @@ class C_t_po_print extends MY_Controller
 
         $pdf->Cell( 190,30,'','0',1,'C');
 
-        $pdf->SetFont('','B',12);
-        $pdf->Cell( 190,10,'Purchase Order','0',1,'C');
+        $pdf->SetFont('','B',10);
+        $pdf->Cell( 190,8,'Purchase Order','0',1,'C');
 
         $pdf->SetFont('','',10);
 
@@ -89,10 +89,10 @@ class C_t_po_print extends MY_Controller
         $pdf->Cell( 75,5,':'.date('d-m-Y', strtotime($r_date)),'0',1,'L');
 
 
-        $pdf->MultiCell(20, 10, 'Alamat', '0', 'L',0,0);
-        $pdf->MultiCell(85, 10,':'.substr($r_alamat_supplier, 0, 200), '0', 'L',0,0);
-        $pdf->Cell( 20,10,'NO PO','0',0,'L');
-        $pdf->Cell( 75,10,':'.$r_no_po,'0',1,'L');
+        $pdf->MultiCell(20, 5, 'Alamat', '0', 'L',0,0);
+        $pdf->MultiCell(85, 5,':'.substr($r_alamat_supplier, 0, 200), '0', 'L',0,0);
+        $pdf->Cell( 20,5,'NO PO','0',0,'L');
+        $pdf->Cell( 75,5,':'.$r_no_po,'0',1,'L');
 
 
 
@@ -117,27 +117,28 @@ class C_t_po_print extends MY_Controller
         $size[5]=15;
         $size[6]=30;
         
-        $pdf->Cell( $size[0],8,'No.','1',0,'C');
-        $pdf->Cell( $size[1],8,'Nama/Jenis/Ukuran','1',0,'C');
-        $pdf->Cell( $size[2],8,'Qty','1',0,'C');
-        $pdf->Cell( $size[3],8,'Unit','1',0,'C');
-        $pdf->Cell( $size[4],8,'Harga/Unit','1',0,'C');
-        $pdf->Cell( $size[5],8,'Ppn(%)','1',0,'C');
-        $pdf->Cell( $size[6],8,'Jumlah','1',1,'C');
+        $pdf->Cell( $size[0],5,'No.','1',0,'C');
+        $pdf->Cell( $size[1],5,'Nama/Jenis/Ukuran','1',0,'C');
+        $pdf->Cell( $size[2],5,'Qty','1',0,'C');
+        $pdf->Cell( $size[3],5,'Unit','1',0,'C');
+        $pdf->Cell( $size[4],5,'Harga/Unit','1',0,'C');
+        $pdf->Cell( $size[5],5,'Ppn(%)','1',0,'C');
+        $pdf->Cell( $size[6],5,'Jumlah','1',1,'C');
       }
       
       
-      $pdf->SetFont('','',9);
+      $pdf->SetFont('','',8);
      
 
-      $pdf->MultiCell($size[0], 8, $key+1, 'L', 'C',0,0);
-      $pdf->MultiCell($size[1], 8, $value->NAMA_BARANG, 'L', 'L',0,0);
-      $pdf->MultiCell($size[2], 8, $value->QTY, 'L', 'C',0,0);
-      $pdf->MultiCell($size[3], 8, $value->SATUAN, 'L', 'C',0,0);
-      $pdf->MultiCell($size[4], 8, number_format((floatval(round($value->HARGA*100)))/100), 'L', 'R',0,0);
-      $pdf->MultiCell($size[5], 8, ((floatval(round($value->PPN*10)))/10), 'L', 'R',0,0);
-      $pdf->MultiCell($size[6]-0.1, 8, number_format((floatval(round($value->SUB_TOTAL*100)))/100), 'L', 'R',0,0);
-      $pdf->Cell( 0.1,8,'','L',1,'R');
+
+      $pdf->MultiCell($size[0], 4, $key+1, 'L', 'C',0,0);
+      $pdf->MultiCell($size[1], 4, $value->NAMA_BARANG, 'L', 'L',0,0);
+      $pdf->MultiCell($size[2], 4, $value->QTY, 'L', 'C',0,0);
+      $pdf->MultiCell($size[3], 4, $value->SATUAN, 'L', 'C',0,0);
+      $pdf->MultiCell($size[4], 4, number_format((floatval(round($value->HARGA*100)))/100), 'L', 'R',0,0);
+      $pdf->MultiCell($size[5], 4, ((floatval(round($value->PPN*10)))/10), 'L', 'R',0,0);
+      $pdf->MultiCell($size[6]-0.1, 4, number_format((floatval(round($value->SUB_TOTAL*100)))/100), 'L', 'R',0,0);
+      $pdf->Cell( 0.1,4,'','L',1,'R');
 
 
 
@@ -203,7 +204,6 @@ class C_t_po_print extends MY_Controller
         $pdf->Cell( 40,5,'Nata, B.Sc','B',1,'C');
 
 
-        $pdf->Cell( 80,5,'','0',1,'L');
         $pdf->Cell( 80,5,'','0',1,'L');
         $pdf->Cell( 190,5,'PERSETUJUAN PEMBELIAN','B',1,'C');
 
