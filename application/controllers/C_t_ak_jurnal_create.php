@@ -83,7 +83,7 @@ class C_t_ak_jurnal_create extends MY_Controller
     $this->session->set_userdata('date_jurnal_create', $date_jurnal_create);
 
 
-    $coa_id = ($this->input->post("coa_id"));
+    $coa_id = intval($this->input->post("coa_id"));
 
 
     $debit = intval($this->input->post("debit"));

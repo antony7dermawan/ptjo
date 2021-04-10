@@ -41,7 +41,7 @@ class C_t_ak_jurnal_edit extends MY_Controller
 
   function tambah()
   {
-    $coa_id = ($this->input->post("coa_id"));
+    $coa_id = intval($this->input->post("coa_id"));
     $date = ($this->input->post("date"));
 
     $debit = intval($this->input->post("debit"));

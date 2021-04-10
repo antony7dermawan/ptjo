@@ -8,6 +8,7 @@
         <?php
         echo "<option value='laporan_excel/lap_cash_flow/index/' >Laporan Cash Flow</option>";
         echo "<option value='laporan_excel/lap_laba_rugi/index/' >Laporan Laba Rugi</option>";
+        echo "<option value='laporan_excel/lap_neraca/index/' >Laporan Neraca</option>";
         echo "<option value='laporan_excel/lap_po/index/' >Laporan PO</option>";
         ?>
       </select>
