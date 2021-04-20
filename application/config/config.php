@@ -25,7 +25,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 */
 
 // $config['base_url'] = 'http://localhost/project/ptjo2/';
-$config['base_url'] = "https://ptjpat.com/";
+//$config['base_url'] = "https://ptjpat.com/";
 
 
 date_default_timezone_set('Asia/Jakarta');
