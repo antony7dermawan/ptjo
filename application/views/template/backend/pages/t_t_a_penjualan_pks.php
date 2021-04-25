@@ -79,7 +79,25 @@
             echo "<td>" . $value->BRUTO . "</td>";
             echo "<td>" . $value->SORTASE_PERCENTAGE . "</td>";
             echo "<td>" . (intval($value->NETO * 100) / 100) . "</td>";
-            echo "<td>Rp" . number_format(intval($value->UANG_JALAN + $value->TAMBAHAN)) . "</td>";
+            echo "<td>Rp" . number_format(intval($value->UANG_JALAN + $value->TAMBAHAN));
+
+            if(intval($value->UANG_JALAN + $value->TAMBAHAN)>0)
+            {
+              echo "<a "; #/1 ini print yang baru
+
+              echo "onclick= 'p_2_" . $key . "()'";
+
+              echo "> <i class='fa fa-print text-c-black'></i></a> ";
+
+              echo "<script>";
+              echo "function p_2_" . $key . "()";
+              echo "{";
+              echo "window.open('laporan_pdf/c_uang_jalan_print/index/" . $value->ID . "');";
+              echo "}";
+              echo "</script>";
+            }
+            
+            echo "</td>";
 
             #echo "<td>".date('d-m-Y', strtotime($value->DATE))." / ".date('H:i', strtotime($value->TIME))." / ".$value->CREATED_BY."</td>";
             echo "<td>Rp" . number_format(intval($value->TOTAL_PENJUALAN)) . "</td>";

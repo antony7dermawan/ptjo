@@ -156,7 +156,23 @@
               echo "<td class='" . $color . "'>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</td>";
               echo "<td class='" . $color . "'>" . $no_akun . "</td>";
               echo "<td class='" . $color . "'>" . $value->NAMA_AKUN . "</td>";
-              echo "<td class='" . $color . "'>Rp" . number_format(intval($value->DEBIT)) . "</td>";
+              echo "<td class='" . $color . "'>Rp" . number_format(intval($value->DEBIT));
+
+              echo "<a "; #/1 ini print yang baru
+
+              echo "onclick= 'p_2_" . $key . "()'";
+
+              echo "> <i class='fa fa-print text-c-white'></i></a> ";
+
+              echo "<script>";
+              echo "function p_2_" . $key . "()";
+              echo "{";
+              echo "window.open('laporan_pdf/c_t_ak_jurnal_debit_print/index/" . $value->CREATED_ID . "');";
+              echo "}";
+              echo "</script>";
+
+
+              echo "</td>";
               echo "<td class='" . $color . "'>Rp" . number_format(intval($value->KREDIT)) . "</td>";
 
               $color = 'background-white text-c-black';

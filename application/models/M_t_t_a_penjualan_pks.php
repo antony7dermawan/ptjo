@@ -12,6 +12,66 @@ public function update($data, $id)
 
 
 
+  public function select_by_id($id)
+  {
+    $this->db->select("T_T_A_PENJUALAN_PKS.ID");
+    $this->db->select("T_T_A_PENJUALAN_PKS.DATE");
+    $this->db->select("T_T_A_PENJUALAN_PKS.TIME");
+    $this->db->select("T_M_A_DIVISI.DIVISI_ID");
+    $this->db->select("T_M_A_DIVISI.DIVISI");
+    $this->db->select("T_M_A_PKS.PKS_ID");
+    $this->db->select("T_M_A_PKS.PKS");
+    $this->db->select("T_M_A_NO_POLISI.NO_POLISI_ID");
+    $this->db->select("T_M_A_NO_POLISI.NO_POLISI");
+    $this->db->select("T_M_A_SUPIR.SUPIR_ID");
+    $this->db->select("T_M_A_SUPIR.SUPIR");
+    $this->db->select("T_M_A_KENDARAAN.KENDARAAN_ID");
+    $this->db->select("T_M_A_KENDARAAN.KENDARAAN");
+    $this->db->select("T_T_A_PENJUALAN_PKS.NO_TIKET");
+    $this->db->select("T_T_A_PENJUALAN_PKS.BRUTO");
+    $this->db->select("T_T_A_PENJUALAN_PKS.BRUTO");
+    $this->db->select("T_T_A_PENJUALAN_PKS.SORTASE_PERCENTAGE");
+    $this->db->select("T_T_A_PENJUALAN_PKS.SORTASE_KG");
+    $this->db->select("T_T_A_PENJUALAN_PKS.NETO");
+    $this->db->select("T_T_A_PENJUALAN_PKS.R_JO");
+    $this->db->select("T_T_A_PENJUALAN_PKS.R_EX");
+    $this->db->select("T_T_A_PENJUALAN_PKS.R_DIV_1");
+    $this->db->select("T_T_A_PENJUALAN_PKS.R_DIV_2");
+    $this->db->select("T_T_A_PENJUALAN_PKS.R_DIV_3");
+    $this->db->select("T_T_A_PENJUALAN_PKS.R_DIV_4");
+    $this->db->select("T_T_A_PENJUALAN_PKS.RUMUS");
+    $this->db->select("T_T_A_PENJUALAN_PKS.UANG_JALAN");
+    $this->db->select("T_T_A_PENJUALAN_PKS.TAMBAHAN");
+    $this->db->select("T_T_A_PENJUALAN_PKS.TOTAL_UANG_JALAN");
+    $this->db->select("T_T_A_PENJUALAN_PKS.HARGA");
+    $this->db->select("T_T_A_PENJUALAN_PKS.TOTAL_PENJUALAN");
+    $this->db->select("T_T_A_PENJUALAN_PKS.PPN");
+    $this->db->select("T_T_A_PENJUALAN_PKS.CREATED_BY");
+    $this->db->select("T_T_A_PENJUALAN_PKS.UPDATED_BY");
+    $this->db->select("T_T_A_PENJUALAN_PKS.AREA_ID");
+    $this->db->select("T_T_A_PENJUALAN_PKS.COMPANY_ID");
+    $this->db->select("T_T_A_PENJUALAN_PKS.INV");
+    $this->db->select("T_T_A_PENJUALAN_PKS.INV_INT");
+    $this->db->select("T_T_A_PENJUALAN_PKS.ENABLE_EDIT");
+    $this->db->select("T_T_A_PENJUALAN_PKS.CHECKED_ID");
+    $this->db->select("T_T_A_PENJUALAN_PKS.SPECIAL_ID");
+
+    $this->db->from('T_T_A_PENJUALAN_PKS');
+    $this->db->join('T_M_A_DIVISI', 'T_M_A_DIVISI.DIVISI_ID = T_T_A_PENJUALAN_PKS.DIVISI_ID', 'left');
+    $this->db->join('T_M_A_PKS', 'T_M_A_PKS.PKS_ID = T_T_A_PENJUALAN_PKS.PKS_ID', 'left');
+    $this->db->join('T_M_A_NO_POLISI', 'T_M_A_NO_POLISI.NO_POLISI_ID = T_T_A_PENJUALAN_PKS.NO_POLISI_ID', 'left');
+    $this->db->join('T_M_A_SUPIR', 'T_M_A_SUPIR.SUPIR_ID = T_T_A_PENJUALAN_PKS.SUPIR_ID', 'left');
+    $this->db->join('T_M_A_KENDARAAN', 'T_M_A_KENDARAAN.KENDARAAN_ID = T_T_A_PENJUALAN_PKS.KENDARAAN_ID', 'left');
+
+    #$this->db->where('T_T_A_PENJUALAN_PKS.COMPANY_ID',$this->session->userdata('company_id'));
+    #$this->db->where('T_T_A_PENJUALAN_PKS.AREA_ID',$this->session->userdata('area_id'));
+    $this->db->where('T_T_A_PENJUALAN_PKS.ID',$id);
+
+
+    $akun = $this->db->get ();
+    return $akun->result ();
+  }
+  
 public function select_inv_int()
 {
   $this->db->select("INV_INT");
