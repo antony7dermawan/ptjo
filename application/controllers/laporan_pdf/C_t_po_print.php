@@ -200,7 +200,7 @@ class C_t_po_print extends MY_Controller
 
         $pdf->Cell( 40,5,'','B',0,'L');
         $pdf->Cell( 110,5,'',0,0,'L');
-        $pdf->Cell( 40,5,'Nata, B.Sc','B',1,'C');
+        $pdf->Cell( 40,5,'Purchasing Kebun','B',1,'C');
 
 
         $pdf->Cell( 80,5,'','0',1,'L');
@@ -227,15 +227,15 @@ class C_t_po_print extends MY_Controller
 
 
         $pdf->Cell( 0.01,10,'','L',0,'L');
-        $pdf->Cell( 45,10,'Yenny Salean','B',0,'L');
+        $pdf->Cell( 45,10,'Samuel','B',0,'L');
         $pdf->Cell( 0.01,10,'','L',0,'L');
-        $pdf->Cell( 45,10,'Jabatan: Direktur','B',0,'L');
+        $pdf->Cell( 45,10,'Jabatan: Ka Tata Usaha','B',0,'L');
         $pdf->Cell( 0.01,10,'','L',0,'L');
         $pdf->Cell( 10,10,'','0',0,'L');
         $pdf->Cell( 0.01,10,'','L',0,'L');
-        $pdf->Cell( 45,10,'Christopher, B.Sc','B',0,'L');
+        $pdf->Cell( 45,10,'Andreas Parhusip','B',0,'L');
         $pdf->Cell( 0.01,10,'','L',0,'L');
-        $pdf->Cell( 45,10,'Jabatan: Direktur Utama','B',0,'L');
+        $pdf->Cell( 45,10,'Jabatan: Manager','B',0,'L');
         $pdf->Cell( 0.01,10,'','L',1,'L');
 
 
