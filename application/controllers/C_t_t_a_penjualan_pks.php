@@ -49,6 +49,11 @@ class C_t_t_a_penjualan_pks extends MY_Controller
 
 
 
+
+
+
+
+
   function tambah()
   {
     $divisi_id = intval($this->input->post("divisi_id"));
@@ -66,8 +71,8 @@ class C_t_t_a_penjualan_pks extends MY_Controller
 
 
 
-    $sortase_kg = floatval($bruto * $sortase_percentage) / 100; #rumus dari excel
-    $neto = $bruto - $sortase_kg; #rumus dari excel
+    $sortase_kg = round(floatval($bruto * $sortase_percentage) / 100); #rumus dari excel
+    $neto = round($bruto - $sortase_kg); #rumus dari excel
 
 
     $uang_jalan = 0;
@@ -117,7 +122,7 @@ class C_t_t_a_penjualan_pks extends MY_Controller
       'INV' => $inv,
       'INV_INT' => $inv_int,
       'ENABLE_EDIT' => 1,
-      'CHECKED_ID' => 0, //nol belum di send to cloud
+      'CHECKED_ID' => 1,
       'SPECIAL_ID' => 0
     );
 
@@ -126,6 +131,7 @@ class C_t_t_a_penjualan_pks extends MY_Controller
     $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
     redirect('c_t_t_a_penjualan_pks');
   }
+
 
 
 
