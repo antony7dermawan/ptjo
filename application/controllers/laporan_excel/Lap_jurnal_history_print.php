@@ -72,14 +72,14 @@
                   $spreadsheet->getActiveSheet()->getStyle('A'.$row)->getFont()->setBold(true);
                   $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':F'.$row);
                   $sheet = $spreadsheet->getActiveSheet();
-                  $sheet->setCellValue('A'.$row, 'Laporan Cash Flow');
+                  $sheet->setCellValue('A'.$row, 'Laporan History');
                   $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('center');
 
                   $row=$row+1;
                   $spreadsheet->getActiveSheet()->getStyle('A'.$row)->getFont()->setBold(true);
                   $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':F'.$row);
                   $sheet = $spreadsheet->getActiveSheet();
-                  $sheet->setCellValue('A'.$row, 'Dari '.date('d-m-Y', strtotime($this->session->userdata('date_from_select_jurnal'))).' Sampai '.date('d-m-Y', strtotime($this->session->userdata('coa_id_jurnal_history'))));
+                  $sheet->setCellValue('A'.$row, 'Dari '.date('d-m-Y', strtotime($this->session->userdata('date_from_select_jurnal'))).' Sampai '.date('d-m-Y', strtotime($this->session->userdata('date_to_select_jurnal'))));
                   $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('center');
 
 
