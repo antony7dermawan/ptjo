@@ -34,6 +34,7 @@
 
 
 
+
             public function index()
             {
               $total_baris_1_page = 55;
@@ -83,6 +84,8 @@
                   $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('center');
 
 
+                $date_from_laporan = $this->session->userdata('date_from_select_jurnal');
+                $date_to_laporan = $this->session->userdata('date_to_select_jurnal');
                 $read_select = $this->m_t_ak_jurnal_history->select($this->session->userdata('date_from_select_jurnal'),$this->session->userdata('date_to_select_jurnal'),$this->session->userdata('coa_id_jurnal_history'));
                 foreach ($read_select as $key => $value) 
                 {
