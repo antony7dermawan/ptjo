@@ -95,11 +95,7 @@
 
               echo "<td class='" . $color . "'>";
 
-              echo "<a href='" . site_url('c_t_ak_jurnal_history/move/' . $value->CREATED_ID) . "' ";
-          ?>
-              onclick="return confirm('Edit Data?')"
-            <?php
-              echo "> <i class='fa fa-search-plus text-c-blue'></i></a>";
+              
 
 
 
@@ -130,11 +126,7 @@
               $color = 'background-white text-c-black';
               echo "<td class='" . $color . "'>";
 
-              echo "<a href='" . site_url('c_t_ak_jurnal_history/move/' . $value->CREATED_ID) . "' ";
-            ?>
-              onclick="return confirm('Edit Data?')"
-          <?php
-              echo "> <i class='fa fa-search-plus text-c-blue'></i></a>";
+             
 
 
 
