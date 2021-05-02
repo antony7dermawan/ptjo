@@ -147,7 +147,12 @@
               <label>No Akun 3</label>
               <input type='text' class='form-control' placeholder='Input Number' name='no_akun_3'>
 
+              
 
+              <input type="checkbox" name="cash_flow" >
+              <label>Include Cash Flow</label>
+                  
+              
 
             </fieldset>
 
@@ -201,6 +206,12 @@
 
           </div>
         </div> <!-- Membungkus Row !-->
+
+
+        
+        
+
+
         </div>
 
           <div class="modal-footer">
@@ -251,6 +262,13 @@
               <input type='text' class='form-control' placeholder='Input Text' name='nama_akun'>
             </div>
 
+            <div class="form-group">
+              <input type="checkbox" name="cash_flow" >
+              <label>Include Cash Flow</label>
+            </div>
+
+            
+
 
           </div>
           <div class="modal-footer">
@@ -279,7 +297,8 @@
         NAMA_AKUN : nama_akun,
         NO_AKUN_1 : no_akun_1,
         NO_AKUN_2 : no_akun_2,
-        NO_AKUN_3 : no_akun_3
+        NO_AKUN_3 : no_akun_3,
+        CASH_FLOW : cash_flow
       } = User[0];
 
       elModalEdit.querySelector("[name=id]").value = ID;
@@ -289,6 +308,7 @@
       elModalEdit.querySelector("[name=no_akun_1]").value = no_akun_1;
       elModalEdit.querySelector("[name=no_akun_2]").value = no_akun_2;
       elModalEdit.querySelector("[name=no_akun_3]").value = no_akun_3;
+      elModalEdit.querySelector("[name=cash_flow]").checked = cash_flow;
 
   
 

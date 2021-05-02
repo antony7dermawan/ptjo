@@ -90,6 +90,14 @@ class C_ak_m_coa extends MY_Controller
     $db_k_id = intval($this->input->post("db_k_id"));
     $family_id = intval($this->input->post("family_id"));
 
+
+    $cash_flow = $this->input->post("cash_flow");
+
+    if($cash_flow==null)
+    {
+      $cash_flow = false;
+    }
+
     //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
     $data = array(
       'NO_AKUN_1' => $no_akun_1,
@@ -100,7 +108,8 @@ class C_ak_m_coa extends MY_Controller
       'FAMILY_ID' => $family_id,
       'NO_AKUN_2' => $no_akun_2,
       'NO_AKUN_3' => $no_akun_3,
-      'COMPANY_ID' => $this->session->userdata('company_id')
+      'COMPANY_ID' => $this->session->userdata('company_id'),
+      'CASH_FLOW' => $cash_flow
     );
 
     $this->m_ak_m_coa->tambah($data);
@@ -127,12 +136,19 @@ class C_ak_m_coa extends MY_Controller
     $nama_akun = ($this->input->post("nama_akun"));
 
 
+    $cash_flow = $this->input->post("cash_flow");
+
+    if($cash_flow==null)
+    {
+      $cash_flow = false;
+    }
     //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
     $data = array(
       'NO_AKUN_1' => $no_akun_1,
       'NAMA_AKUN' => $nama_akun,
       'NO_AKUN_2' => $no_akun_2,
-      'NO_AKUN_3' => $no_akun_3
+      'NO_AKUN_3' => $no_akun_3,
+      'CASH_FLOW' => $cash_flow
     );
     $this->m_ak_m_coa->update($data, $id);
     $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');

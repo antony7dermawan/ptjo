@@ -28,39 +28,6 @@ public function select_no_voucer()
 
 public function select_used_jurnal($type_id,$from_date,$to_date)
 {
-    /*
-    $this->db->select("AK_M_COA.ID");
-    $this->db->select("AK_M_COA.NO_AKUN_1");
-    $this->db->select("AK_M_COA.NO_AKUN_2");
-    $this->db->select("AK_M_COA.NO_AKUN_3");
-    $this->db->select("AK_M_COA.DB_K_ID");
-    $this->db->select("AK_M_COA.TYPE_ID");
-    $this->db->select("AK_M_COA.NAMA_AKUN");
-
-    $this->db->select("SUM_DEBIT");
-    $this->db->select("SUM_KREDIT");
-
-
-    $this->db->from('AK_M_COA');
-
-    
-
-
-    
-    $this->db->join("(select \"COA_ID\",sum(\"DEBIT\")\"SUM_DEBIT\" from \"T_AK_JURNAL\" where \"DATE\">='{$from_date}' and \"DATE\"<='{$to_date}' group by \"COA_ID\") as t_sum_1", 'AK_M_COA.ID = t_sum_1.COA_ID', 'left');
-
-    $this->db->join("(select \"COA_ID\",sum(\"KREDIT\")\"SUM_KREDIT\" from \"T_AK_JURNAL\" where \"DATE\">='{$from_date}' and \"DATE\"<='{$to_date}' group by \"COA_ID\") as t_sum_2", 'AK_M_COA.ID = t_sum_2.COA_ID', 'left');
-
-
-
-    $this->db->where("(SUM_DEBIT>0 or SUM_KREDIT>0) and AK_M_COA.TYPE_ID={$type_id} and AK_M_COA.FAMILY_ID=3");
-    
-    $this->db->order_by("NAMA_AKUN", "desc");
-
-    $akun = $this->db->get ();
-    return $akun->result ();
-
-    */
 
     $this->db->select("AK_M_COA.ID");
     $this->db->select("AK_M_COA.NO_AKUN_1");
@@ -87,6 +54,8 @@ public function select_used_jurnal($type_id,$from_date,$to_date)
 
 
     $this->db->where("(T_AK_JURNAL.DEBIT>0 or T_AK_JURNAL.KREDIT>0) and AK_M_COA.TYPE_ID={$type_id} and AK_M_COA.FAMILY_ID=3 and T_AK_JURNAL.DATE>='{$from_date}' and T_AK_JURNAL.DATE<='{$to_date}'");
+    $this->db->where("AK_M_COA.CASH_FLOW=true");
+
     
     $this->db->order_by("NAMA_AKUN", "desc");
 

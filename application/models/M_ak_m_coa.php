@@ -22,6 +22,9 @@ public function update($data, $id)
     $this->db->select("NO_AKUN_2");
     $this->db->select("NO_AKUN_3");
     $this->db->select("NAMA_AKUN");
+    $this->db->select("CASH_FLOW");
+
+
     $this->db->from('AK_M_COA');
     $this->db->where("FAMILY_ID=3");
 
@@ -34,6 +37,7 @@ public function update($data, $id)
   {
     $this->db->select("ID");
     $this->db->select("DB_K_ID");
+    $this->db->select("CASH_FLOW");
     $this->db->from('AK_M_COA');
     $this->db->where("FAMILY_ID=3 and (NO_AKUN_3='{$no_akun}' or NO_AKUN_2='{$no_akun}' or NO_AKUN_1='{$no_akun}')");
 
@@ -48,6 +52,7 @@ public function update($data, $id)
     $this->db->select("NO_AKUN_2");
     $this->db->select("NO_AKUN_3");
     $this->db->select("DB_K_ID");
+    $this->db->select("CASH_FLOW");
     $this->db->from('AK_M_COA');
     $this->db->where("ID='{$coa_id}'");
 
@@ -124,6 +129,7 @@ public function update($data, $id)
     $this->db->select("AK_M_FAMILY.FAMILY_ID");
     $this->db->select("AK_M_FAMILY.FAMILY");
     $this->db->select("AK_M_COA.SALDO");
+    $this->db->select("AK_M_COA.CASH_FLOW");
 
     $this->db->from('AK_M_COA');
     $this->db->join('AK_M_TYPE', 'AK_M_TYPE.TYPE_ID = AK_M_COA.TYPE_ID', 'left');
@@ -144,6 +150,8 @@ public function update($data, $id)
     $this->db->select("AK_M_COA.NO_AKUN_2");
     $this->db->select("AK_M_COA.NO_AKUN_3");
     $this->db->select("AK_M_COA.NAMA_AKUN");
+    $this->db->select("AK_M_COA.CASH_FLOW");
+
     $this->db->select("AK_M_TYPE.TYPE_ID");
     $this->db->select("AK_M_TYPE.TYPE");
     $this->db->select("AK_M_DB_K.DB_K_ID");

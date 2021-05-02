@@ -316,51 +316,12 @@ class C_t_ak_faktur_penjualan extends MY_Controller
   {
     $id = $this->input->post("id");
 
-
-    $no_polisi = ($this->input->post("no_polisi"));
-    $read_select = $this->m_t_m_a_no_polisi->select_id($no_polisi);
-    foreach ($read_select as $key => $value) 
-    {
-      $no_polisi_id=$value->NO_POLISI_ID;
-    }
-
-
-
-
-
-    $pks = ($this->input->post("pks"));
-    $read_select = $this->m_t_m_a_pks->select_id($pks);
-    foreach ($read_select as $key => $value) 
-    {
-      $pks_id=$value->PKS_ID;
-    }
-
-
-
-    $divisi = ($this->input->post("divisi"));
-    $read_select = $this->m_t_m_a_divisi->select_id($divisi);
-    foreach ($read_select as $key => $value) 
-    {
-      $divisi_id=$value->DIVISI_ID;
-    }
-
-
-
-    $kendaraan = ($this->input->post("kendaraan"));
-    $read_select = $this->m_t_m_a_kendaraan->select_id($kendaraan);
-    foreach ($read_select as $key => $value) 
-    {
-      $kendaraan_id=$value->KENDARAAN_ID;
-    }
-    $uang_jalan = intval($this->input->post("uang_jalan"));
+    $no_faktur = substr($this->input->post("no_faktur"), 0, 100);
 
 //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
     $data = array(
-      'NO_POLISI_ID' => $no_polisi_id,
-      'PKS_ID' => $pks_id,
-      'DIVISI_ID' => $divisi_id,
-      'KENDARAAN_ID' => $kendaraan_id,
-      'UANG_JALAN' => $uang_jalan
+      'NO_FAKTUR' => $no_faktur,
+      
     );
     $this->m_t_ak_faktur_penjualan->update($data, $id);
     $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');
