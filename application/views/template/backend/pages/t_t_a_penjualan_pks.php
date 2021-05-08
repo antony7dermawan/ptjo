@@ -124,7 +124,7 @@
 
               echo "</td>";
             }
-            if ($value->CHECKED_ID == 0) {
+            if ($value->CHECKED_ID == 1) {
               echo "<td class='text-c-green'>";
               echo "Sudah Dikirim";
               echo "</td>";
