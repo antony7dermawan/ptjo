@@ -107,21 +107,9 @@
             $sum_bruto = $sum_bruto + $value->BRUTO;
             $sum_neto = $sum_neto + (intval($value->NETO * 100) / 100);
             $sum_uang_jalan = $sum_uang_jalan + intval($value->UANG_JALAN + $value->TAMBAHAN);
-            if ($value->ENABLE_EDIT == 1) {
+            if ($value->CHECKED_ID == 0) 
+            {
               echo "<td>";
-
-              $ok_color = 'red';
-              if ($value->CHECKED_ID == 1) {
-                $ok_color = 'green';
-              }
-              if ($value->SPECIAL_ID > 0) {
-                echo "<a href='" . site_url('c_t_t_a_penjualan_pks/checked_ok/' . $value->ID) . "' ";
-              ?>
-                onclick="return confirm('Apakah kamu yakin ini BENAR?')"
-              <?php
-
-                echo "> <i class='fa fa-check f-w-600 f-16 text-c-" . $ok_color . "'></i></a>";
-              }
 
               echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#Modal_Edit' class='btn-edit' data-id='" . $value->ID . "'>";
               echo "<i class='icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green'></i>";
@@ -131,14 +119,14 @@
               echo "<a href='" . site_url('c_t_t_a_penjualan_pks/delete/' . $value->ID) . "' ";
               ?>
               onclick="return confirm('Apakah kamu yakin ingin menghapus data ini?')"
-          <?php
+              <?php
               echo "> <i class='feather icon-trash-2 f-w-600 f-16 text-c-red'></i></a>";
 
               echo "</td>";
             }
-            if ($value->ENABLE_EDIT == 0) {
+            if ($value->CHECKED_ID == 0) {
               echo "<td class='text-c-green'>";
-              echo "Sudah Ditagih";
+              echo "Sudah Dikirim";
               echo "</td>";
             }
 
