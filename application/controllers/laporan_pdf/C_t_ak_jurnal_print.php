@@ -20,6 +20,13 @@ class c_t_ak_jurnal_print extends MY_Controller
 
   public function index($created_id)
   {
+    echo "<style>";
+    echo "@page {";
+      echo "size: auto;";
+    echo "}";
+    echo "</style>";
+
+
     $pdf = new \TCPDF();
     $pdf->AddPage('L',  array(210,148));
     $pdf->SetAutoPageBreak(true, 0);
@@ -246,3 +253,5 @@ function penyebut($nilai) {
 
 
 }
+
+
