@@ -20,15 +20,11 @@ class c_t_ak_jurnal_print extends MY_Controller
 
   public function index($created_id)
   {
-    echo "<style>";
-    echo "@page {";
-      echo "size: auto;";
-    echo "}";
-    echo "</style>";
+    
 
 
     $pdf = new \TCPDF();
-    $pdf->AddPage('L',  array(210,148));
+    $pdf->AddPage('P', 'mm', 'A4');
     $pdf->SetAutoPageBreak(true, 0);
  
         // Add Header
@@ -101,7 +97,7 @@ class c_t_ak_jurnal_print extends MY_Controller
       $rmd=($rmd-(int)$rmd)*$total_baris_1_bon;
       if($i>=$total_baris_1_bon and $rmd==0)
       {
-        $pdf->AddPage('L',  array(210,148));
+        $pdf->AddPage('P', 'mm', 'A4');
         $pdf->SetFont('','B',12);
         $pdf->Cell(90, 11, "PT. JO PERDANA AGRI TECHNOLOGY", 0, 0, 'L');
         $pdf->SetFont('','B',18);
