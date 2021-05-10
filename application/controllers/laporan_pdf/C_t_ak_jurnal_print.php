@@ -21,7 +21,7 @@ class c_t_ak_jurnal_print extends MY_Controller
   public function index($created_id)
   {
     $pdf = new \TCPDF();
-    $pdf->AddPage('L',  array(210,148));
+    $pdf->AddPage('',  array(210,148));
     $pdf->SetAutoPageBreak(true, 0);
  
         // Add Header
