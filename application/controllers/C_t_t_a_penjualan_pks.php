@@ -122,7 +122,7 @@ class C_t_t_a_penjualan_pks extends MY_Controller
       'INV' => $inv,
       'INV_INT' => $inv_int,
       'ENABLE_EDIT' => 1,
-      'CHECKED_ID' => 1,
+      'CHECKED_ID' => 0,
       'SPECIAL_ID' => 0
     );
 
