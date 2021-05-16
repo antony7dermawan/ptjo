@@ -18,6 +18,20 @@ class C_t_ak_jurnal extends MY_Controller
 
   public function index()
   {
+
+    if($this->session->userdata('date_from_select_jurnal')=='')
+    {
+      $date_from_select_jurnal = date('Y-m-d');
+      $this->session->set_userdata('date_from_select_jurnal', $date_from_select_jurnal);
+    }
+
+    if($this->session->userdata('date_to_select_jurnal')=='')
+    {
+      $date_to_select_jurnal = date('Y-m-d');
+      $this->session->set_userdata('date_to_select_jurnal', $date_to_select_jurnal);
+    }
+
+
     $this->m_t_ak_jurnal->delete_created_by();
     $data = [
       "c_t_ak_jurnal" => $this->m_t_ak_jurnal->select($this->session->userdata('date_from_select_jurnal'), $this->session->userdata('date_to_select_jurnal')),

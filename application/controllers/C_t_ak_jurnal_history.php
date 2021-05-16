@@ -18,6 +18,26 @@ class C_t_ak_jurnal_history extends MY_Controller
 
   public function index()
   {
+    if($this->session->userdata('date_from_select_jurnal')=='')
+    {
+      $date_from_select_jurnal = date('Y-m-d');
+      $this->session->set_userdata('date_from_select_jurnal', $date_from_select_jurnal);
+    }
+
+    if($this->session->userdata('date_to_select_jurnal')=='')
+    {
+      $date_to_select_jurnal = date('Y-m-d');
+      $this->session->set_userdata('date_to_select_jurnal', $date_to_select_jurnal);
+    }
+
+
+    if($this->session->userdata('coa_id_jurnal_history')=='')
+    {
+      $coa_id_jurnal_history = 1;
+      $this->session->set_userdata('coa_id_jurnal_history', $coa_id_jurnal_history);
+    }
+
+
     $this->m_t_ak_jurnal_history->delete_created_by();
     $data = [
       "c_t_ak_jurnal_history" => $this->m_t_ak_jurnal_history->select($this->session->userdata('date_from_select_jurnal'), $this->session->userdata('date_to_select_jurnal'), $this->session->userdata('coa_id_jurnal_history')),

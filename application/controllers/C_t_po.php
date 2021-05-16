@@ -14,6 +14,13 @@ class C_t_po extends MY_Controller
 
   public function index()
   {
+
+    if($this->session->userdata('date_po')=='')
+    {
+      $date_po = date('Y-m-d');
+      $this->session->set_userdata('date_po', $date_po);
+    }
+    
     $data = [
       "c_t_po" => $this->m_t_po->select($this->session->userdata('date_po'),$this->session->userdata('po_company_id')),
       "c_t_m_d_company" => $this->m_t_m_d_company->select(),

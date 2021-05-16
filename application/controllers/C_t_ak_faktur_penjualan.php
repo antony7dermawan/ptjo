@@ -21,6 +21,14 @@ class C_t_ak_faktur_penjualan extends MY_Controller
 
   public function index()
   {
+
+    if($this->session->userdata('date_faktur_penjualan')=='')
+    {
+      $date_faktur_penjualan = date('Y-m-d');
+      $this->session->set_userdata('date_faktur_penjualan', $date_faktur_penjualan);
+    }
+
+    
     $data = [
       "c_t_ak_faktur_penjualan" => $this->m_t_ak_faktur_penjualan->select($this->session->userdata('date_faktur_penjualan')),
       "c_t_m_a_no_polisi" => $this->m_t_m_a_no_polisi->select(),
