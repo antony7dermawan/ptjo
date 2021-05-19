@@ -10,6 +10,10 @@ public function update($data, $id)
   return $this->db->update('T_AK_JURNAL_CREATE', $data);
 }
 
+
+
+
+
 public function update_all($data)
 {
   $this->db->where('CREATED_BY', $this->session->userdata('username'));

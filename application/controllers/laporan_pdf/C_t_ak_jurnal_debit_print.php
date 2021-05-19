@@ -139,13 +139,13 @@ class C_t_ak_jurnal_debit_print extends MY_Controller
         $pdf->Cell(50, 6, "Catatan", 1, 1, 'C');
 
       }
-      $pdf->SetFont('','',10);
+      $pdf->SetFont('','',8);
 
       $pdf->MultiCell(25, 8, $no_akun[$i], 'L', 'L',0,0);
-      $pdf->MultiCell(50, 8, substr($nama_akun[$i], 0, 40), 'L', 'L',0,0);
+      $pdf->MultiCell(50, 8, substr($nama_akun[$i], 0, 60), 'L', 'L',0,0);
       $pdf->MultiCell(30, 8, number_format(intval($debit[$i])), 'L', 'C',0,0);
       $pdf->MultiCell(30, 8, number_format(intval($kredit[$i])), 'L', 'C',0,0);
-      $pdf->MultiCell(50, 8, substr($catatan[$i], 0, 40), 'L', 'L',0,0);
+      $pdf->MultiCell(50, 8, substr($catatan[$i], 0, 60), 'L', 'L',0,0);
       $pdf->Cell(0.01, 8, "", 'L', 1, 'C');
 
       $total_debit=$total_debit+intval($debit[$i]);

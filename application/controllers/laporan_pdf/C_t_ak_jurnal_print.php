@@ -38,7 +38,7 @@ class c_t_ak_jurnal_print extends MY_Controller
     $pdf->Cell(90, 9, "Bukti Jurnal", 0, 1, 'R');
 
 
-    $pdf->SetFont('','',12);
+    $pdf->SetFont('','',10);
 
 
     $read_select = $this->m_t_ak_jurnal->select_created_id($created_id);
@@ -72,9 +72,9 @@ class c_t_ak_jurnal_print extends MY_Controller
 
 
     $pdf->Cell(30, 6, "No Voucer", 1, 0, 'C');
-    $pdf->Cell(40, 6, $no_voucer, 1, 1, 'L');
+    $pdf->Cell(60, 6, $no_voucer, 1, 1, 'L');
     $pdf->Cell(30, 6, "Tanggal", 1, 0, 'C');
-    $pdf->Cell(40, 6, $tanggal, 1, 1, 'L');
+    $pdf->Cell(60, 6, $tanggal, 1, 1, 'L');
 
 
     $pdf->Cell(30, 1, "", 0, 1, 'C');
@@ -120,13 +120,13 @@ class c_t_ak_jurnal_print extends MY_Controller
         $pdf->Cell(50, 6, "Catatan", 1, 1, 'C');
 
       }
-      $pdf->SetFont('','',10);
+      $pdf->SetFont('','',8);
 
       $pdf->MultiCell(25, 8, $no_akun[$i], 'L', 'L',0,0);
-      $pdf->MultiCell(50, 8, substr($nama_akun[$i], 0, 40), 'L', 'L',0,0);
+      $pdf->MultiCell(50, 8, substr($nama_akun[$i], 0, 60), 'L', 'L',0,0);
       $pdf->MultiCell(30, 8, number_format(intval($debit[$i])), 'L', 'C',0,0);
       $pdf->MultiCell(30, 8, number_format(intval($kredit[$i])), 'L', 'C',0,0);
-      $pdf->MultiCell(50, 8, substr($catatan[$i], 0, 40), 'L', 'L',0,0);
+      $pdf->MultiCell(50, 8, substr($catatan[$i], 0, 60), 'L', 'L',0,0);
       $pdf->Cell(0.01, 8, "", 'L', 1, 'C');
 
       $total_debit=$total_debit+intval($debit[$i]);
