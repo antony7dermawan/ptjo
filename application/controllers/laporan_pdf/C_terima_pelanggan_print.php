@@ -24,7 +24,7 @@ class C_terima_pelanggan_print extends MY_Controller
     $pdf = new \TCPDF();
     $pdf->SetPrintHeader(false);
     $pdf->SetPrintFooter(false);
-    $pdf->AddPage('L',  array(210,148));
+    $pdf->AddPage('P', 'mm', 'A4');
     $pdf->SetAutoPageBreak(true, 0);
  
         // Add Header

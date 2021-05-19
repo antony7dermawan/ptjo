@@ -23,7 +23,7 @@ class c_t_ak_jurnal_print extends MY_Controller
     $pdf = new \TCPDF();
     $pdf->SetPrintHeader(false);
     $pdf->SetPrintFooter(false);
-    $pdf->AddPage('L',  array(210,148));
+    $pdf->AddPage('P', 'mm', 'A4');
     $pdf->SetAutoPageBreak(true, 0);
  
         // Add Header
@@ -90,15 +90,61 @@ class c_t_ak_jurnal_print extends MY_Controller
     $total_debit=0;
     $total_kredit=0;
     $total_baris_1_bon = 6;
+
+    $total_kertas = 1;
+
     for($i=0;$i<=$total_akun;$i++)
     {
       $rmd=(float)($i/$total_baris_1_bon);
       $rmd=($rmd-(int)$rmd)*$total_baris_1_bon;
-      if($i>=$total_baris_1_bon and $rmd==0)
+
+
+      $rmd2=(float)($total_kertas/2);
+      $rmd2=($rmd2-(int)$rmd2)*2;
+
+
+      if($i>=$total_baris_1_bon and $rmd==0 and $rmd2==0 and $total_kertas>0)
       {
         $pdf->SetPrintHeader(false);
         $pdf->SetPrintFooter(false);
-        $pdf->AddPage('L',  array(210,148));
+        $pdf->AddPage('P', 'mm', 'A4');
+        $total_kertas = $total_kertas +1;
+
+        $pdf->SetFont('','B',12);
+        $pdf->Cell(90, 11, "PT. JO PERDANA AGRI TECHNOLOGY", 0, 0, 'L');
+        $pdf->SetFont('','B',18);
+        $pdf->Cell(90, 11, "Bukti Jurnal", 0, 1, 'R');
+        $pdf->SetFont('','',12);
+
+        $pdf->Cell(30, 6, "No Voucer", 1, 0, 'C');
+        $pdf->Cell(40, 6, $no_voucer, 1, 1, 'L');
+        $pdf->Cell(30, 6, "Tanggal", 1, 0, 'C');
+        $pdf->Cell(40, 6, $tanggal, 1, 1, 'L');
+
+
+        $pdf->Cell(30, 1, "", 0, 1, 'C');
+
+        $pdf->Cell(25, 6, "No. Akun:", 1, 0, 'C');
+        $pdf->Cell(50, 6, "Nama Akun", 1, 0, 'C');
+        $pdf->Cell(30, 6, "Debit", 1, 0, 'C');
+        $pdf->Cell(30, 6, "Kredit", 1, 0, 'C');
+        $pdf->Cell(50, 6, "Catatan", 1, 1, 'C');
+
+      }
+
+
+
+      if($i>=$total_baris_1_bon and $rmd==0 and $rmd2==1)
+      {
+
+        $pdf->Cell(40, 60, '', '0', 1, 'L');
+
+        $total_kertas = $total_kertas +1;
+        $pdf->SetPrintHeader(false);
+        $pdf->SetPrintFooter(false);
+        
+
+
         $pdf->SetFont('','B',12);
         $pdf->Cell(90, 11, "PT. JO PERDANA AGRI TECHNOLOGY", 0, 0, 'L');
         $pdf->SetFont('','B',18);
