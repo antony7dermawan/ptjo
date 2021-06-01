@@ -43,12 +43,15 @@
 
 
                   
-                  $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(10);
-                  $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(10);
-                  $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(10);
-                  $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(10);
-                  $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(10);
-                  $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(10);
+                 $alp='A';
+                  for($x=0;$x<=7;$x++)
+                  {
+                    $spreadsheet->getActiveSheet()
+                          ->getColumnDimension($alp)
+                          ->setAutoSize(true);
+                    $last_colom_alp = $alp;
+                    $alp++;
+                  }
 
 
                   $row=1;
@@ -86,6 +89,35 @@
 
                 $date_from_laporan = $this->session->userdata('date_from_select_jurnal');
                 $date_to_laporan = $this->session->userdata('date_to_select_jurnal');
+                
+
+
+
+                $read_select = $this->m_t_ak_jurnal_history->select_old_data($this->session->userdata('date_from_select_jurnal'),$this->session->userdata('coa_id_jurnal_history'));
+                foreach ($read_select as $key => $value) 
+                {
+                  $sum_debit = $value->DEBIT;
+                  $sum_kredit = $value->KREDIT;
+                }
+
+
+                $read_select = $this->m_ak_m_coa->select_coa_id($this->session->userdata('coa_id_jurnal_history'));
+                foreach ($read_select as $key => $value) 
+                {
+                  $db_k_id = $value->DB_K_ID;
+                }
+
+                if($db_k_id==1)#kode 1 debit / 2 kredit
+                {
+                  $saldo_awal = $sum_debit - $sum_kredit;
+                }
+
+                if($db_k_id==2)#kode 1 debit / 2 kredit
+                {
+                  $saldo_awal = $sum_kredit - $sum_debit;
+                }
+
+
                 $read_select = $this->m_t_ak_jurnal_history->select($this->session->userdata('date_from_select_jurnal'),$this->session->userdata('date_to_select_jurnal'),$this->session->userdata('coa_id_jurnal_history'));
                 foreach ($read_select as $key => $value) 
                 {
@@ -130,9 +162,11 @@
                   $sheet->getStyle('F'.$row)->getAlignment()->setHorizontal('left');
                   $sheet->setCellValue('G'.$row, 'Kredit');
                   $sheet->getStyle('G'.$row)->getAlignment()->setHorizontal('left');
+                  $sheet->setCellValue('H'.$row, 'Saldo Awal');
+                  $sheet->getStyle('H'.$row)->getAlignment()->setHorizontal('left');
                   
                   $alp='A';
-                  for($x=0;$x<=6;$x++)
+                  for($x=0;$x<=7;$x++)
                   {
 
                       $area = $alp.$row;
@@ -153,109 +187,157 @@
                 $total_baris_1_bon = 40;
                 for($i=0;$i<=$total_akun;$i++)
                 {
-                  $rmd=(float)($i/$total_baris_1_bon);
-                  $rmd=($rmd-(int)$rmd)*$total_baris_1_bon;
-                  if($i>$total_baris_1_bon and $rmd==0)
+                  
+                  if($i>=0)
                   {
+
+                    $rmd=(float)($i/$total_baris_1_bon);
+                    $rmd=($rmd-(int)$rmd)*$total_baris_1_bon;
+                    if($i>$total_baris_1_bon and $rmd==0)
+                    {
+                      $row=$row+1;
+                      $baris_1_page = $baris_1_page+1;
+
+                      $spreadsheet->getActiveSheet()->getStyle('A'.$row)->getFont()->setBold(true);
+                      $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':F'.$row);
+                      $sheet = $spreadsheet->getActiveSheet();
+                      $sheet->setCellValue('A'.$row, date('d-m-Y'));
+                      $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('left');
+
+                      
+
+                      $spreadsheet->getActiveSheet()->getStyle('A'.$row)->getFont()->setBold(true);
+                      $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':F'.$row);
+                      $sheet = $spreadsheet->getActiveSheet();
+                      $sheet->setCellValue('A'.$row, 'PT Jo Perdana Agri Technology');
+                      $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('center');
+
+
+                      $row=$row+1;
+                      $spreadsheet->getActiveSheet()->getStyle('A'.$row)->getFont()->setBold(true);
+                      $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':F'.$row);
+                      $sheet = $spreadsheet->getActiveSheet();
+                      $sheet->setCellValue('A'.$row, 'Laporan Cash Flow');
+                      $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('center');
+
+                      $row=$row+1;
+                      $spreadsheet->getActiveSheet()->getStyle('A'.$row)->getFont()->setBold(true);
+                      $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':F'.$row);
+                      $sheet = $spreadsheet->getActiveSheet();
+                      $sheet->setCellValue('A'.$row, 'Dari '.date('d-m-Y', strtotime($date_from_laporan)).' Sampai '.date('d-m-Y', strtotime($date_to_laporan)));
+                      $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('center');
+
+
+                      $row=$row+1;
+                      $sheet->setCellValue('A'.$row, 'Tanggal');
+                      $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('left');
+                      $sheet->setCellValue('B'.$row, 'No Voucer');
+                      $sheet->getStyle('B'.$row)->getAlignment()->setHorizontal('left');
+                      $sheet->setCellValue('C'.$row, 'No. Akun:');
+                      $sheet->getStyle('C'.$row)->getAlignment()->setHorizontal('left');
+                      $sheet->setCellValue('D'.$row, 'Nama Akun');
+                      $sheet->getStyle('D'.$row)->getAlignment()->setHorizontal('left');
+                      $sheet->setCellValue('E'.$row, 'Catatan');
+                      $sheet->getStyle('E'.$row)->getAlignment()->setHorizontal('left');
+                      $sheet->setCellValue('F'.$row, 'Debit');
+                      $sheet->getStyle('F'.$row)->getAlignment()->setHorizontal('left');
+                      $sheet->setCellValue('G'.$row, 'Kredit');
+                      $sheet->getStyle('G'.$row)->getAlignment()->setHorizontal('left');
+                      $sheet->setCellValue('H'.$row, 'Kredit');
+                      $sheet->getStyle('H'.$row)->getAlignment()->setHorizontal('left');
+                      $alp='A';
+                      for($x=0;$x<=7;$x++)
+                      {
+                          $area = $alp.$row;
+                          $spreadsheet->getActiveSheet()->getStyle($area)
+                                ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+                          $spreadsheet->getActiveSheet()->getStyle($area)
+                                ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+                          $spreadsheet->getActiveSheet()->getStyle($area)
+                                ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+                          $spreadsheet->getActiveSheet()->getStyle($area)
+                                ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+                        $alp++;
+                      }
+
+                    }
+
+                    if($i==0)
+                    {
+                      $row=$row+1;
+                      $sheet->setCellValue('A'.$row, $tanggal[$i]);
+                      $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('left');
+                      $sheet->setCellValue('B'.$row, $no_voucer[$i]);
+                      $sheet->getStyle('B'.$row)->getAlignment()->setHorizontal('left');
+                      $sheet->setCellValue('C'.$row, $no_akun[$i]);
+                      $sheet->getStyle('C'.$row)->getAlignment()->setHorizontal('left');
+                      $sheet->setCellValue('D'.$row, $nama_akun[$i]);
+                      $sheet->getStyle('D'.$row)->getAlignment()->setHorizontal('left');
+                  
+
+
+
+                      $sheet->setCellValue('H'.$row, intval($saldo_awal));
+                      $sheet->getStyle('H'.$row)->getAlignment()->setHorizontal('left');
+                      
+
+                      $spreadsheet->getActiveSheet()
+                                        ->getStyle('F'.$row.':H'.$row)
+                                        ->getNumberFormat()
+                                        ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                        $alp='A';
+                        for($x=0;$x<=7;$x++)
+                        {
+                            $area = $alp.$row;
+                            
+                            $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+                            $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+                          $alp++;
+                        }
+                    }
+
                     $row=$row+1;
-                    $baris_1_page = $baris_1_page+1;
-
-                    $spreadsheet->getActiveSheet()->getStyle('A'.$row)->getFont()->setBold(true);
-                    $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':F'.$row);
-                    $sheet = $spreadsheet->getActiveSheet();
-                    $sheet->setCellValue('A'.$row, date('d-m-Y'));
+                    $sheet->setCellValue('A'.$row, $tanggal[$i]);
                     $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('left');
+                    $sheet->setCellValue('B'.$row, $no_voucer[$i]);
+                    $sheet->getStyle('B'.$row)->getAlignment()->setHorizontal('left');
+                    $sheet->setCellValue('C'.$row, $no_akun[$i]);
+                    $sheet->getStyle('C'.$row)->getAlignment()->setHorizontal('left');
+                    $sheet->setCellValue('D'.$row, $nama_akun[$i]);
+                    $sheet->getStyle('D'.$row)->getAlignment()->setHorizontal('left');
+                    $sheet->setCellValue('E'.$row, $catatan[$i]);
+                    $sheet->getStyle('E'.$row)->getAlignment()->setHorizontal('left');
+                    $sheet->setCellValue('F'.$row,intval($debit[$i]));
+                    $sheet->getStyle('F'.$row)->getAlignment()->setHorizontal('left');
+                    $sheet->setCellValue('G'.$row, intval($kredit[$i]));
+                    $sheet->getStyle('G'.$row)->getAlignment()->setHorizontal('left');
 
+                    $saldo_awal = $saldo_awal + $debit[$i] - $kredit[$i];
+                    $sheet->setCellValue('H'.$row, intval($saldo_awal));
+                    $sheet->getStyle('H'.$row)->getAlignment()->setHorizontal('left');
                     
 
-                    $spreadsheet->getActiveSheet()->getStyle('A'.$row)->getFont()->setBold(true);
-                    $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':F'.$row);
-                    $sheet = $spreadsheet->getActiveSheet();
-                    $sheet->setCellValue('A'.$row, 'PT Jo Perdana Agri Technology');
-                    $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('center');
-
-
-                    $row=$row+1;
-                    $spreadsheet->getActiveSheet()->getStyle('A'.$row)->getFont()->setBold(true);
-                    $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':F'.$row);
-                    $sheet = $spreadsheet->getActiveSheet();
-                    $sheet->setCellValue('A'.$row, 'Laporan Cash Flow');
-                    $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('center');
-
-                    $row=$row+1;
-                    $spreadsheet->getActiveSheet()->getStyle('A'.$row)->getFont()->setBold(true);
-                    $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':F'.$row);
-                    $sheet = $spreadsheet->getActiveSheet();
-                    $sheet->setCellValue('A'.$row, 'Dari '.date('d-m-Y', strtotime($date_from_laporan)).' Sampai '.date('d-m-Y', strtotime($date_to_laporan)));
-                    $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('center');
-
-
-                    $row=$row+1;
-                    $sheet->setCellValue('A'.$row, 'Tanggal');
-                    $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('left');
-                    $sheet->setCellValue('B'.$row, 'No Voucer');
-                    $sheet->getStyle('B'.$row)->getAlignment()->setHorizontal('left');
-                    $sheet->setCellValue('C'.$row, 'No. Akun:');
-                    $sheet->getStyle('C'.$row)->getAlignment()->setHorizontal('left');
-                    $sheet->setCellValue('D'.$row, 'Nama Akun');
-                    $sheet->getStyle('D'.$row)->getAlignment()->setHorizontal('left');
-                    $sheet->setCellValue('E'.$row, 'Catatan');
-                    $sheet->getStyle('E'.$row)->getAlignment()->setHorizontal('left');
-                    $sheet->setCellValue('F'.$row, 'Debit');
-                    $sheet->getStyle('F'.$row)->getAlignment()->setHorizontal('left');
-                    $sheet->setCellValue('G'.$row, 'Kredit');
-                    $sheet->getStyle('G'.$row)->getAlignment()->setHorizontal('left');
-                    $alp='A';
-                    for($x=0;$x<=6;$x++)
-                    {
-                        $area = $alp.$row;
-                        $spreadsheet->getActiveSheet()->getStyle($area)
-                              ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
-                        $spreadsheet->getActiveSheet()->getStyle($area)
-                              ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
-                        $spreadsheet->getActiveSheet()->getStyle($area)
-                              ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
-                        $spreadsheet->getActiveSheet()->getStyle($area)
-                              ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
-                      $alp++;
-                    }
-
+                    $spreadsheet->getActiveSheet()
+                                      ->getStyle('F'.$row.':H'.$row)
+                                      ->getNumberFormat()
+                                      ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                      $alp='A';
+                      for($x=0;$x<=7;$x++)
+                      {
+                          $area = $alp.$row;
+                          
+                          $spreadsheet->getActiveSheet()->getStyle($area)
+                                ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+                          $spreadsheet->getActiveSheet()->getStyle($area)
+                                ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+                        $alp++;
+                      }
+                    
+                    $total_debit=$total_debit+intval($debit[$i]);
+                    $total_kredit=$total_kredit+intval($kredit[$i]);
                   }
-                  $row=$row+1;
-                  $sheet->setCellValue('A'.$row, $tanggal[$i]);
-                  $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('left');
-                  $sheet->setCellValue('B'.$row, $no_voucer[$i]);
-                  $sheet->getStyle('B'.$row)->getAlignment()->setHorizontal('left');
-                  $sheet->setCellValue('C'.$row, $no_akun[$i]);
-                  $sheet->getStyle('C'.$row)->getAlignment()->setHorizontal('left');
-                  $sheet->setCellValue('D'.$row, $nama_akun[$i]);
-                  $sheet->getStyle('D'.$row)->getAlignment()->setHorizontal('left');
-                  $sheet->setCellValue('E'.$row, $catatan[$i]);
-                  $sheet->getStyle('E'.$row)->getAlignment()->setHorizontal('left');
-                  $sheet->setCellValue('F'.$row,intval($debit[$i]));
-                  $sheet->getStyle('F'.$row)->getAlignment()->setHorizontal('left');
-                  $sheet->setCellValue('G'.$row, intval($kredit[$i]));
-                  $sheet->getStyle('G'.$row)->getAlignment()->setHorizontal('left');
-
-                  $spreadsheet->getActiveSheet()
-                                    ->getStyle('F'.$row.':G'.$row)
-                                    ->getNumberFormat()
-                                    ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
-                    $alp='A';
-                    for($x=0;$x<=6;$x++)
-                    {
-                        $area = $alp.$row;
-                        
-                        $spreadsheet->getActiveSheet()->getStyle($area)
-                              ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
-                        $spreadsheet->getActiveSheet()->getStyle($area)
-                              ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
-                      $alp++;
-                    }
-                  
-                  $total_debit=$total_debit+intval($debit[$i]);
-                  $total_kredit=$total_kredit+intval($kredit[$i]);
-
                 }
 
                 if($total_baris_1_bon>$i)
@@ -265,7 +347,7 @@
                     $row=$row+1;
 
                     $alp='A';
-                    for($z=0;$z<=6;$z++)
+                    for($z=0;$z<=7;$z++)
                     {
                         $area = $alp.$row;
                         
@@ -285,7 +367,7 @@
                   {
                     $row=$row+1;
                     $alp='A';
-                    for($z=0;$z<=6;$z++)
+                    for($z=0;$z<=7;$z++)
                     {
                         $area = $alp.$row;
                         
@@ -304,9 +386,11 @@
                   $sheet->getStyle('F'.$row)->getAlignment()->setHorizontal('left');
                   $sheet->setCellValue('G'.$row, intval($total_kredit));
                   $sheet->getStyle('G'.$row)->getAlignment()->setHorizontal('left');
+                  $sheet->setCellValue('H'.$row, intval($saldo_awal));
+                  $sheet->getStyle('H'.$row)->getAlignment()->setHorizontal('left');
 
                     $alp='A';
-                    for($x=0;$x<=6;$x++)
+                    for($x=0;$x<=7;$x++)
                     {
                         $area = $alp.$row;
                         $spreadsheet->getActiveSheet()->getStyle($area)
@@ -321,7 +405,7 @@
                     }
 
                   $spreadsheet->getActiveSheet()
-                                    ->getStyle('F'.$row.':G'.$row)
+                                    ->getStyle('F'.$row.':H'.$row)
                                     ->getNumberFormat()
                                     ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
 

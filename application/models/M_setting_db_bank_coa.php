@@ -37,6 +37,7 @@ public function update($data, $id)
 
     $this->db->join("(select \"COA_ID\",sum(\"KREDIT\")\"SUM_KREDIT\" from \"T_AK_JURNAL\" where \"DATE\">='{$from_date}' and \"DATE\"<='{$to_date}' group by \"COA_ID\") as t_sum_2", 'AK_M_COA.ID = t_sum_2.COA_ID', 'left');
 
+    $this->db->where('SETTING_DB_BANK_COA.COMPANY_ID',$this->session->userdata('company_id'));
 
     $this->db->order_by("ID", "asc");
     $akun = $this->db->get ();

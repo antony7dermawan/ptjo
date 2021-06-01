@@ -3,25 +3,41 @@
 
     <form action='<?php echo base_url("c_t_po/change_company_id"); ?>' class='' method="post" id=''>
 
-    <label>Pilih Company:</label>
+    
 
-    <select name="company_id" class='' onchange='this.form.submit();' id='select-state' placeholder='Pick a state...'>
+    
 
       <?php
-      foreach ($c_t_m_d_company as $key => $value) 
+
+      $level_user_id = $this->session->userdata('level_user_id');
+
+      if($level_user_id<8)
       {
-              if($this->session->userdata('po_company_id')==$value->COMPANY_ID)
-              {
-                echo "<option value='".$value->COMPANY_ID."' selected>".$value->COMPANY."</option>";
-              }
-              else
-              {
-                echo "<option value='".$value->COMPANY_ID."'>".$value->COMPANY."</option>";
-              }
+        echo "<label>Pilih Company:</label>";
+        echo "<select name='company_id' class='' onchange='this.form.submit();' id='select-state' placeholder='Pick a state...'>";
+
+
+        foreach ($c_t_m_d_company as $key => $value) 
+        {
+                if($this->session->userdata('po_company_id')==$value->COMPANY_ID)
+                {
+                  echo "<option value='".$value->COMPANY_ID."' selected>".$value->COMPANY."</option>";
+                }
+                else
+                {
+                  echo "<option value='".$value->COMPANY_ID."'>".$value->COMPANY."</option>";
+                }
+        }
+
+        echo "</select>";
+        echo "</form>";
       }
+      
+
+
+
       ?>
-    </select>
-    </form>
+    
     <br>
 
     <form action='<?php echo base_url("c_t_po/date_po"); ?>' class='no_voucer_area' method="post" id=''>
@@ -76,7 +92,7 @@
             echo "<a href='" . site_url('c_t_po_rincian/index/' . $value->ID) .  "' ";
             echo "onclick=\"return confirm('Lanjut?')\"";
             echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
-            echo " Rp" . number_format(intval($value->SUM_TOTAL)) . "</td>";
+            echo " Rp" . number_format(floatval(round($value->SUM_TOTAL*100))/100,2, ',', '.')  . "</td>";
             //satu button
 
 
@@ -84,6 +100,7 @@
 
 
             echo "<td>";
+            /*
               $ok_color = 'red';
               if ($value->ENABLE_EDIT == 0) {
                 $ok_color = 'green';
@@ -102,6 +119,7 @@
 
                 echo "> <i class='fa fa-check f-w-600 f-16 text-c-" . $ok_color . "'></i></a>";
               }
+              */
 
               echo date('d-m-Y', strtotime($value->EXPIRE_DATE));
             echo "</td>";

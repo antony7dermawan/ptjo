@@ -116,7 +116,7 @@ class C_t_ak_jurnal_history_print extends MY_Controller
       $pdf->Cell(25, 6, $tanggal[$i], 'L', 0, 'C');
       $pdf->Cell(25, 6, substr($no_voucer[$i], 0, 10), 'L', 0, 'L');
       $pdf->Cell(25, 6, $no_akun[$i], 'L', 0, 'L');
-      $pdf->Cell(35, 6, substr($nama_akun[$i], 0, 10), 'L', 0, 'L');
+      $pdf->Cell(35, 6, substr($nama_akun[$i], 0, 20), 'L', 0, 'L');
       $pdf->Cell(25, 6, substr($catatan[$i], 0, 10), 'L', 0, 'L');
       $pdf->Cell(25, 6, number_format(intval($debit[$i])), 'L', 0, 'C');
       $pdf->Cell(25, 6, number_format(intval($kredit[$i])), 'L', 0, 'C');

@@ -15,7 +15,7 @@
 
 <?php
 $level_user_id = $this->session->userdata('level_user_id');
-if($level_user_id==1 or $level_user_id==6)
+if($level_user_id==1 or $level_user_id==6 )
 {
     ?>
     <li class="pcoded-hasmenu">
@@ -149,7 +149,7 @@ if($level_user_id==1 or $level_user_id==6)
         </a>
 
         <?php
-        if($level_user_id==1 or  $level_user_id==2 or $level_user_id==3 or $level_user_id==6)
+        if($level_user_id==1 or  $level_user_id==2 or $level_user_id==3 or $level_user_id==6 or $level_user_id==8)
         {
         ?>
         <ul class="pcoded-submenu">
@@ -164,7 +164,7 @@ if($level_user_id==1 or $level_user_id==6)
         ?>
 
         <?php
-        if($level_user_id==1 or  $level_user_id==2 or $level_user_id==3 or $level_user_id==6 or $level_user_id==7)
+        if($level_user_id==1 or  $level_user_id==2 or $level_user_id==3 or $level_user_id==6 or $level_user_id==7or $level_user_id==8 or $level_user_id==10)
         {
         ?>
         <ul class="pcoded-submenu">
@@ -184,7 +184,7 @@ if($level_user_id==1 or $level_user_id==6)
 
 
 <?php
-if($level_user_id==1 or $level_user_id==2 or $level_user_id==4 or $level_user_id==5 or $level_user_id==6)
+if($level_user_id==1 or $level_user_id==2 or $level_user_id==4 or $level_user_id==5 or $level_user_id==6 or $level_user_id==8 or $level_user_id==9)
 {
     ?>
     <!-- Menu ke dua -->
@@ -275,7 +275,7 @@ if($level_user_id==1)
 
 
 <?php
-if($level_user_id==1 or $level_user_id==6)
+if($level_user_id==1 or $level_user_id==6 or $level_user_id==8 or $level_user_id==10)
 {
     ?>
     <li class="pcoded-hasmenu">

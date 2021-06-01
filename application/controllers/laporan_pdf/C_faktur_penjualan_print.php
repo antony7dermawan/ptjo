@@ -46,6 +46,7 @@ class c_faktur_penjualan_print extends MY_Controller
 
     
 
+
     $total_kuantitas = 0;
     $total_sub = 0;
     $dpp = 0;
@@ -262,7 +263,7 @@ class c_faktur_penjualan_print extends MY_Controller
 
 
 
-    $pdf->Cell( 140,5,'','0',1,'L');
+    $pdf->Cell( 140,10,'','0',1,'L');
 
 
     $read_select = $this->m_t_ak_faktur_penjualan_print_setting->select_id(8);

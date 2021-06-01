@@ -135,9 +135,9 @@ class C_t_po_print extends MY_Controller
       $pdf->MultiCell($size[1], 4, $value->NAMA_BARANG, 'L', 'L',0,0);
       $pdf->MultiCell($size[2], 4, $value->QTY, 'L', 'C',0,0);
       $pdf->MultiCell($size[3], 4, $value->SATUAN, 'L', 'C',0,0);
-      $pdf->MultiCell($size[4], 4, number_format((floatval(round($value->HARGA*100)))/100), 'L', 'R',0,0);
+      $pdf->MultiCell($size[4], 4, number_format((floatval(round($value->HARGA*100)))/100,2, ',', '.'), 'L', 'R',0,0);
       $pdf->MultiCell($size[5], 4, ((floatval(round($value->PPN*10)))/10), 'L', 'R',0,0);
-      $pdf->MultiCell($size[6]-0.1, 4, number_format((floatval(round($value->SUB_TOTAL*100)))/100), 'L', 'R',0,0);
+      $pdf->MultiCell($size[6]-0.1, 4, number_format((floatval(round($value->SUB_TOTAL*100)))/100,2, ',', '.'), 'L', 'R',0,0);
       $pdf->Cell( 0.1,4,'','L',1,'R');
 
 
@@ -173,7 +173,7 @@ class C_t_po_print extends MY_Controller
     //$pdf->Cell( $size[6],8,number_format((intval($total_sub_1)*$nilai_ppn)/100),'1',1,'R');
 
     $pdf->Cell( $size[0]+$size[1]+$size[2]+$size[3]+$size[4]+$size[5],8,'Total','1',0,'R');
-    $pdf->Cell( $size[6],8,number_format((floatval(round($total_sub*100)))/100),'1',1,'R');
+    $pdf->Cell( $size[6],8,number_format((floatval(round($total_sub*100)))/100,2, ',', '.'),'1',1,'R');
 
         $pdf->Cell( 80,5,'','0',1,'L');
         $pdf->Cell( 80,5,'Pembayaran','B',1,'L');

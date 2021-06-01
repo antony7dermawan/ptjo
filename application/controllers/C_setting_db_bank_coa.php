@@ -41,7 +41,8 @@ class C_setting_db_bank_coa extends MY_Controller
     $data = array(
       'COA_ID' => $coa_id,
       'CREATED_BY' => $this->session->userdata('username'),
-      'UPDATED_BY' => $this->session->userdata('username')
+      'UPDATED_BY' => $this->session->userdata('username'),
+      'COMPANY_ID' => $this->session->userdata('company_id')
     );
 
     $this->m_setting_db_bank_coa->tambah($data);

@@ -17,6 +17,11 @@
     </form>
 
   </div>
+
+
+  <?php
+  $level_user_id = $this->session->userdata('level_user_id');
+  ?>
   <div class="card-block">
     <!-- Menampilkan notif !-->
     <?= $this->session->flashdata('notif') ?>
@@ -34,7 +39,14 @@
             <th>Sortase</th>
             <th>Neto</th>
             <th>Uang Jalan</th>
-            <th>Total Penjualan</th>
+
+            <?php
+            if( $level_user_id<8)
+            {
+              echo "<th>Total Penjualan</th>";
+            }
+            ?>
+            
             <th>No Tiket</th>
             <th>Action</th>
           </tr>
@@ -74,7 +86,13 @@
             echo "</td>";
 
             #echo "<td>".date('d-m-Y', strtotime($value->DATE))." / ".date('H:i', strtotime($value->TIME))." / ".$value->CREATED_BY."</td>";
-            echo "<td>Rp" . number_format(intval($value->TOTAL_PENJUALAN)) . "</td>";
+            
+
+            if( $level_user_id<8)
+            {
+              echo "<td>Rp" . number_format(intval($value->TOTAL_PENJUALAN)) . "</td>";
+            }
+
             echo "<td>" . $value->NO_TIKET . "</td>";
 
             $sum_total_penjualan = $sum_total_penjualan+intval($value->TOTAL_PENJUALAN);
@@ -247,8 +265,15 @@
                 <label>Tambahan Uang Jalan</label>
                 <input type='text' class='form-control' placeholder='Input Number' name='tambahan'>
 
-                <label>Harga Sawit / Kg</label>
-                <input type='text' class='form-control' placeholder='Input Number' name='harga'>
+                <?php
+                if($level_user_id<8)
+                {
+                  echo "<label>Harga Sawit / Kg</label>";
+                  echo "<input type='text' class='form-control' placeholder='Input Number' name='harga'>";
+                }
+
+                ?>
+                
 
               </fieldset>
 
@@ -314,9 +339,13 @@
                 <label>Tambahan Uang Jalan</label>
                 <input type='text' class='form-control' placeholder='Input Number' name='tambahan'>
 
-                <label>Harga Sawit / Kg</label>
-                <input type='text' class='form-control' placeholder='Input Number' name='harga'>
-
+                <?php
+                if($level_user_id<8)
+                {
+                echo "<label>Harga Sawit / Kg</label>";
+                echo "<input type='text' class='form-control' placeholder='Input Number' name='harga'>";
+                }
+                ?>
               </fieldset>
 
             </div>

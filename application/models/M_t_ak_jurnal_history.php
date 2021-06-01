@@ -23,6 +23,21 @@ public function select_no_voucer()
 }
 
 
+
+
+public function select_old_data($date_from,$coa_id)
+{
+    $this->db->select_sum('KREDIT');
+    $this->db->select_sum('DEBIT');
+    $this->db->from('T_AK_JURNAL');
+
+    $this->db->where("COA_ID='{$coa_id}'");
+    $this->db->where("DATE<'{$date_from}'");
+
+    $akun = $this->db->get ();
+    return $akun->result ();
+}
+
 public function select_sum_kredit_detail($coa_id)
 {
     $this->db->select_sum('KREDIT');

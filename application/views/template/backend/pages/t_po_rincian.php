@@ -40,10 +40,10 @@
             echo "<td>" . $value->NAMA_BARANG . "</td>";
             
 
-            echo "<td>" . number_format(intval($value->QTY)) . "</td>";
+            echo "<td>" . number_format(floatval(round($value->QTY*100))/100,2, ',', '.') . "</td>";
             echo "<td>" . $value->SATUAN . "</td>";
-            echo "<td> Rp" . number_format(intval($value->HARGA)) . "</td>";
-            echo "<td> Rp" . number_format(intval($value->SUB_TOTAL)) . "</td>";
+            echo "<td> Rp" . number_format(floatval(round($value->HARGA*100))/100,2, ',', '.') . "</td>";
+            echo "<td> Rp" . number_format(floatval(round($value->SUB_TOTAL*100))/100,2, ',', '.') . "</td>";
 
 
 

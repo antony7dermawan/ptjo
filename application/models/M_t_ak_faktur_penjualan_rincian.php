@@ -45,7 +45,7 @@ public function update($data, $id)
     $this->db->where('T_AK_FAKTUR_PENJUALAN_RINCIAN.FAKTUR_PENJUALAN_ID', $id);
 
 
-    $this->db->order_by("ID", "asc");
+    $this->db->order_by("DATE", "asc");
 
     $akun = $this->db->get ();
     return $akun->result ();

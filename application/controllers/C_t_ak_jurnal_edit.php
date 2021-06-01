@@ -134,7 +134,8 @@ class C_t_ak_jurnal_edit extends MY_Controller
         'NO_VOUCER' => $value->NO_VOUCER,
         'CREATED_ID' => $value->CREATED_ID,
         'CHECKED_ID' => $value->CHECKED_ID,
-        'SPECIAL_ID' => $value->SPECIAL_ID
+        'SPECIAL_ID' => $value->SPECIAL_ID,
+        'COMPANY_ID' => $this->session->userdata('company_id')
 
       );
 

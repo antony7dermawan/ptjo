@@ -60,6 +60,7 @@
             <th>No Voucer</th>
             <th>Debit</th>
             <th>Kredit</th>
+            <th>Saldo Awal</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -93,6 +94,9 @@
               echo "<td class='" . $color . "'>Rp" . number_format(intval($value->DEBIT)) . "</td>";
               echo "<td class='" . $color . "'>Rp" . number_format(intval($value->KREDIT)) . "</td>";
 
+              $saldo_awal = $saldo_awal + $value->DEBIT - $value->KREDIT;
+              echo "<td class='" . $color . "'>Rp" . number_format(intval($saldo_awal)) . "</td>";
+
               echo "<td class='" . $color . "'>";
 
               
@@ -108,6 +112,7 @@
 
 
               echo "</td>";
+              echo "</tr>";
             }
 
 
@@ -120,8 +125,9 @@
               echo "<td class='" . $color . "'>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</td>";
               echo "<td class='" . $color . "'>" . $no_akun . "</td>";
               echo "<td class='" . $color . "'>" . $value->NO_VOUCER . "</td>";
-              echo "<td class='" . $color . "'>Rp" . number_format(intval($value->DEBIT)) . "</td>";
-              echo "<td class='" . $color . "'>Rp" . number_format(intval($value->KREDIT)) . "</td>";
+              echo "<td class='" . $color . "'></td>";
+              echo "<td class='" . $color . "'></td>";
+              echo "<td class='" . $color . "'>Rp" . number_format(intval($saldo_awal)) . "</td>";
 
               $color = 'background-white text-c-black';
               echo "<td class='" . $color . "'>";
@@ -171,10 +177,47 @@
               //batas new window
 
               echo "</td>";
+              echo "</tr>";
+
+
+
+
+
+              $color = 'background-white text-c-black';
+              echo "<tr>";
+
+              echo "<td class='" . $color . "'>" . ($key + 1) . "</td>";
+              echo "<td class='" . $color . "'>" . $value->NAMA_AKUN . "</td>";
+              echo "<td class='" . $color . "'>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</td>";
+              echo "<td class='" . $color . "'>" . $no_akun . "</td>";
+
+              echo "<td class='" . $color . "'>" . $value->NO_VOUCER . "</td>";
+              echo "<td class='" . $color . "'>Rp" . number_format(intval($value->DEBIT)) . "</td>";
+              echo "<td class='" . $color . "'>Rp" . number_format(intval($value->KREDIT)) . "</td>";
+
+              $saldo_awal = $saldo_awal + $value->DEBIT - $value->KREDIT;
+              echo "<td class='" . $color . "'>Rp" . number_format(intval($saldo_awal)) . "</td>";
+
+              echo "<td class='" . $color . "'>";
+
+              
+
+
+
+
+              echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#Modal_Edit' class='btn-edit' data-id='" . $value->ID . "'>";
+              echo "<i class='icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green'></i>";
+              echo "</a>";
+
+
+
+
+              echo "</td>";
+              echo "</tr>";
             }
 
 
-            echo "</tr>";
+            
           }
 
           ?>

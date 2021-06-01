@@ -113,6 +113,9 @@ public function select_created_id($created_id)
 
     $this->db->where("T_AK_JURNAL.CREATED_ID='{$created_id}'");
 
+
+    $this->db->order_by("T_AK_JURNAL.ID", "asc");
+
     $akun = $this->db->get ();
     return $akun->result ();
   }
@@ -151,10 +154,17 @@ public function select_created_id($created_id)
     $this->db->where("T_AK_JURNAL.DATE>='{$date_from_select_jurnal}'");
     $this->db->where("T_AK_JURNAL.DATE<='{$date_to_select_jurnal}'");
 
-    if($level_user_id==4)
+    if($level_user_id==4 or $level_user_id==9)
     {
         $this->db->where("T_AK_JURNAL.CREATED_BY='{$username}'");
     }
+
+    if($level_user_id>=8)
+    {
+        $this->db->where("T_AK_JURNAL.COMPANY_ID='{$this->session->userdata('company_id')}'");
+    }
+
+
     
     $this->db->order_by("T_AK_JURNAL.DATE,T_AK_JURNAL.TIME", "asc");
 
