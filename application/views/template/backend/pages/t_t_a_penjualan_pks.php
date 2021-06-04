@@ -90,7 +90,16 @@
 
             if( $level_user_id<8)
             {
-              echo "<td>Rp" . number_format(intval($value->TOTAL_PENJUALAN)) . "</td>";
+              
+
+              if(intval($value->TOTAL_PENJUALAN)==0)
+              {
+                echo "<td class='text-c-red'>Rp" . number_format(intval($value->TOTAL_PENJUALAN)) . "</td>";
+              }
+              else
+              {
+                echo "<td class='text-c-black'>Rp" . number_format(intval($value->TOTAL_PENJUALAN)) . "</td>";
+              }
             }
 
             echo "<td>" . $value->NO_TIKET . "</td>";

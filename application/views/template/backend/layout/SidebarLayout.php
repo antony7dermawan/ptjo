@@ -149,7 +149,7 @@ if($level_user_id==1 or $level_user_id==6 )
         </a>
 
         <?php
-        if($level_user_id==1 or  $level_user_id==2 or $level_user_id==3 or $level_user_id==6 or $level_user_id==8)
+        if($level_user_id==1 or  $level_user_id==2 or $level_user_id==3 or $level_user_id==6 or $level_user_id==8 or $level_user_id==9)
         {
         ?>
         <ul class="pcoded-submenu">
@@ -208,17 +208,19 @@ if($level_user_id==1 or $level_user_id==2 or $level_user_id==4 or $level_user_id
             </li>
         </ul>
 
-        <?php
-        if($level_user_id==1 or $level_user_id==2 or $level_user_id==5 or $level_user_id==6)
-        {
-            ?>
-            <ul class="pcoded-submenu">
+        <ul class="pcoded-submenu">
             <li class="">
                 <a href="<?= base_url("c_t_ak_jurnal_history"); ?>" class="submenu waves-effect waves-dark">
                     <span class="pcoded-mtext">History Jurnal</span>
                 </a>
             </li>
-            </ul>
+        </ul>
+
+        <?php
+        if($level_user_id==1 or $level_user_id==2 or $level_user_id==5 or $level_user_id==6)
+        {
+            ?>
+            
             <ul class="pcoded-submenu">
                 <li class="">
                     <a href="<?= base_url("c_t_ak_faktur_penjualan"); ?>" class="submenu waves-effect waves-dark">

@@ -56,7 +56,7 @@ public function select_used_jurnal($type_id,$from_date,$to_date)
     $this->db->where("(T_AK_JURNAL.DEBIT>0 or T_AK_JURNAL.KREDIT>0) and AK_M_COA.TYPE_ID={$type_id} and AK_M_COA.FAMILY_ID=3 and T_AK_JURNAL.DATE>='{$from_date}' and T_AK_JURNAL.DATE<='{$to_date}'");
     $this->db->where("AK_M_COA.CASH_FLOW=true");
 
-    $this->db->where("T_AK_JURNAL.NO_VOUCER like 'JBB%' or T_AK_JURNAL.NO_VOUCER like 'JKP%' or T_AK_JURNAL.NO_VOUCER like 'KBN%'");
+    $this->db->where("(T_AK_JURNAL.NO_VOUCER like 'JBB%' or T_AK_JURNAL.NO_VOUCER like 'JKP%' or T_AK_JURNAL.NO_VOUCER like 'KBN%' )");
 
     
     $this->db->order_by("NAMA_AKUN", "desc");
