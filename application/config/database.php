@@ -73,12 +73,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
+
+
+
+
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '18.216.115.189',
-	'username' => 'antony',
-	'password' => 'DZ}LPb^u7X<P3E@{',
-	'database' => 'ptjo',
+	'hostname' => 'localhost',
+	'username' => 'acienidc',
+	'password' => 'Lego9797@',
+	'database' => 'acienidc_ptjo',
 	'dbdriver' => 'postgre',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
