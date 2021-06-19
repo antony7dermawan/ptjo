@@ -30,13 +30,14 @@
         }
 
         echo "</select>";
-        echo "</form>";
+        
       }
       
 
 
 
       ?>
+    </form>
     
     <br>
 

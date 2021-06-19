@@ -65,6 +65,7 @@ public function select_for_dashboard()
     
 
 
+
     $this->db->order_by("ID", "desc");
     $akun = $this->db->get ();
     return $akun->result ();
