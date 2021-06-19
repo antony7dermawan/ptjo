@@ -77,13 +77,13 @@ class C_uang_jalan_print extends MY_Controller
 
 
         $pdf->Cell( 15,5,'Sejumlah','0',0,'L');
-        $pdf->Cell( 30,5,'a. Default','B',0,'L');
+        $pdf->Cell( 30,5,'a. Uang Minyak (BBM)','B',0,'L');
 
         $pdf->Cell( 30,5,'Rp'.number_format(intval($r_uang_jalan)),'B',1,'R');
 
 
         $pdf->Cell( 15,5,'','0',0,'L');
-        $pdf->Cell( 30,5,'b. Tambahan','B',0,'L');
+        $pdf->Cell( 30,5,'b. Uang Operasional dijalan','B',0,'L');
 
         $pdf->Cell( 30,5,'Rp'.number_format(intval($r_tambahan)),'B',1,'R');
 
