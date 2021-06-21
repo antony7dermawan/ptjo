@@ -164,7 +164,16 @@
             <th></th>
             <th><?=number_format(intval($sum_neto))?></th>
             <th>Rp<?=number_format(intval($sum_uang_jalan))?></th>
-            <th>Rp<?=number_format(intval($sum_total_penjualan))?></th>
+            <?php
+
+            if($level_user_id<8)
+            {
+              ?>
+              <th>Rp<?=number_format(intval($sum_total_penjualan))?></th>
+              <?php
+            }
+            ?>
+            
             <th></th>
             <th></th>
           </tr>
