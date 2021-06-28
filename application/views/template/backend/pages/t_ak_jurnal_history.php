@@ -144,6 +144,8 @@
 
 
               //batas new window
+
+              /*
               echo "<a "; #/1 ini artinya kena pajak
 
               echo "onclick= 'p_1_" . $key . "()'";
@@ -156,6 +158,8 @@
               echo "window.open('laporan_pdf/c_t_ak_jurnal_history_print');";
               echo "}";
               echo "</script>";
+
+              */
               //batas new window
 
 
