@@ -126,7 +126,8 @@ public function select_created_id($created_id)
         $this->db->where("T_AK_JURNAL.COMPANY_ID='{$company_id}'");
     }
 
-    $this->db->order_by("T_AK_JURNAL.ID", "asc");
+
+    $this->db->order_by("T_AK_JURNAL.DATE,T_AK_JURNAL.TIME", "asc");
 
     $akun = $this->db->get ();
     return $akun->result ();

@@ -71,7 +71,7 @@
                   $spreadsheet->getActiveSheet()->getStyle('A'.$row)->getFont()->setBold(true);
                   $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':J'.$row);
                   $sheet = $spreadsheet->getActiveSheet();
-                  $sheet->setCellValue('A'.$row, 'Laporan Penjualan PKS');
+                  $sheet->setCellValue('A'.$row, 'Laporan Penjualan TBS');
                   $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('center');
 
                   $row=$row+1;
@@ -285,7 +285,7 @@
 
 
                   $writer = new Xlsx($spreadsheet);
-                  $filename = 'lap_pembelian';
+                  $filename = 'lap_penjualan_tbs';
                   
                   header('Content-Type: application/vnd.ms-excel');
                   header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
