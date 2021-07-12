@@ -419,6 +419,9 @@
                   }
                   // end...............................................................................pendapatan lain lain
 
+
+
+
                         $row = $row+1;
                         $alp='M';
                         $total_alp=3;
@@ -497,6 +500,7 @@
 
 
 
+                  $total_biaya_op = 0;
 
 
                   // ...................................................................Biaya Operasional Bulanan:
@@ -504,6 +508,12 @@
                   $row=$row+1;
                   $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':D'.$row);
                   $sheet->setCellValue('A'.$row, 'Biaya Operasional Bulanan:');
+                  $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('left');
+
+
+                  $row=$row+1;
+                  $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':D'.$row);
+                  $sheet->setCellValue('A'.$row, '  Aktiva Lancar lainnya:');
                   $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('left');
                   
                   $alp='M';
@@ -661,10 +671,1842 @@
 
 
                   }
+
+
+                  $total_biaya_op = $total_biaya_op + $total_saldo;
                   // end........................................................................Biaya Operasional Bulanan:
 
 
-                        $total_pengeluaran =  $total_saldo;
+
+
+
+                  // ...................................................................Harga Pokok Penjualan:
+
+                  $row=$row+1;
+                  $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':D'.$row);
+                  $sheet->setCellValue('A'.$row, '  Harga Pokok Penjualan:');
+                  $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('left');
+                  
+                  $alp='M';
+                  $total_alp=3;
+                  for($n=0;$n<=$total_alp;$n++)
+                  {
+                        $area = $alp.$row;
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $alp++;
+                  }
+
+                  $total_saldo = 0;
+                  $value_logic=0;
+                  $read_select = $this->m_t_ak_jurnal->select_used_jurnal(1,$date_from_laporan,$date_to_laporan);
+                  foreach ($read_select as $key => $value) 
+                  {
+                        $value_logic=1;
+                        $a_7_coa_id[$key]=$value->ID;
+                        $a_7_no_akun_1[$key]=$value->NO_AKUN_1;
+                        $a_7_no_akun_2[$key]=$value->NO_AKUN_2;
+                        $a_7_no_akun_3[$key]=$value->NO_AKUN_3;
+                        $a_7_db_k_id[$key]=$value->DB_K_ID;
+                        $a_7_type_id[$key]=$value->TYPE_ID;
+                        $a_7_nama_akun[$key]=$value->NAMA_AKUN;
+                        $a_7_sum_debit[$key]=$value->DEBIT;
+                        $a_7_sum_kredit[$key]=$value->KREDIT;
+                        $a_7_no_voucer[$key]=$value->NO_VOUCER;
+                  }
+
+                  $total_a_7_coa_id = $key;
+
+                  if($value_logic==1)
+                  {
+                        for($i=0;$i<=$total_a_7_coa_id;$i++)
+                        {
+                          
+
+                              $saldo = $a_7_sum_debit[$i];
+
+                              $total_saldo = $total_saldo + $saldo;
+                              
+                              if($a_7_no_akun_3[$i]!='')
+                              {
+                                    $no_akun=$a_7_no_akun_3[$i];
+                              }
+                              elseif($a_7_no_akun_2[$i]!='')
+                              {
+                                    $no_akun=$a_7_no_akun_2[$i];
+                              }
+                              else
+                              {
+                                    $no_akun=$a_7_no_akun_1[$i];
+                              }
+                              $row=$row+1;
+                              $sheet->setCellValue('B'.$row, $a_7_no_voucer[$i].'/'.$a_7_nama_akun[$i]);
+                              $sheet->setCellValue('H'.$row, 'Rp');
+                              $sheet->setCellValue('I'.$row, $saldo);
+
+
+                              $sheet->setCellValue('M'.$row, intval($saldo/$month_int));
+                              $sheet->setCellValue('O'.$row, intval($saldo/30));
+
+                              $spreadsheet->getActiveSheet()
+                                        ->getStyle('D'.$row.':P'.$row)
+                                        ->getNumberFormat()
+                                        ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+
+                              $alp='M';
+                              $total_alp=3;
+                              for($n=0;$n<=$total_alp;$n++)
+                              {
+                                    $area = $alp.$row;
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $alp++;
+                              }
+                        }
+                        $row = $row+1;
+                        $area = 'D'.$row.':K'.$row;
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                    ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        
+                        $sheet->setCellValue('J'.$row, 'Rp');
+                        $sheet->setCellValue('K'.$row, $total_saldo);
+
+
+                        $sheet->setCellValue('N'.$row, intval($total_saldo/$month_int));
+                        $sheet->setCellValue('P'.$row, intval($total_saldo/30));
+
+                        $spreadsheet->getActiveSheet()
+                                    ->getStyle('D'.$row.':P'.$row)
+                                    ->getNumberFormat()
+                                    ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                        
+
+                        $alp='M';
+                        $total_alp=3;
+                        for($n=0;$n<=$total_alp;$n++)
+                        {
+                              $area = $alp.$row;
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $alp++;
+                        }
+
+
+
+
+                        $row = $row+1;
+                        $alp='M';
+                        $total_alp=3;
+                        for($n=0;$n<=$total_alp;$n++)
+                        {
+                              $area = $alp.$row;
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $alp++;
+                        }
+
+
+                  }
+
+                  $total_biaya_op = $total_biaya_op + $total_saldo;
+                  // end........................................................................Harga Pokok Penjualan:
+
+
+
+
+
+                  // ...................................................................Ekuitas:
+
+                  $row=$row+1;
+                  $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':D'.$row);
+                  $sheet->setCellValue('A'.$row, '  Ekuitas:');
+                  $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('left');
+                  
+                  $alp='M';
+                  $total_alp=3;
+                  for($n=0;$n<=$total_alp;$n++)
+                  {
+                        $area = $alp.$row;
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $alp++;
+                  }
+
+                  $total_saldo = 0;
+                  $value_logic=0;
+                  $read_select = $this->m_t_ak_jurnal->select_used_jurnal(2,$date_from_laporan,$date_to_laporan);
+                  foreach ($read_select as $key => $value) 
+                  {
+                        $value_logic=1;
+                        $a_7_coa_id[$key]=$value->ID;
+                        $a_7_no_akun_1[$key]=$value->NO_AKUN_1;
+                        $a_7_no_akun_2[$key]=$value->NO_AKUN_2;
+                        $a_7_no_akun_3[$key]=$value->NO_AKUN_3;
+                        $a_7_db_k_id[$key]=$value->DB_K_ID;
+                        $a_7_type_id[$key]=$value->TYPE_ID;
+                        $a_7_nama_akun[$key]=$value->NAMA_AKUN;
+                        $a_7_sum_debit[$key]=$value->DEBIT;
+                        $a_7_sum_kredit[$key]=$value->KREDIT;
+                        $a_7_no_voucer[$key]=$value->NO_VOUCER;
+                  }
+
+                  $total_a_7_coa_id = $key;
+
+                  if($value_logic==1)
+                  {
+                        for($i=0;$i<=$total_a_7_coa_id;$i++)
+                        {
+                          
+
+                              $saldo = $a_7_sum_debit[$i];
+
+                              $total_saldo = $total_saldo + $saldo;
+                              
+                              if($a_7_no_akun_3[$i]!='')
+                              {
+                                    $no_akun=$a_7_no_akun_3[$i];
+                              }
+                              elseif($a_7_no_akun_2[$i]!='')
+                              {
+                                    $no_akun=$a_7_no_akun_2[$i];
+                              }
+                              else
+                              {
+                                    $no_akun=$a_7_no_akun_1[$i];
+                              }
+                              $row=$row+1;
+                              $sheet->setCellValue('B'.$row, $a_7_no_voucer[$i].'/'.$a_7_nama_akun[$i]);
+                              $sheet->setCellValue('H'.$row, 'Rp');
+                              $sheet->setCellValue('I'.$row, $saldo);
+
+
+                              $sheet->setCellValue('M'.$row, intval($saldo/$month_int));
+                              $sheet->setCellValue('O'.$row, intval($saldo/30));
+
+                              $spreadsheet->getActiveSheet()
+                                        ->getStyle('D'.$row.':P'.$row)
+                                        ->getNumberFormat()
+                                        ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+
+                              $alp='M';
+                              $total_alp=3;
+                              for($n=0;$n<=$total_alp;$n++)
+                              {
+                                    $area = $alp.$row;
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $alp++;
+                              }
+                        }
+                        $row = $row+1;
+                        $area = 'D'.$row.':K'.$row;
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                    ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        
+                        $sheet->setCellValue('J'.$row, 'Rp');
+                        $sheet->setCellValue('K'.$row, $total_saldo);
+
+
+                        $sheet->setCellValue('N'.$row, intval($total_saldo/$month_int));
+                        $sheet->setCellValue('P'.$row, intval($total_saldo/30));
+
+                        $spreadsheet->getActiveSheet()
+                                    ->getStyle('D'.$row.':P'.$row)
+                                    ->getNumberFormat()
+                                    ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                        
+
+                        $alp='M';
+                        $total_alp=3;
+                        for($n=0;$n<=$total_alp;$n++)
+                        {
+                              $area = $alp.$row;
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $alp++;
+                        }
+
+
+
+
+                        $row = $row+1;
+                        $alp='M';
+                        $total_alp=3;
+                        for($n=0;$n<=$total_alp;$n++)
+                        {
+                              $area = $alp.$row;
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $alp++;
+                        }
+
+
+                  }
+
+                  $total_biaya_op = $total_biaya_op + $total_saldo;
+                  // end........................................................................Ekuitas:
+
+
+
+
+
+
+
+
+
+                  // ...................................................................Aktiva Tetap:
+
+                  $row=$row+1;
+                  $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':D'.$row);
+                  $sheet->setCellValue('A'.$row, '  Aktiva Tetap:');
+                  $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('left');
+                  
+                  $alp='M';
+                  $total_alp=3;
+                  for($n=0;$n<=$total_alp;$n++)
+                  {
+                        $area = $alp.$row;
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $alp++;
+                  }
+
+                  $total_saldo = 0;
+                  $value_logic=0;
+                  $read_select = $this->m_t_ak_jurnal->select_used_jurnal(3,$date_from_laporan,$date_to_laporan);
+                  foreach ($read_select as $key => $value) 
+                  {
+                        $value_logic=1;
+                        $a_7_coa_id[$key]=$value->ID;
+                        $a_7_no_akun_1[$key]=$value->NO_AKUN_1;
+                        $a_7_no_akun_2[$key]=$value->NO_AKUN_2;
+                        $a_7_no_akun_3[$key]=$value->NO_AKUN_3;
+                        $a_7_db_k_id[$key]=$value->DB_K_ID;
+                        $a_7_type_id[$key]=$value->TYPE_ID;
+                        $a_7_nama_akun[$key]=$value->NAMA_AKUN;
+                        $a_7_sum_debit[$key]=$value->DEBIT;
+                        $a_7_sum_kredit[$key]=$value->KREDIT;
+                        $a_7_no_voucer[$key]=$value->NO_VOUCER;
+                  }
+
+                  $total_a_7_coa_id = $key;
+
+                  if($value_logic==1)
+                  {
+                        for($i=0;$i<=$total_a_7_coa_id;$i++)
+                        {
+                          
+
+                              $saldo = $a_7_sum_debit[$i];
+
+                              $total_saldo = $total_saldo + $saldo;
+                              
+                              if($a_7_no_akun_3[$i]!='')
+                              {
+                                    $no_akun=$a_7_no_akun_3[$i];
+                              }
+                              elseif($a_7_no_akun_2[$i]!='')
+                              {
+                                    $no_akun=$a_7_no_akun_2[$i];
+                              }
+                              else
+                              {
+                                    $no_akun=$a_7_no_akun_1[$i];
+                              }
+                              $row=$row+1;
+                              $sheet->setCellValue('B'.$row, $a_7_no_voucer[$i].'/'.$a_7_nama_akun[$i]);
+                              $sheet->setCellValue('H'.$row, 'Rp');
+                              $sheet->setCellValue('I'.$row, $saldo);
+
+
+                              $sheet->setCellValue('M'.$row, intval($saldo/$month_int));
+                              $sheet->setCellValue('O'.$row, intval($saldo/30));
+
+                              $spreadsheet->getActiveSheet()
+                                        ->getStyle('D'.$row.':P'.$row)
+                                        ->getNumberFormat()
+                                        ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+
+                              $alp='M';
+                              $total_alp=3;
+                              for($n=0;$n<=$total_alp;$n++)
+                              {
+                                    $area = $alp.$row;
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $alp++;
+                              }
+                        }
+                        $row = $row+1;
+                        $area = 'D'.$row.':K'.$row;
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                    ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        
+                        $sheet->setCellValue('J'.$row, 'Rp');
+                        $sheet->setCellValue('K'.$row, $total_saldo);
+
+
+                        $sheet->setCellValue('N'.$row, intval($total_saldo/$month_int));
+                        $sheet->setCellValue('P'.$row, intval($total_saldo/30));
+
+                        $spreadsheet->getActiveSheet()
+                                    ->getStyle('D'.$row.':P'.$row)
+                                    ->getNumberFormat()
+                                    ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                        
+
+                        $alp='M';
+                        $total_alp=3;
+                        for($n=0;$n<=$total_alp;$n++)
+                        {
+                              $area = $alp.$row;
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $alp++;
+                        }
+
+
+
+
+                        $row = $row+1;
+                        $alp='M';
+                        $total_alp=3;
+                        for($n=0;$n<=$total_alp;$n++)
+                        {
+                              $area = $alp.$row;
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $alp++;
+                        }
+
+
+                  }
+
+                  $total_biaya_op = $total_biaya_op + $total_saldo;
+                  // end........................................................................Aktiva Tetap:
+
+
+
+
+
+
+
+
+
+
+
+
+
+         
+
+
+
+
+
+
+                  // ...................................................................Akun Piutang:
+
+                  $row=$row+1;
+                  $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':D'.$row);
+                  $sheet->setCellValue('A'.$row, '  Akun Piutang:');
+                  $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('left');
+                  
+                  $alp='M';
+                  $total_alp=3;
+                  for($n=0;$n<=$total_alp;$n++)
+                  {
+                        $area = $alp.$row;
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $alp++;
+                  }
+
+                  $total_saldo = 0;
+                  $value_logic=0;
+                  $read_select = $this->m_t_ak_jurnal->select_used_jurnal(6,$date_from_laporan,$date_to_laporan);
+                  foreach ($read_select as $key => $value) 
+                  {
+                        $value_logic=1;
+                        $a_7_coa_id[$key]=$value->ID;
+                        $a_7_no_akun_1[$key]=$value->NO_AKUN_1;
+                        $a_7_no_akun_2[$key]=$value->NO_AKUN_2;
+                        $a_7_no_akun_3[$key]=$value->NO_AKUN_3;
+                        $a_7_db_k_id[$key]=$value->DB_K_ID;
+                        $a_7_type_id[$key]=$value->TYPE_ID;
+                        $a_7_nama_akun[$key]=$value->NAMA_AKUN;
+                        $a_7_sum_debit[$key]=$value->DEBIT;
+                        $a_7_sum_kredit[$key]=$value->KREDIT;
+                        $a_7_no_voucer[$key]=$value->NO_VOUCER;
+                  }
+
+                  $total_a_7_coa_id = $key;
+
+                  if($value_logic==1)
+                  {
+                        for($i=0;$i<=$total_a_7_coa_id;$i++)
+                        {
+                          
+
+                              $saldo = $a_7_sum_debit[$i];
+
+                              $total_saldo = $total_saldo + $saldo;
+                              
+                              if($a_7_no_akun_3[$i]!='')
+                              {
+                                    $no_akun=$a_7_no_akun_3[$i];
+                              }
+                              elseif($a_7_no_akun_2[$i]!='')
+                              {
+                                    $no_akun=$a_7_no_akun_2[$i];
+                              }
+                              else
+                              {
+                                    $no_akun=$a_7_no_akun_1[$i];
+                              }
+                              $row=$row+1;
+                              $sheet->setCellValue('B'.$row, $a_7_no_voucer[$i].'/'.$a_7_nama_akun[$i]);
+                              $sheet->setCellValue('H'.$row, 'Rp');
+                              $sheet->setCellValue('I'.$row, $saldo);
+
+
+                              $sheet->setCellValue('M'.$row, intval($saldo/$month_int));
+                              $sheet->setCellValue('O'.$row, intval($saldo/30));
+
+                              $spreadsheet->getActiveSheet()
+                                        ->getStyle('D'.$row.':P'.$row)
+                                        ->getNumberFormat()
+                                        ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+
+                              $alp='M';
+                              $total_alp=3;
+                              for($n=0;$n<=$total_alp;$n++)
+                              {
+                                    $area = $alp.$row;
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $alp++;
+                              }
+                        }
+                        $row = $row+1;
+                        $area = 'D'.$row.':K'.$row;
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                    ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        
+                        $sheet->setCellValue('J'.$row, 'Rp');
+                        $sheet->setCellValue('K'.$row, $total_saldo);
+
+
+                        $sheet->setCellValue('N'.$row, intval($total_saldo/$month_int));
+                        $sheet->setCellValue('P'.$row, intval($total_saldo/30));
+
+                        $spreadsheet->getActiveSheet()
+                                    ->getStyle('D'.$row.':P'.$row)
+                                    ->getNumberFormat()
+                                    ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                        
+
+                        $alp='M';
+                        $total_alp=3;
+                        for($n=0;$n<=$total_alp;$n++)
+                        {
+                              $area = $alp.$row;
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $alp++;
+                        }
+
+
+
+
+                        $row = $row+1;
+                        $alp='M';
+                        $total_alp=3;
+                        for($n=0;$n<=$total_alp;$n++)
+                        {
+                              $area = $alp.$row;
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $alp++;
+                        }
+
+
+                  }
+
+                  $total_biaya_op = $total_biaya_op + $total_saldo;
+                  // end........................................................................Akun Piutang:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  // ...................................................................Persediaan:
+
+                  $row=$row+1;
+                  $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':D'.$row);
+                  $sheet->setCellValue('A'.$row, '  Persediaan:');
+                  $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('left');
+                  
+                  $alp='M';
+                  $total_alp=3;
+                  for($n=0;$n<=$total_alp;$n++)
+                  {
+                        $area = $alp.$row;
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $alp++;
+                  }
+
+                  $total_saldo = 0;
+                  $value_logic=0;
+                  $read_select = $this->m_t_ak_jurnal->select_used_jurnal(8,$date_from_laporan,$date_to_laporan);
+                  foreach ($read_select as $key => $value) 
+                  {
+                        $value_logic=1;
+                        $a_7_coa_id[$key]=$value->ID;
+                        $a_7_no_akun_1[$key]=$value->NO_AKUN_1;
+                        $a_7_no_akun_2[$key]=$value->NO_AKUN_2;
+                        $a_7_no_akun_3[$key]=$value->NO_AKUN_3;
+                        $a_7_db_k_id[$key]=$value->DB_K_ID;
+                        $a_7_type_id[$key]=$value->TYPE_ID;
+                        $a_7_nama_akun[$key]=$value->NAMA_AKUN;
+                        $a_7_sum_debit[$key]=$value->DEBIT;
+                        $a_7_sum_kredit[$key]=$value->KREDIT;
+                        $a_7_no_voucer[$key]=$value->NO_VOUCER;
+                  }
+
+                  $total_a_7_coa_id = $key;
+
+                  if($value_logic==1)
+                  {
+                        for($i=0;$i<=$total_a_7_coa_id;$i++)
+                        {
+                          
+
+                              $saldo = $a_7_sum_debit[$i];
+
+                              $total_saldo = $total_saldo + $saldo;
+                              
+                              if($a_7_no_akun_3[$i]!='')
+                              {
+                                    $no_akun=$a_7_no_akun_3[$i];
+                              }
+                              elseif($a_7_no_akun_2[$i]!='')
+                              {
+                                    $no_akun=$a_7_no_akun_2[$i];
+                              }
+                              else
+                              {
+                                    $no_akun=$a_7_no_akun_1[$i];
+                              }
+                              $row=$row+1;
+                              $sheet->setCellValue('B'.$row, $a_7_no_voucer[$i].'/'.$a_7_nama_akun[$i]);
+                              $sheet->setCellValue('H'.$row, 'Rp');
+                              $sheet->setCellValue('I'.$row, $saldo);
+
+
+                              $sheet->setCellValue('M'.$row, intval($saldo/$month_int));
+                              $sheet->setCellValue('O'.$row, intval($saldo/30));
+
+                              $spreadsheet->getActiveSheet()
+                                        ->getStyle('D'.$row.':P'.$row)
+                                        ->getNumberFormat()
+                                        ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+
+                              $alp='M';
+                              $total_alp=3;
+                              for($n=0;$n<=$total_alp;$n++)
+                              {
+                                    $area = $alp.$row;
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $alp++;
+                              }
+                        }
+                        $row = $row+1;
+                        $area = 'D'.$row.':K'.$row;
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                    ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        
+                        $sheet->setCellValue('J'.$row, 'Rp');
+                        $sheet->setCellValue('K'.$row, $total_saldo);
+
+
+                        $sheet->setCellValue('N'.$row, intval($total_saldo/$month_int));
+                        $sheet->setCellValue('P'.$row, intval($total_saldo/30));
+
+                        $spreadsheet->getActiveSheet()
+                                    ->getStyle('D'.$row.':P'.$row)
+                                    ->getNumberFormat()
+                                    ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                        
+
+                        $alp='M';
+                        $total_alp=3;
+                        for($n=0;$n<=$total_alp;$n++)
+                        {
+                              $area = $alp.$row;
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $alp++;
+                        }
+
+
+
+
+                        $row = $row+1;
+                        $alp='M';
+                        $total_alp=3;
+                        for($n=0;$n<=$total_alp;$n++)
+                        {
+                              $area = $alp.$row;
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $alp++;
+                        }
+
+
+                  }
+
+                  $total_biaya_op = $total_biaya_op + $total_saldo;
+                  // end........................................................................Persediaan:
+
+
+
+
+
+
+
+                  // ...................................................................Akun Hutang:
+
+                  $row=$row+1;
+                  $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':D'.$row);
+                  $sheet->setCellValue('A'.$row, '  Akun Hutang:');
+                  $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('left');
+                  
+                  $alp='M';
+                  $total_alp=3;
+                  for($n=0;$n<=$total_alp;$n++)
+                  {
+                        $area = $alp.$row;
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $alp++;
+                  }
+
+                  $total_saldo = 0;
+                  $value_logic=0;
+                  $read_select = $this->m_t_ak_jurnal->select_used_jurnal(9,$date_from_laporan,$date_to_laporan);
+                  foreach ($read_select as $key => $value) 
+                  {
+                        $value_logic=1;
+                        $a_7_coa_id[$key]=$value->ID;
+                        $a_7_no_akun_1[$key]=$value->NO_AKUN_1;
+                        $a_7_no_akun_2[$key]=$value->NO_AKUN_2;
+                        $a_7_no_akun_3[$key]=$value->NO_AKUN_3;
+                        $a_7_db_k_id[$key]=$value->DB_K_ID;
+                        $a_7_type_id[$key]=$value->TYPE_ID;
+                        $a_7_nama_akun[$key]=$value->NAMA_AKUN;
+                        $a_7_sum_debit[$key]=$value->DEBIT;
+                        $a_7_sum_kredit[$key]=$value->KREDIT;
+                        $a_7_no_voucer[$key]=$value->NO_VOUCER;
+                  }
+
+                  $total_a_7_coa_id = $key;
+
+                  if($value_logic==1)
+                  {
+                        for($i=0;$i<=$total_a_7_coa_id;$i++)
+                        {
+                          
+
+                              $saldo = $a_7_sum_debit[$i];
+
+                              $total_saldo = $total_saldo + $saldo;
+                              
+                              if($a_7_no_akun_3[$i]!='')
+                              {
+                                    $no_akun=$a_7_no_akun_3[$i];
+                              }
+                              elseif($a_7_no_akun_2[$i]!='')
+                              {
+                                    $no_akun=$a_7_no_akun_2[$i];
+                              }
+                              else
+                              {
+                                    $no_akun=$a_7_no_akun_1[$i];
+                              }
+                              $row=$row+1;
+                              $sheet->setCellValue('B'.$row, $a_7_no_voucer[$i].'/'.$a_7_nama_akun[$i]);
+                              $sheet->setCellValue('H'.$row, 'Rp');
+                              $sheet->setCellValue('I'.$row, $saldo);
+
+
+                              $sheet->setCellValue('M'.$row, intval($saldo/$month_int));
+                              $sheet->setCellValue('O'.$row, intval($saldo/30));
+
+                              $spreadsheet->getActiveSheet()
+                                        ->getStyle('D'.$row.':P'.$row)
+                                        ->getNumberFormat()
+                                        ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+
+                              $alp='M';
+                              $total_alp=3;
+                              for($n=0;$n<=$total_alp;$n++)
+                              {
+                                    $area = $alp.$row;
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $alp++;
+                              }
+                        }
+                        $row = $row+1;
+                        $area = 'D'.$row.':K'.$row;
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                    ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        
+                        $sheet->setCellValue('J'.$row, 'Rp');
+                        $sheet->setCellValue('K'.$row, $total_saldo);
+
+
+                        $sheet->setCellValue('N'.$row, intval($total_saldo/$month_int));
+                        $sheet->setCellValue('P'.$row, intval($total_saldo/30));
+
+                        $spreadsheet->getActiveSheet()
+                                    ->getStyle('D'.$row.':P'.$row)
+                                    ->getNumberFormat()
+                                    ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                        
+
+                        $alp='M';
+                        $total_alp=3;
+                        for($n=0;$n<=$total_alp;$n++)
+                        {
+                              $area = $alp.$row;
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $alp++;
+                        }
+
+
+
+
+                        $row = $row+1;
+                        $alp='M';
+                        $total_alp=3;
+                        for($n=0;$n<=$total_alp;$n++)
+                        {
+                              $area = $alp.$row;
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $alp++;
+                        }
+
+
+                  }
+
+                  $total_biaya_op = $total_biaya_op + $total_saldo;
+                  // end........................................................................Akun Hutang:
+
+
+
+
+
+
+
+
+
+
+                  // ...................................................................Beban lain-lain:
+
+                  $row=$row+1;
+                  $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':D'.$row);
+                  $sheet->setCellValue('A'.$row, '  Beban lain-lain:');
+                  $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('left');
+                  
+                  $alp='M';
+                  $total_alp=3;
+                  for($n=0;$n<=$total_alp;$n++)
+                  {
+                        $area = $alp.$row;
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $alp++;
+                  }
+
+                  $total_saldo = 0;
+                  $value_logic=0;
+                  $read_select = $this->m_t_ak_jurnal->select_used_jurnal(10,$date_from_laporan,$date_to_laporan);
+                  foreach ($read_select as $key => $value) 
+                  {
+                        $value_logic=1;
+                        $a_7_coa_id[$key]=$value->ID;
+                        $a_7_no_akun_1[$key]=$value->NO_AKUN_1;
+                        $a_7_no_akun_2[$key]=$value->NO_AKUN_2;
+                        $a_7_no_akun_3[$key]=$value->NO_AKUN_3;
+                        $a_7_db_k_id[$key]=$value->DB_K_ID;
+                        $a_7_type_id[$key]=$value->TYPE_ID;
+                        $a_7_nama_akun[$key]=$value->NAMA_AKUN;
+                        $a_7_sum_debit[$key]=$value->DEBIT;
+                        $a_7_sum_kredit[$key]=$value->KREDIT;
+                        $a_7_no_voucer[$key]=$value->NO_VOUCER;
+                  }
+
+                  $total_a_7_coa_id = $key;
+
+                  if($value_logic==1)
+                  {
+                        for($i=0;$i<=$total_a_7_coa_id;$i++)
+                        {
+                          
+
+                              $saldo = $a_7_sum_debit[$i];
+
+                              $total_saldo = $total_saldo + $saldo;
+                              
+                              if($a_7_no_akun_3[$i]!='')
+                              {
+                                    $no_akun=$a_7_no_akun_3[$i];
+                              }
+                              elseif($a_7_no_akun_2[$i]!='')
+                              {
+                                    $no_akun=$a_7_no_akun_2[$i];
+                              }
+                              else
+                              {
+                                    $no_akun=$a_7_no_akun_1[$i];
+                              }
+                              $row=$row+1;
+                              $sheet->setCellValue('B'.$row, $a_7_no_voucer[$i].'/'.$a_7_nama_akun[$i]);
+                              $sheet->setCellValue('H'.$row, 'Rp');
+                              $sheet->setCellValue('I'.$row, $saldo);
+
+
+                              $sheet->setCellValue('M'.$row, intval($saldo/$month_int));
+                              $sheet->setCellValue('O'.$row, intval($saldo/30));
+
+                              $spreadsheet->getActiveSheet()
+                                        ->getStyle('D'.$row.':P'.$row)
+                                        ->getNumberFormat()
+                                        ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+
+                              $alp='M';
+                              $total_alp=3;
+                              for($n=0;$n<=$total_alp;$n++)
+                              {
+                                    $area = $alp.$row;
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $alp++;
+                              }
+                        }
+                        $row = $row+1;
+                        $area = 'D'.$row.':K'.$row;
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                    ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        
+                        $sheet->setCellValue('J'.$row, 'Rp');
+                        $sheet->setCellValue('K'.$row, $total_saldo);
+
+
+                        $sheet->setCellValue('N'.$row, intval($total_saldo/$month_int));
+                        $sheet->setCellValue('P'.$row, intval($total_saldo/30));
+
+                        $spreadsheet->getActiveSheet()
+                                    ->getStyle('D'.$row.':P'.$row)
+                                    ->getNumberFormat()
+                                    ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                        
+
+                        $alp='M';
+                        $total_alp=3;
+                        for($n=0;$n<=$total_alp;$n++)
+                        {
+                              $area = $alp.$row;
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $alp++;
+                        }
+
+
+
+
+                        $row = $row+1;
+                        $alp='M';
+                        $total_alp=3;
+                        for($n=0;$n<=$total_alp;$n++)
+                        {
+                              $area = $alp.$row;
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $alp++;
+                        }
+
+
+                  }
+
+                  $total_biaya_op = $total_biaya_op + $total_saldo;
+                  // end........................................................................Beban lain-lain:
+
+
+
+
+
+
+                  // ...................................................................Hutang lancar lainnya:
+
+                  $row=$row+1;
+                  $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':D'.$row);
+                  $sheet->setCellValue('A'.$row, '  Hutang lancar lainnya:');
+                  $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('left');
+                  
+                  $alp='M';
+                  $total_alp=3;
+                  for($n=0;$n<=$total_alp;$n++)
+                  {
+                        $area = $alp.$row;
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $alp++;
+                  }
+
+                  $total_saldo = 0;
+                  $value_logic=0;
+                  $read_select = $this->m_t_ak_jurnal->select_used_jurnal(11,$date_from_laporan,$date_to_laporan);
+                  foreach ($read_select as $key => $value) 
+                  {
+                        $value_logic=1;
+                        $a_7_coa_id[$key]=$value->ID;
+                        $a_7_no_akun_1[$key]=$value->NO_AKUN_1;
+                        $a_7_no_akun_2[$key]=$value->NO_AKUN_2;
+                        $a_7_no_akun_3[$key]=$value->NO_AKUN_3;
+                        $a_7_db_k_id[$key]=$value->DB_K_ID;
+                        $a_7_type_id[$key]=$value->TYPE_ID;
+                        $a_7_nama_akun[$key]=$value->NAMA_AKUN;
+                        $a_7_sum_debit[$key]=$value->DEBIT;
+                        $a_7_sum_kredit[$key]=$value->KREDIT;
+                        $a_7_no_voucer[$key]=$value->NO_VOUCER;
+                  }
+
+                  $total_a_7_coa_id = $key;
+
+                  if($value_logic==1)
+                  {
+                        for($i=0;$i<=$total_a_7_coa_id;$i++)
+                        {
+                          
+
+                              $saldo = $a_7_sum_debit[$i];
+
+                              $total_saldo = $total_saldo + $saldo;
+                              
+                              if($a_7_no_akun_3[$i]!='')
+                              {
+                                    $no_akun=$a_7_no_akun_3[$i];
+                              }
+                              elseif($a_7_no_akun_2[$i]!='')
+                              {
+                                    $no_akun=$a_7_no_akun_2[$i];
+                              }
+                              else
+                              {
+                                    $no_akun=$a_7_no_akun_1[$i];
+                              }
+                              $row=$row+1;
+                              $sheet->setCellValue('B'.$row, $a_7_no_voucer[$i].'/'.$a_7_nama_akun[$i]);
+                              $sheet->setCellValue('H'.$row, 'Rp');
+                              $sheet->setCellValue('I'.$row, $saldo);
+
+
+                              $sheet->setCellValue('M'.$row, intval($saldo/$month_int));
+                              $sheet->setCellValue('O'.$row, intval($saldo/30));
+
+                              $spreadsheet->getActiveSheet()
+                                        ->getStyle('D'.$row.':P'.$row)
+                                        ->getNumberFormat()
+                                        ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+
+                              $alp='M';
+                              $total_alp=3;
+                              for($n=0;$n<=$total_alp;$n++)
+                              {
+                                    $area = $alp.$row;
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $alp++;
+                              }
+                        }
+                        $row = $row+1;
+                        $area = 'D'.$row.':K'.$row;
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                    ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        
+                        $sheet->setCellValue('J'.$row, 'Rp');
+                        $sheet->setCellValue('K'.$row, $total_saldo);
+
+
+                        $sheet->setCellValue('N'.$row, intval($total_saldo/$month_int));
+                        $sheet->setCellValue('P'.$row, intval($total_saldo/30));
+
+                        $spreadsheet->getActiveSheet()
+                                    ->getStyle('D'.$row.':P'.$row)
+                                    ->getNumberFormat()
+                                    ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                        
+
+                        $alp='M';
+                        $total_alp=3;
+                        for($n=0;$n<=$total_alp;$n++)
+                        {
+                              $area = $alp.$row;
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $alp++;
+                        }
+
+
+
+
+                        $row = $row+1;
+                        $alp='M';
+                        $total_alp=3;
+                        for($n=0;$n<=$total_alp;$n++)
+                        {
+                              $area = $alp.$row;
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $alp++;
+                        }
+
+
+                  }
+
+                  $total_biaya_op = $total_biaya_op + $total_saldo;
+                  // end........................................................................Hutang lancar lainnya:
+
+
+
+
+
+
+
+
+
+
+                  // ...................................................................Hutang Jangka Panjang:
+
+                  $row=$row+1;
+                  $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':D'.$row);
+                  $sheet->setCellValue('A'.$row, '  Hutang Jangka Panjang:');
+                  $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('left');
+                  
+                  $alp='M';
+                  $total_alp=3;
+                  for($n=0;$n<=$total_alp;$n++)
+                  {
+                        $area = $alp.$row;
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $alp++;
+                  }
+
+                  $total_saldo = 0;
+                  $value_logic=0;
+                  $read_select = $this->m_t_ak_jurnal->select_used_jurnal(13,$date_from_laporan,$date_to_laporan);
+                  foreach ($read_select as $key => $value) 
+                  {
+                        $value_logic=1;
+                        $a_7_coa_id[$key]=$value->ID;
+                        $a_7_no_akun_1[$key]=$value->NO_AKUN_1;
+                        $a_7_no_akun_2[$key]=$value->NO_AKUN_2;
+                        $a_7_no_akun_3[$key]=$value->NO_AKUN_3;
+                        $a_7_db_k_id[$key]=$value->DB_K_ID;
+                        $a_7_type_id[$key]=$value->TYPE_ID;
+                        $a_7_nama_akun[$key]=$value->NAMA_AKUN;
+                        $a_7_sum_debit[$key]=$value->DEBIT;
+                        $a_7_sum_kredit[$key]=$value->KREDIT;
+                        $a_7_no_voucer[$key]=$value->NO_VOUCER;
+                  }
+
+                  $total_a_7_coa_id = $key;
+
+                  if($value_logic==1)
+                  {
+                        for($i=0;$i<=$total_a_7_coa_id;$i++)
+                        {
+                          
+
+                              $saldo = $a_7_sum_debit[$i];
+
+                              $total_saldo = $total_saldo + $saldo;
+                              
+                              if($a_7_no_akun_3[$i]!='')
+                              {
+                                    $no_akun=$a_7_no_akun_3[$i];
+                              }
+                              elseif($a_7_no_akun_2[$i]!='')
+                              {
+                                    $no_akun=$a_7_no_akun_2[$i];
+                              }
+                              else
+                              {
+                                    $no_akun=$a_7_no_akun_1[$i];
+                              }
+                              $row=$row+1;
+                              $sheet->setCellValue('B'.$row, $a_7_no_voucer[$i].'/'.$a_7_nama_akun[$i]);
+                              $sheet->setCellValue('H'.$row, 'Rp');
+                              $sheet->setCellValue('I'.$row, $saldo);
+
+
+                              $sheet->setCellValue('M'.$row, intval($saldo/$month_int));
+                              $sheet->setCellValue('O'.$row, intval($saldo/30));
+
+                              $spreadsheet->getActiveSheet()
+                                        ->getStyle('D'.$row.':P'.$row)
+                                        ->getNumberFormat()
+                                        ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+
+                              $alp='M';
+                              $total_alp=3;
+                              for($n=0;$n<=$total_alp;$n++)
+                              {
+                                    $area = $alp.$row;
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $alp++;
+                              }
+                        }
+                        $row = $row+1;
+                        $area = 'D'.$row.':K'.$row;
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                    ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        
+                        $sheet->setCellValue('J'.$row, 'Rp');
+                        $sheet->setCellValue('K'.$row, $total_saldo);
+
+
+                        $sheet->setCellValue('N'.$row, intval($total_saldo/$month_int));
+                        $sheet->setCellValue('P'.$row, intval($total_saldo/30));
+
+                        $spreadsheet->getActiveSheet()
+                                    ->getStyle('D'.$row.':P'.$row)
+                                    ->getNumberFormat()
+                                    ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                        
+
+                        $alp='M';
+                        $total_alp=3;
+                        for($n=0;$n<=$total_alp;$n++)
+                        {
+                              $area = $alp.$row;
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $alp++;
+                        }
+
+
+
+
+                        $row = $row+1;
+                        $alp='M';
+                        $total_alp=3;
+                        for($n=0;$n<=$total_alp;$n++)
+                        {
+                              $area = $alp.$row;
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $alp++;
+                        }
+
+
+                  }
+
+                  $total_biaya_op = $total_biaya_op + $total_saldo;
+                  // end........................................................................Hutang Jangka Panjang:
+
+
+
+
+
+
+
+
+
+                  // ...................................................................Akumulasi Penyusutan:
+
+                  $row=$row+1;
+                  $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':D'.$row);
+                  $sheet->setCellValue('A'.$row, '  Akumulasi Penyusutan:');
+                  $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('left');
+                  
+                  $alp='M';
+                  $total_alp=3;
+                  for($n=0;$n<=$total_alp;$n++)
+                  {
+                        $area = $alp.$row;
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $alp++;
+                  }
+
+                  $total_saldo = 0;
+                  $value_logic=0;
+                  $read_select = $this->m_t_ak_jurnal->select_used_jurnal(14,$date_from_laporan,$date_to_laporan);
+                  foreach ($read_select as $key => $value) 
+                  {
+                        $value_logic=1;
+                        $a_7_coa_id[$key]=$value->ID;
+                        $a_7_no_akun_1[$key]=$value->NO_AKUN_1;
+                        $a_7_no_akun_2[$key]=$value->NO_AKUN_2;
+                        $a_7_no_akun_3[$key]=$value->NO_AKUN_3;
+                        $a_7_db_k_id[$key]=$value->DB_K_ID;
+                        $a_7_type_id[$key]=$value->TYPE_ID;
+                        $a_7_nama_akun[$key]=$value->NAMA_AKUN;
+                        $a_7_sum_debit[$key]=$value->DEBIT;
+                        $a_7_sum_kredit[$key]=$value->KREDIT;
+                        $a_7_no_voucer[$key]=$value->NO_VOUCER;
+                  }
+
+                  $total_a_7_coa_id = $key;
+
+                  if($value_logic==1)
+                  {
+                        for($i=0;$i<=$total_a_7_coa_id;$i++)
+                        {
+                          
+
+                              $saldo = $a_7_sum_debit[$i];
+
+                              $total_saldo = $total_saldo + $saldo;
+                              
+                              if($a_7_no_akun_3[$i]!='')
+                              {
+                                    $no_akun=$a_7_no_akun_3[$i];
+                              }
+                              elseif($a_7_no_akun_2[$i]!='')
+                              {
+                                    $no_akun=$a_7_no_akun_2[$i];
+                              }
+                              else
+                              {
+                                    $no_akun=$a_7_no_akun_1[$i];
+                              }
+                              $row=$row+1;
+                              $sheet->setCellValue('B'.$row, $a_7_no_voucer[$i].'/'.$a_7_nama_akun[$i]);
+                              $sheet->setCellValue('H'.$row, 'Rp');
+                              $sheet->setCellValue('I'.$row, $saldo);
+
+
+                              $sheet->setCellValue('M'.$row, intval($saldo/$month_int));
+                              $sheet->setCellValue('O'.$row, intval($saldo/30));
+
+                              $spreadsheet->getActiveSheet()
+                                        ->getStyle('D'.$row.':P'.$row)
+                                        ->getNumberFormat()
+                                        ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+
+                              $alp='M';
+                              $total_alp=3;
+                              for($n=0;$n<=$total_alp;$n++)
+                              {
+                                    $area = $alp.$row;
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $alp++;
+                              }
+                        }
+                        $row = $row+1;
+                        $area = 'D'.$row.':K'.$row;
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                    ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        
+                        $sheet->setCellValue('J'.$row, 'Rp');
+                        $sheet->setCellValue('K'.$row, $total_saldo);
+
+
+                        $sheet->setCellValue('N'.$row, intval($total_saldo/$month_int));
+                        $sheet->setCellValue('P'.$row, intval($total_saldo/30));
+
+                        $spreadsheet->getActiveSheet()
+                                    ->getStyle('D'.$row.':P'.$row)
+                                    ->getNumberFormat()
+                                    ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                        
+
+                        $alp='M';
+                        $total_alp=3;
+                        for($n=0;$n<=$total_alp;$n++)
+                        {
+                              $area = $alp.$row;
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $alp++;
+                        }
+
+
+
+
+                        $row = $row+1;
+                        $alp='M';
+                        $total_alp=3;
+                        for($n=0;$n<=$total_alp;$n++)
+                        {
+                              $area = $alp.$row;
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $alp++;
+                        }
+
+
+                  }
+
+                  $total_biaya_op = $total_biaya_op + $total_saldo;
+                  // end........................................................................Akumulasi Penyusutan:
+
+
+
+
+
+
+
+
+
+                  // ...................................................................Beban:
+
+                  $row=$row+1;
+                  $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':D'.$row);
+                  $sheet->setCellValue('A'.$row, '  Beban:');
+                  $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('left');
+                  
+                  $alp='M';
+                  $total_alp=3;
+                  for($n=0;$n<=$total_alp;$n++)
+                  {
+                        $area = $alp.$row;
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                  ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        $alp++;
+                  }
+
+                  $total_saldo = 0;
+                  $value_logic=0;
+                  $read_select = $this->m_t_ak_jurnal->select_used_jurnal(15,$date_from_laporan,$date_to_laporan);
+                  foreach ($read_select as $key => $value) 
+                  {
+                        $value_logic=1;
+                        $a_7_coa_id[$key]=$value->ID;
+                        $a_7_no_akun_1[$key]=$value->NO_AKUN_1;
+                        $a_7_no_akun_2[$key]=$value->NO_AKUN_2;
+                        $a_7_no_akun_3[$key]=$value->NO_AKUN_3;
+                        $a_7_db_k_id[$key]=$value->DB_K_ID;
+                        $a_7_type_id[$key]=$value->TYPE_ID;
+                        $a_7_nama_akun[$key]=$value->NAMA_AKUN;
+                        $a_7_sum_debit[$key]=$value->DEBIT;
+                        $a_7_sum_kredit[$key]=$value->KREDIT;
+                        $a_7_no_voucer[$key]=$value->NO_VOUCER;
+                  }
+
+                  $total_a_7_coa_id = $key;
+
+                  if($value_logic==1)
+                  {
+                        for($i=0;$i<=$total_a_7_coa_id;$i++)
+                        {
+                          
+
+                              $saldo = $a_7_sum_debit[$i];
+
+                              $total_saldo = $total_saldo + $saldo;
+                              
+                              if($a_7_no_akun_3[$i]!='')
+                              {
+                                    $no_akun=$a_7_no_akun_3[$i];
+                              }
+                              elseif($a_7_no_akun_2[$i]!='')
+                              {
+                                    $no_akun=$a_7_no_akun_2[$i];
+                              }
+                              else
+                              {
+                                    $no_akun=$a_7_no_akun_1[$i];
+                              }
+                              $row=$row+1;
+                              $sheet->setCellValue('B'.$row, $a_7_no_voucer[$i].'/'.$a_7_nama_akun[$i]);
+                              $sheet->setCellValue('H'.$row, 'Rp');
+                              $sheet->setCellValue('I'.$row, $saldo);
+
+
+                              $sheet->setCellValue('M'.$row, intval($saldo/$month_int));
+                              $sheet->setCellValue('O'.$row, intval($saldo/30));
+
+                              $spreadsheet->getActiveSheet()
+                                        ->getStyle('D'.$row.':P'.$row)
+                                        ->getNumberFormat()
+                                        ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+
+                              $alp='M';
+                              $total_alp=3;
+                              for($n=0;$n<=$total_alp;$n++)
+                              {
+                                    $area = $alp.$row;
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $spreadsheet->getActiveSheet()->getStyle($area)
+                                              ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                                    $alp++;
+                              }
+                        }
+                        $row = $row+1;
+                        $area = 'D'.$row.':K'.$row;
+                        $spreadsheet->getActiveSheet()->getStyle($area)
+                                    ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                        
+                        $sheet->setCellValue('J'.$row, 'Rp');
+                        $sheet->setCellValue('K'.$row, $total_saldo);
+
+
+                        $sheet->setCellValue('N'.$row, intval($total_saldo/$month_int));
+                        $sheet->setCellValue('P'.$row, intval($total_saldo/30));
+
+                        $spreadsheet->getActiveSheet()
+                                    ->getStyle('D'.$row.':P'.$row)
+                                    ->getNumberFormat()
+                                    ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                        
+
+                        $alp='M';
+                        $total_alp=3;
+                        for($n=0;$n<=$total_alp;$n++)
+                        {
+                              $area = $alp.$row;
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $alp++;
+                        }
+
+
+
+
+                        $row = $row+1;
+                        $alp='M';
+                        $total_alp=3;
+                        for($n=0;$n<=$total_alp;$n++)
+                        {
+                              $area = $alp.$row;
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $spreadsheet->getActiveSheet()->getStyle($area)
+                                        ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                              $alp++;
+                        }
+
+
+                  }
+
+                  $total_biaya_op = $total_biaya_op + $total_saldo;
+                  // end........................................................................Beban:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        $total_pengeluaran =  $total_biaya_op;
                         $row = $row+1;
                         $spreadsheet->getActiveSheet()->getStyle('K'.$row)->getFont()->setBold(true);
                         $area = 'D'.$row.':K'.$row;

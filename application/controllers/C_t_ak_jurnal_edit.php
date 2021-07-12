@@ -54,6 +54,7 @@ class C_t_ak_jurnal_edit extends MY_Controller
     foreach ($read_select as $key => $value) {
       if ($key == 0) {
         $no_voucer = $value->NO_VOUCER;
+        $company_id = $value->COMPANY_ID;
       }
     }
 
@@ -89,7 +90,8 @@ class C_t_ak_jurnal_edit extends MY_Controller
         'NO_VOUCER' => $no_voucer,
         'CREATED_ID' => $created_id,
         'CHECKED_ID' => 1,
-        'SPECIAL_ID' => 0
+        'SPECIAL_ID' => 0,
+        'COMPANY_ID' => $company_id
       );
 
       $this->m_t_ak_jurnal_edit->tambah($data);
@@ -136,7 +138,7 @@ class C_t_ak_jurnal_edit extends MY_Controller
         'CREATED_ID' => $value->CREATED_ID,
         'CHECKED_ID' => $value->CHECKED_ID,
         'SPECIAL_ID' => $value->SPECIAL_ID,
-        'COMPANY_ID' => $this->session->userdata('company_id')
+        'COMPANY_ID' => $value->COMPANY_ID
 
       );
 
