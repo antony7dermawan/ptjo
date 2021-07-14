@@ -62,6 +62,7 @@ public function select_created_id()
     $this->db->select("T_AK_JURNAL_EDIT.CREATED_ID");
     $this->db->select("T_AK_JURNAL_EDIT.CHECKED_ID");
     $this->db->select("T_AK_JURNAL_EDIT.SPECIAL_ID");
+    $this->db->select("T_AK_JURNAL_EDIT.COMPANY_ID");
 
     $this->db->from('T_AK_JURNAL_EDIT');
     $this->db->join('AK_M_COA', 'AK_M_COA.ID = T_AK_JURNAL_EDIT.COA_ID', 'left');

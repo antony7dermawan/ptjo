@@ -40,6 +40,7 @@ public function select_used_jurnal($type_id,$from_date,$to_date)
     $this->db->select("T_AK_JURNAL.NO_VOUCER");
     $this->db->select("T_AK_JURNAL.DEBIT");
     $this->db->select("T_AK_JURNAL.KREDIT");
+    $this->db->select("T_AK_JURNAL.COMPANY_ID");
 
     $this->db->from('AK_M_COA');
 
@@ -109,6 +110,7 @@ public function select_created_id($created_id)
     $this->db->select("T_AK_JURNAL.CREATED_ID");
     $this->db->select("T_AK_JURNAL.CHECKED_ID");
     $this->db->select("T_AK_JURNAL.SPECIAL_ID");
+    $this->db->select("T_AK_JURNAL.COMPANY_ID");
 
     $this->db->from('T_AK_JURNAL');
     $this->db->join('AK_M_COA', 'AK_M_COA.ID = T_AK_JURNAL.COA_ID', 'left');
@@ -150,6 +152,7 @@ public function select_created_id($created_id)
 
     $this->db->select("T_AK_JURNAL.CHECKED_ID");
     $this->db->select("T_AK_JURNAL.SPECIAL_ID");
+    $this->db->select("T_AK_JURNAL.COMPANY_ID");
 
     $this->db->from('T_AK_JURNAL');
     $this->db->join('AK_M_COA', 'AK_M_COA.ID = T_AK_JURNAL.COA_ID', 'left');
