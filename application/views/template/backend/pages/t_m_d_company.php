@@ -13,7 +13,6 @@
         <thead>
           <tr>
             <th>No</th>
-            <th>Company Id</th>
             <th>Company</th>
             <th>Action</th>
           </tr>
@@ -22,27 +21,53 @@
           <?php
           foreach ($c_t_m_d_company as $key => $value) 
           {
-            echo "<tr>";
-            echo "<td>".($key + 1)."</td>";
-            echo "<td>".$value->COMPANY_ID."</td>";
-            echo "<td>".$value->COMPANY."</td>";
-          
-            echo "<td>";
-             
-            echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#Modal_Edit' class='btn-edit' data-id='".$value->ID."'>";
-              echo "<i class='icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green'></i>";
-            echo "</a>";
+            if($value->MARK_FOR_DELETE == 'f')
+            {
+              echo "<tr>";
+              echo "<td>".($key + 1)."</td>";
+              echo "<td>".$value->COMPANY."</td>";
+            
+              echo "<td>";
+               
+              echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#Modal_Edit' class='btn-edit' data-id='".$value->ID."'>";
+                echo "<i class='icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green'></i>";
+              echo "</a>";
 
-            echo "<a href='".site_url('c_t_m_d_company/delete/' . $value->ID)."' ";
-            ?>
-            onclick="return confirm('Apakah kamu yakin ingin menghapus data ini?')"
-            <?php
-            echo "> <i class='feather icon-trash-2 f-w-600 f-16 text-c-red'></i></a>";
+              echo "<a href='".site_url('c_t_m_d_company/delete/' . $value->ID)."' ";
+              ?>
+              onclick="return confirm('Apakah kamu yakin ingin menghapus data ini?')"
+              <?php
+              echo "> <i class='feather icon-trash-2 f-w-600 f-16 text-c-red'></i></a>";
 
-            echo "</td>";
+              echo "</td>";
 
 
-            echo "</tr>";
+              echo "</tr>";
+            }
+
+            if($value->MARK_FOR_DELETE == 't')
+            {
+              echo "<tr>";
+              echo "<td><s>".($key + 1)."</s></td>";
+              echo "<td><s>".$value->COMPANY."</s></td>";
+            
+              echo "<td>";
+               
+              
+
+              echo "<a href='".site_url('c_t_m_d_company/undo_delete/' . $value->ID)."' ";
+              ?>
+              onclick="return confirm('Apakah kamu yakin ingin mengembalikan data ini?')"
+              <?php
+              echo "> <i class='fa fa-refresh f-w-600 f-16 text-c-red'></i></a>";
+
+              echo ' '.$value->UPDATED_BY;
+              echo "</td>";
+
+
+              echo "</tr>";
+            }
+            
 
           }
           ?>
@@ -70,15 +95,42 @@
         <div class="modal-body">
           <div class="">
 
-            <div class="form-group">
-              <label>Company ID</label>
-              <input type='text' class='form-control' placeholder='Harus Angka' name='company_id'>
-            </div>
+           
 
             <div class="form-group">
               <label>Company</label>
               <input type='text' class='form-control' placeholder='Input Text' name='company'>
             </div>
+
+
+            <div class="form-group">
+              <label>Inv Pembelian</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='inv_beli'>
+            </div>
+
+
+            <div class="form-group">
+              <label>Inv Retur Pembelian</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='inv_rb'>
+            </div>
+
+            <div class="form-group">
+              <label>Inv Penjualan</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='inv_jual'>
+            </div>
+
+            <div class="form-group">
+              <label>Inv Retur Penjualan</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='inv_rj'>
+            </div>
+
+
+            <div class="form-group">
+              <label>Inv PO</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='inv_po'>
+            </div>
+
+            
 
             
 
@@ -112,10 +164,7 @@
 
             <input type="hidden" name="id" value="" class="form-control">
 
-            <div class="form-group">
-              <label>Company ID</label>
-              <input type='text' class='form-control' placeholder='Harus Angka' name='company_id'>
-            </div>
+           
 
             <div class="form-group">
               <label>Company</label>
@@ -123,8 +172,52 @@
             </div>
 
 
+            <div class="form-group">
+              <label>Inv Pembelian</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='inv_beli'>
+            </div>
+
+
+            <div class="form-group">
+              <label>Inv Retur Pembelian</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='inv_rb'>
+            </div>
+
+            <div class="form-group">
+              <label>Inv Penjualan</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='inv_jual'>
+            </div>
+
+            <div class="form-group">
+              <label>Inv Retur Penjualan</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='inv_rj'>
+            </div>
+
+
+            <div class="form-group">
+              <label>Inv PO</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='inv_po'>
+            </div>
+
+            
+
+
+
           </div>
           <div class="modal-footer">
+            <div class="created_form">
+              Created By : <a name='created_by'></a>
+              <br>
+              Updated By : <a name='updated_by'></a>
+            </div>
+            <style type="text/css">
+              .created_form
+              {
+                float: left;
+                margin right: : 20px;
+                font-size: 10px;
+              }
+            </style>
             <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
             <button type="Submit" class="btn btn-primary waves-effect waves-light ">Save changes</button>
           </div>
@@ -147,13 +240,27 @@
       });
       const {
         ID,
-        COMPANY_ID : company_id,
-        COMPANY : company
+        COMPANY : company,
+        INV_PEMBELIAN : inv_beli,
+        INV_RETUR_PEMBELIAN : inv_rb,
+        INV_PENJUALAN : inv_jual,
+        INV_RETUR_PENJUALAN : inv_rj,
+        INV_PO : inv_po,
+        INV_PINLOK : inv_pinlok,
+        CREATED_BY : created_by,
+        UPDATED_BY : updated_by
       } = User[0];
 
       elModalEdit.querySelector("[name=id]").value = ID;
-      elModalEdit.querySelector("[name=company_id]").value = company_id;
       elModalEdit.querySelector("[name=company]").value = company;
+      elModalEdit.querySelector("[name=inv_beli]").value = inv_beli;
+      elModalEdit.querySelector("[name=inv_rb]").value = inv_rb;
+      elModalEdit.querySelector("[name=inv_jual]").value = inv_jual;
+      elModalEdit.querySelector("[name=inv_rj]").value = inv_rj;
+      elModalEdit.querySelector("[name=inv_po]").value = inv_po;
+      elModalEdit.querySelector("[name=inv_pinlok]").value = inv_pinlok;
+      elModalEdit.querySelector("[name=created_by]").text = created_by;
+      elModalEdit.querySelector("[name=updated_by]").text = updated_by;
 
     })
   })
@@ -163,4 +270,3 @@
   </div>
 </div>
 <!-- MODAL EDIT AKUN! SELESAI !-->
-

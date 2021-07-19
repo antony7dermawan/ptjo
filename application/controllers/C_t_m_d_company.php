@@ -13,6 +13,7 @@ class C_t_m_d_company extends MY_Controller
 
   public function index()
   {
+    $this->session->set_userdata('t_m_d_company_delete_logic', '1');
     $data = [
       "c_t_m_d_company" => $this->m_t_m_d_company->select(),
       "title" => "Master Company",
@@ -25,21 +26,51 @@ class C_t_m_d_company extends MY_Controller
 
   public function delete($id)
   {
-    $this->m_t_m_d_company->delete($id);
+    $data = array(
+        'UPDATED_BY' => $this->session->userdata('username'),
+        'MARK_FOR_DELETE' => TRUE
+    );
+    $this->m_t_m_d_company->update($data, $id);
     $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data Berhasil DIhapus!</p></div>');
+    redirect('/c_t_m_d_company');
+  }
+
+
+  public function undo_delete($id)
+  {
+    $data = array(
+        'UPDATED_BY' => $this->session->userdata('username'),
+        'MARK_FOR_DELETE' => FALSE
+    );
+    $this->m_t_m_d_company->update($data, $id);
+    
+    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Dikembalikan!</strong></p></div>');
     redirect('/c_t_m_d_company');
   }
 
 
   function tambah()
   {
-    $company_id = intval($this->input->post("company_id"));
-    $company = $this->input->post("company");
+    $company = substr($this->input->post("company"), 0, 50);
+    $inv_beli = substr($this->input->post("inv_beli"), 0, 50);
+    $inv_rb = substr($this->input->post("inv_rb"), 0, 50);
+    $inv_jual = substr($this->input->post("inv_jual"), 0, 50);
+    $inv_rj = substr($this->input->post("inv_rj"), 0, 50);
+    $inv_po = substr($this->input->post("inv_po"), 0, 50);
+    
 
     //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
     $data = array(
-      'COMPANY_ID' => $company_id,
       'COMPANY' => $company,
+      'INV_PEMBELIAN' => $inv_beli,
+      'INV_RETUR_PEMBELIAN' =>$inv_rb,
+      'INV_PENJUALAN' => $inv_jual,
+      'INV_RETUR_PENJUALAN' => $inv_rj,
+      'INV_PO' => $inv_po,
+      
+      'CREATED_BY' => $this->session->userdata('username'),
+      'UPDATED_BY' => '',
+      'MARK_FOR_DELETE' => FALSE
     );
 
     $this->m_t_m_d_company->tambah($data);
@@ -56,13 +87,26 @@ class C_t_m_d_company extends MY_Controller
   public function edit_action()
   {
     $id = $this->input->post("id");
-    $company_id = intval($this->input->post("company_id"));
-    $company = $this->input->post("company");
+    
+    $company = substr($this->input->post("company"), 0, 50);
+    $inv_beli = substr($this->input->post("inv_beli"), 0, 50);
+    $inv_rb = substr($this->input->post("inv_rb"), 0, 50);
+    $inv_jual = substr($this->input->post("inv_jual"), 0, 50);
+    $inv_rj = substr($this->input->post("inv_rj"), 0, 50);
+    $inv_po = substr($this->input->post("inv_po"), 0, 50);
+    
+
 
     //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
     $data = array(
-      'COMPANY_ID' => $company_id,
       'COMPANY' => $company,
+      'INV_PEMBELIAN' => $inv_beli,
+      'INV_RETUR_PEMBELIAN' =>$inv_rb,
+      'INV_PENJUALAN' => $inv_jual,
+      'INV_RETUR_PENJUALAN' => $inv_rj,
+      'INV_PO' => $inv_po,
+      
+      'UPDATED_BY' => $this->session->userdata('username')
     );
 
     $this->m_t_m_d_company->update($data, $id);
