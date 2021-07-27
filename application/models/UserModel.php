@@ -3,7 +3,8 @@
 class UserModel extends CI_Model {
     
     public function get($username){
-        $this->db->where('USERNAME', $username); // Untuk menambahkan Where Clause : username='$username'
+        $this->db->where('USERNAME', $username);
+        $this->db->where('MARK_FOR_DELETE', FALSE);
         $result = $this->db->get('T_LOGIN_USER')->row(); // Untuk mengeksekusi dan mengambil data hasil query
         return $result;
     }

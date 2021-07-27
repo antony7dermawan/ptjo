@@ -178,7 +178,7 @@
           <div class="col-md-6">
 
             <fieldset class="form-group">
-              <label>QTY</label>
+              <label>QTY Pembelian</label>
               <input type='text' class='form-control' placeholder='Input Number' name='qty'>
             </fieldset>
 
@@ -191,6 +191,28 @@
               <fieldset class="form-group">
               <label>Harga</label>
               <input type='text' class='form-control' placeholder='Input Number' name='harga'>
+            </fieldset>
+          </div> <!-- Membungkus Row !-->
+        </div>
+
+
+
+        <div class="row">
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
+              <label>QTY Ketibaan</label>
+              <input type='text' class='form-control' placeholder='Input Number' name='qty_datang'>
+            </fieldset>
+
+          </div><!-- Membungkus Row Kedua !-->
+
+
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
+              <fieldset class="form-group">
+              
             </fieldset>
           </div> <!-- Membungkus Row !-->
         </div>
@@ -330,6 +352,28 @@ console.log(reading_feedback);
         </div>
 
 
+
+        <div class="row">
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
+              <label>QTY Ketibaan</label>
+              <input type='text' class='form-control' placeholder='Input Number' name='qty_datang'>
+            </fieldset>
+
+          </div><!-- Membungkus Row Kedua !-->
+
+
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
+              <fieldset class="form-group">
+              
+            </fieldset>
+          </div> <!-- Membungkus Row !-->
+        </div>
+
+
      
 
         
@@ -379,7 +423,8 @@ console.log(reading_feedback);
         QTY : qty,
         HARGA : harga,
         UPDATED_BY : updated_by,
-        CREATED_BY : created_by
+        CREATED_BY : created_by,
+        QTY_DATANG : qty_datang
       } = Anjing[0];
 
       elModalEdit.querySelector("[name=id]").value = ID;
@@ -389,6 +434,7 @@ console.log(reading_feedback);
       elModalEdit.querySelector("[name=harga]").value = harga;
       elModalEdit.querySelector("[name=updated_by]").text = updated_by;
       elModalEdit.querySelector("[name=created_by]").text = created_by;
+      elModalEdit.querySelector("[name=qty_datang]").value = qty_datang;
 
   
 

@@ -79,6 +79,7 @@ class C_t_t_t_pembelian_rincian extends MY_Controller
     $barang_id = intval($this->input->post("barang_id"));
     $qty = floatval($this->input->post("qty"));
     $harga = floatval($this->input->post("harga"));
+    $qty_datang = floatval($this->input->post("qty_datang"));
 
     $sub_total = $qty * $harga;
 
@@ -105,7 +106,7 @@ class C_t_t_t_pembelian_rincian extends MY_Controller
         'BARANG_ID' => $barang_id,
         'QTY' => $qty,
         'SISA_QTY_RB' => $qty,
-        'SISA_QTY' => $qty,
+        'SISA_QTY' => $qty_datang,
         'HARGA' => $harga,
         'SUB_TOTAL' => $sub_total,
         'SISA_QTY_TT' => $sisa_qty_tt,
@@ -114,7 +115,8 @@ class C_t_t_t_pembelian_rincian extends MY_Controller
         'CREATED_BY' => $this->session->userdata('username'),
         'UPDATED_BY' => '',
         'MARK_FOR_DELETE' => FALSE,
-        'COMPANY_ID' => $this->session->userdata('company_id')
+        'COMPANY_ID' => $this->session->userdata('company_id'),
+        'QTY_DATANG' => $qty_datang
       );
 
       $this->m_t_t_t_pembelian_rincian->tambah($data);
@@ -143,22 +145,36 @@ class C_t_t_t_pembelian_rincian extends MY_Controller
    
     $qty = floatval($this->input->post("qty"));
     $harga = floatval($this->input->post("harga"));
+    $qty_datang = floatval($this->input->post("qty_datang"));
 
     $sub_total = $qty * $harga;
 
     
+
+
     $sisa_qty_tt = 0;
 
+
+
+    $read_select = $this->m_t_t_t_pembelian_rincian->select_by_id($id);
+    foreach ($read_select as $key => $value) 
+    {
+      $e_qty_datang = $value->QTY_DATANG;
+      $e_sisa_qty = $value->SISA_QTY;
+    }
+
+    $update_sisa_qty = ($qty_datang-$e_qty_datang)+$e_sisa_qty;
 
       $data = array(
         
         'SISA_QTY_RB' => $qty,
         'QTY' => $qty,
-        'SISA_QTY' => $qty,
+        'SISA_QTY' => $update_sisa_qty,
         'HARGA' => $harga,
         'SUB_TOTAL' => $sub_total,
         'SISA_QTY_TT' => $sisa_qty_tt,
-        'UPDATED_BY' => $this->session->userdata('username')
+        'UPDATED_BY' => $this->session->userdata('username'),
+        'QTY_DATANG' => $qty_datang
       );
 
       $this->m_t_t_t_pembelian_rincian->update($data,$id);

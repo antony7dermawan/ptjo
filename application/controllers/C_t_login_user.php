@@ -28,8 +28,25 @@ class C_t_login_user extends MY_Controller
 
   public function delete($id)
   {
-    $this->m_t_login_user->delete($id);
+    $data = array(
+        'UPDATED_BY' => $this->session->userdata('username'),
+        'MARK_FOR_DELETE' => TRUE
+    );
+    $this->m_t_login_user->update($data, $id);
+    
     $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data Berhasil DIhapus!</p></div>');
+    redirect('/c_t_login_user');
+  }
+
+  public function undo_delete($id)
+  {
+    $data = array(
+        'UPDATED_BY' => $this->session->userdata('username'),
+        'MARK_FOR_DELETE' => FALSE
+    );
+    $this->m_t_login_user->update($data, $id);
+    
+    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Dikembalikan!</strong></p></div>');
     redirect('/c_t_login_user');
   }
 
@@ -48,14 +65,18 @@ class C_t_login_user extends MY_Controller
     //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
     if ($password1 != $password1c or $password1 == '') {
       $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal Membuat User Baru!</strong> Silahkan Mengulang!</p></div>');
-    } else {
+    } 
+
+    else {
       $data = array(
-        'LEVEL_USER_ID' => $level_user_id,
-        'COMPANY_ID' => $company_id,
         'USERNAME' => $username,
-        'NAME' => $name,
         'PASSWORD' => $password1,
-        'PASSWORD2' => $password1
+        'NAME' => $username,
+        'COMPANY_ID' => $company_id,
+        'LEVEL_USER_ID' => $level_user_id,
+        'CREATED_BY' => $this->session->userdata('username'),
+        'UPDATED_BY' => '',
+        'MARK_FOR_DELETE' => FALSE
       );
 
       $this->m_t_login_user->tambah($data);
@@ -79,7 +100,7 @@ class C_t_login_user extends MY_Controller
     $company = ($this->input->post("company"));
     $read_select = $this->m_t_m_d_company->select_id($company);
     foreach ($read_select as $key => $value) {
-      $company_id = $value->COMPANY_ID;
+      $company_id = $value->ID;
     }
 
 
@@ -89,7 +110,7 @@ class C_t_login_user extends MY_Controller
     $level_user = ($this->input->post("level_user"));
     $read_select = $this->m_t_m_d_level_user->select_id($level_user);
     foreach ($read_select as $key => $value) {
-      $level_user_id = $value->LEVEL_USER_ID;
+      $level_user_id = $value->ID;
     }
 
 
@@ -103,7 +124,8 @@ class C_t_login_user extends MY_Controller
       $data = array(
         'LEVEL_USER_ID' => $level_user_id,
         'COMPANY_ID' => $company_id,
-        'NAME' => $name
+        'NAME' => $name,
+        'UPDATED_BY' => $this->session->userdata('username')
       );
       $this->m_t_login_user->update($data, $id);
       $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');

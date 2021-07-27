@@ -105,7 +105,7 @@ class C_t_t_t_po_manual_rincian extends MY_Controller
         'BARANG_ID' => $barang_id,
         'QTY' => $qty,
         'SISA_QTY_RB' => $qty,
-        'SISA_QTY' => $qty,
+        'SISA_QTY' => 0,
         'HARGA' => $harga,
         'SUB_TOTAL' => $sub_total,
         'SISA_QTY_TT' => $sisa_qty_tt,
@@ -114,7 +114,8 @@ class C_t_t_t_po_manual_rincian extends MY_Controller
         'CREATED_BY' => $this->session->userdata('username'),
         'UPDATED_BY' => '',
         'MARK_FOR_DELETE' => FALSE,
-        'COMPANY_ID' => $this->session->userdata('company_id')
+        'COMPANY_ID' => $this->session->userdata('company_id'),
+        'QTY_DATANG' => 0
       );
 
       $this->m_t_t_t_po_manual_rincian->tambah($data);

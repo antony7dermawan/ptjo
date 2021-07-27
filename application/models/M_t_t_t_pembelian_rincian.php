@@ -60,6 +60,7 @@ public function select_min_harga_barang($barang_id)
     $this->db->select("T_T_T_PEMBELIAN_RINCIAN.UPDATED_BY");
     $this->db->select("T_T_T_PEMBELIAN_RINCIAN.MARK_FOR_DELETE");
     $this->db->select("T_T_T_PEMBELIAN_RINCIAN.PEMBELIAN_RINCIAN_ID");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.QTY_DATANG");
     
 
 
@@ -228,6 +229,7 @@ public function select_barang_with_supplier($barang_id)
     $this->db->select("T_T_T_PEMBELIAN_RINCIAN.CREATED_BY");
     $this->db->select("T_T_T_PEMBELIAN_RINCIAN.UPDATED_BY");
     $this->db->select("T_T_T_PEMBELIAN_RINCIAN.MARK_FOR_DELETE");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.QTY_DATANG");
 
 
 

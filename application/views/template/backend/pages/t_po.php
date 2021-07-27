@@ -21,11 +21,11 @@
         {
                 if($this->session->userdata('po_company_id')==$value->COMPANY_ID)
                 {
-                  echo "<option value='".$value->COMPANY_ID."' selected>".$value->COMPANY."</option>";
+                  echo "<option value='".$value->ID."' selected>".$value->COMPANY."</option>";
                 }
                 else
                 {
-                  echo "<option value='".$value->COMPANY_ID."'>".$value->COMPANY."</option>";
+                  echo "<option value='".$value->ID."'>".$value->COMPANY."</option>";
                 }
         }
 

@@ -29,28 +29,57 @@
           <?php
           foreach ($c_t_login_user as $key => $value) 
           {
-            echo "<tr>";
-            echo "<td>".($key + 1)."</td>";
-            echo "<td>".$value->USERNAME."</td>";
-            echo "<td>".$value->NAME."</td>";
-            echo "<td>".$value->LEVEL_USER."</td>";
-            echo "<td>".$value->COMPANY."</td>";
-          
-            echo "<td>";
-             
-            echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#Modal_Edit' class='btn-edit' data-id='".$value->ID."'>";
-              echo "<i class='icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green'></i>";
-            echo "</a>";
-            echo "<a href='".site_url('c_t_login_user/delete/' . $value->ID)."' ";
-            ?>
-            onclick="return confirm('Apakah kamu yakin ingin menghapus data ini?')"
-            <?php
-            echo "> <i class='feather icon-trash-2 f-w-600 f-16 text-c-red'></i></a>";
+            if($value->MARK_FOR_DELETE == 'f')
+            {
+              echo "<tr>";
+              echo "<td>".($key + 1)."</td>";
+              echo "<td>".$value->USERNAME."</td>";
+              echo "<td>".$value->NAME."</td>";
+              echo "<td>".$value->LEVEL_USER."</td>";
+              echo "<td>".$value->COMPANY."</td>";
+            
+              echo "<td>";
+               
+              echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#Modal_Edit' class='btn-edit' data-id='".$value->ID."'>";
+                echo "<i class='icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green'></i>";
+              echo "</a>";
+              echo "<a href='".site_url('c_t_login_user/delete/' . $value->ID)."' ";
+              ?>
+              onclick="return confirm('Apakah kamu yakin ingin menghapus data ini?')"
+              <?php
+              echo "> <i class='feather icon-trash-2 f-w-600 f-16 text-c-red'></i></a>";
 
-            echo "</td>";
+              echo "</td>";
 
 
-            echo "</tr>";
+              echo "</tr>";
+            }
+
+            if($value->MARK_FOR_DELETE == 't')
+            {
+              echo "<tr>";
+              echo "<td><s>".($key + 1)."</s></td>";
+              echo "<td><s>".$value->USERNAME."</s></td>";
+              echo "<td><s>".$value->NAME."</s></td>";
+              echo "<td><s>".$value->LEVEL_USER."</s></td>";
+              echo "<td><s>".$value->COMPANY."</s></td>";
+            
+              echo "<td>";
+               
+              
+              echo "<a href='".site_url('c_t_login_user/undo_delete/' . $value->ID)."' ";
+              ?>
+              onclick="return confirm('Apakah kamu yakin ingin mengembalikan data ini?')"
+              <?php
+              echo "> <i class='fa fa-refresh f-w-600 f-16 text-c-red'></i></a>";
+
+              echo ' '.$value->UPDATED_BY;
+              echo "</td>";
+
+
+              echo "</tr>";
+            }
+            
 
           }
           ?>
@@ -105,7 +134,7 @@
               <?php
               foreach ($c_t_m_d_level_user as $key => $value) 
               {
-                echo "<option value='".$value->LEVEL_USER_ID."'>".$value->LEVEL_USER."</option>";
+                echo "<option value='".$value->ID."'>".$value->LEVEL_USER."</option>";
 
               }
               ?>
@@ -118,7 +147,7 @@
               <?php
               foreach ($c_t_m_d_company as $key => $value) 
               {
-                echo "<option value='".$value->COMPANY_ID."'>".$value->COMPANY."</option>";
+                echo "<option value='".$value->ID."'>".$value->COMPANY."</option>";
 
               }
               ?>
@@ -158,8 +187,6 @@
           <div class="">
 
             <input type="hidden" name="id" value="" class="form-control">
-            <input type="hidden" name="password1" value="" class="form-control">
-            <input type="hidden" name="password2" value="" class="form-control">
 
 
             <div class="form-group">
@@ -214,6 +241,21 @@
 
           </div>
           <div class="modal-footer">
+            <div class="created_form">
+              Created By : <a name='created_by'></a>
+              <br>
+              Updated By : <a name='updated_by'></a>
+            </div>
+            <style type="text/css">
+              .created_form
+              {
+                float: left;
+                margin right: : 20px;
+                font-size: 10px;
+              }
+            </style>
+          
+
             <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
             <button type="Submit" class="btn btn-primary waves-effect waves-light ">Save changes</button>
           </div>
@@ -236,21 +278,21 @@
       });
       const {
         ID,
-        PASSWORD,
-        PASSWORD2,
+        NAME : name,
         COMPANY : company,
         LEVEL_USER : level_user,
-        NAME : name
+        CREATED_BY : created_by,
+        UPDATED_BY : updated_by
+        
       } = User[0];
 
       elModalEdit.querySelector("[name=id]").value = ID;
-      elModalEdit.querySelector("[name=password1]").value = PASSWORD;
-      elModalEdit.querySelector("[name=password2]").value = PASSWORD2;
-      
-      
+      elModalEdit.querySelector("[name=name]").value = name;
       elModalEdit.querySelector("[name=company]").value = company;
       elModalEdit.querySelector("[name=level_user]").value = level_user;
-      elModalEdit.querySelector("[name=name]").value = name;
+      elModalEdit.querySelector("[name=created_by]").text = created_by;
+      elModalEdit.querySelector("[name=updated_by]").text = updated_by;
+      
 
 
   
@@ -281,14 +323,14 @@
 
 <style type="text/css">
     div.searchable {
-    width: 90%;
-    margin: 0 15px;
+    width: 100%;
+    
 }
 
 .searchable input {
     width: 100%;
-    height: 25px;
-    font-size: 12px;
+    height: 30px;
+    font-size: 14px;
     padding: 10px;
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
     -moz-box-sizing: border-box; /* Firefox, other Gecko */
