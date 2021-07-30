@@ -160,7 +160,7 @@ class C_t_t_t_retur_pembelian_rincian extends MY_Controller
     foreach ($read_select as $key => $value) 
     {
       $r_qty = $value->QTY;
-      $r_harga = $value->HARGA;
+      $r_harga = ($value->SUB_TOTAL+$value->PPN_VALUE)/$r_qty ;
       $r_sisa_qty = $value->SISA_QTY_RB;
       $r_pembelian_rincian_id = $value->PEMBELIAN_RINCIAN_ID;
     }

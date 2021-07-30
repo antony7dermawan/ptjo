@@ -98,6 +98,10 @@ public function select_barang_with_supplier($barang_id)
     $this->db->select("T_T_T_PEMBELIAN_RINCIAN.CREATED_BY");
     $this->db->select("T_T_T_PEMBELIAN_RINCIAN.UPDATED_BY");
     $this->db->select("T_T_T_PEMBELIAN_RINCIAN.MARK_FOR_DELETE");
+    
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.QTY_DATANG");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.PPN_PERCENTAGE");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.PPN_VALUE");
 
 
 

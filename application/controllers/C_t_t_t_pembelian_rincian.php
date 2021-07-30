@@ -80,8 +80,12 @@ class C_t_t_t_pembelian_rincian extends MY_Controller
     $qty = floatval($this->input->post("qty"));
     $harga = floatval($this->input->post("harga"));
     $qty_datang = floatval($this->input->post("qty_datang"));
+    $ppn_percentage = floatval($this->input->post("ppn_percentage"));
 
     $sub_total = $qty * $harga;
+
+
+    $ppn_value = ($sub_total*$ppn_percentage)/100;
 
     $read_select = $this->m_t_t_t_pembelian->select_by_id($pembelian_id);
     foreach ($read_select as $key => $value) 
@@ -116,7 +120,9 @@ class C_t_t_t_pembelian_rincian extends MY_Controller
         'UPDATED_BY' => '',
         'MARK_FOR_DELETE' => FALSE,
         'COMPANY_ID' => $this->session->userdata('company_id'),
-        'QTY_DATANG' => $qty_datang
+        'QTY_DATANG' => $qty_datang,
+        'PPN_PERCENTAGE' => $ppn_percentage,
+        'PPN_VALUE' => $ppn_value
       );
 
       $this->m_t_t_t_pembelian_rincian->tambah($data);
@@ -146,14 +152,15 @@ class C_t_t_t_pembelian_rincian extends MY_Controller
     $qty = floatval($this->input->post("qty"));
     $harga = floatval($this->input->post("harga"));
     $qty_datang = floatval($this->input->post("qty_datang"));
+    $ppn_percentage = floatval($this->input->post("ppn_percentage"));
 
     $sub_total = $qty * $harga;
 
     
+    $ppn_value = ($sub_total*$ppn_percentage)/100;
 
 
     $sisa_qty_tt = 0;
-
 
 
     $read_select = $this->m_t_t_t_pembelian_rincian->select_by_id($id);
@@ -174,7 +181,9 @@ class C_t_t_t_pembelian_rincian extends MY_Controller
         'SUB_TOTAL' => $sub_total,
         'SISA_QTY_TT' => $sisa_qty_tt,
         'UPDATED_BY' => $this->session->userdata('username'),
-        'QTY_DATANG' => $qty_datang
+        'QTY_DATANG' => $qty_datang,
+        'PPN_PERCENTAGE' => $ppn_percentage,
+        'PPN_VALUE' => $ppn_value
       );
 
       $this->m_t_t_t_pembelian_rincian->update($data,$id);

@@ -13,7 +13,7 @@ public function update($data, $id)
 
 public function select_no_faktur()
 {
-
+    $this->db->limit(100000);
     $this->db->select("T_AK_FAKTUR_PENJUALAN.ID");
     $this->db->select("T_AK_FAKTUR_PENJUALAN.DATE");
     $this->db->select("T_AK_FAKTUR_PENJUALAN.TIME");
@@ -43,7 +43,7 @@ public function select_no_faktur()
     $this->db->join("(select \"T_AK_FAKTUR_PENJUALAN_RINCIAN\".\"FAKTUR_PENJUALAN_ID\",sum(\"T_T_A_PENJUALAN_PKS\".\"TOTAL_PENJUALAN\") as \"SUM_TOTAL_PENJUALAN\" from \"T_T_A_PENJUALAN_PKS\" LEFT OUTER JOIN \"T_AK_FAKTUR_PENJUALAN_RINCIAN\" ON \"T_AK_FAKTUR_PENJUALAN_RINCIAN\".\"PENJUALAN_PKS_ID\" = \"T_T_A_PENJUALAN_PKS\".\"ID\" group by \"FAKTUR_PENJUALAN_ID\") as t_sum", 'T_AK_FAKTUR_PENJUALAN.ID = t_sum.FAKTUR_PENJUALAN_ID', 'left');
 
 
-    $this->db->where('SUM_TOTAL_PENJUALAN>T_AK_FAKTUR_PENJUALAN.PAYMENT_T');
+    //$this->db->where('SUM_TOTAL_PENJUALAN>T_AK_FAKTUR_PENJUALAN.PAYMENT_T');
 
     $akun = $this->db->get ();
     return $akun->result ();

@@ -34,6 +34,7 @@ public function select_date($supplier_id,$from_date,$to_date)
 
 
     $this->db->select("SUM_SUB_TOTAL");
+    $this->db->select("SUM_PPN");
 
    
 
@@ -45,6 +46,8 @@ public function select_date($supplier_id,$from_date,$to_date)
     $this->db->join('T_M_D_SUPPLIER', 'T_M_D_SUPPLIER.ID = T_T_T_PEMBELIAN.SUPPLIER_ID', 'left');
 
     $this->db->join("(select \"PEMBELIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_1", 'T_T_T_PEMBELIAN.ID = t_sum_1.PEMBELIAN_ID', 'left');
+
+    $this->db->join("(select \"PEMBELIAN_ID\",sum(\"PPN_VALUE\")\"SUM_PPN\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_2", 'T_T_T_PEMBELIAN.ID = t_sum_2.PEMBELIAN_ID', 'left');
 
     
 
@@ -125,6 +128,7 @@ public function select_range_date($from_date,$to_date,$kredit_logic)
 
 
     $this->db->select("SUM_SUB_TOTAL");
+    $this->db->select("SUM_PPN");
 
    
 
@@ -136,6 +140,10 @@ public function select_range_date($from_date,$to_date,$kredit_logic)
     $this->db->join('T_M_D_SUPPLIER', 'T_M_D_SUPPLIER.ID = T_T_T_PEMBELIAN.SUPPLIER_ID', 'left');
 
     $this->db->join("(select \"PEMBELIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_1", 'T_T_T_PEMBELIAN.ID = t_sum_1.PEMBELIAN_ID', 'left');
+
+    $this->db->join("(select \"PEMBELIAN_ID\",sum(\"PPN_VALUE\")\"SUM_PPN\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_2", 'T_T_T_PEMBELIAN.ID = t_sum_2.PEMBELIAN_ID', 'left');
+
+
 
     if($this->session->userdata('t_t_t_pembelian_delete_logic')==0)
     {
@@ -202,6 +210,7 @@ public function select_range_date($from_date,$to_date,$kredit_logic)
     $this->db->select("T_M_D_COMPANY.COMPANY");
 
     $this->db->select("SUM_SUB_TOTAL");
+    $this->db->select("SUM_PPN");
 
    
 
@@ -213,6 +222,8 @@ public function select_range_date($from_date,$to_date,$kredit_logic)
     
 
     $this->db->join("(select \"PEMBELIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_1", 'T_T_T_PEMBELIAN.ID = t_sum_1.PEMBELIAN_ID', 'left');
+
+    $this->db->join("(select \"PEMBELIAN_ID\",sum(\"PPN_VALUE\")\"SUM_PPN\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_2", 'T_T_T_PEMBELIAN.ID = t_sum_2.PEMBELIAN_ID', 'left');
 
 
     
@@ -289,6 +300,7 @@ public function select_range_date($from_date,$to_date,$kredit_logic)
     $this->db->select("T_M_D_COMPANY.COMPANY");
 
     $this->db->select("SUM_SUB_TOTAL");
+    $this->db->select("SUM_PPN");
 
    
 
@@ -301,7 +313,7 @@ public function select_range_date($from_date,$to_date,$kredit_logic)
 
     $this->db->join("(select \"PEMBELIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_1", 'T_T_T_PEMBELIAN.ID = t_sum_1.PEMBELIAN_ID', 'left');
 
-
+    $this->db->join("(select \"PEMBELIAN_ID\",sum(\"PPN_VALUE\")\"SUM_PPN\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_2", 'T_T_T_PEMBELIAN.ID = t_sum_2.PEMBELIAN_ID', 'left');
     
 
     $this->db->join('T_M_D_NO_POLISI', 'T_M_D_NO_POLISI.ID = T_T_T_PEMBELIAN.NO_POLISI_ID', 'left');
@@ -357,6 +369,7 @@ public function select_range_date($from_date,$to_date,$kredit_logic)
 
 
     $this->db->select("SUM_SUB_TOTAL");
+    $this->db->select("SUM_PPN");
 
    
 
@@ -369,7 +382,7 @@ public function select_range_date($from_date,$to_date,$kredit_logic)
 
     $this->db->join("(select \"PEMBELIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_1", 'T_T_T_PEMBELIAN.ID = t_sum_1.PEMBELIAN_ID', 'left');
 
-    
+    $this->db->join("(select \"PEMBELIAN_ID\",sum(\"PPN_VALUE\")\"SUM_PPN\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_2", 'T_T_T_PEMBELIAN.ID = t_sum_2.PEMBELIAN_ID', 'left');
 
 
     $this->db->where("(T_T_T_PEMBELIAN.T_STATUS=0 or T_T_T_PEMBELIAN.T_STATUS=1 or T_T_T_PEMBELIAN.T_STATUS=2)");
@@ -414,6 +427,7 @@ public function select_range_date($from_date,$to_date,$kredit_logic)
 
     $this->db->select("T_M_D_COMPANY.COMPANY");
     $this->db->select("SUM_SUB_TOTAL");
+    $this->db->select("SUM_PPN");
 
    
 
@@ -426,6 +440,10 @@ public function select_range_date($from_date,$to_date,$kredit_logic)
     $this->db->join('T_M_D_SUPPLIER', 'T_M_D_SUPPLIER.ID = T_T_T_PEMBELIAN.SUPPLIER_ID', 'left');
 
     $this->db->join("(select \"PEMBELIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_1", 'T_T_T_PEMBELIAN.ID = t_sum_1.PEMBELIAN_ID', 'left');
+
+    $this->db->join("(select \"PEMBELIAN_ID\",sum(\"PPN_VALUE\")\"SUM_PPN\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_2", 'T_T_T_PEMBELIAN.ID = t_sum_2.PEMBELIAN_ID', 'left');
+
+    
 
     if($this->session->userdata('t_t_t_pembelian_delete_logic')==0)
     {

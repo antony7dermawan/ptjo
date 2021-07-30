@@ -61,7 +61,7 @@
               echo "<a href='" . site_url('c_t_t_t_pembelian_rincian/index/' . $value->ID) . "' ";
               echo "onclick=\"return confirm('Lanjut?')\"";
               echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
-              echo " Rp" . number_format(intval($value->SUM_SUB_TOTAL)) . "</td>";
+              echo " Rp" . number_format(intval($value->SUM_SUB_TOTAL+$value->SUM_PPN)) . "</td>";
               //satu button
 
 
@@ -77,18 +77,10 @@
                 echo "<a "; #/1 ini artinya kena pajak
 
                 echo "onclick= 'p_1_" . $key . "()'";
-                if ($value->PRINTED == 'f') {
+         
                   echo "> <i class='fa fa-print text-c-black'></i></a> ";
-                }
-                if ($value->PRINTED == 't') {
-                  echo "> <i class='fa fa-print text-c-green'></i></a> ";
-                  if($this->session->userdata('level_user_id')==1)
-                  {
-                    echo "<a href='" . site_url('c_t_ak_terima_pelanggan/undo/' . $value->ID) . "' ";
-                    echo "onclick=\"return confirm('Apakah kamu yakin ingin memperbaiki data ini?')\"";
-                    echo "> <i class='fa fa-refresh f-w-600 f-16 text-c-red'></i></a>";
-                  }
-                }
+                
+                
 
                 echo "<script>";
                 echo "function p_1_" . $key . "()";
@@ -144,10 +136,8 @@
 
               //satu button
               echo "<td><s>";
-              echo "<a href='" . site_url('c_t_t_t_pembelian_rincian/index/' . $value->ID) . "' ";
-              echo "onclick=\"return confirm('Lanjut?')\"";
-              echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
-              echo " Rp" . number_format(intval($value->SUM_SUB_TOTAL)) . "</s></td>";
+              
+              echo " Rp" . number_format(intval($value->SUM_SUB_TOTAL+$value->SUM_PPN)) . "</s></td>";
               //satu button
 
 

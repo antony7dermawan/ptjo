@@ -65,6 +65,8 @@ if($level_user_id==1 or $level_user_id==6 or $level_user_id==8 or $level_user_id
 
 
 <?php
+
+$nomor = 0;
 if($level_user_id==1 or $level_user_id==6)
 {
 
@@ -96,14 +98,20 @@ if($level_user_id==1 or $level_user_id==6)
                     <tbody>
                       <?php
                       foreach ($select_no_faktur as $key => $value) {
-                        echo "<tr>";
-                        echo "<td>" . ($key + 1) . "</td>";
-                        echo "<td>" . $value->PKS . "</td>";
-                        echo "<td>" . $value->NO_FAKTUR . "</td>";
-                        echo "<td>" . date('d-m-Y', strtotime($value->DATE)) . "</td>";
-                        echo "<td>Rp" . number_format(round($value->SUM_TOTAL_PENJUALAN)) . "</td>";
-                        echo "<td>Rp" . number_format(round($value->PAYMENT_T)) . "</td>";
+                        $nomor = $nomor +1;
 
+                        if(number_format(round($value->SUM_TOTAL_PENJUALAN*1.1))!=number_format(round($value->PAYMENT_T)))
+                        {
+                          echo "<tr>";
+                          echo "<td>" . ($nomor + 1) . "</td>";
+                          echo "<td>" . $value->PKS . "</td>";
+                          echo "<td>" . $value->NO_FAKTUR . "</td>";
+                          echo "<td>" . date('d-m-Y', strtotime($value->DATE)) . "</td>";
+                          echo "<td>Rp" . number_format(round($value->SUM_TOTAL_PENJUALAN*1.1)) . "</td>";
+                          echo "<td>Rp" . number_format(round($value->PAYMENT_T)) . "</td>";
+
+                        }
+                        
 
                         /*
             echo "<td>";

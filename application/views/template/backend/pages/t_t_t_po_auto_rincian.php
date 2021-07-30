@@ -46,7 +46,10 @@
             <th>Qty</th>
             <th>Harga</th>
             <th>Sub Total</th>
+            <th>PPN</th>
+            <th>Total</th>
             <th>Sisa Qty</th>
+            <th>Qty Datang</th>
 
             <th>Action</th>
           </tr>
@@ -65,7 +68,12 @@
               echo "<td>" . number_format(floatval(intval($value->QTY*100))/100) . "</td>";
               echo "<td>" . number_format(floatval(intval($value->HARGA*100))/100) . "</td>";
               echo "<td>" . number_format(floatval(intval($value->SUB_TOTAL*100))/100) . "</td>";
+
+              echo "<td>" . number_format(floatval(intval($value->PPN_VALUE*100))/100) . "</td>";
+              echo "<td>" . number_format(floatval(intval(($value->SUB_TOTAL+$value->PPN_VALUE)*100))/100) . "</td>";
+              
               echo "<td>" . number_format(floatval(intval($value->SISA_QTY*100))/100) . "</td>";
+              echo "<td>" . number_format(floatval(intval($value->QTY_DATANG*100))/100) . "</td>";
 
               
               echo "<td>";
@@ -99,7 +107,12 @@
               echo "<td><s>" . number_format(floatval(intval($value->QTY*100))/100) . "</s></td>";
               echo "<td><s>" . number_format(floatval(intval($value->HARGA*100))/100) . "</s></td>";
               echo "<td><s>" . number_format(floatval(intval($value->SUB_TOTAL*100))/100) . "</s></td>";
+
+              echo "<td><s>" . number_format(floatval(intval($value->PPN_VALUE*100))/100) . "</s></td>";
+              echo "<td><s>" . number_format(floatval(intval(($value->SUB_TOTAL+$value->PPN_VALUE)*100))/100) . "</s></td>";
+
               echo "<td><s>" . number_format(floatval(intval($value->SISA_QTY*100))/100) . "</s></td>";
+              echo "<td><s>" . number_format(floatval(intval($value->QTY_DATANG*100))/100) . "</s></td>";
 
               
               echo "<td>";
@@ -194,6 +207,28 @@
               <fieldset class="form-group">
               <label>Harga</label>
               <input type='text' class='form-control' placeholder='Input Number' name='harga'>
+            </fieldset>
+          </div> <!-- Membungkus Row !-->
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
+              <label>QTY Datang</label>
+              <input type='text' class='form-control' placeholder='Input Number' name='qty_datang'>
+            </fieldset>
+
+          </div><!-- Membungkus Row Kedua !-->
+
+
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
+              <label>PPN (%)</label>
+              <input type='text' class='form-control' placeholder='(Contoh: 10)' name='ppn_percentage'>
+              
             </fieldset>
           </div> <!-- Membungkus Row !-->
         </div>
@@ -332,7 +367,26 @@ console.log(reading_feedback);
           </div> <!-- Membungkus Row !-->
         </div>
 
+        <div class="row">
+          <div class="col-md-6">
 
+            <fieldset class="form-group">
+              <label>QTY Datang</label>
+              <input type='text' class='form-control' placeholder='Input Number' name='qty_datang'>
+            </fieldset>
+
+          </div><!-- Membungkus Row Kedua !-->
+
+
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
+              <label>PPN (%)</label>
+              <input type='text' class='form-control' placeholder='(Contoh: 10)' name='ppn_percentage'>
+              
+            </fieldset>
+          </div> <!-- Membungkus Row !-->
+        </div>
      
 
         
@@ -382,7 +436,10 @@ console.log(reading_feedback);
         QTY : qty,
         HARGA : harga,
         UPDATED_BY : updated_by,
-        CREATED_BY : created_by
+        CREATED_BY : created_by,
+        QTY_DATANG : qty_datang,
+        SISA_QTY : sisa_qty,
+        PPN_PERCENTAGE : ppn_percentage
       } = Anjing[0];
 
       elModalEdit.querySelector("[name=id]").value = ID;
@@ -392,6 +449,16 @@ console.log(reading_feedback);
       elModalEdit.querySelector("[name=harga]").value = harga;
       elModalEdit.querySelector("[name=updated_by]").text = updated_by;
       elModalEdit.querySelector("[name=created_by]").text = created_by;
+      elModalEdit.querySelector("[name=qty_datang]").value = qty_datang;
+      elModalEdit.querySelector("[name=ppn_percentage]").value = ppn_percentage;
+
+      
+      if(sisa_qty!=qty_datang)
+      {
+        elModalEdit.querySelector("[name=qty]").readOnly = true; 
+        elModalEdit.querySelector("[name=harga]").readOnly = true; 
+        elModalEdit.querySelector("[name=ppn_percentage]").readOnly = true; 
+      }
 
   
 

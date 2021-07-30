@@ -44,6 +44,7 @@ public function select_inv_pembelian()
 
 
     $this->db->select("SUM_SUB_TOTAL");
+    $this->db->select("SUM_PPN");
 
    
 
@@ -57,6 +58,8 @@ public function select_inv_pembelian()
     $this->db->join("(select \"PEMBELIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_1", 'T_T_T_PEMBELIAN.ID = t_sum_1.PEMBELIAN_ID', 'left');
 
     
+    $this->db->join("(select \"PEMBELIAN_ID\",sum(\"PPN_VALUE\")\"SUM_PPN\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_2", 'T_T_T_PEMBELIAN.ID = t_sum_2.PEMBELIAN_ID', 'left');
+
 
     $this->db->where("(T_T_T_PEMBELIAN.T_STATUS=10 or T_T_T_PEMBELIAN.T_STATUS=1)");
 
@@ -98,6 +101,7 @@ public function select_inv_pembelian()
 
 
     $this->db->select("SUM_SUB_TOTAL");
+    $this->db->select("SUM_PPN");
 
    
 
@@ -111,6 +115,7 @@ public function select_inv_pembelian()
     $this->db->join("(select \"PEMBELIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_1", 'T_T_T_PEMBELIAN.ID = t_sum_1.PEMBELIAN_ID', 'left');
 
     
+    $this->db->join("(select \"PEMBELIAN_ID\",sum(\"PPN_VALUE\")\"SUM_PPN\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_2", 'T_T_T_PEMBELIAN.ID = t_sum_2.PEMBELIAN_ID', 'left');
 
     
     $this->db->where('T_T_T_PEMBELIAN.ID',$id);

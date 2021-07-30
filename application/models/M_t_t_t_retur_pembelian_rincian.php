@@ -178,6 +178,9 @@ public function update($data, $id)
     $this->db->select('T_T_T_PEMBELIAN_RINCIAN.SISA_QTY');
     $this->db->select('T_T_T_PEMBELIAN_RINCIAN.SISA_QTY_RB');
 
+    $this->db->select('T_T_T_PEMBELIAN_RINCIAN.SUB_TOTAL');
+    $this->db->select('T_T_T_PEMBELIAN_RINCIAN.PPN_VALUE');
+
 
 
 

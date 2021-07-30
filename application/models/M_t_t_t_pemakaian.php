@@ -242,7 +242,7 @@ public function select_range_date($from_date,$to_date,$kredit_logic,$sales_id,$p
 
 
     $this->db->select("T_M_D_PAYMENT_METHOD.PAYMENT_METHOD");
-    $this->db->select("T_M_P_ANGGOTA.ANGGOTA");
+    $this->db->select("T_M_D_ANGGOTA.ANGGOTA");
 
     $this->db->select("T_M_D_SALES.SALES");
     $this->db->select("T_M_D_NO_POLISI.NO_POLISI");
@@ -272,7 +272,7 @@ public function select_range_date($from_date,$to_date,$kredit_logic,$sales_id,$p
 
 
 
-    $this->db->join('T_M_P_ANGGOTA', 'T_M_P_ANGGOTA.ID = T_T_T_PEMAKAIAN.ANGGOTA_ID', 'left');
+    $this->db->join('T_M_D_ANGGOTA', 'T_M_D_ANGGOTA.ID = T_T_T_PEMAKAIAN.ANGGOTA_ID', 'left');
 
     
     $this->db->join("(select \"PEMAKAIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMAKAIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMAKAIAN_ID\") as t_sum_1", 'T_T_T_PEMAKAIAN.ID = t_sum_1.PEMAKAIAN_ID', 'left');
@@ -322,7 +322,7 @@ public function select_range_date($from_date,$to_date,$kredit_logic,$sales_id,$p
     $this->db->select("T_T_T_PEMAKAIAN.ENABLE_EDIT");
 
     $this->db->select("T_M_D_PAYMENT_METHOD.PAYMENT_METHOD");
-    $this->db->select("T_M_P_ANGGOTA.ANGGOTA");
+    $this->db->select("T_M_D_ANGGOTA.ANGGOTA");
 
     $this->db->select("T_M_D_SALES.SALES");
     $this->db->select("T_M_D_NO_POLISI.NO_POLISI");
@@ -341,7 +341,7 @@ public function select_range_date($from_date,$to_date,$kredit_logic,$sales_id,$p
 
 
     $this->db->join('T_M_D_PAYMENT_METHOD', 'T_M_D_PAYMENT_METHOD.ID = T_T_T_PEMAKAIAN.PAYMENT_METHOD_ID', 'left');
-    $this->db->join('T_M_P_ANGGOTA', 'T_M_P_ANGGOTA.ID = T_T_T_PEMAKAIAN.ANGGOTA_ID', 'left');
+    $this->db->join('T_M_D_ANGGOTA', 'T_M_D_ANGGOTA.ID = T_T_T_PEMAKAIAN.ANGGOTA_ID', 'left');
     $this->db->join('T_M_D_SALES', 'T_M_D_SALES.ID = T_T_T_PEMAKAIAN.SALES_ID', 'left');
 
     $this->db->join('T_M_D_NO_POLISI', 'T_M_D_NO_POLISI.ID = T_T_T_PEMAKAIAN.NO_POLISI_ID', 'left');

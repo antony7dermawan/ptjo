@@ -43,7 +43,6 @@ public function select_min_harga_barang($barang_id)
 
   public function select_by_id($pembelian_rincian_id)
   {
-    
 
 
     $this->db->select("T_T_T_PEMBELIAN_RINCIAN.ID");
@@ -61,6 +60,9 @@ public function select_min_harga_barang($barang_id)
     $this->db->select("T_T_T_PEMBELIAN_RINCIAN.MARK_FOR_DELETE");
     $this->db->select("T_T_T_PEMBELIAN_RINCIAN.PEMBELIAN_RINCIAN_ID");
     $this->db->select("T_T_T_PEMBELIAN_RINCIAN.QTY_DATANG");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.PPN_PERCENTAGE");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.PPN_VALUE");
+    
     
 
 
@@ -230,6 +232,8 @@ public function select_barang_with_supplier($barang_id)
     $this->db->select("T_T_T_PEMBELIAN_RINCIAN.UPDATED_BY");
     $this->db->select("T_T_T_PEMBELIAN_RINCIAN.MARK_FOR_DELETE");
     $this->db->select("T_T_T_PEMBELIAN_RINCIAN.QTY_DATANG");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.PPN_PERCENTAGE");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.PPN_VALUE");
 
 
 

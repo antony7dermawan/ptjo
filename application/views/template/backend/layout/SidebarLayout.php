@@ -87,6 +87,13 @@ if($level_user_id==1)
                     <span class="pcoded-mtext">Nama Supir</span>
                 </a>
             </li>
+
+            <li class="">
+                <a href="<?= base_url("c_t_m_d_anggota"); ?>" class="submenu waves-effect waves-dark">
+                    <span class="pcoded-mtext">Nama Anggota</span>
+                </a>
+            </li>
+
             <li class="">
                 <a href="<?= base_url("c_t_m_d_sales"); ?>" class="submenu waves-effect waves-dark">
                     <span class="pcoded-mtext">Nama Sales</span>

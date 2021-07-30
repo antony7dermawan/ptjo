@@ -14,6 +14,7 @@ class C_t_t_t_po_manual_rincian extends MY_Controller
     $this->load->model('m_t_m_d_barang');
     $this->load->model('m_t_m_d_supplier');
     $this->load->model('m_t_t_t_po_manual_rincian'); 
+    $this->load->model('m_t_t_t_pembelian_rincian'); 
   }
 
   public function index($po_manual_id)
@@ -79,8 +80,12 @@ class C_t_t_t_po_manual_rincian extends MY_Controller
     $barang_id = intval($this->input->post("barang_id"));
     $qty = floatval($this->input->post("qty"));
     $harga = floatval($this->input->post("harga"));
+    $qty_datang = floatval($this->input->post("qty_datang"));
+    $ppn_percentage = floatval($this->input->post("ppn_percentage"));
 
     $sub_total = $qty * $harga;
+    
+    $ppn_value = ($sub_total*$ppn_percentage)/100;
 
     $read_select = $this->m_t_t_t_po_manual->select_by_id($po_manual_id);
     foreach ($read_select as $key => $value) 
@@ -105,7 +110,7 @@ class C_t_t_t_po_manual_rincian extends MY_Controller
         'BARANG_ID' => $barang_id,
         'QTY' => $qty,
         'SISA_QTY_RB' => $qty,
-        'SISA_QTY' => 0,
+        'SISA_QTY' => $qty_datang,
         'HARGA' => $harga,
         'SUB_TOTAL' => $sub_total,
         'SISA_QTY_TT' => $sisa_qty_tt,
@@ -115,7 +120,9 @@ class C_t_t_t_po_manual_rincian extends MY_Controller
         'UPDATED_BY' => '',
         'MARK_FOR_DELETE' => FALSE,
         'COMPANY_ID' => $this->session->userdata('company_id'),
-        'QTY_DATANG' => 0
+        'QTY_DATANG' => $qty_datang,
+        'PPN_PERCENTAGE' => $ppn_percentage,
+        'PPN_VALUE' => $ppn_value
       );
 
       $this->m_t_t_t_po_manual_rincian->tambah($data);
@@ -144,6 +151,8 @@ class C_t_t_t_po_manual_rincian extends MY_Controller
    
     $qty = floatval($this->input->post("qty"));
     $harga = floatval($this->input->post("harga"));
+    $qty_datang = floatval($this->input->post("qty_datang"));
+    $ppn_percentage = floatval($this->input->post("ppn_percentage"));
 
     $sub_total = $qty * $harga;
 
@@ -151,15 +160,28 @@ class C_t_t_t_po_manual_rincian extends MY_Controller
     $sisa_qty_tt = 0;
 
 
+    $ppn_value = ($sub_total*$ppn_percentage)/100;
+
+
+    $read_select = $this->m_t_t_t_pembelian_rincian->select_by_id($id);
+    foreach ($read_select as $key => $value) 
+    {
+      $e_qty_datang = $value->QTY_DATANG;
+      $e_sisa_qty = $value->SISA_QTY;
+    }
+
+    $update_sisa_qty = ($qty_datang-$e_qty_datang)+$e_sisa_qty;
+
+
       $data = array(
-        
-        
+        'SISA_QTY_RB' => $qty,
         'QTY' => $qty,
-        'SISA_QTY' => $qty,
+        'SISA_QTY' => $update_sisa_qty,
         'HARGA' => $harga,
         'SUB_TOTAL' => $sub_total,
         'SISA_QTY_TT' => $sisa_qty_tt,
-        'UPDATED_BY' => $this->session->userdata('username')
+        'UPDATED_BY' => $this->session->userdata('username'),
+        'QTY_DATANG' => $qty_datang
       );
 
       $this->m_t_t_t_po_manual_rincian->update($data,$id);
