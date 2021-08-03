@@ -103,6 +103,29 @@ class C_terima_pelanggan_print extends MY_Controller
       $total_pembayaran = $total_pembayaran+floatval($value->JUMLAH);
     }
 
+
+
+
+
+    $total_diskon=0;
+
+    $read_select = $this->m_t_ak_terima_pelanggan_diskon->select($id);
+    foreach ($read_select as $key => $value) 
+    {
+      $total_diskon = $total_diskon+floatval($value->JUMLAH);
+    }
+
+
+
+    $read_select = $this->m_t_ak_terima_pelanggan_metode_bayar->select($id);
+    foreach ($read_select as $key => $value) 
+    {
+      $total_diskon = floatval($total_diskon) + floatval($value->ADM_BANK);
+    }
+    
+
+
+
     $x_value = $pdf->GetX();
     $y_value = $pdf->GetY();
     $pdf->SetXY($x_value, $y_value+2);
@@ -117,7 +140,7 @@ class C_terima_pelanggan_print extends MY_Controller
     $pdf->Cell(35, 5, "Total", 1, 1, 'C');
     $pdf->SetFont('','',9);
 
-
+    $total_payment_t = 0;
     $sum_total_penjualan=0;
     $sum_payment_t=0;
     $total_hutang = 0;
@@ -141,20 +164,34 @@ class C_terima_pelanggan_print extends MY_Controller
 
           $sum_payment_t  = $value_in->SUM_PAYMENT_T;
           $sum_metode_bayar = $sum_metode_bayar+$get_sum_metode_bayar;
-          $sum_diskon = $sum_diskon+$get_sum_diskon;
+          $sum_diskon = $sum_diskon+$total_diskon;
         }
 
-        $vivo_paymen = $total_pembayaran;
+        $vivo_paymen = $total_pembayaran +$total_diskon;
       }
       
 
       //$terutang = intval($value->TOTAL_PENJUALAN) - (intval($sum_metode_bayar)+intval($sum_diskon));
-      $terutang = 0;
+      
       $payment_t = floatval($value->PAYMENT_T);
+
+      if($payment_t>=$vivo_paymen)
+      {
+        $terutang = $payment_t - $vivo_paymen;
+        $vivo_paymen=0;
+      }
+      if($payment_t<$vivo_paymen)
+      {
+        $terutang = $vivo_paymen - $payment_t;
+        $vivo_paymen=$vivo_paymen - $payment_t;
+      }
+      $total_payment_t = $total_payment_t + $payment_t;
 
       $total_awal = floatval($value->TOTAL_PENJUALAN);
 
-/*
+
+      $sub_total_hutang = $total_awal - $terutang;
+/*    
       if($payment_t==$total_awal)
       {
         $total_awal = intval($value->TOTAL_PENJUALAN);
@@ -182,11 +219,11 @@ class C_terima_pelanggan_print extends MY_Controller
       $pdf->Cell(30, 5, $value->DATE, 'L', 0, 'C');
       $pdf->Cell(35, 5, number_format((floatval(intval($total_awal*100)))/100), 'L', 0, 'R');
       $pdf->Cell(35, 5, number_format((floatval(intval($terutang*100)))/100), 'L', 0, 'R');
-      $pdf->Cell(35, 5, number_format((floatval(intval($total_awal*100)))/100), 'L', 0, 'R');
+      $pdf->Cell(35, 5, number_format((floatval(intval($sub_total_hutang*100)))/100), 'L', 0, 'R');
       $pdf->Cell(0.01, 5, '', 'L', 1, 'R');
 
       $sum_total_penjualan = $sum_total_penjualan + floatval($value->TOTAL_PENJUALAN);
-      $total_hutang = $total_hutang + floatval($total_awal);
+      $total_hutang = $total_hutang + floatval($sub_total_hutang);
     }
     $last_row = $key+1;
     if($key<$last_row)
@@ -208,18 +245,7 @@ class C_terima_pelanggan_print extends MY_Controller
         $pdf->Cell(35, 5, number_format((floatval(intval($total_hutang*100)))/100), 1, 1, 'R');
 
 
-    $total_diskon=0;
-    $read_select = $this->m_t_ak_terima_pelanggan_diskon->select($id);
-    foreach ($read_select as $key => $value) 
-    {
-      $total_diskon = $total_diskon+floatval($value->JUMLAH);
-    }
-
-    $read_select = $this->m_t_ak_terima_pelanggan_metode_bayar->select($id);
-    foreach ($read_select as $key => $value) 
-    {
-      $total_diskon = floatval($total_diskon) + floatval($value->ADM_BANK);
-    }
+    
 
     //$pph_22 = intval(0.25 * floatval($sum_total_penjualan))/100;
 
@@ -241,7 +267,11 @@ class C_terima_pelanggan_print extends MY_Controller
         $pdf->Cell(35, 5,number_format((floatval(intval($total_pembayaran*100)))/100), 1, 1, 'R');
 
 
+        
+
+       
         $kelebihan_bayar = floatval($total_pembayaran) - (floatval($total_hutang) - floatval($total_diskon));
+
         $pdf->Cell(45, 5, '', 0, 0, 'C');
         $pdf->Cell(65, 5, '', 0, 0, 'C');
         $pdf->Cell(35, 5, 'Kelebihan Bayar', 1, 0, 'R');

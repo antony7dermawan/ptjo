@@ -20,10 +20,22 @@ class C_t_t_t_pemakaian extends MY_Controller
 
     $this->load->model('m_t_m_d_barang');
     $this->load->model('m_t_m_d_lokasi');
+
+    $this->load->model('m_t_t_t_po_auto');
   }
 
   public function index()
   {
+
+    $po_auto_notif = 0;
+    $read_select = $this->m_t_t_t_po_auto->select_one_day(date('Y-m-d'));
+    foreach ($read_select as $key => $value) 
+    {
+      $po_auto_notif = $po_auto_notif + 1;
+    }
+    $this->session->set_userdata('po_auto_notif', $po_auto_notif);
+
+
     $this->session->set_userdata('t_t_t_pemakaian_delete_logic', '1');
     $this->session->set_userdata('t_m_d_payment_method_delete_logic', '0');
     $this->session->set_userdata('t_m_d_anggota_delete_logic', '0');
@@ -42,7 +54,7 @@ class C_t_t_t_pemakaian extends MY_Controller
 
       "c_t_m_d_company" => $this->m_t_m_d_company->select(),
       "c_t_m_d_payment_method" => $this->m_t_m_d_payment_method->select(),
-      "c_t_m_d_anggota" => $this->m_t_m_d_company->select(),
+      "c_t_m_d_anggota" => $this->m_t_m_d_anggota->select(),
 
       "c_t_m_d_sales" => $this->m_t_m_d_sales->select(),
 
@@ -103,12 +115,17 @@ class C_t_t_t_pemakaian extends MY_Controller
     $inv_head = substr($this->input->post("inv_head"), 0, 50);
     $no_polisi_id = intval($this->input->post("no_polisi_id"));
     $supir_id = intval($this->input->post("supir_id"));
-    $sales_id = intval($this->input->post("sales_id"));
+    $sales_id = 1;
 
     $lokasi_id = intval($this->input->post("lokasi_id"));
 
     $ket = substr($this->input->post("ket"), 0, 200);
     $date = $this->input->post("date");
+
+    if($date=='')
+    {
+      $date = date('Y-m-d');
+    }
 
     $inv_int = 0;
     $read_select = $this->m_t_t_t_pemakaian->select_inv_int();
@@ -193,7 +210,7 @@ class C_t_t_t_pemakaian extends MY_Controller
 
     $no_polisi = $this->input->post("no_polisi");
     $supir = $this->input->post("supir");
-    $sales = $this->input->post("sales");
+    //$sales = $this->input->post("sales");
     $lokasi = $this->input->post("lokasi");
 
     $supplier_id = 0;
@@ -210,10 +227,7 @@ class C_t_t_t_pemakaian extends MY_Controller
       $supir_id = $value->ID;
     }
 
-    $read_select = $this->m_t_m_d_sales->select_id($sales);
-    foreach ($read_select as $key => $value) {
-      $sales_id = $value->ID;
-    }
+    $sales_id = 1;
 
     $read_select = $this->m_t_m_d_lokasi->select_id($lokasi);
     foreach ($read_select as $key => $value) {
@@ -226,7 +240,7 @@ class C_t_t_t_pemakaian extends MY_Controller
       $payment_method_id = $value->ID;
     }
 
-    $read_select = $this->m_t_m_d_company->select_id($anggota);
+    $read_select = $this->m_t_m_d_anggota->select_id($anggota);
     foreach ($read_select as $key => $value) {
       $anggota_id = $value->ID;
     }

@@ -45,7 +45,7 @@ public function select_inv_pembelian()
 
     $this->db->select("SUM_SUB_TOTAL");
 
-    $this->db->select("SUM_PPN");
+   
 
 
     $this->db->from('T_T_T_PEMBELIAN');
@@ -57,8 +57,6 @@ public function select_inv_pembelian()
     $this->db->join("(select \"PEMBELIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_1", 'T_T_T_PEMBELIAN.ID = t_sum_1.PEMBELIAN_ID', 'left');
 
     
-    $this->db->join("(select \"PEMBELIAN_ID\",sum(\"PPN_VALUE\")\"SUM_PPN\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_2", 'T_T_T_PEMBELIAN.ID = t_sum_2.PEMBELIAN_ID', 'left');
-
 
     $this->db->where("(T_T_T_PEMBELIAN.T_STATUS=20 or T_T_T_PEMBELIAN.T_STATUS=2)");
 
@@ -66,6 +64,58 @@ public function select_inv_pembelian()
     $date_before = date('Y-m-d',(strtotime ( '-30 day' , strtotime ( $date_po_auto) ) ));
 
     $this->db->where("T_T_T_PEMBELIAN.NEW_DATE<='{$date_po_auto}' and T_T_T_PEMBELIAN.NEW_DATE>='{$date_before}'");
+
+
+    $this->db->where("T_T_T_PEMBELIAN.COMPANY_ID={$this->session->userdata('company_id')}");
+    $this->db->order_by("ID", "desc");
+
+    $akun = $this->db->get ();
+    return $akun->result ();
+  }
+
+
+  public function select_one_day($date_po_auto)
+  {
+    $this->db->select("T_T_T_PEMBELIAN.ID");
+    $this->db->select("T_T_T_PEMBELIAN.DATE");
+    $this->db->select("T_T_T_PEMBELIAN.TIME");
+    $this->db->select("T_T_T_PEMBELIAN.NEW_DATE");
+    $this->db->select("T_T_T_PEMBELIAN.INV");
+    $this->db->select("T_T_T_PEMBELIAN.INV_INT");
+    $this->db->select("T_T_T_PEMBELIAN.COMPANY_ID");
+    $this->db->select("T_T_T_PEMBELIAN.PAYMENT_METHOD_ID");
+    $this->db->select("T_T_T_PEMBELIAN.SUPPLIER_ID");
+    $this->db->select("T_T_T_PEMBELIAN.CREATED_BY");
+    $this->db->select("T_T_T_PEMBELIAN.UPDATED_BY");
+    $this->db->select("T_T_T_PEMBELIAN.MARK_FOR_DELETE");
+    $this->db->select("T_T_T_PEMBELIAN.KET");
+    $this->db->select("T_T_T_PEMBELIAN.PRINTED");
+    $this->db->select("T_T_T_PEMBELIAN.INV_SUPPLIER");
+    $this->db->select("T_T_T_PEMBELIAN.T_STATUS");
+
+    $this->db->select("T_M_D_PAYMENT_METHOD.PAYMENT_METHOD");
+    $this->db->select("T_M_D_SUPPLIER.SUPPLIER");
+
+
+    $this->db->select("SUM_SUB_TOTAL");
+
+   
+
+
+    $this->db->from('T_T_T_PEMBELIAN');
+
+
+    $this->db->join('T_M_D_PAYMENT_METHOD', 'T_M_D_PAYMENT_METHOD.ID = T_T_T_PEMBELIAN.PAYMENT_METHOD_ID', 'left');
+    $this->db->join('T_M_D_SUPPLIER', 'T_M_D_SUPPLIER.ID = T_T_T_PEMBELIAN.SUPPLIER_ID', 'left');
+
+    $this->db->join("(select \"PEMBELIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_1", 'T_T_T_PEMBELIAN.ID = t_sum_1.PEMBELIAN_ID', 'left');
+
+    
+
+    $this->db->where("(T_T_T_PEMBELIAN.T_STATUS=20 or T_T_T_PEMBELIAN.T_STATUS=2)");
+
+
+    $this->db->where("T_T_T_PEMBELIAN.NEW_DATE='{$date_po_auto}'");
 
 
     $this->db->where("T_T_T_PEMBELIAN.COMPANY_ID={$this->session->userdata('company_id')}");
@@ -101,7 +151,6 @@ public function select_inv_pembelian()
 
 
     $this->db->select("SUM_SUB_TOTAL");
-    $this->db->select("SUM_PPN");
 
    
 
@@ -115,7 +164,7 @@ public function select_inv_pembelian()
     $this->db->join("(select \"PEMBELIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_1", 'T_T_T_PEMBELIAN.ID = t_sum_1.PEMBELIAN_ID', 'left');
 
     
-    $this->db->join("(select \"PEMBELIAN_ID\",sum(\"PPN_VALUE\")\"SUM_PPN\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_2", 'T_T_T_PEMBELIAN.ID = t_sum_2.PEMBELIAN_ID', 'left');
+
     
     $this->db->where('T_T_T_PEMBELIAN.ID',$id);
     
@@ -127,7 +176,9 @@ public function select_inv_pembelian()
 
   public function select_inv_int()
   {
-    $this_year = date('Y-m').'-01';
+    $date_before = date('Y-m',(strtotime ( '-30 day' , strtotime ( date('Y-m-d')) ) ));
+    $this_year = $date_before.'-01';
+
     $this->db->limit(1);
     $this->db->select("INV_INT");
     $this->db->from('T_T_T_PEMBELIAN');

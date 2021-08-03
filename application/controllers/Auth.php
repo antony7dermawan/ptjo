@@ -51,10 +51,32 @@ class Auth extends MY_Controller {
           'date_to_dashboard'=>date('Y-m-d'),
           'date_jurnal_create'=>date('Y-m-d'),
           'date_po'=>date('Y-m-d'),
-          'po_company_id'=>$user->COMPANY_ID
+          'po_company_id'=>$user->COMPANY_ID,
           
 
-          
+          'master_barang_kategori_id'=>0,
+          'master_barang_company_id'=>1,
+          'date_pembelian'=>date('Y-m-d'),
+          'date_penjualan'=>date('Y-m-d'),
+          'date_retur_pembelian'=>date('Y-m-d'),
+          'date_retur_penjualan'=>date('Y-m-d'),
+          'date_from_dashboard_1'=>date('Y-m-d'),
+          'date_to_dashboard_1'=>date('Y-m-d'),
+          'date_from_dashboard_2'=>date('Y-m-d'),
+          'date_to_dashboard_2'=>date('Y-m-d'),
+          'date_po_auto'=>date('Y-m-d'),
+          'date_po_manual'=>date('Y-m-d'),
+          'date_pinlok_out'=>date('Y-m-d'),
+          'date_pinlok_in'=>date('Y-m-d'),
+          'date_penjualan_jasa'=>date('Y-m-d'),
+          'date_pembayaran_supplier'=>date('Y-m-d'),
+          'date_from_select_pembelian'=>date('Y-m-d'),
+          'date_to_select_pembelian'=>date('Y-m-d'),
+          'choosed_month'=>date('m'),
+
+          'po_auto_notif'=>0,
+          'no_polisi_notif'=>0
+
           
         );
 

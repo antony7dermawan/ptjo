@@ -206,7 +206,7 @@ public function select_range_date($from_date,$to_date)
     $this->db->select("T_M_D_PAYMENT_METHOD.PAYMENT_METHOD");
     
 
-    $this->db->select("T_M_P_ANGGOTA.ANGGOTA");
+    $this->db->select("T_M_D_ANGGOTA.ANGGOTA");
     $this->db->select("T_M_D_SALES.SALES");
     $this->db->select("T_M_D_NO_POLISI.NO_POLISI");
     $this->db->select("T_M_D_SUPIR.SUPIR");
@@ -229,7 +229,7 @@ public function select_range_date($from_date,$to_date)
 
     $this->db->join('T_M_D_LOKASI', 'T_M_D_LOKASI.ID = T_T_T_PEMAKAIAN.LOKASI_ID', 'left');
 
-    $this->db->join('T_M_P_ANGGOTA', 'T_M_P_ANGGOTA.ID = T_T_T_PEMAKAIAN.ANGGOTA_ID', 'left');
+    $this->db->join('T_M_D_ANGGOTA', 'T_M_D_ANGGOTA.ID = T_T_T_PEMAKAIAN.ANGGOTA_ID', 'left');
 
     $this->db->join("(select \"RETUR_PEMAKAIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_RETUR_PEMAKAIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"RETUR_PEMAKAIAN_ID\") as t_sum_1", 'T_T_T_RETUR_PEMAKAIAN.ID = t_sum_1.RETUR_PEMAKAIAN_ID', 'left');
 

@@ -103,7 +103,7 @@ class C_t_t_t_pembelian_rincian extends MY_Controller
 
 
 
-    if($barang_id!=0)
+    if($barang_id!=0 and $qty_datang<=$qty)
     {
       $data = array(
         'PEMBELIAN_ID' => $pembelian_id,
@@ -162,33 +162,42 @@ class C_t_t_t_pembelian_rincian extends MY_Controller
 
     $sisa_qty_tt = 0;
 
-
-    $read_select = $this->m_t_t_t_pembelian_rincian->select_by_id($id);
-    foreach ($read_select as $key => $value) 
+    if($qty_datang<=$qty)
     {
-      $e_qty_datang = $value->QTY_DATANG;
-      $e_sisa_qty = $value->SISA_QTY;
+      $read_select = $this->m_t_t_t_pembelian_rincian->select_by_id($id);
+      foreach ($read_select as $key => $value) 
+      {
+        $e_qty_datang = $value->QTY_DATANG;
+        $e_sisa_qty = $value->SISA_QTY;
+      }
+
+      $update_sisa_qty = ($qty_datang-$e_qty_datang)+$e_sisa_qty;
+
+        $data = array(
+          
+          'SISA_QTY_RB' => $qty,
+          'QTY' => $qty,
+          'SISA_QTY' => $update_sisa_qty,
+          'HARGA' => $harga,
+          'SUB_TOTAL' => $sub_total,
+          'SISA_QTY_TT' => $sisa_qty_tt,
+          'UPDATED_BY' => $this->session->userdata('username'),
+          'QTY_DATANG' => $qty_datang,
+          'PPN_PERCENTAGE' => $ppn_percentage,
+          'PPN_VALUE' => $ppn_value
+        );
+
+        $this->m_t_t_t_pembelian_rincian->update($data,$id);
+
+        $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
     }
 
-    $update_sisa_qty = ($qty_datang-$e_qty_datang)+$e_sisa_qty;
 
-      $data = array(
-        
-        'SISA_QTY_RB' => $qty,
-        'QTY' => $qty,
-        'SISA_QTY' => $update_sisa_qty,
-        'HARGA' => $harga,
-        'SUB_TOTAL' => $sub_total,
-        'SISA_QTY_TT' => $sisa_qty_tt,
-        'UPDATED_BY' => $this->session->userdata('username'),
-        'QTY_DATANG' => $qty_datang,
-        'PPN_PERCENTAGE' => $ppn_percentage,
-        'PPN_VALUE' => $ppn_value
-      );
-
-      $this->m_t_t_t_pembelian_rincian->update($data,$id);
-
-      $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
+    else
+    {
+      $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal!</strong> QTY Datang > QTY Pembelian!</p></div>');
+    }
+    
     
 
 

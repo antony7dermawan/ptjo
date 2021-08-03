@@ -88,4 +88,3 @@ class C_t_m_d_anggota extends MY_Controller
     redirect('/c_t_m_d_anggota');
   }
 }
-2

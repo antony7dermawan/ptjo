@@ -110,7 +110,7 @@ class C_t_login_user extends MY_Controller
     $level_user = ($this->input->post("level_user"));
     $read_select = $this->m_t_m_d_level_user->select_id($level_user);
     foreach ($read_select as $key => $value) {
-      $level_user_id = $value->ID;
+      $level_user_id = $value->LEVEL_USER_ID;
     }
 
 

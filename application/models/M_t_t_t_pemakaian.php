@@ -295,6 +295,103 @@ public function select_range_date($from_date,$to_date,$kredit_logic,$sales_id,$p
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+  public function select_dashboard($date_pemakaian)
+  {
+    $this->db->select("T_T_T_PEMAKAIAN.ID");
+    $this->db->select("T_T_T_PEMAKAIAN.DATE");
+    $this->db->select("T_T_T_PEMAKAIAN.TIME");
+    $this->db->select("T_T_T_PEMAKAIAN.NEW_DATE");
+    $this->db->select("T_T_T_PEMAKAIAN.INV");
+    $this->db->select("T_T_T_PEMAKAIAN.INV_INT");
+
+    $this->db->select("T_T_T_PEMAKAIAN.SALES_ID");
+    $this->db->select("T_T_T_PEMAKAIAN.ANGGOTA_ID");
+    $this->db->select("T_T_T_PEMAKAIAN.NO_POLISI_ID");
+    $this->db->select("T_T_T_PEMAKAIAN.SUPIR_ID");
+
+
+    $this->db->select("T_T_T_PEMAKAIAN.COMPANY_ID");
+    $this->db->select("T_T_T_PEMAKAIAN.PAYMENT_METHOD_ID");
+
+    $this->db->select("T_T_T_PEMAKAIAN.CREATED_BY");
+    $this->db->select("T_T_T_PEMAKAIAN.UPDATED_BY");
+    $this->db->select("T_T_T_PEMAKAIAN.MARK_FOR_DELETE");
+    $this->db->select("T_T_T_PEMAKAIAN.KET");
+    $this->db->select("T_T_T_PEMAKAIAN.PRINTED");
+    $this->db->select("T_T_T_PEMAKAIAN.INV_HEAD");
+
+    $this->db->select("T_T_T_PEMAKAIAN.ENABLE_EDIT");
+
+
+    $this->db->select("T_M_D_PAYMENT_METHOD.PAYMENT_METHOD");
+    $this->db->select("T_M_D_ANGGOTA.ANGGOTA");
+
+    $this->db->select("T_M_D_SALES.SALES");
+    $this->db->select("T_M_D_NO_POLISI.NO_POLISI");
+    $this->db->select("T_M_D_SUPIR.SUPIR");
+
+
+    $this->db->select("T_M_D_LOKASI.LOKASI");
+
+
+    $this->db->select("SUM_SUB_TOTAL");
+
+   
+
+
+    $this->db->from('T_T_T_PEMAKAIAN');
+
+
+    $this->db->join('T_M_D_PAYMENT_METHOD', 'T_M_D_PAYMENT_METHOD.ID = T_T_T_PEMAKAIAN.PAYMENT_METHOD_ID', 'left');
+    
+    $this->db->join('T_M_D_SALES', 'T_M_D_SALES.ID = T_T_T_PEMAKAIAN.SALES_ID', 'left');
+
+    $this->db->join('T_M_D_NO_POLISI', 'T_M_D_NO_POLISI.ID = T_T_T_PEMAKAIAN.NO_POLISI_ID', 'left');
+
+    $this->db->join('T_M_D_SUPIR', 'T_M_D_SUPIR.ID = T_T_T_PEMAKAIAN.SUPIR_ID', 'left');
+
+    $this->db->join('T_M_D_LOKASI', 'T_M_D_LOKASI.ID = T_T_T_PEMAKAIAN.LOKASI_ID', 'left');
+
+
+
+    $this->db->join('T_M_D_ANGGOTA', 'T_M_D_ANGGOTA.ID = T_T_T_PEMAKAIAN.ANGGOTA_ID', 'left');
+
+    
+    $this->db->join("(select \"PEMAKAIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMAKAIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMAKAIAN_ID\") as t_sum_1", 'T_T_T_PEMAKAIAN.ID = t_sum_1.PEMAKAIAN_ID', 'left');
+
+    
+
+  
+    $this->db->where("T_T_T_PEMAKAIAN.DATE='{$date_pemakaian}'");
+    $this->db->where("T_T_T_PEMAKAIAN.MARK_FOR_DELETE=false");
+
+
+
+
+    $this->db->order_by("ID", "desc");
+
+    $akun = $this->db->get ();
+    return $akun->result ();
+  }
+
+
+
+
+
+
+
+
   public function select_by_id($id)
   {
     $this->db->select("T_T_T_PEMAKAIAN.ID");
@@ -373,7 +470,9 @@ public function select_range_date($from_date,$to_date,$kredit_logic,$sales_id,$p
 
   public function select_inv_int()
   {
-    $this_year = date('Y-m').'-01';
+    $date_before = date('Y-m',(strtotime ( '-30 day' , strtotime ( date('Y-m-d')) ) ));
+    $this_year = $date_before.'-01';
+
     $this->db->limit(1);
     $this->db->select("INV_INT");
     $this->db->from('T_T_T_PEMAKAIAN');

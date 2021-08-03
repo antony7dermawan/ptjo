@@ -151,6 +151,61 @@ class C_t_t_t_pinlok_out_rincian extends MY_Controller
         $sub_total = floatval($value->HARGA) * $vivo_qty;
         $harga_jual = floatval($value->HARGA);
 
+
+        $read_select = $this->m_t_m_d_barang->select_by_id($barang_id);
+        foreach ($read_select as $key => $value) {
+          $kode_barang = $value->KODE_BARANG;
+
+          $barang = $value->BARANG;
+          $part_number = $value->PART_NUMBER;
+          $kategori_id = $value->KATEGORI_ID;
+          $merk_barang = $value->MERK_BARANG;
+          $posisi = $value->POSISI;
+          $minimum_stok = $value->MINIMUM_STOK;
+          $created_by = $value->CREATED_BY;
+          $updated_by = $value->UPDATED_BY;
+          $mark_for_delete = $value->MARK_FOR_DELETE;
+          $barang_id = $value->BARANG_ID;
+          $harga_jual = $value->HARGA_JUAL;
+          $satuan_id = $value->SATUAN_ID;
+          $maximum_stok = $value->MAXIMUM_STOK;
+          $jenis_barang_id = $value->JENIS_BARANG_ID;
+
+        }
+
+        $yes_logic=0;
+        $read_select = $this->m_t_m_d_barang->select_existing_barang_id_in_company($barang_id,$company_id);
+        foreach ($read_select as $key => $value) {
+          $yes_logic=1;
+          
+        }
+
+        if($yes_logic==0)
+        {
+          $data = array(
+            'KODE_BARANG' => $kode_barang,
+            'BARANG' => $barang,
+            'PART_NUMBER' => $part_number,
+            'KATEGORI_ID' => $kategori_id,
+            'MERK_BARANG' => $merk_barang,
+            'POSISI' => $posisi,
+            'MINIMUM_STOK' => $minimum_stok,
+            'CREATED_BY' => $this->session->userdata('username'),
+            'UPDATED_BY' => '',
+            'MARK_FOR_DELETE' => FALSE,
+            'BARANG_ID' => $barang_id,
+            'HARGA_JUAL' => $harga_jual,
+            'SATUAN_ID' => $satuan_id,
+            'COMPANY_ID' => $company_id,
+            'MAXIMUM_STOK' => $maximum_stok,
+            'JENIS_BARANG_ID' => $jenis_barang_id
+          );
+
+          $this->m_t_m_d_barang->tambah($data);
+
+        }
+
+
         if($vivo_qty<=$value->SISA_QTY)
         {
           if($vivo_qty>0)

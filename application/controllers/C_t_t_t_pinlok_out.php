@@ -12,7 +12,7 @@ class C_t_t_t_pinlok_out extends MY_Controller
     $this->load->model('m_t_t_t_pembelian');
     $this->load->model('m_t_m_d_company');
     $this->load->model('m_t_m_d_payment_method');
-    $this->load->model('m_t_m_p_anggota');
+    $this->load->model('m_t_m_d_anggota');
 
     $this->load->model('m_t_m_d_sales');
     $this->load->model('m_t_m_d_no_polisi');
@@ -20,10 +20,19 @@ class C_t_t_t_pinlok_out extends MY_Controller
 
     $this->load->model('m_t_m_d_barang');
     $this->load->model('m_t_m_d_lokasi');
+    $this->load->model('m_t_t_t_po_auto');
   }
 
   public function index()
   {
+    $po_auto_notif = 0;
+    $read_select = $this->m_t_t_t_po_auto->select_one_day(date('Y-m-d'));
+    foreach ($read_select as $key => $value) 
+    {
+      $po_auto_notif = $po_auto_notif + 1;
+    }
+    $this->session->set_userdata('po_auto_notif', $po_auto_notif);
+    
     $this->session->set_userdata('t_t_t_pemakaian_delete_logic', '1');
     $this->session->set_userdata('t_m_d_payment_method_delete_logic', '0');
     $this->session->set_userdata('t_m_d_anggota_delete_logic', '0');
@@ -44,7 +53,7 @@ class C_t_t_t_pinlok_out extends MY_Controller
 
       "c_t_m_d_company" => $this->m_t_m_d_company->select_pinlok(),
       "c_t_m_d_payment_method" => $this->m_t_m_d_payment_method->select(),
-      "c_t_m_p_anggota" => $this->m_t_m_p_anggota->select(),
+      "c_t_m_p_anggota" => $this->m_t_m_d_anggota->select(),
 
       "c_t_m_d_sales" => $this->m_t_m_d_sales->select(),
 
@@ -52,8 +61,8 @@ class C_t_t_t_pinlok_out extends MY_Controller
       "c_t_m_d_no_polisi" => $this->m_t_m_d_no_polisi->select(),
       "c_t_m_d_supir" => $this->m_t_m_d_supir->select(),
 
-      "title" => "Transaksi Pemakaian",
-      "description" => "form Pemakaian"
+      "title" => "Transaksi Pindah Lokasi Keluar",
+      "description" => "form Pinlok"
     ];
     $this->render_backend('template/backend/pages/t_t_t_pinlok_out', $data);
   }
@@ -112,6 +121,13 @@ class C_t_t_t_pinlok_out extends MY_Controller
     $ket = substr($this->input->post("ket"), 0, 200);
     $date = $this->input->post("date");
 
+
+    if($date=='')
+    {
+      $date = date('Y-m-d');
+    }
+
+    
     $inv_int = 0;
 
 
