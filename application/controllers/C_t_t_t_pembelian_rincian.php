@@ -42,6 +42,7 @@ class C_t_t_t_pembelian_rincian extends MY_Controller
 
 
 
+
   public function delete($id,$retur_pembelian_id)
   {
     $data = array(

@@ -176,7 +176,6 @@ public function update($data, $id)
 
 
 
-
 public function select_date($supplier_id,$from_date,$to_date)
 {
     $this->db->select("T_T_T_PEMBELIAN.ID");

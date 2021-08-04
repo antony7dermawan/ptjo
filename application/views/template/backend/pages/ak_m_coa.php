@@ -98,11 +98,9 @@
             echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#Modal_Edit' class='btn-edit' data-id='".$value->ID."'>";
               echo "<i class='icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green'></i>";
             echo "</a>";
-            echo "<a href='".site_url('c_ak_m_coa/delete/' . $value->ID)."' ";
-            ?>
-            onclick="return confirm('Apakah kamu yakin ingin menghapus data ini?')"
-            <?php
-            echo "> <i class='feather icon-trash-2 f-w-600 f-16 text-c-red'></i></a>";
+            
+
+            
 
             echo "</td>";
 
