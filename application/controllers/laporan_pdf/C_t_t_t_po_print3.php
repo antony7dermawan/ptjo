@@ -100,9 +100,7 @@ class C_t_t_t_po_print3 extends MY_Controller
         $pdf->SetFont('','B',10);
         $pdf->Cell( 190,8,'Purchase Order','0',1,'C');
 
-        $pdf->SetFont('','',9);
-        $pdf->Cell(130, 4, "", 0, 0, 'C');
-        $pdf->Cell(30, 4, 'PT Jo Perdana Agri Technology', 0, 1, 'L');
+      
         
         $pdf->SetFont('','',10);
 
