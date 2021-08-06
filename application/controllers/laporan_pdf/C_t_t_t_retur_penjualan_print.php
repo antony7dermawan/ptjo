@@ -131,6 +131,10 @@ class C_t_t_t_retur_penjualan_print extends MY_Controller
         $pdf->Cell(130, 6, "", 0, 0, 'C');
         $pdf->Cell(30, 6, "RETUR PENJUALAN", 0, 1, 'L');
 
+        $pdf->SetFont('','',9);
+        $pdf->Cell(130, 4, "", 0, 0, 'C');
+        $pdf->Cell(30, 4, 'PT Jo Perdana Agri Technology', 0, 1, 'L');
+        
         $pdf->SetFont('','',8);
         $pdf->Cell(130, 4, "", 0, 0, 'C');
         $pdf->Cell(30, 4, $company.', '.date('d-m-Y', strtotime($date)), 0, 1, 'L');

@@ -101,7 +101,7 @@
 
 
 
-              echo "<td>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</td>";
+              echo "<td>" . date('d-m-Y', strtotime($value->NEW_DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</td>";
               echo "<td>" . $value->KET . "</td>";
               echo "<td>" . $value->SUPPLIER . "</td>";
               echo "<td>" . $value->INV_SUPPLIER . "</td>";
@@ -134,7 +134,7 @@
                 echo "<script>";
                 echo "function p_1_" . $key . "()";
                 echo "{";
-                echo "window.open('laporan_pdf/c_t_t_t_po_print/index/" . $value->ID . "');";
+                echo "window.open('laporan_pdf/c_t_t_t_po_print3/index/" . $value->ID . "');";
                 echo "}";
                 echo "</script>";
               }
@@ -177,7 +177,7 @@
               echo "<td><s>" . ($key + 1) . "</s></td>";
               echo "<td><s> </s></td>";
               echo "<td><s>" . $value->INV . "</s></td>";
-              echo "<td><s>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</s></td>";
+              echo "<td><s>" . date('d-m-Y', strtotime($value->NEW_DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</s></td>";
               echo "<td><s>" . $value->KET . "</s></td>";
               echo "<td><s>" . $value->SUPPLIER . "</s></td>";
               echo "<td><s>" . $value->INV_SUPPLIER . "</s></td>";
@@ -227,94 +227,6 @@
 
 
 
-<!-- MODAL TAMBAH PEMASUKAN! !-->
-<form action="<?php echo base_url('c_t_t_t_po_auto/tambah') ?>" method="post" id='add_data'>
-  <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Tanggal Transaksi:
-            <form action='/action_page.php'>
-              <input type='date' class='form-control' name='date' value='<?= $this->session->userdata('date_po_auto') ?>'>
-          </h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-
-        <div class="modal-body">
-          
-          
-
-        <div class="form-group">
-              <label>INV Supplier</label>
-              <input type='text' class='form-control' placeholder='Input Text' name='inv_supplier'>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-
-            <fieldset class="form-group">
-              <label>Supplier</label>
-              <select name="supplier_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
-              <?php
-              foreach ($c_t_m_d_supplier as $key => $value) 
-              {
-                echo "<option value='".$value->ID."'>".$value->SUPPLIER."</option>";
-
-              }
-              ?>
-              </select>
-            </fieldset>
-
-          </div><!-- Membungkus Row Kedua !-->
-
-
-          <div class="col-md-6">
-
-            <fieldset class="form-group">
-              <label>Payment Method</label>
-              <select name="payment_method_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
-              <?php
-              foreach ($c_t_m_d_payment_method as $key => $value) 
-              {
-                echo "<option value='".$value->ID."'>".$value->PAYMENT_METHOD."</option>";
-
-              }
-              ?>
-              </select>
-          </div> <!-- Membungkus Row !-->
-        </div>
-
-
-        <div class="form-group">
-              <label>Keterangan</label>
-              <textarea rows='4' cols='20' name='ket' id='' form='add_data' class='form-control'></textarea>
-        </div>
-
-
-        
-
-
-
-        </div>
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
-            <button type="Submit" class="btn btn-primary waves-effect waves-light ">Save changes</button>
-          </div>
-
-
-
-      </div>
-    </div>
-  </div>
-</form>
-<!-- MODAL TAMBAH PEMASUKAN SELESAI !-->
-
-
-
-
 
 
 
@@ -351,15 +263,8 @@
 
 
               <div class="searchable">
-                  <input type="text" name='supplier' placeholder="search" onkeyup="filterFunction(this,event)">
-                  <ul>
-                    <?php
-                    foreach ($c_t_m_d_supplier as $key => $value) 
-                    {
-                      echo "<li>".$value->SUPPLIER."</li>";
-                    }
-                    ?>
-                  </ul>
+                  <input type="text" name='supplier'  readOnly=true>
+                 
               </div>
             </fieldset>
 
@@ -386,12 +291,67 @@
             </fieldset>
           </div> <!-- Membungkus Row !-->
         </div>
-
+        <div class="form-group">
+              <label>Penerima / Anggota</label>
+              <div class="searchable">
+                  <input type="text" name='anggota' placeholder="search" onkeyup="filterFunction(this,event)">
+                  <ul>
+                    <?php
+                    foreach ($c_t_m_d_anggota as $key => $value) 
+                    {
+                      echo "<li>".$value->ANGGOTA."</li>";
+                    }
+                    ?>
+                  </ul>
+              </div>
+        </div>
 
         <div class="form-group">
               <label>Keterangan</label>
               <textarea rows='4' cols='20' name='ket' id='' form='edit_data' class='form-control'></textarea>
         </div>
+
+          <div class="row">
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Nama Bank</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='nama_bank'>  
+              </fieldset>
+            </div> <!-- Membungkus Row !-->
+
+
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Cabang</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='cabang'>
+              </fieldset>
+
+            </div><!-- Membungkus Row Kedua !-->
+
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Nomor Rekening</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='norek'>
+              </fieldset>
+
+            </div><!-- Membungkus Row Kedua !-->
+
+
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Atas Nama</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='atas_nama'>  
+              </fieldset>
+            </div> <!-- Membungkus Row !-->
+          </div>
 
 
         
@@ -438,7 +398,12 @@
         PAYMENT_METHOD : payment_method,
         UPDATED_BY : updated_by,
         CREATED_BY : created_by,
-        INV_SUPPLIER : inv_supplier
+        INV_SUPPLIER : inv_supplier,
+        ANGGOTA : anggota,
+        NAMA_BANK : nama_bank,
+        CABANG : cabang,
+        NOREK : norek,
+        ATAS_NAMA : atas_nama
       } = User[0];
 
       elModalEdit.querySelector("[name=id]").value = ID;
@@ -452,6 +417,11 @@
       elModalEdit.querySelector("[name=created_by]").text = created_by;
 
   
+      elModalEdit.querySelector("[name=nama_bank]").value = nama_bank;
+      elModalEdit.querySelector("[name=cabang]").value = cabang;
+      elModalEdit.querySelector("[name=norek]").value = norek;
+      elModalEdit.querySelector("[name=atas_nama]").value = atas_nama;
+      elModalEdit.querySelector("[name=anggota]").value = anggota;
 
 
 

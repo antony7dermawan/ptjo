@@ -15,6 +15,7 @@ class C_t_t_t_po_print extends MY_Controller
     $this->load->model('m_t_m_d_supplier');
     
   }
+  
 
   public function index($pembelian_id)
   {
@@ -124,6 +125,10 @@ class C_t_t_t_po_print extends MY_Controller
         $pdf->Cell(130, 6, "", 0, 0, 'C');
         $pdf->Cell(30, 6, "PURCHASE ORDER", 0, 1, 'L');
 
+        $pdf->SetFont('','',9);
+        $pdf->Cell(130, 4, "", 0, 0, 'C');
+        $pdf->Cell(30, 4, 'PT Jo Perdana Agri Technology', 0, 1, 'L');
+        
         $pdf->SetFont('','',8);
         $pdf->Cell(130, 4, "", 0, 0, 'C');
         $pdf->Cell(30, 4, $company.', '.date('d-m-Y', strtotime($date)), 0, 1, 'L');

@@ -106,7 +106,7 @@
 
 
 
-              echo "<td>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</td>";
+              echo "<td>" . date('d-m-Y', strtotime($value->NEW_DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</td>";
               echo "<td>" . $value->KET . "</td>";
               echo "<td>" . $value->SUPPLIER . "</td>";
               echo "<td>" . $value->INV_SUPPLIER . "</td>";
@@ -139,7 +139,7 @@
                 echo "<script>";
                 echo "function p_1_" . $key . "()";
                 echo "{";
-                echo "window.open('laporan_pdf/c_t_t_t_po_print/index/" . $value->ID . "');";
+                echo "window.open('laporan_pdf/c_t_t_t_po_print3/index/" . $value->ID . "');";
                 echo "}";
                 echo "</script>";
               }
@@ -182,7 +182,7 @@
               echo "<td><s>" . ($key + 1) . "</s></td>";
               echo "<td><s> </s></td>";
               echo "<td><s>" . $value->INV . "</s></td>";
-              echo "<td><s>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</s></td>";
+              echo "<td><s>" . date('d-m-Y', strtotime($value->NEW_DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</s></td>";
               echo "<td><s>" . $value->KET . "</s></td>";
               echo "<td><s>" . $value->SUPPLIER . "</s></td>";
               echo "<td><s>" . $value->PAYMENT_METHOD . "</s></td>";
@@ -277,26 +277,85 @@
           <div class="col-md-6">
 
             <fieldset class="form-group">
-              <label>Payment Method</label>
-              <select name="payment_method_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+              <label>Metode Pembayaran</label>
+                <select name="payment_method_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+                <?php
+                foreach ($c_t_m_d_payment_method as $key => $value) 
+                {
+                  echo "<option value='".$value->ID."'>".$value->PAYMENT_METHOD."</option>";
+
+                }
+                ?>
+                </select>
+            </fieldset>
+          </div> <!-- Membungkus Row !-->
+        </div>
+
+        <div class="form-group">
+              <label>Penerima / Anggota</label>
+              <select name="anggota_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
               <?php
-              foreach ($c_t_m_d_payment_method as $key => $value) 
+              foreach ($c_t_m_d_anggota as $key => $value) 
               {
-                echo "<option value='".$value->ID."'>".$value->PAYMENT_METHOD."</option>";
+                echo "<option value='".$value->ID."'>".$value->ANGGOTA."</option>";
 
               }
               ?>
               </select>
-          </div> <!-- Membungkus Row !-->
         </div>
 
 
         <div class="form-group">
-              <label>Keterangan</label>
+              <label>Lainnya</label>
               <textarea rows='4' cols='20' name='ket' id='' form='add_data' class='form-control'></textarea>
         </div>
 
 
+
+          <div class="row">
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Nama Bank</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='nama_bank'>  
+              </fieldset>
+            </div> <!-- Membungkus Row !-->
+
+
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Cabang</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='cabang'>
+              </fieldset>
+
+            </div><!-- Membungkus Row Kedua !-->
+
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Nomor Rekening</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='norek'>
+              </fieldset>
+
+            </div><!-- Membungkus Row Kedua !-->
+
+
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Atas Nama</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='atas_nama'>  
+              </fieldset>
+            </div> <!-- Membungkus Row !-->
+          </div>
+
+
+          
         
 
 
@@ -391,12 +450,69 @@
           </div> <!-- Membungkus Row !-->
         </div>
 
+        <div class="form-group">
+              <label>Penerima / Anggota</label>
+              <div class="searchable">
+                  <input type="text" name='anggota' placeholder="search" onkeyup="filterFunction(this,event)">
+                  <ul>
+                    <?php
+                    foreach ($c_t_m_d_anggota as $key => $value) 
+                    {
+                      echo "<li>".$value->ANGGOTA."</li>";
+                    }
+                    ?>
+                  </ul>
+              </div>
+        </div>
+
 
         <div class="form-group">
               <label>Keterangan</label>
               <textarea rows='4' cols='20' name='ket' id='' form='edit_data' class='form-control'></textarea>
         </div>
 
+
+          <div class="row">
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Nama Bank</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='nama_bank'>  
+              </fieldset>
+            </div> <!-- Membungkus Row !-->
+
+
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Cabang</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='cabang'>
+              </fieldset>
+
+            </div><!-- Membungkus Row Kedua !-->
+
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Nomor Rekening</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='norek'>
+              </fieldset>
+
+            </div><!-- Membungkus Row Kedua !-->
+
+
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Atas Nama</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='atas_nama'>  
+              </fieldset>
+            </div> <!-- Membungkus Row !-->
+          </div>
 
         
 
@@ -442,18 +558,30 @@
         PAYMENT_METHOD : payment_method,
         UPDATED_BY : updated_by,
         CREATED_BY : created_by,
-        INV_SUPPLIER : inv_supplier
+        INV_SUPPLIER : inv_supplier,
+
+        ANGGOTA : anggota,
+        NAMA_BANK : nama_bank,
+        CABANG : cabang,
+        NOREK : norek,
+        ATAS_NAMA : atas_nama
       } = User[0];
 
       elModalEdit.querySelector("[name=id]").value = ID;
       
       
+      elModalEdit.querySelector("[name=anggota]").value = anggota;
       elModalEdit.querySelector("[name=supplier]").value = supplier;
       elModalEdit.querySelector("[name=payment_method]").value = payment_method;
       elModalEdit.querySelector("[name=ket]").value = ket;
       elModalEdit.querySelector("[name=inv_supplier]").value = inv_supplier;
       elModalEdit.querySelector("[name=updated_by]").text = updated_by;
       elModalEdit.querySelector("[name=created_by]").text = created_by;
+      
+      elModalEdit.querySelector("[name=nama_bank]").value = nama_bank;
+      elModalEdit.querySelector("[name=cabang]").value = cabang;
+      elModalEdit.querySelector("[name=norek]").value = norek;
+      elModalEdit.querySelector("[name=atas_nama]").value = atas_nama;
 
   
 

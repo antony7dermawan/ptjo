@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-header">
-    <form action='<?php echo base_url("c_t_t_t_pemakaian/date_pemakaian"); ?>' class='no_voucer_area' method="post" id=''>
+    <form action='<?php echo base_url("c_t_t_t_pinlok_out/date_pinlok_out"); ?>' class='no_voucer_area' method="post" id=''>
       <table>
         <tr>
           <th>
@@ -8,7 +8,7 @@
           </th>
           <th>
             <form action='/action_page.php'>
-              <input type='date' class='form-control' name='date_pemakaian' value='<?= $this->session->userdata('date_pemakaian') ?>' onchange='this.form.submit();'>
+              <input type='date' class='form-control' name='date_pinlok_out' value='<?= $this->session->userdata('date_pinlok_out') ?>' onchange='this.form.submit();'>
           </th>
         </tr>
       </table>
@@ -80,7 +80,7 @@
                 echo "<script>";
                 echo "function p_1_" . $key . "()";
                 echo "{";
-                echo "window.open('laporan_pdf/c_t_t_t_pemakaian_print/index/" . $value->ID . "');";
+                echo "window.open('laporan_pdf/c_t_t_t_pinlok_print/index/" . $value->ID . "');";
                 echo "}";
                 echo "</script>";
 
@@ -88,23 +88,7 @@
 
 
 
-                echo "<a "; #/1 ini artinya kena pajak
-
-                echo "onclick= 'p_2_" . $key . "()'";
-                if ($value->PRINTED == 'f') {
-                  echo "> <i class='fa fa-print text-c-blue'></i></a> ";
-                }
-                if ($value->PRINTED == 't') {
-                  echo "> <i class='fa fa-print text-c-green'></i></a> ";
-                  
-                }
-
-                echo "<script>";
-                echo "function p_2_" . $key . "()";
-                echo "{";
-                echo "window.open('laporan_pdf/c_t_t_t_pemakaian2_print/index/" . $value->ID . "');";
-                echo "}";
-                echo "</script>";
+                
 
 
                 
@@ -118,7 +102,7 @@
                 echo "<i class='icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green'></i>";
                 echo "</a>";
 
-                echo "<a href='" . site_url('c_t_t_t_pemakaian/delete/' . $value->ID) . "' ";
+                echo "<a href='" . site_url('c_t_t_t_pinlok_out/delete/' . $value->ID) . "' ";
 
                 echo "onclick=\"return confirm('Apakah kamu yakin ingin menghapus data ini?')\"";
 
@@ -201,7 +185,7 @@
         <div class="modal-header">
           <h4 class="modal-title">Tanggal Transaksi:
             <form action='/action_page.php'>
-              <input type='date' class='form-control' name='date' value='<?= $this->session->userdata('date_pemakaian') ?>'>
+              <input type='date' class='form-control' name='date' value='<?= $this->session->userdata('date_pinlok_out') ?>'>
           </h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>

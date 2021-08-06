@@ -245,6 +245,8 @@ class C_t_t_t_penjualan_rincian extends MY_Controller
         foreach ($read_select as $key => $value) 
         {
           $new_supplier_id = $value->SUPPLIER_ID;
+          $new_ppn_percentage = $value->PPN_PERCENTAGE;
+
         }
 
 
@@ -255,6 +257,8 @@ class C_t_t_t_penjualan_rincian extends MY_Controller
         {
           $new_qty = $maximum_stok - ($sisa_qty_tt-$qty);
           $new_sub_total = $new_qty * $harga_minimal;
+
+          $new_ppn_value = ($new_sub_total * $new_ppn_percentage)/100;
           $insert_logic = 1;
 
           
@@ -281,7 +285,9 @@ class C_t_t_t_penjualan_rincian extends MY_Controller
               'CREATED_BY' => $this->session->userdata('username'),
               'UPDATED_BY' => '',
               'MARK_FOR_DELETE' => FALSE,
-              'COMPANY_ID' => $this->session->userdata('company_id')
+              'COMPANY_ID' => $this->session->userdata('company_id'),
+              'PPN_PERCENTAGE' => $new_ppn_percentage,
+              'PPN_VALUE' => $new_ppn_value
             );
 
             $this->m_t_t_t_pembelian_rincian->tambah($data);
@@ -334,7 +340,9 @@ class C_t_t_t_penjualan_rincian extends MY_Controller
               'CREATED_BY' => $this->session->userdata('username'),
               'UPDATED_BY' => '',
               'MARK_FOR_DELETE' => FALSE,
-              'COMPANY_ID' => $this->session->userdata('company_id')
+              'COMPANY_ID' => $this->session->userdata('company_id'),
+              'PPN_PERCENTAGE' => $new_ppn_percentage,
+              'PPN_VALUE' => $new_ppn_value
             );
 
             $this->m_t_t_t_pembelian_rincian->tambah($data);

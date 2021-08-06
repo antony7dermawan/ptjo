@@ -22,7 +22,7 @@
 
 <!-- Diluar Grouping disini -->
 <li <?php if($this->uri->segment(2)=="buku_besar"){echo 'class="pcoded-hasmenu"';}?>>
-        <a href="<?= base_url("c_dashboard/"); ?>" class="waves-effect waves-dark">
+        <a href="<?= base_url("c_dashboard2/"); ?>" class="waves-effect waves-dark">
         <span class="pcoded-micon">
         <i class="feather icon-credit-card"></i>
         </span>
@@ -121,6 +121,14 @@ if($level_user_id==1 or $level_user_id==6)
                     <span class="pcoded-mtext">Lokasi</span>
                 </a>
             </li>
+
+
+            <li class="">
+                <a href="<?= base_url("c_t_po_print_setting"); ?>" class="submenu waves-effect waves-dark">
+                    <span class="pcoded-mtext">PO Print Setting</span>
+                </a>
+            </li>
+
 
         </ul>
     </li>

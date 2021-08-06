@@ -63,6 +63,7 @@ public function select_date($pelanggan_id,$from_date,$to_date)
     $this->db->select("T_M_D_SUPIR.SUPIR");
 
     $this->db->select("T_M_D_LOKASI.LOKASI");
+    $this->db->select("T_M_D_ANGGOTA.ANGGOTA");
 
 
     $this->db->select("SUM_SUB_TOTAL");
@@ -74,7 +75,9 @@ public function select_date($pelanggan_id,$from_date,$to_date)
 
 
     $this->db->join('T_M_D_PAYMENT_METHOD', 'T_M_D_PAYMENT_METHOD.ID = T_T_T_PEMAKAIAN.PAYMENT_METHOD_ID', 'left');
-    $this->db->join('T_M_D_PELANGGAN', 'T_M_D_PELANGGAN.ID = T_T_T_PEMAKAIAN.PELANGGAN_ID', 'left');
+
+    $this->db->join('T_M_D_ANGGOTA', 'T_M_D_ANGGOTA.ID = T_T_T_PEMAKAIAN.ANGGOTA_ID', 'left');
+    
     $this->db->join('T_M_D_SALES', 'T_M_D_SALES.ID = T_T_T_PEMAKAIAN.SALES_ID', 'left');
 
     $this->db->join('T_M_D_NO_POLISI', 'T_M_D_NO_POLISI.ID = T_T_T_PEMAKAIAN.NO_POLISI_ID', 'left');
@@ -148,6 +151,7 @@ public function select_range_date($from_date,$to_date,$kredit_logic,$sales_id,$p
     $this->db->select("T_M_D_SUPIR.SUPIR");
 
     $this->db->select("T_M_D_LOKASI.LOKASI");
+    $this->db->select("T_M_D_ANGGOTA.ANGGOTA");
 
 
     $this->db->select("SUM_SUB_TOTAL");
@@ -159,7 +163,11 @@ public function select_range_date($from_date,$to_date,$kredit_logic,$sales_id,$p
 
 
     $this->db->join('T_M_D_PAYMENT_METHOD', 'T_M_D_PAYMENT_METHOD.ID = T_T_T_PEMAKAIAN.PAYMENT_METHOD_ID', 'left');
-    $this->db->join('T_M_D_PELANGGAN', 'T_M_D_PELANGGAN.ID = T_T_T_PEMAKAIAN.PELANGGAN_ID', 'left');
+
+
+    $this->db->join('T_M_D_ANGGOTA', 'T_M_D_ANGGOTA.ID = T_T_T_PEMAKAIAN.ANGGOTA_ID', 'left');
+
+
     $this->db->join('T_M_D_SALES', 'T_M_D_SALES.ID = T_T_T_PEMAKAIAN.SALES_ID', 'left');
 
     $this->db->join('T_M_D_NO_POLISI', 'T_M_D_NO_POLISI.ID = T_T_T_PEMAKAIAN.NO_POLISI_ID', 'left');

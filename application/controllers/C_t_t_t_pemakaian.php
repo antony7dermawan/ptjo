@@ -24,6 +24,7 @@ class C_t_t_t_pemakaian extends MY_Controller
     $this->load->model('m_t_t_t_po_auto');
   }
 
+
   public function index()
   {
 

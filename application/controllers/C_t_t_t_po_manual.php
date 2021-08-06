@@ -13,7 +13,8 @@ class C_t_t_t_po_manual extends MY_Controller
     $this->load->model('m_t_t_t_po_manual_rincian');
     $this->load->model('m_t_m_d_company');
     $this->load->model('m_t_m_d_payment_method');
-    $this->load->model('m_t_m_d_supplier');    
+    $this->load->model('m_t_m_d_supplier');
+    $this->load->model('m_t_m_d_anggota');  
   }
 
   public function index()
@@ -21,6 +22,7 @@ class C_t_t_t_po_manual extends MY_Controller
 
     $this->session->set_userdata('t_m_d_payment_method_delete_logic', '0');
     $this->session->set_userdata('t_m_d_supplier_delete_logic', '0');
+    $this->session->set_userdata('t_m_d_anggota_delete_logic', '0');
 
     
     $this->session->set_userdata('t_t_t_po_manual_delete_logic', '1');
@@ -36,6 +38,7 @@ class C_t_t_t_po_manual extends MY_Controller
       "c_t_t_t_po_manual" => $this->m_t_t_t_po_manual->select($this->session->userdata('date_po_manual')),
       "c_t_m_d_company" => $this->m_t_m_d_company->select(),
       "c_t_m_d_payment_method" => $this->m_t_m_d_payment_method->select(),
+      "c_t_m_d_anggota" => $this->m_t_m_d_anggota->select(),
       "c_t_m_d_supplier" => $this->m_t_m_d_supplier->select(),
       "title" => "Transaksi PO Manual",
       "description" => "form PO Manual"
@@ -102,6 +105,16 @@ class C_t_t_t_po_manual extends MY_Controller
     $ket = substr($this->input->post("ket"), 0, 200);
     $date = $this->input->post("date");
     $inv_supplier = substr($this->input->post("inv_supplier"), 0, 50);
+    $anggota_id = intval($this->input->post("anggota_id"));
+
+
+    $nama_bank = substr($this->input->post("nama_bank"), 0, 50);
+    $cabang = substr($this->input->post("cabang"), 0, 50);
+    $norek = substr($this->input->post("norek"), 0, 50);
+    $atas_nama = substr($this->input->post("atas_nama"), 0, 50);
+
+
+
     $inv_int = 0;
     $read_select = $this->m_t_t_t_po_manual->select_inv_int();
     foreach ($read_select as $key => $value) 
@@ -147,7 +160,12 @@ class C_t_t_t_po_manual extends MY_Controller
         'T_STATUS' => 10, //ini kode po manual
         'TABLE_CODE' => 'PEMBELIAN',
         'PAYMENT_T' => 0,
-        'ENABLE_EDIT' => 1 //MASI BISA EDIT
+        'ENABLE_EDIT' => 1, //MASI BISA EDIT
+        'NAMA_BANK' => $nama_bank,
+        'CABANG' => $cabang,
+        'NOREK' => $norek,
+        'ATAS_NAMA' => $atas_nama,
+        'ANGGOTA_ID' => $anggota_id
       );
 
       $this->m_t_t_t_po_manual->tambah($data);
@@ -203,7 +221,12 @@ class C_t_t_t_po_manual extends MY_Controller
     $payment_method = $this->input->post("payment_method");
     $inv_supplier = substr($this->input->post("inv_supplier"), 0, 50);
 
-    
+    $nama_bank = substr($this->input->post("nama_bank"), 0, 50);
+    $cabang = substr($this->input->post("cabang"), 0, 50);
+    $norek = substr($this->input->post("norek"), 0, 50);
+    $atas_nama = substr($this->input->post("atas_nama"), 0, 50);
+    $anggota = $this->input->post("anggota");
+
     $supplier_id = 0;
     $payment_method_id = 0;
 
@@ -212,21 +235,29 @@ class C_t_t_t_po_manual extends MY_Controller
       $supplier_id = $value->ID;
     }
 
-
+    $read_select = $this->m_t_m_d_anggota->select_id($anggota);
+    foreach ($read_select as $key => $value) {
+      $anggota_id = $value->ID;
+    }
     $read_select = $this->m_t_m_d_payment_method->select_id($payment_method);
     foreach ($read_select as $key => $value) {
       $payment_method_id = $value->ID;
     }
     //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
 
-    if($supplier_id!=0 and $payment_method_id!=0)
+    if($anggota_id!=0 and $supplier_id!=0 and $payment_method_id!=0)
     {
       $data = array(
         'PAYMENT_METHOD_ID' => $payment_method_id,
         'SUPPLIER_ID' => $supplier_id,
         'KET' => $ket,
         'UPDATED_BY' => $this->session->userdata('username'),
-        'INV_SUPPLIER' => $inv_supplier
+        'INV_SUPPLIER' => $inv_supplier,
+        'NAMA_BANK' => $nama_bank,
+        'CABANG' => $cabang,
+        'NOREK' => $norek,
+        'ATAS_NAMA' => $atas_nama,
+        'ANGGOTA_ID' => $anggota_id
       );
       $this->m_t_t_t_po_manual->update($data, $id);
       $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');

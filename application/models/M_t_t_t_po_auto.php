@@ -42,21 +42,28 @@ public function select_inv_pembelian()
     $this->db->select("T_M_D_PAYMENT_METHOD.PAYMENT_METHOD");
     $this->db->select("T_M_D_SUPPLIER.SUPPLIER");
 
+    $this->db->select("T_T_T_PEMBELIAN.NAMA_BANK");
+    $this->db->select("T_T_T_PEMBELIAN.CABANG");
+    $this->db->select("T_T_T_PEMBELIAN.NOREK");
+    $this->db->select("T_T_T_PEMBELIAN.ATAS_NAMA");
+    $this->db->select("T_M_D_ANGGOTA.ANGGOTA");
 
     $this->db->select("SUM_SUB_TOTAL");
+    $this->db->select("SUM_PPN");
 
    
 
 
     $this->db->from('T_T_T_PEMBELIAN');
 
-
+    
+    $this->db->join('T_M_D_ANGGOTA', 'T_M_D_ANGGOTA.ID = T_T_T_PEMBELIAN.ANGGOTA_ID', 'left');
     $this->db->join('T_M_D_PAYMENT_METHOD', 'T_M_D_PAYMENT_METHOD.ID = T_T_T_PEMBELIAN.PAYMENT_METHOD_ID', 'left');
     $this->db->join('T_M_D_SUPPLIER', 'T_M_D_SUPPLIER.ID = T_T_T_PEMBELIAN.SUPPLIER_ID', 'left');
 
     $this->db->join("(select \"PEMBELIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_1", 'T_T_T_PEMBELIAN.ID = t_sum_1.PEMBELIAN_ID', 'left');
 
-    
+    $this->db->join("(select \"PEMBELIAN_ID\",sum(\"PPN_VALUE\")\"SUM_PPN\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_2", 'T_T_T_PEMBELIAN.ID = t_sum_2.PEMBELIAN_ID', 'left');
 
     $this->db->where("(T_T_T_PEMBELIAN.T_STATUS=20 or T_T_T_PEMBELIAN.T_STATUS=2)");
 
@@ -93,24 +100,32 @@ public function select_inv_pembelian()
     $this->db->select("T_T_T_PEMBELIAN.INV_SUPPLIER");
     $this->db->select("T_T_T_PEMBELIAN.T_STATUS");
 
+    $this->db->select("T_T_T_PEMBELIAN.NAMA_BANK");
+    $this->db->select("T_T_T_PEMBELIAN.CABANG");
+    $this->db->select("T_T_T_PEMBELIAN.NOREK");
+    $this->db->select("T_T_T_PEMBELIAN.ATAS_NAMA");
+
     $this->db->select("T_M_D_PAYMENT_METHOD.PAYMENT_METHOD");
     $this->db->select("T_M_D_SUPPLIER.SUPPLIER");
+    $this->db->select("T_M_D_ANGGOTA.ANGGOTA");
 
 
     $this->db->select("SUM_SUB_TOTAL");
+    $this->db->select("SUM_PPN");
 
    
 
 
     $this->db->from('T_T_T_PEMBELIAN');
 
-
+    
+    $this->db->join('T_M_D_ANGGOTA', 'T_M_D_ANGGOTA.ID = T_T_T_PEMBELIAN.ANGGOTA_ID', 'left');
     $this->db->join('T_M_D_PAYMENT_METHOD', 'T_M_D_PAYMENT_METHOD.ID = T_T_T_PEMBELIAN.PAYMENT_METHOD_ID', 'left');
     $this->db->join('T_M_D_SUPPLIER', 'T_M_D_SUPPLIER.ID = T_T_T_PEMBELIAN.SUPPLIER_ID', 'left');
 
     $this->db->join("(select \"PEMBELIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_1", 'T_T_T_PEMBELIAN.ID = t_sum_1.PEMBELIAN_ID', 'left');
 
-    
+    $this->db->join("(select \"PEMBELIAN_ID\",sum(\"PPN_VALUE\")\"SUM_PPN\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_2", 'T_T_T_PEMBELIAN.ID = t_sum_2.PEMBELIAN_ID', 'left');
 
     $this->db->where("(T_T_T_PEMBELIAN.T_STATUS=20 or T_T_T_PEMBELIAN.T_STATUS=2)");
 
@@ -146,24 +161,32 @@ public function select_inv_pembelian()
     $this->db->select("T_T_T_PEMBELIAN.INV_SUPPLIER");
     $this->db->select("T_T_T_PEMBELIAN.T_STATUS");
 
+    $this->db->select("T_T_T_PEMBELIAN.NAMA_BANK");
+    $this->db->select("T_T_T_PEMBELIAN.CABANG");
+    $this->db->select("T_T_T_PEMBELIAN.NOREK");
+    $this->db->select("T_T_T_PEMBELIAN.ATAS_NAMA");
+    
     $this->db->select("T_M_D_PAYMENT_METHOD.PAYMENT_METHOD");
     $this->db->select("T_M_D_SUPPLIER.SUPPLIER");
+    $this->db->select("T_M_D_ANGGOTA.ANGGOTA");
 
 
     $this->db->select("SUM_SUB_TOTAL");
+    $this->db->select("SUM_PPN");
 
    
 
 
     $this->db->from('T_T_T_PEMBELIAN');
 
-
+    
+    $this->db->join('T_M_D_ANGGOTA', 'T_M_D_ANGGOTA.ID = T_T_T_PEMBELIAN.ANGGOTA_ID', 'left');
     $this->db->join('T_M_D_PAYMENT_METHOD', 'T_M_D_PAYMENT_METHOD.ID = T_T_T_PEMBELIAN.PAYMENT_METHOD_ID', 'left');
     $this->db->join('T_M_D_SUPPLIER', 'T_M_D_SUPPLIER.ID = T_T_T_PEMBELIAN.SUPPLIER_ID', 'left');
 
     $this->db->join("(select \"PEMBELIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_1", 'T_T_T_PEMBELIAN.ID = t_sum_1.PEMBELIAN_ID', 'left');
 
-    
+    $this->db->join("(select \"PEMBELIAN_ID\",sum(\"PPN_VALUE\")\"SUM_PPN\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_2", 'T_T_T_PEMBELIAN.ID = t_sum_2.PEMBELIAN_ID', 'left');
 
     
     $this->db->where('T_T_T_PEMBELIAN.ID',$id);

@@ -14,11 +14,13 @@ class C_t_t_t_po_auto extends MY_Controller
     $this->load->model('m_t_m_d_company');
     $this->load->model('m_t_m_d_payment_method');
     $this->load->model('m_t_m_d_supplier');    
+    $this->load->model('m_t_m_d_anggota');  
   }
 
   public function index()
   {
     $this->session->set_userdata('t_t_t_po_auto_delete_logic', '1');
+    $this->session->set_userdata('t_m_d_anggota_delete_logic', '0');
 
 
     if($this->session->userdata('date_po_auto')=='')
@@ -31,6 +33,7 @@ class C_t_t_t_po_auto extends MY_Controller
       "c_t_t_t_po_auto" => $this->m_t_t_t_po_auto->select($this->session->userdata('date_po_auto')),
       "c_t_m_d_company" => $this->m_t_m_d_company->select(),
       "c_t_m_d_payment_method" => $this->m_t_m_d_payment_method->select(),
+      "c_t_m_d_anggota" => $this->m_t_m_d_anggota->select(),
       "c_t_m_d_supplier" => $this->m_t_m_d_supplier->select(),
       "title" => "Transaksi PO Auto",
       "description" => "form PO Auto"

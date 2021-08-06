@@ -1,22 +1,22 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class C_t_t_t_penjualan2_print extends MY_Controller
+class C_t_t_t_pinlok_in_print extends MY_Controller
 {
 
   public function __construct()
   {
     parent::__construct();
 
-    $this->load->model('m_t_t_t_penjualan');
+    $this->load->model('m_t_t_t_pembelian');
 
-    $this->load->model('m_t_t_t_penjualan_rincian'); 
+    $this->load->model('m_t_t_t_pembelian_rincian');
 
-    $this->load->model('m_t_m_d_pelanggan');
+    $this->load->model('m_t_m_d_company');
     
   }
 
-  public function index($penjualan_id)
+  public function index($pinlok_id)
   {
     $this->session->set_userdata('t_t_t_penjualan_delete_logic', '0');
 
@@ -36,32 +36,27 @@ class C_t_t_t_penjualan2_print extends MY_Controller
 
     $pdf->SetFont('','',12);
 
-    $read_select = $this->m_t_t_t_penjualan->select_by_id($penjualan_id);
+    $read_select = $this->m_t_t_t_pembelian->select_by_id($pinlok_id);
     foreach ($read_select as $key => $value) 
     {
       $date = $value->DATE;
       $time = $value->TIME;
       $inv = $value->INV;
-      $inv_head = $value->INV_HEAD;
-      $sales = $value->SALES;
-      $pelanggan_id = $value->PELANGGAN_ID;
+
+      
+      $company_id_from = $value->COMPANY_ID_FROM;
       $created_by = $value->CREATED_BY;
       $updated_by = $value->UPDATED_BY;
       $ket = $value->KET;
       $company = $value->COMPANY;
-      $lokasi = $value->LOKASI;
+      
     }
 
 
-    $read_select = $this->m_t_m_d_pelanggan->select_by_id($pelanggan_id);
+    $read_select = $this->m_t_m_d_company->select_by_id($company_id_from);
     foreach ($read_select as $key => $value) 
     {
-      $pelanggan = $value->PELANGGAN;
-      $no_telp = $value->NO_TELP;
-      $alamat = $value->ALAMAT;
-      $email = $value->EMAIL;
-      $nik = $value->NIK;
-      $npwp = $value->NPWP;
+      $company_from = $value->COMPANY;
     }
 
 
@@ -70,16 +65,14 @@ class C_t_t_t_penjualan2_print extends MY_Controller
 
 
 
-    $read_select = $this->m_t_t_t_penjualan_rincian->select($penjualan_id);
+    $read_select = $this->m_t_t_t_pembelian_rincian->select_pinlok_in($pinlok_id,$company_id_from);
     foreach ($read_select as $key => $value) 
     {
       $kode_barang[$key]=$value->KODE_BARANG;
       $barang[$key]=$value->BARANG;
       $qty[$key]=$value->QTY;
       $satuan[$key]=$value->SATUAN;
-      $diskon_p_1[$key]=$value->DISKON_P_1;
-      $diskon_p_2[$key]=$value->DISKON_P_2;
-      $diskon_harga[$key]=$value->DISKON_HARGA;
+      
       $harga[$key]=$value->HARGA;
       $sub_total[$key]=$value->SUB_TOTAL;
     }
@@ -129,30 +122,30 @@ class C_t_t_t_penjualan2_print extends MY_Controller
 
         $pdf->SetFont('','B',11);
         $pdf->Cell(130, 6, "", 0, 0, 'C');
-        $pdf->Cell(30, 6, "SURAT JALAN", 0, 1, 'L');
+        $pdf->Cell(30, 6, "PINDAH LOKASI (Masuk)", 0, 1, 'L');
 
         $pdf->SetFont('','',9);
         $pdf->Cell(130, 4, "", 0, 0, 'C');
         $pdf->Cell(30, 4, 'PT Jo Perdana Agri Technology', 0, 1, 'L');
-
+        
         $pdf->SetFont('','',8);
         $pdf->Cell(130, 4, "", 0, 0, 'C');
-        $pdf->Cell(30, 4, $company.', '.date('d-m-Y', strtotime($date)), 0, 1, 'L');
+        $pdf->Cell(30, 4, $company_from.', '.date('d-m-Y', strtotime($date)), 0, 1, 'L');
 
         $pdf->SetFont('','',8);
         $pdf->Cell(130, 4, "", 0, 0, 'C');
         $pdf->Cell(20, 4, "No. Faktur", 0, 0, 'L');
-        $pdf->Cell(20, 4, ': '.$inv_head.$inv, 0, 1, 'L');
+        $pdf->Cell(20, 4, ': '.$inv, 0, 1, 'L');
 
         $jatuh_tempo = date('Y-m-d',(strtotime ( '+30 day' , strtotime ( $date) ) ));
         $pdf->Cell(130, 4, "", 0, 0, 'C');
-        $pdf->Cell(20, 4, "Jatuh Tempo", 0, 0, 'L');
-        $pdf->Cell(20, 4, ': '.date('d-m-Y', strtotime($jatuh_tempo)), 0, 1, 'L');
+        $pdf->Cell(20, 4, "", 0, 0, 'L');
+        $pdf->Cell(20, 4, '', 0, 1, 'L');
 
 
         $pdf->Cell(130, 4, "", 0, 0, 'C');
-        $pdf->Cell(20, 4, "Lokasi", 0, 0, 'L');
-        $pdf->Cell(20, 4, ': '.$lokasi, 0, 1, 'L');
+        $pdf->Cell(20, 4, "", 0, 0, 'L');
+        $pdf->Cell(20, 4, '', 0, 1, 'L');
 
         $pdf->Cell(130, 4, "", 0, 0, 'C');
         $pdf->Cell(20, 4, "", 0, 0, 'L');
@@ -164,28 +157,16 @@ class C_t_t_t_penjualan2_print extends MY_Controller
         $pdf->SetXY($x_value, $y_value);
         
         $pdf->SetFont('','',9);
-        $pdf->Cell(25, 4, "Kepada Yth", 0, 0, 'L');
-        $pdf->Cell(90, 4, ':  '.$pelanggan, 0, 1, 'L');
-        $pdf->Cell(25, 4, "Alamat", 0, 0, 'L');
-        $pdf->MultiCell(90, 4, ':  '.substr($alamat, 0, 50), '0', 'L',0,1);
-        $pdf->Cell(25, 4, "No Telp", 0, 0, 'L');
-        $pdf->MultiCell(90, 4, ':  '.substr($no_telp, 0, 50), '0', 'L',0,1);
+        $pdf->Cell(25, 4, "Gudang Tujuan", 0, 0, 'L');
+        $pdf->Cell(90, 4, ':  '.$company, 0, 1, 'L');
+        $pdf->Cell(25, 4, "", 0, 0, 'L');
+        $pdf->MultiCell(90, 4, '', '0', 'L',0,1);
+        $pdf->Cell(25, 4, "", 0, 0, 'L');
+        $pdf->MultiCell(90, 4, '', '0', 'L',0,1);
 
-        if($nik!='')
-        {
-          $pdf->Cell(25, 4, "NIK", 0, 0, 'L');
-          $pdf->MultiCell(90, 4, ':  '.substr($nik, 0, 50), '0', 'L',0,1);
-        }
-        if($npwp!='')
-        {
-          $pdf->Cell(25, 4, "NPWP", 0, 0, 'L');
-          $pdf->MultiCell(90, 4, ':  '.substr($npwp, 0, 50), '0', 'L',0,1);
-        }
-
-        if($npwp=='' and $nik=='')
-        {
+        
           $pdf->Cell(90, 4, '', 0, 1, 'L');
-        }
+        
         
 
 

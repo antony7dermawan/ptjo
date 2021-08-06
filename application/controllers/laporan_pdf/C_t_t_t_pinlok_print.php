@@ -65,6 +65,7 @@ class C_t_t_t_pinlok_print extends MY_Controller
 
 
 
+
     $read_select = $this->m_t_t_t_pembelian_rincian->select($pinlok_id);
     foreach ($read_select as $key => $value) 
     {
@@ -122,8 +123,12 @@ class C_t_t_t_pinlok_print extends MY_Controller
 
         $pdf->SetFont('','B',11);
         $pdf->Cell(130, 6, "", 0, 0, 'C');
-        $pdf->Cell(30, 6, "PINDAH LOKASI", 0, 1, 'L');
+        $pdf->Cell(30, 6, "PINDAH LOKASI (Keluar)", 0, 1, 'L');
 
+        $pdf->SetFont('','',9);
+        $pdf->Cell(130, 4, "", 0, 0, 'C');
+        $pdf->Cell(30, 4, 'PT Jo Perdana Agri Technology', 0, 1, 'L');
+        
         $pdf->SetFont('','',8);
         $pdf->Cell(130, 4, "", 0, 0, 'C');
         $pdf->Cell(30, 4, $company_from.', '.date('d-m-Y', strtotime($date)), 0, 1, 'L');
