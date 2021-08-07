@@ -185,6 +185,7 @@
               echo "<td><s>" . date('d-m-Y', strtotime($value->NEW_DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</s></td>";
               echo "<td><s>" . $value->KET . "</s></td>";
               echo "<td><s>" . $value->SUPPLIER . "</s></td>";
+              echo "<td><s>" . $value->INV_SUPPLIER . "</s></td>";
               echo "<td><s>" . $value->PAYMENT_METHOD . "</s></td>";
 
 

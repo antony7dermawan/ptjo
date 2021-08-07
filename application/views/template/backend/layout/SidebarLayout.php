@@ -304,7 +304,7 @@ if($level_user_id==1 or $level_user_id==6)
         </a>
         <ul class="pcoded-submenu">
             <li class="">
-                <a href="<?= base_url("c_laporan"); ?>" class="submenu waves-effect waves-dark">
+                <a href="<?= base_url("c_laporan2"); ?>" class="submenu waves-effect waves-dark">
                     <span class="pcoded-mtext">Detail</span>
                 </a>
             </li>
