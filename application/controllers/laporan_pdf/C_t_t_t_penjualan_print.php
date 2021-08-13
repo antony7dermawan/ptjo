@@ -250,20 +250,28 @@ class C_t_t_t_penjualan_print extends MY_Controller
         $pdf->Cell(40, 6, "NB: Barang yang sudah dibeli tidak dapat ditukar/dikembalikan", 0, 1, 'L');
 
             $pdf->Cell(40, 6, "DITERIMA OLEH:", 0, 0, 'C');
-            $pdf->Cell(5, 6, "", 0, 0, 'C');
+            $pdf->Cell(10, 6, "", 0, 0, 'C');
             $pdf->Cell(40, 6, "DIPERIKSA OLEH:", 0, 0, 'C');
-            $pdf->Cell(5, 6, "", 0, 0, 'C');
-            $pdf->Cell(40, 6, "DIKIRIM OLEH:", 0, 0, 'C');
-            $pdf->Cell(5, 6, "", 0, 0, 'C');
+            $pdf->Cell(10, 6, "", 0, 0, 'C');
+            $pdf->Cell(40, 6, "", 0, 0, 'C');
+            $pdf->Cell(10, 6, "", 0, 0, 'C');
             $pdf->Cell(40, 6, "HORMAT KAMI:", 0, 1, 'C');
 
-            $pdf->Cell(40, 12, "", 'B', 0, 'C');
-            $pdf->Cell(5, 12, "", 0, 0, 'C');
-            $pdf->Cell(40, 12, "", 'B', 0, 'C');
-            $pdf->Cell(5, 12, "", 0, 0, 'C');
-            $pdf->Cell(40, 12, "", 'B', 0, 'C');
-            $pdf->Cell(5, 12, "", 0, 0, 'C');
-            $pdf->Cell(40, 12, "", 'B', 1, 'C');
+            $pdf->Cell(40, 12, "", 0, 0, 'C');
+            $pdf->Cell(10, 12, "", 0, 0, 'C');
+            $pdf->Cell(40, 12, "", 0, 0, 'C');
+            $pdf->Cell(10, 12, "", 0, 0, 'C');
+            $pdf->Cell(40, 12, "", 0, 0, 'C');
+            $pdf->Cell(10, 12, "", 0, 0, 'C');
+            $pdf->Cell(40, 12, "", 0, 1, 'C');
+
+            $pdf->Cell(40, 6, "Tgl:", 'T', 0, 'C');
+            $pdf->Cell(10, 6, "", 0, 0, 'C');
+            $pdf->Cell(40, 6, "Tgl:", 'T', 0, 'C');
+            $pdf->Cell(10, 6, "", 0, 0, 'C');
+            $pdf->Cell(40, 6, "", '0', 0, 'C');
+            $pdf->Cell(10, 6, "", 0, 0, 'C');
+            $pdf->Cell(40, 6, "Tgl:", 'T', 1, 'C');
 
         $dibuat_oleh = $created_by;
         if($updated_by!='')
@@ -331,7 +339,7 @@ class C_t_t_t_penjualan_print extends MY_Controller
         $pdf->Cell(10, 6, "", 0, 0, 'C');
         $pdf->Cell(40, 6, "DIPERIKSA OLEH:", 0, 0, 'C');
         $pdf->Cell(10, 6, "", 0, 0, 'C');
-        $pdf->Cell(40, 6, "DIKIRIM OLEH:", 0, 0, 'C');
+        $pdf->Cell(40, 6, "", 0, 0, 'C');
         $pdf->Cell(10, 6, "", 0, 0, 'C');
         $pdf->Cell(40, 6, "HORMAT KAMI:", 0, 1, 'C');
 
@@ -347,7 +355,7 @@ class C_t_t_t_penjualan_print extends MY_Controller
         $pdf->Cell(10, 6, "", 0, 0, 'C');
         $pdf->Cell(40, 6, "Tgl:", 'T', 0, 'C');
         $pdf->Cell(10, 6, "", 0, 0, 'C');
-        $pdf->Cell(40, 6, "Tgl:", 'T', 0, 'C');
+        $pdf->Cell(40, 6, "", '0', 0, 'C');
         $pdf->Cell(10, 6, "", 0, 0, 'C');
         $pdf->Cell(40, 6, "Tgl:", 'T', 1, 'C');
 

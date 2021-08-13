@@ -65,7 +65,7 @@ public function update($data, $id)
   {
     $this->db->select('SUM_QTY');
     $this->db->from('T_M_D_BARANG');
-    $this->db->join("(select \"T_T_T_RETUR_PEMAKAIAN_RINCIAN\".\"BARANG_ID\",sum(\"QTY\")\"SUM_QTY\" from \"T_T_T_RETUR_PEMAKAIAN_RINCIAN\" LEFT OUTER JOIN \"T_T_T_RETUR_PEMAKAIAN\" on \"T_T_T_RETUR_PEMAKAIAN\".\"ID\"=\"T_T_T_RETUR_PEMAKAIAN_RINCIAN\".\"RETUR_PEMAKAIAN_ID\" where  \"T_T_T_RETUR_PEMAKAIAN_RINCIAN\".\"MARK_FOR_DELETE\"=false and \"T_T_T_RETUR_PEMAKAIAN\".\"DATE\"<'{$limit_date}' group by \"T_T_T_RETUR_PEMAKAIAN_RINCIAN\".\"BARANG_ID\") as t_sum_1", 'T_M_D_BARANG.BARANG_ID = t_sum_1.BARANG_ID', 'left');
+    $this->db->join("(select \"T_T_T_RETUR_PEMAKAIAN_RINCIAN\".\"BARANG_ID\",sum(\"QTY\")\"SUM_QTY\" from \"T_T_T_RETUR_PEMAKAIAN_RINCIAN\" LEFT OUTER JOIN \"T_T_T_RETUR_PEMAKAIAN\" on \"T_T_T_RETUR_PEMAKAIAN\".\"ID\"=\"T_T_T_RETUR_PEMAKAIAN_RINCIAN\".\"RETUR_PEMAKAIAN_ID\" where  \"T_T_T_RETUR_PEMAKAIAN_RINCIAN\".\"MARK_FOR_DELETE\"=false and \"T_T_T_RETUR_PEMAKAIAN\".\"DATE\"<'{$limit_date}'  and \"T_T_T_RETUR_PEMAKAIAN\".\"COMPANY_ID\"='{$this->session->userdata('company_id')}'  group by \"T_T_T_RETUR_PEMAKAIAN_RINCIAN\".\"BARANG_ID\") as t_sum_1", 'T_M_D_BARANG.BARANG_ID = t_sum_1.BARANG_ID', 'left');
     $this->db->where('T_M_D_BARANG.BARANG_ID',$barang_id);
 
 
@@ -73,7 +73,6 @@ public function update($data, $id)
     return $akun->result ();
   }
 
-  
 
 
   public function select_by_id($id)

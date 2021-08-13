@@ -151,7 +151,7 @@
               echo "<td><s>" . $value->INV . "</td>";
               echo "<td><s>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</s></td>";
               echo "<td><s>" . $value->KET . "</s></td>";
-              echo "<td><s>" . $value->ANGGOTA . "</s></td>";
+              echo "<td><s>" . $value->COMPANY . "</s></td>";
               echo "<td><s>" . $value->PAYMENT_METHOD . "</s></td>";
 
 

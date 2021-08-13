@@ -59,16 +59,16 @@ public function update($data, $id)
 
 
 
-
   public function select_qty_before_date($limit_date,$barang_id)
   {
     $this->db->select('SUM_QTY');
     $this->db->from('T_M_D_BARANG');
-    $this->db->join("(select \"T_T_T_RETUR_PEMBELIAN_RINCIAN\".\"BARANG_ID\",sum(\"QTY\")\"SUM_QTY\" from \"T_T_T_RETUR_PEMBELIAN_RINCIAN\" LEFT OUTER JOIN \"T_T_T_RETUR_PEMBELIAN\" on \"T_T_T_RETUR_PEMBELIAN\".\"ID\"=\"T_T_T_RETUR_PEMBELIAN_RINCIAN\".\"RETUR_PEMBELIAN_ID\" where  \"T_T_T_RETUR_PEMBELIAN_RINCIAN\".\"MARK_FOR_DELETE\"=false and \"T_T_T_RETUR_PEMBELIAN\".\"DATE\"<'{$limit_date}' group by \"T_T_T_RETUR_PEMBELIAN_RINCIAN\".\"BARANG_ID\") as t_sum_1", 'T_M_D_BARANG.BARANG_ID = t_sum_1.BARANG_ID', 'left');
+    $this->db->join("(select \"T_T_T_RETUR_PEMBELIAN_RINCIAN\".\"BARANG_ID\",sum(\"QTY\")\"SUM_QTY\" from \"T_T_T_RETUR_PEMBELIAN_RINCIAN\" LEFT OUTER JOIN \"T_T_T_RETUR_PEMBELIAN\" on \"T_T_T_RETUR_PEMBELIAN\".\"ID\"=\"T_T_T_RETUR_PEMBELIAN_RINCIAN\".\"RETUR_PEMBELIAN_ID\" where  \"T_T_T_RETUR_PEMBELIAN_RINCIAN\".\"MARK_FOR_DELETE\"=false and \"T_T_T_RETUR_PEMBELIAN\".\"DATE\"<'{$limit_date}' and \"T_T_T_RETUR_PEMBELIAN\".\"COMPANY_ID\"='{$this->session->userdata('company_id')}'  group by \"T_T_T_RETUR_PEMBELIAN_RINCIAN\".\"BARANG_ID\") as t_sum_1", 'T_M_D_BARANG.BARANG_ID = t_sum_1.BARANG_ID', 'left');
     $this->db->where('T_M_D_BARANG.BARANG_ID',$barang_id);
     $akun = $this->db->get ();
     return $akun->result ();
   }
+
 
 
   

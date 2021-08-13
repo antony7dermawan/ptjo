@@ -35,6 +35,13 @@
                 $this->load->model('m_t_t_t_retur_pembelian_rincian');
 
 
+                $this->load->model('m_t_t_t_pemakaian');
+                $this->load->model('m_t_t_t_pemakaian_rincian');
+                $this->load->model('m_t_t_t_retur_pemakaian');
+                $this->load->model('m_t_t_t_retur_pemakaian_rincian');
+
+
+                $this->load->model('m_t_m_d_company');
 
                 $this->load->model('m_lap_flow_barang_per_item');
                 
@@ -50,6 +57,8 @@
               $this->session->set_userdata('t_t_t_retur_penjualan_delete_logic', '0');
               $this->session->set_userdata('t_t_t_pembelian_delete_logic', '0');
               $this->session->set_userdata('t_t_t_retur_pembelian_delete_logic', '0');
+              $this->session->set_userdata('t_t_t_pemakaian_delete_logic', '0');
+              $this->session->set_userdata('t_t_t_retur_pemakaian_delete_logic', '0');
 
               $total_day=intval(((round(abs(strtotime($date_from_laporan) - strtotime($date_to_laporan)) / (60*60*24),0))+1)/2);
 
@@ -79,7 +88,7 @@
                   $spreadsheet->getActiveSheet()->getStyle('A'.$row)->getFont()->setBold(true);
                   $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':J'.$row);
                   $sheet = $spreadsheet->getActiveSheet();
-                  $sheet->setCellValue('A'.$row, 'PT. JO PERDANA AGRI TECHNOLOGY');
+                  $sheet->setCellValue('A'.$row, 'PT CAHAYA BARU GEMILANG');
                   $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('center');
 
 
@@ -223,9 +232,9 @@
                         $r_inv[$key]=$value->INV;
                         $r_table_code[$key]=$value->TABLE_CODE;
 
-                        $r_qty[$key]=$value->QTY;
-                        $r_harga[$key]=$value->HARGA;
-                        $r_sub_total[$key]=$value->SUB_TOTAL;
+                        $r_qty[$key]=$value->SUM_QTY;
+                        $r_harga[$key]=$value->AVG_HARGA;
+                        $r_sub_total[$key]=$value->SUM_SUB_TOTAL;
                         $r_created_by[$key]=$value->CREATED_BY;
                         $r_updated_by[$key]=$value->UPDATED_BY;
 
@@ -253,6 +262,13 @@
                       $qty_pembelian = floatval($value->SUM_QTY);
                     }
 
+
+                    $read_select = $this->m_t_t_t_pembelian_rincian->select_qty_before_date_pinlok_out($date_from_laporan,$barang_id);
+                    foreach ($read_select as $key => $value) 
+                    {
+                      $qty_pembelian_pinlok_out = floatval($value->SUM_QTY);
+                    }
+
                     $read_select = $this->m_t_t_t_penjualan_rincian->select_qty_before_date($date_from_laporan,$barang_id);
                     foreach ($read_select as $key => $value) 
                     {
@@ -265,12 +281,25 @@
                       $qty_retur_pembelian = floatval($value->SUM_QTY);
                     }
 
+                    $read_select = $this->m_t_t_t_pemakaian_rincian->select_qty_before_date($date_from_laporan,$barang_id);
+                    foreach ($read_select as $key => $value) 
+                    {
+                      $qty_pemakaian = floatval($value->SUM_QTY);
+                    }
+
+
+                    $read_select = $this->m_t_t_t_retur_pemakaian_rincian->select_qty_before_date($date_from_laporan,$barang_id);
+                    foreach ($read_select as $key => $value) 
+                    {
+                      $qty_retur_pemakaian = floatval($value->SUM_QTY);
+                    }
+
                     $read_select = $this->m_t_t_t_retur_penjualan_rincian->select_qty_before_date($date_from_laporan,$barang_id);
                     foreach ($read_select as $key => $value) 
                     {
                       $qty_retur_penjualan = floatval($value->SUM_QTY);
                     }
-                    $stok_awal = ($qty_pembelian + $qty_retur_penjualan ) - ($qty_penjualan+$qty_retur_pembelian);
+                    $stok_awal = ($qty_pembelian + $qty_retur_penjualan + $qty_retur_pemakaian) - ($qty_penjualan+$qty_retur_pembelian+$qty_pemakaian +$qty_pembelian_pinlok_out);
                   }
                   if($data_logic==1)
                   {
@@ -388,6 +417,107 @@
                             }
 
 
+                            if($r_table_code[$i]=='PINLOK_OUT')
+                            {
+                              $stok_awal = $stok_awal - $r_qty[$i];
+                              $read_select = $this->m_t_t_t_pembelian->select_by_id($r_id[$i]);
+                              foreach ($read_select as $key => $value) 
+                              {
+                                $pelanggan = $value->COMPANY;
+                                $sales = '';
+                                $no_polisi = $value->NO_POLISI;
+                                $supir = $value->SUPIR;
+                                $payment_method = $value->PAYMENT_METHOD;
+                                $lokasi = $value->LOKASI;
+
+
+                                $sheet->setCellValue('Q'.$row, $pelanggan);
+                                $sheet->getStyle('Q'.$row)->getAlignment()->setHorizontal('center');
+                                $sheet->setCellValue('R'.$row, $sales);
+                                $sheet->getStyle('R'.$row)->getAlignment()->setHorizontal('center');
+                                $sheet->setCellValue('S'.$row, $no_polisi);
+                                $sheet->getStyle('S'.$row)->getAlignment()->setHorizontal('center');
+                                $sheet->setCellValue('T'.$row, $supir);
+                                $sheet->getStyle('T'.$row)->getAlignment()->setHorizontal('center');
+                                $sheet->setCellValue('U'.$row, $lokasi);
+                                $sheet->getStyle('U'.$row)->getAlignment()->setHorizontal('center');
+                                $sheet->setCellValue('V'.$row, $payment_method);
+                                $sheet->getStyle('V'.$row)->getAlignment()->setHorizontal('center');
+
+                              }
+                            }
+
+
+
+                            if($r_table_code[$i]=='PINLOK_IN')
+                            {
+                              $stok_awal = $stok_awal + $r_qty[$i];
+                              $read_select = $this->m_t_t_t_pembelian->select_by_id($r_id[$i]);
+                              foreach ($read_select as $key => $value) 
+                              {
+                                $company_id_from = $value->COMPANY_ID_FROM;
+                                $sales = '';
+                                $no_polisi = $value->NO_POLISI;
+                                $supir = $value->SUPIR;
+                                $payment_method = $value->PAYMENT_METHOD;
+                                $lokasi = $value->LOKASI;
+
+
+                                $read_select_in = $this->m_t_m_d_company->select_by_id($company_id_from);
+                                foreach ($read_select_in as $key_in => $value_in) 
+                                {
+                                  $supplier = $value_in->COMPANY;
+                                }
+
+
+                                $sheet->setCellValue('N'.$row, $supplier);
+                                $sheet->getStyle('N'.$row)->getAlignment()->setHorizontal('center');
+                                $sheet->setCellValue('R'.$row, $sales);
+                                $sheet->getStyle('R'.$row)->getAlignment()->setHorizontal('center');
+                                $sheet->setCellValue('S'.$row, $no_polisi);
+                                $sheet->getStyle('S'.$row)->getAlignment()->setHorizontal('center');
+                                $sheet->setCellValue('T'.$row, $supir);
+                                $sheet->getStyle('T'.$row)->getAlignment()->setHorizontal('center');
+                                $sheet->setCellValue('U'.$row, $lokasi);
+                                $sheet->getStyle('U'.$row)->getAlignment()->setHorizontal('center');
+                                $sheet->setCellValue('V'.$row, $payment_method);
+                                $sheet->getStyle('V'.$row)->getAlignment()->setHorizontal('center');
+
+                              }
+                            }
+
+
+                            if($r_table_code[$i]=='PEMAKAIAN')
+                            {
+                              $stok_awal = $stok_awal - $r_qty[$i];
+                              $read_select = $this->m_t_t_t_pemakaian->select_by_id($r_id[$i]);
+                              foreach ($read_select as $key => $value) 
+                              {
+                                $pelanggan = $value->ANGGOTA;
+                                $sales = $value->SALES;
+                                $no_polisi = $value->NO_POLISI;
+                                $supir = $value->SUPIR;
+                                $payment_method = $value->PAYMENT_METHOD;
+                                $lokasi = $value->LOKASI;
+
+
+                                $sheet->setCellValue('Q'.$row, $pelanggan);
+                                $sheet->getStyle('Q'.$row)->getAlignment()->setHorizontal('center');
+                                $sheet->setCellValue('R'.$row, $sales);
+                                $sheet->getStyle('R'.$row)->getAlignment()->setHorizontal('center');
+                                $sheet->setCellValue('S'.$row, $no_polisi);
+                                $sheet->getStyle('S'.$row)->getAlignment()->setHorizontal('center');
+                                $sheet->setCellValue('T'.$row, $supir);
+                                $sheet->getStyle('T'.$row)->getAlignment()->setHorizontal('center');
+                                $sheet->setCellValue('U'.$row, $lokasi);
+                                $sheet->getStyle('U'.$row)->getAlignment()->setHorizontal('center');
+                                $sheet->setCellValue('V'.$row, $payment_method);
+                                $sheet->getStyle('V'.$row)->getAlignment()->setHorizontal('center');
+
+                              }
+                            }
+
+
 
                             if($r_table_code[$i]=='RETUR_PENJUALAN')
                             {
@@ -396,6 +526,37 @@
                               foreach ($read_select as $key => $value) 
                               {
                                 $pelanggan = $value->PELANGGAN;
+                                $sales = $value->SALES;
+                                $no_polisi = $value->NO_POLISI;
+                                $supir = $value->SUPIR;
+                                $payment_method = $value->PAYMENT_METHOD;
+                                $lokasi = $value->LOKASI;
+
+
+                                $sheet->setCellValue('Q'.$row, $pelanggan);
+                                $sheet->getStyle('Q'.$row)->getAlignment()->setHorizontal('center');
+                                $sheet->setCellValue('R'.$row, $sales);
+                                $sheet->getStyle('R'.$row)->getAlignment()->setHorizontal('center');
+                                $sheet->setCellValue('S'.$row, $no_polisi);
+                                $sheet->getStyle('S'.$row)->getAlignment()->setHorizontal('center');
+                                $sheet->setCellValue('T'.$row, $supir);
+                                $sheet->getStyle('T'.$row)->getAlignment()->setHorizontal('center');
+                                $sheet->setCellValue('U'.$row, $lokasi);
+                                $sheet->getStyle('U'.$row)->getAlignment()->setHorizontal('center');
+                                $sheet->setCellValue('V'.$row, $payment_method);
+                                $sheet->getStyle('V'.$row)->getAlignment()->setHorizontal('center');
+
+                              }
+                            }
+
+
+                            if($r_table_code[$i]=='RETUR_PEMAKAIAN')
+                            {
+                              $stok_awal = $stok_awal + $r_qty[$i];
+                              $read_select = $this->m_t_t_t_retur_pemakaian->select_by_id($r_id[$i]);
+                              foreach ($read_select as $key => $value) 
+                              {
+                                $pelanggan = $value->ANGGOTA;
                                 $sales = $value->SALES;
                                 $no_polisi = $value->NO_POLISI;
                                 $supir = $value->SUPIR;
