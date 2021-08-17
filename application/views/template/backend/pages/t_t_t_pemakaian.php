@@ -28,9 +28,10 @@
         <thead>
           <tr>
             <th>No</th>
-            <th>INV</th>
+            <th>Nomor SPPB</th>
             <th>Date</th>
             <th>Ket</th>
+            <th>Pemakaian Untuk</th>
             <th>Anggota</th>
             <th>Payment Method</th>
             <th>Total</th>
@@ -48,6 +49,7 @@
               echo "<td>" . $value->INV_HEAD.$value->INV . "</td>";
               echo "<td>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</td>";
               echo "<td>" . $value->KET . "</td>";
+              echo "<td>" . $value->PEMAKAI . "</td>";
               echo "<td>" . $value->ANGGOTA . "</td>";
               echo "<td>" . $value->PAYMENT_METHOD . "</td>";
 
@@ -64,56 +66,7 @@
               
               echo "<td>";
 
-              /*
-              if (intval($value->SUM_SUB_TOTAL) != 0)
-              {
-                echo "<a "; #/1 ini artinya kena pajak
-
-                echo "onclick= 'p_1_" . $key . "()'";
-                if ($value->PRINTED == 'f') {
-                  echo "> <i class='fa fa-print text-c-black'></i></a> ";
-                }
-                if ($value->PRINTED == 't') {
-                  echo "> <i class='fa fa-print text-c-green'></i></a> ";
-                }
-
-                echo "<script>";
-                echo "function p_1_" . $key . "()";
-                echo "{";
-                echo "window.open('laporan_pdf/c_t_t_t_pemakaian_print/index/" . $value->ID . "');";
-                echo "}";
-                echo "</script>";
-
-
-
-
-
-                echo "<a "; #/1 ini artinya kena pajak
-
-                echo "onclick= 'p_2_" . $key . "()'";
-                if ($value->PRINTED == 'f') {
-                  echo "> <i class='fa fa-print text-c-blue'></i></a> ";
-                }
-                if ($value->PRINTED == 't') {
-                  echo "> <i class='fa fa-print text-c-green'></i></a> ";
-                  
-                }
-
-                echo "<script>";
-                echo "function p_2_" . $key . "()";
-                echo "{";
-                echo "window.open('laporan_pdf/c_t_t_t_pemakaian2_print/index/" . $value->ID . "');";
-                echo "}";
-                echo "</script>";
-
-
-                if($value->ENABLE_EDIT==0)
-                {
-                  echo "<a class='fa text-c-green'>Sudah Ditagih</a>";
-                }
-              }
-              */
-              
+     
 
 
 
@@ -150,6 +103,7 @@
               echo "<td><s>" . $value->INV . "</td>";
               echo "<td><s>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</s></td>";
               echo "<td><s>" . $value->KET . "</s></td>";
+              echo "<td><s>" . $value->PEMAKAI . "</s></td>";
               echo "<td><s>" . $value->ANGGOTA . "</s></td>";
               echo "<td><s>" . $value->PAYMENT_METHOD . "</s></td>";
 
@@ -216,12 +170,12 @@
           
           
         <div class="form-group">
-              <label>Anggota</label>
-              <select name="anggota_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+              <label>Pemakaian Untuk</label>
+              <select name="pemakai_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
               <?php
-              foreach ($c_t_m_d_anggota as $key => $value) 
+              foreach ($c_t_m_d_pemakai as $key => $value) 
               {
-                echo "<option value='".$value->ID."'>".$value->ANGGOTA."</option>";
+                echo "<option value='".$value->ID."'>".$value->PEMAKAI."</option>";
 
               }
               ?>
@@ -232,7 +186,16 @@
           <div class="col-md-6">
 
             <fieldset class="form-group">
-              
+              <label>Anggota</label>
+              <select name="anggota_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+              <?php
+              foreach ($c_t_m_d_anggota as $key => $value) 
+              {
+                echo "<option value='".$value->ID."'>".$value->ANGGOTA."</option>";
+
+              }
+              ?>
+              </select>
             </fieldset>
 
           </div><!-- Membungkus Row Kedua !-->
@@ -369,6 +332,25 @@
 
 
         <div class="form-group">
+              <label>Pemakaian Untuk</label>
+              <div class="searchable">
+                  <input type="text" name='pemakai' placeholder="search" onkeyup="filterFunction(this,event)">
+                  <ul>
+                    <?php
+                    foreach ($c_t_m_d_pemakai as $key => $value) 
+                    {
+                      echo "<li>".$value->PEMAKAI."</li>";
+                    }
+                    ?>
+                  </ul>
+              </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
               <label>Anggota</label>
               <div class="searchable">
                   <input type="text" name='anggota' placeholder="search" onkeyup="filterFunction(this,event)">
@@ -381,14 +363,6 @@
                     ?>
                   </ul>
               </div>
-        </div>
-
-
-        <div class="row">
-          <div class="col-md-6">
-
-            <fieldset class="form-group">
-              
             </fieldset>
 
           </div><!-- Membungkus Row Kedua !-->
@@ -542,6 +516,7 @@
         PAYMENT_METHOD : payment_method,
         NO_POLISI : no_polisi,
         SUPIR : supir,
+        PEMAKAI : pemakai,
         
         UPDATED_BY : updated_by,
         CREATED_BY : created_by,
@@ -554,6 +529,7 @@
       elModalEdit.querySelector("[name=no_polisi]").value = no_polisi;
       elModalEdit.querySelector("[name=supir]").value = supir;
 
+      elModalEdit.querySelector("[name=pemakai]").value = pemakai;
       elModalEdit.querySelector("[name=anggota]").value = anggota;
       elModalEdit.querySelector("[name=payment_method]").value = payment_method;
       elModalEdit.querySelector("[name=ket]").value = ket;

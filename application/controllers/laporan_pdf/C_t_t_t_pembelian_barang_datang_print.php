@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class C_t_t_t_pembelian_print extends MY_Controller
+class C_t_t_t_pembelian_barang_datang_print extends MY_Controller
 {
 
   public function __construct()
@@ -16,7 +16,7 @@ class C_t_t_t_pembelian_print extends MY_Controller
     
   }
 
-  public function index($pembelian_id)
+  public function index($pembelian_rincian_id,$pembelian_id)
   {
     $this->session->set_userdata('t_t_t_pembelian_delete_logic', '0');
 
@@ -65,13 +65,19 @@ class C_t_t_t_pembelian_print extends MY_Controller
 
 
 
-
-
-
-
-    $read_select = $this->m_t_t_t_pembelian_rincian->select_list($pembelian_id);
+    $read_select = $this->m_t_t_t_pembelian_rincian->select_by_id($pembelian_rincian_id);
     foreach ($read_select as $key => $value) 
     {
+      $date_pilihan_bon=$value->DATE;
+    }
+
+
+
+    $read_select = $this->m_t_t_t_pembelian_rincian->select_bon_datang($pembelian_id,$date_pilihan_bon);
+    foreach ($read_select as $key => $value) 
+    {
+
+      $date_datang[$key]=$value->DATE;
       $kode_barang[$key]=$value->KODE_BARANG;
       $barang[$key]=$value->BARANG;
       $qty[$key]=$value->QTY;
@@ -85,12 +91,10 @@ class C_t_t_t_pembelian_print extends MY_Controller
 
     $colom_width[0] = 10;
     $colom_width[1] = 40;
-    $colom_width[2] = 70;
-    $colom_width[3] = 20;
-    $colom_width[4] = 25;
+    $colom_width[2] = 40;
+    $colom_width[3] = 65;
+    $colom_width[4] = 35;
     
-    $colom_width[5] = 15;
-    $colom_width[6] = 10;
 
 
     $no_hal = 1;
@@ -123,7 +127,7 @@ class C_t_t_t_pembelian_print extends MY_Controller
 
         $pdf->SetFont('','B',11);
         $pdf->Cell(130, 6, "", 0, 0, 'C');
-        $pdf->Cell(30, 6, "FAKTUR PEMBELIAN", 0, 1, 'L');
+        $pdf->Cell(30, 6, "TANDA TERIMA BARANG", 0, 1, 'L');
 
         $pdf->SetFont('','',9);
         $pdf->Cell(130, 4, "", 0, 0, 'C');
@@ -193,11 +197,10 @@ class C_t_t_t_pembelian_print extends MY_Controller
 
         $pdf->SetFont('','',8);
         $pdf->Cell($colom_width[0], 8, "NO", 'B', 0, 'C');
-        $pdf->Cell($colom_width[1], 8, "KODE", 'BL', 0, 'C');
-        $pdf->Cell($colom_width[2], 8, "NAMA BARANG", 'BL', 0, 'C');
-        $pdf->Cell($colom_width[3], 8, "BANYAKNYA", 'BL', 0, 'C');
-        $pdf->Cell($colom_width[4], 8, "HARGA", 'BL', 0, 'C');
-        $pdf->Cell($colom_width[5]+$colom_width[6], 8, "JUMLAH", 'BL', 1, 'C');
+        $pdf->Cell($colom_width[1], 8, "TANGGAL DATANG", 'BL', 0, 'C');
+        $pdf->Cell($colom_width[2], 8, "KODE", 'BL', 0, 'C');
+        $pdf->Cell($colom_width[3], 8, "NAMA BARANG", 'BL', 0, 'C');
+        $pdf->Cell($colom_width[4], 8, "BANYAKNYA", 'BL', 1, 'C');
 
       }
 
@@ -206,16 +209,15 @@ class C_t_t_t_pembelian_print extends MY_Controller
       $pdf->SetFont('','',8);
 
       $pdf->MultiCell($colom_width[0], $baris_height, ($i+1).'.', '0', 'C',0,0);
-      $pdf->MultiCell($colom_width[1], $baris_height, substr($kode_barang[$i], 0, 12), 'L', 'L',0,0);
-      $pdf->MultiCell($colom_width[2], $baris_height, substr($barang[$i], 0, 20), 'L', 'L',0,0);
-      $pdf->MultiCell($colom_width[3], $baris_height, number_format(round($qty[$i])).' '.$satuan[$i], 'L', 'C',0,0);
 
-      $pdf->MultiCell($colom_width[4], $baris_height, number_format(round($harga[$i])), 'L', 'C',0,0);
-
-      
+      $pdf->MultiCell($colom_width[1], $baris_height, date('d-m-Y',(strtotime ($date_datang[$i]))), 'L', 'L',0,0);
 
 
-      $pdf->MultiCell($colom_width[5]+$colom_width[6], $baris_height, number_format(round($sub_total[$i])), 'L', 'R',0,0);
+      $pdf->MultiCell($colom_width[2], $baris_height, substr($kode_barang[$i], 0, 12), 'L', 'L',0,0);
+      $pdf->MultiCell($colom_width[3], $baris_height, substr($barang[$i], 0, 20), 'L', 'L',0,0);
+      $pdf->MultiCell($colom_width[4], $baris_height, number_format(round($qty[$i])).' '.$satuan[$i], 'L', 'C',0,0);
+
+
       
       
 
@@ -279,7 +281,6 @@ class C_t_t_t_pembelian_print extends MY_Controller
         $pdf->MultiCell($colom_width[2], $baris_height, '', 'L', 'L',0,0);
         $pdf->MultiCell($colom_width[3], $baris_height, '', 'L', 'C',0,0);
         $pdf->MultiCell($colom_width[4], $baris_height, '', 'L', 'C',0,0);
-        $pdf->MultiCell($colom_width[5]+$colom_width[6], $baris_height, '', 'L', 'R',0,0);
         $pdf->Cell(0.01, $baris_height, "", '0', 1, 'C');
       }
     }
@@ -295,14 +296,13 @@ class C_t_t_t_pembelian_print extends MY_Controller
         $pdf->MultiCell($colom_width[2], $baris_height, '', 'L', 'L',0,0);
         $pdf->MultiCell($colom_width[3], $baris_height, '', 'L', 'C',0,0);
         $pdf->MultiCell($colom_width[4], $baris_height, '', 'L', 'C',0,0);
-        $pdf->MultiCell($colom_width[5]+$colom_width[6], $baris_height, '', 'L', 'R',0,0);
         $pdf->Cell(0.01, $baris_height, "", '0', 1, 'C');
       }
     }
 
-    $pdf->MultiCell(150, 8, 'Terbilang : #'.ucwords($this->terbilang($total_all)).' Rupiah#' , 'T', 'L',0,0);
-    $pdf->MultiCell(15, 8, 'Total' , 'T', 'R',0,0);
-    $pdf->MultiCell(25, 8, number_format(round($total_all)) , 'T', 'R',0,1);
+    $pdf->MultiCell(150, 8, '' , 'T', 'L',0,0);
+    $pdf->MultiCell(15, 8, '' , 'T', 'R',0,0);
+    $pdf->MultiCell(25, 8, '' , 'T', 'R',0,1);
 
     
 

@@ -34,7 +34,7 @@ class C_t_t_t_pinlok_in_rincian extends MY_Controller
 
     $data = [
       //"select_barang_with_supplier" => $this->m_t_t_t_pembelian_rincian->select_barang_with_supplier(),
-      "c_t_t_t_pinlok_in_rincian" => $this->m_t_t_t_pembelian_rincian->select($pinlok_in_id),
+      "c_t_t_t_pinlok_in_rincian" => $this->m_t_t_t_pembelian_rincian->select_pinlok_out($pinlok_in_id),
 
       "c_t_t_t_pinlok_in_by_id" => $this->m_t_t_t_pembelian->select_by_id($pinlok_in_id),
 

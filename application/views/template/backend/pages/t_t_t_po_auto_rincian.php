@@ -216,8 +216,7 @@
           <div class="col-md-6">
 
             <fieldset class="form-group">
-              <label>QTY Datang</label>
-              <input type='text' class='form-control' placeholder='Input Number' name='qty_datang'>
+              
             </fieldset>
 
           </div><!-- Membungkus Row Kedua !-->
@@ -371,8 +370,7 @@ console.log(reading_feedback);
           <div class="col-md-6">
 
             <fieldset class="form-group">
-              <label>QTY Datang</label>
-              <input type='text' class='form-control' placeholder='Input Number' name='qty_datang'>
+              
             </fieldset>
 
           </div><!-- Membungkus Row Kedua !-->
@@ -437,7 +435,6 @@ console.log(reading_feedback);
         HARGA : harga,
         UPDATED_BY : updated_by,
         CREATED_BY : created_by,
-        QTY_DATANG : qty_datang,
         SISA_QTY : sisa_qty,
         PPN_PERCENTAGE : ppn_percentage
       } = Anjing[0];
@@ -449,7 +446,6 @@ console.log(reading_feedback);
       elModalEdit.querySelector("[name=harga]").value = harga;
       elModalEdit.querySelector("[name=updated_by]").text = updated_by;
       elModalEdit.querySelector("[name=created_by]").text = created_by;
-      elModalEdit.querySelector("[name=qty_datang]").value = qty_datang;
       elModalEdit.querySelector("[name=ppn_percentage]").value = ppn_percentage;
 
       

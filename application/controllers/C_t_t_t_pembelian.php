@@ -12,7 +12,8 @@ class C_t_t_t_pembelian extends MY_Controller
     $this->load->model('m_t_t_t_pembelian');
     $this->load->model('m_t_m_d_company');
     $this->load->model('m_t_m_d_payment_method');
-    $this->load->model('m_t_m_d_supplier');    
+    $this->load->model('m_t_m_d_supplier');   
+    $this->load->model('m_t_t_t_po_manual_rincian');  
   }
 
 
@@ -192,6 +193,12 @@ class C_t_t_t_pembelian extends MY_Controller
         'INV_SUPPLIER' => $inv_supplier
       );
       $this->m_t_t_t_pembelian->update($data, $id);
+
+      $data = array(
+        'UPDATED_BY' => $this->session->userdata('username'),
+        'SUPPLIER_ID' => $supplier_id
+      );
+      $this->m_t_t_t_po_manual_rincian->update_by_pembelian_id($data, $id);
       $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');
     }
     else

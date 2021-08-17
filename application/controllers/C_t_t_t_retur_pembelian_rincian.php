@@ -139,7 +139,7 @@ class C_t_t_t_retur_pembelian_rincian extends MY_Controller
     $read_select = $this->m_t_t_t_pembelian_rincian->select_by_pembelian_id_and_barang_id($read_pembelian_id,$barang_id);
     foreach ($read_select as $key => $value) 
     {
-      $read_pembelian_sisa_qty = $value->SISA_QTY_RB;
+      $read_pembelian_sisa_qty = $value->SUM_SISA_QTY_RB;
     }
  
 

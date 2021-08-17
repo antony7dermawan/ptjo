@@ -73,7 +73,8 @@ class Auth extends MY_Controller {
           'date_from_select_pembelian'=>date('Y-m-d'),
           'date_to_select_pembelian'=>date('Y-m-d'),
           'choosed_month'=>date('m'),
-
+          'date_pembelian_incoming'=>date('m'),
+          
           'po_auto_notif'=>0,
           'no_polisi_notif'=>0
 

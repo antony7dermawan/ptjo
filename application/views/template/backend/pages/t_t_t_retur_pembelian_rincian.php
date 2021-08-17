@@ -146,7 +146,7 @@
               <?php
               foreach ($c_t_m_d_barang as $key => $value) 
               {
-                echo "<option value='".$value->BARANG_ID."'>".$value->KODE_BARANG."/".$value->BARANG."/".$value->MERK_BARANG."/".$value->PART_NUMBER." |limit=".$value->SISA_QTY_RB."</option>";
+                echo "<option value='".$value->BARANG_ID."'>".$value->KODE_BARANG."/".$value->BARANG."/".$value->MERK_BARANG."/".$value->PART_NUMBER." |limit=".$value->SUM_SISA_QTY."</option>";
 
               }
               ?>

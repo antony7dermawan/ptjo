@@ -38,6 +38,7 @@
         <thead>
           <tr>
             <th>No</th>
+            <th>Tanggal Datang</th>
             <th>Kode Barang</th>
             <th>Barang</th>
             <th>Qty</th>
@@ -53,87 +54,169 @@
         <tbody>
           <?php
           foreach ($c_t_t_t_pembelian_rincian as $key => $value) {
+            $r_date[$key] = $value->DATE;
 
-            if($value->MARK_FOR_DELETE == 'f')
-            {
-              echo "<tr>";
-              echo "<td>" . ($key + 1) . "</td>";
-              echo "<td>" . $value->KODE_BARANG . "</td>";
-              echo "<td>" . $value->BARANG . "</td>";
-              
-              echo "<td>" . number_format(floatval(intval($value->QTY*100))/100) . "</td>";
-              echo "<td>" . number_format(floatval(intval($value->HARGA*100))/100) . "</td>";
-              echo "<td>" . number_format(floatval(intval($value->SUB_TOTAL*100))/100) . "</td>";
-              echo "<td>" . number_format(floatval(intval($value->PPN_VALUE*100))/100) . "</td>";
-              echo "<td>" . number_format(floatval(intval(($value->SUB_TOTAL+$value->PPN_VALUE)*100))/100) . "</td>";
-              echo "<td>" . number_format(floatval(intval($value->SISA_QTY*100))/100) . "</td>";
-              
-              
-              echo "<td>";
-              if ($payment_t==0)
+            if ($key > 0 and $r_date[$key] == $r_date[($key - 1)]) {
+              $color = 'background-white text-c-black';
+              if($value->MARK_FOR_DELETE == 'f')
               {
+                echo "<tr>";
+                echo "<td class='" . $color . "'>" . ($key + 1) . "</td>";
+                echo "<td class='" . $color . "'>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</td>";
+                echo "<td class='" . $color . "'>" . $value->KODE_BARANG . "</td>";
+                echo "<td class='" . $color . "'>" . $value->BARANG . "</td>";
                 
+                echo "<td class='" . $color . "'>" . number_format(floatval(intval($value->QTY*100))/100) . "</td>";
+                echo "<td class='" . $color . "'>" . number_format(floatval(intval($value->HARGA*100))/100) . "</td>";
+                echo "<td class='" . $color . "'>" . number_format(floatval(intval($value->SUB_TOTAL*100))/100) . "</td>";
+                echo "<td class='" . $color . "'>" . number_format(floatval(intval($value->PPN_VALUE*100))/100) . "</td>";
+                echo "<td class='" . $color . "'>" . number_format(floatval(intval(($value->SUB_TOTAL+$value->PPN_VALUE)*100))/100) . "</td>";
+                echo "<td class='" . $color . "'>" . number_format(floatval(intval($value->SISA_QTY*100))/100) . "</td>";
+               
 
-                if(intval($value->QTY) == intval($value->SISA_QTY))
+                
+                echo "<td>";
+                if ($payment_t==0)
                 {
-                  echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#Modal_Edit' class='btn-edit' data-id='" . $value->ID . "'>";
-                  echo "<i class='icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green'></i>";
-                  echo "</a>";
+                  
 
-                
-                  echo "<a href='".site_url('c_t_t_t_pembelian_rincian/delete/'.$value->ID.'/'.$pembelian_id)."' ";
-                  echo "onclick=\"return confirm('Apakah kamu yakin ingin menghapus data ini?')\"";
-                  echo "> <i class='feather icon-trash-2 f-w-600 f-16 text-c-red'></i></a>";
+                  if(intval($value->QTY) == intval($value->SISA_QTY) )
+                  {
+                    echo "<a href='".site_url('c_t_t_t_pembelian_rincian2/delete/'.$value->ID.'/'.$pembelian_id)."' ";
+                    echo "onclick=\"return confirm('Apakah kamu yakin ingin menghapus data ini?')\"";
+                    echo "> <i class='feather icon-trash-2 f-w-600 f-16 text-c-red'></i></a>";
+                  }
+                  
                 }
-                
+                echo "</td>";
+
+
+                echo "</tr>";
               }
-              echo "</td>";
 
 
-              echo "</tr>";
-            }
-
-
-            if($value->MARK_FOR_DELETE == 't')
-            {
-              echo "<tr>";
-              echo "<td><s>" . ($key + 1) . "</s></td>";
-              echo "<td><s>" . $value->KODE_BARANG . "</s></td>";
-              echo "<td><s>" . $value->BARANG . "</s></td>";
-              
-              echo "<td><s>" . number_format(floatval(intval($value->QTY*100))/100) . "</s></td>";
-              echo "<td><s>" . number_format(floatval(intval($value->HARGA*100))/100) . "</s></td>";
-              echo "<td><s>" . number_format(floatval(intval($value->SUB_TOTAL*100))/100) . "</s></td>";
-              echo "<td><s>" . number_format(floatval(intval($value->PPN_VALUE*100))/100) . "</s></td>";
-              echo "<td><s>" . number_format(floatval(intval(($value->SUB_TOTAL+$value->PPN_VALUE)*100))/100) . "</s></td>";
-              echo "<td><s>" . number_format(floatval(intval($value->SISA_QTY*100))/100) . "</s></td>";
-     
-
-              
-              echo "<td>";
-              if (intval($value->QTY) == intval($value->SISA_QTY))
+              if($value->MARK_FOR_DELETE == 't')
               {
+                echo "<tr>";
+                echo "<td class='" . $color . "'><s>" . ($key + 1) . "</s></td>";
+                echo "<td class='" . $color . "'><s>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</s></td>";
+                echo "<td class='" . $color . "'><s>" . $value->KODE_BARANG . "</s></td>";
+                echo "<td class='" . $color . "'><s>" . $value->BARANG . "</s></td>";
                 
-                echo "<a href='".site_url('c_t_t_t_pembelian_rincian/undo_delete/'.$value->ID.'/'.$pembelian_id)."' ";
-                ?>
-                onclick="return confirm('Apakah kamu yakin ingin mengembalikan data ini?')"
-                <?php
-                echo "> <i class='fa fa-refresh f-w-600 f-16 text-c-red'></i></a>";
+                echo "<td class='" . $color . "'><s>" . number_format(floatval(intval($value->QTY*100))/100) . "</s></td>";
+                echo "<td class='" . $color . "'><s>" . number_format(floatval(intval($value->HARGA*100))/100) . "</s></td>";
+                echo "<td class='" . $color . "'><s>" . number_format(floatval(intval($value->SUB_TOTAL*100))/100) . "</s></td>";
+                echo "<td class='" . $color . "'><s>" . number_format(floatval(intval($value->PPN_VALUE*100))/100) . "</s></td>";
+                echo "<td class='" . $color . "'><s>" . number_format(floatval(intval(($value->SUB_TOTAL+$value->PPN_VALUE)*100))/100) . "</s></td>";
+                echo "<td class='" . $color . "'><s>" . number_format(floatval(intval($value->SISA_QTY*100))/100) . "</s></td>";
+               
+                
+                echo "<td>";
+                if (intval($value->QTY) == intval($value->SISA_QTY))
+                {
+                  
+                  echo "<a ";
+                  echo "> <i class='fa fa-refresh f-w-600 f-16 text-c-red'></i></a>";
 
-                echo ' '.$value->UPDATED_BY;
+                  echo ' '.$value->UPDATED_BY;
+                }
+                echo "</td>";
+
+
+                echo "</tr>";
               }
-              echo "</td>";
-
-
-              echo "</tr>";
             }
 
 
 
+            if ($key == 0 or ($key > 0 and $r_date[$key] != $r_date[($key - 1)])) {
+
+              $color = 'background-blue';
+              if($value->MARK_FOR_DELETE == 'f')
+              {
+                echo "<tr>";
+                echo "<td class='" . $color . "'>" . ($key + 1) . "</td>";
+                echo "<td class='" . $color . "'>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</td>";
+                echo "<td class='" . $color . "'>" . $value->KODE_BARANG . "</td>";
+                echo "<td class='" . $color . "'>" . $value->BARANG . "</td>";
+                
+                echo "<td class='" . $color . "'>" . number_format(floatval(intval($value->QTY*100))/100) . "</td>";
+                echo "<td class='" . $color . "'>" . number_format(floatval(intval($value->HARGA*100))/100) . "</td>";
+                echo "<td class='" . $color . "'>" . number_format(floatval(intval($value->SUB_TOTAL*100))/100) . "</td>";
+                echo "<td class='" . $color . "'>" . number_format(floatval(intval($value->PPN_VALUE*100))/100) . "</td>";
+                echo "<td class='" . $color . "'>" . number_format(floatval(intval(($value->SUB_TOTAL+$value->PPN_VALUE)*100))/100) . "</td>";
+                echo "<td class='" . $color . "'>" . number_format(floatval(intval($value->SISA_QTY*100))/100) . "</td>";
+               
+
+                
+                echo "<td>";
+                if ($payment_t==0)
+                {
+                  
+                  echo "<a "; #/1 ini artinya kena pajak
+
+                  echo "onclick= 'p_1_" . $key . "()'";
+           
+                    echo "> <i class='fa fa-print text-c-black'></i></a> ";
+                  
+                  
+
+                  echo "<script>";
+                  echo "function p_1_" . $key . "()";
+                  echo "{";
+                  echo "window.open('laporan_pdf/c_t_t_t_pembelian_barang_datang_print/index/" . $value->ID .'/'.$pembelian_id."', '_blank');";
+                  echo "}";
+                  echo "</script>";
+
+                  if(intval($value->QTY) == intval($value->SISA_QTY) )
+                  {
+                    echo "<a href='".site_url('c_t_t_t_pembelian_rincian2/delete/'.$value->ID.'/'.$pembelian_id)."' ";
+                    echo "onclick=\"return confirm('Apakah kamu yakin ingin menghapus data ini?')\"";
+                    echo "> <i class='feather icon-trash-2 f-w-600 f-16 text-c-red'></i></a>";
+                  }
+                  
+                }
+                echo "</td>";
 
 
+                echo "</tr>";
+              }
 
 
+              if($value->MARK_FOR_DELETE == 't')
+              {
+                echo "<tr>";
+                echo "<td class='" . $color . "'><s>" . ($key + 1) . "</s></td>";
+                echo "<td class='" . $color . "'><s>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</s></td>";
+                echo "<td class='" . $color . "'><s>" . $value->KODE_BARANG . "</s></td>";
+                echo "<td class='" . $color . "'><s>" . $value->BARANG . "</s></td>";
+                
+                echo "<td class='" . $color . "'><s>" . number_format(floatval(intval($value->QTY*100))/100) . "</s></td>";
+                echo "<td class='" . $color . "'><s>" . number_format(floatval(intval($value->HARGA*100))/100) . "</s></td>";
+                echo "<td class='" . $color . "'><s>" . number_format(floatval(intval($value->SUB_TOTAL*100))/100) . "</s></td>";
+                echo "<td class='" . $color . "'><s>" . number_format(floatval(intval($value->PPN_VALUE*100))/100) . "</s></td>";
+                echo "<td class='" . $color . "'><s>" . number_format(floatval(intval(($value->SUB_TOTAL+$value->PPN_VALUE)*100))/100) . "</s></td>";
+                echo "<td class='" . $color . "'><s>" . number_format(floatval(intval($value->SISA_QTY*100))/100) . "</s></td>";
+               
+                
+                echo "<td>";
+                if (intval($value->QTY) == intval($value->SISA_QTY))
+                {
+                  
+                  echo "<a ";
+                  echo "> <i class='fa fa-refresh f-w-600 f-16 text-c-red'></i></a>";
+
+                  echo ' '.$value->UPDATED_BY;
+                }
+                echo "</td>";
+
+
+                echo "</tr>";
+              }
+
+
+            }
+            
           }
           ?>
         </tbody>
@@ -152,14 +235,21 @@
 
 
 
+
+
+
+
+
+
 <!-- MODAL TAMBAH PEMASUKAN! !-->
-<form action="<?php echo base_url('c_t_t_t_pembelian_rincian/tambah/'.$pembelian_id) ?>" method="post" id='add_data'>
+<form action="<?php echo base_url('c_t_t_t_pembelian_rincian2/tambah/'.$pembelian_id) ?>" method="post" id='add_data'>
   <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">New Data
-            
+          <h4 class="modal-title">Tanggal Kedatangan:
+            <form action='/action_page.php'>
+              <input type='date' class='form-control' name='date' value='<?= $this->session->userdata('date_pembelian_incoming') ?>'>
           </h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -177,11 +267,11 @@
               <?php
               foreach ($c_t_m_d_barang as $key => $value) 
               {
-                echo "<option value='".$value->BARANG_ID."'>".$value->KODE_BARANG."/".$value->BARANG."/".$value->MERK_BARANG."/".$value->PART_NUMBER."</option>";
+                echo "<option value='".$value->BARANG_ID."'>".$value->KODE_BARANG."/".$value->BARANG."/".$value->MERK_BARANG."/".$value->PART_NUMBER." |limit=".$value->SUM_SISA_QTY."</option>";
 
               }
               ?>
-            </select>
+              </select>
         </div>
 
 
@@ -199,28 +289,7 @@
           <div class="col-md-6">
 
             <fieldset class="form-group">
-              <fieldset class="form-group">
-              <label>Harga</label>
-              <input type='text' class='form-control' placeholder='Input Number' name='harga'>
-            </fieldset>
-          </div> <!-- Membungkus Row !-->
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-
-            <fieldset class="form-group">
               
-            </fieldset>
-
-          </div><!-- Membungkus Row Kedua !-->
-
-
-          <div class="col-md-6">
-
-            <fieldset class="form-group">
-              <label>PPN (%)</label>
-              <input type='text' class='form-control' placeholder='(Contoh: 10)' name='ppn_percentage'>
             </fieldset>
           </div> <!-- Membungkus Row !-->
         </div>
@@ -246,6 +315,7 @@
               </tbody>
             </table>
         </div>
+
         <style type="text/css">
           .history_pembelian
           {
@@ -320,148 +390,7 @@ console.log(reading_feedback);
 
 
 
-<!-- MODAL EDIT AKUN !-->
-<div class="modal fade" id="Modal_Edit" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <form action="<?php echo base_url('c_t_t_t_pembelian_rincian/edit_action/'.$pembelian_id) ?>" method="post" autocomplete="off" id='edit_data'>
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Edit Data</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
 
-        
-        <div class="modal-body">
-        <input type="hidden" name="id" value="" class="form-control">
-
-
-        <div class="row">
-          <div class="col-md-6">
-
-            <fieldset class="form-group">
-              <label>QTY</label>
-              <input type='text' class='form-control' placeholder='Input Number' name='qty' >
-            </fieldset>
-
-          </div><!-- Membungkus Row Kedua !-->
-
-
-          <div class="col-md-6">
-
-            <fieldset class="form-group">
-              <fieldset class="form-group">
-              <label>Harga</label>
-              <input type='text' class='form-control' placeholder='Input Number' name='harga'>
-            </fieldset>
-          </div> <!-- Membungkus Row !-->
-        </div>
-
-
-        <div class="row">
-          <div class="col-md-6">
-
-            <fieldset class="form-group">
-              
-            </fieldset>
-
-          </div><!-- Membungkus Row Kedua !-->
-
-
-          <div class="col-md-6">
-
-            <fieldset class="form-group">
-              <label>PPN (%)</label>
-              <input type='text' class='form-control' placeholder='(Contoh: 10)' name='ppn_percentage'>
-              
-            </fieldset>
-          </div> <!-- Membungkus Row !-->
-        </div>
-
-        
-
-
-          <div class="modal-footer">
-            <div class="created_form">
-              Created By : <a name='created_by'></a>
-              <br>
-              Updated By : <a name='updated_by'></a>
-            </div>
-            <style type="text/css">
-              .created_form
-              {
-                float: left;
-                margin right: : 20px;
-                font-size: 10px;
-              }
-            </style>
-            <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
-            <button type="Submit" class="btn btn-primary waves-effect waves-light ">Save changes</button>
-          </div>
-
-        </div>
-
-
-<script>
-  const read_data = <?= json_encode($c_t_t_t_pembelian_rincian) ?>;
-  console.log(read_data);
-  let elModalEdit = document.querySelector("#Modal_Edit");
-  console.log(elModalEdit);
-  let elBtnEdits = document.querySelectorAll(".btn-edit");
-
-  console.log(elBtnEdits);
-
-  [...elBtnEdits].forEach(taik => {
-    taik.addEventListener("click", (e) => {
-      let id = taik.getAttribute("data-id");
-
-      console.log(id);
-      let Anjing = read_data.filter(user => {
-        if (user.ID == id)
-          return user;
-      });
-      const {
-        ID,
-        QTY : qty,
-        HARGA : harga,
-        UPDATED_BY : updated_by,
-        CREATED_BY : created_by,
-        
-        SISA_QTY : sisa_qty,
-        PPN_PERCENTAGE : ppn_percentage
-      } = Anjing[0];
-
-      elModalEdit.querySelector("[name=id]").value = ID;
-      
-      
-      elModalEdit.querySelector("[name=qty]").value = qty;
-      elModalEdit.querySelector("[name=harga]").value = harga;
-      elModalEdit.querySelector("[name=updated_by]").text = updated_by;
-      elModalEdit.querySelector("[name=created_by]").text = created_by;
-      elModalEdit.querySelector("[name=ppn_percentage]").value = ppn_percentage;
-
-      
-      if(sisa_qty!=qty_datang)
-      {
-        elModalEdit.querySelector("[name=qty]").readOnly = true; 
-        elModalEdit.querySelector("[name=harga]").readOnly = true; 
-        elModalEdit.querySelector("[name=ppn_percentage]").readOnly = true; 
-      }
-
-
-    })
-  })
-</script>
-
-
-
-
-
-
-    </form>
-  </div>
-</div>
 
 
 

@@ -76,7 +76,7 @@ public function update($data, $id)
 
 
 
-    $this->db->where("(T_T_T_PEMBELIAN.T_STATUS=50)");
+    $this->db->where("(T_T_T_PEMBELIAN.T_STATUS=50) or (T_T_T_PEMBELIAN.T_STATUS=5)");
 
 
     $date_before = date('Y-m-d',(strtotime ( '-30 day' , strtotime ( $date_pembelian) ) ));
@@ -547,7 +547,13 @@ public function select_range_date($from_date,$to_date,$kredit_logic)
     $this->db->select("T_T_T_PEMBELIAN.PAYMENT_T");
     $this->db->select("T_T_T_PEMBELIAN.COMPANY_ID_FROM");
 
+    $this->db->select("T_T_T_PEMBELIAN.NAMA_BANK");
+    $this->db->select("T_T_T_PEMBELIAN.CABANG");
+    $this->db->select("T_T_T_PEMBELIAN.NOREK");
+    $this->db->select("T_T_T_PEMBELIAN.ATAS_NAMA");
 
+    
+    $this->db->select("T_M_D_ANGGOTA.ANGGOTA");
 
     $this->db->select("T_M_D_PAYMENT_METHOD.PAYMENT_METHOD");
     $this->db->select("T_M_D_SUPPLIER.SUPPLIER");
@@ -570,6 +576,7 @@ public function select_range_date($from_date,$to_date,$kredit_logic)
 
 
     $this->db->join('T_M_D_NO_POLISI', 'T_M_D_NO_POLISI.ID = T_T_T_PEMBELIAN.NO_POLISI_ID', 'left');
+    $this->db->join('T_M_D_ANGGOTA', 'T_M_D_ANGGOTA.ID = T_T_T_PEMBELIAN.ANGGOTA_ID', 'left');
 
     $this->db->join('T_M_D_SUPIR', 'T_M_D_SUPIR.ID = T_T_T_PEMBELIAN.SUPIR_ID', 'left');
 

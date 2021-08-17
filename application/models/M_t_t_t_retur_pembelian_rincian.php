@@ -136,6 +136,7 @@ public function update($data, $id)
    
     $this->db->select('T_T_T_PEMBELIAN_RINCIAN.SISA_QTY');
     $this->db->select('T_T_T_PEMBELIAN_RINCIAN.SISA_QTY_RB');
+    $this->db->select('SUM_SISA_QTY');
 
     $this->db->from('T_T_T_RETUR_PEMBELIAN');
 
@@ -145,6 +146,12 @@ public function update($data, $id)
     $this->db->join('T_T_T_PEMBELIAN_RINCIAN', 'T_T_T_PEMBELIAN.ID = T_T_T_PEMBELIAN_RINCIAN.PEMBELIAN_ID', 'left');
 
     $this->db->join('T_M_D_BARANG', 'T_M_D_BARANG.BARANG_ID = T_T_T_PEMBELIAN_RINCIAN.BARANG_ID', 'left');
+
+    $this->db->join("(select \"BARANG_ID\",\"PEMBELIAN_ID\",sum(\"SISA_QTY_RB\")\"SUM_SISA_QTY\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"SPECIAL_CASE_ID\"=0 and \"MARK_FOR_DELETE\"=false and \"COMPANY_ID\"={$this->session->userdata('company_id')} group by \"BARANG_ID\",\"PEMBELIAN_ID\") as t_sum_1", "T_M_D_BARANG.BARANG_ID = t_sum_1.BARANG_ID and T_T_T_RETUR_PEMBELIAN.PEMBELIAN_ID = t_sum_1.PEMBELIAN_ID", 'left');
+
+   
+
+
 
 
     $this->db->where("T_M_D_BARANG.COMPANY_ID={$this->session->userdata('company_id')}");

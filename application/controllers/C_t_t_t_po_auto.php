@@ -179,7 +179,7 @@ public function aproval($id)
 
     $data = array(
         'UPDATED_BY' => $this->session->userdata('username'),
-        'SPECIAL_CASE_ID' => 0,  // BARANG DITERIMA GUDANG KODE 0
+ 
         'SUPPLIER_ID' => $supplier_id
     );
     $this->m_t_t_t_po_auto_rincian->update_by_pembelian_id($data, $id);

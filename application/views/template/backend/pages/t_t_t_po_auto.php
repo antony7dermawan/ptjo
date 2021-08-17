@@ -31,11 +31,11 @@
           <tr>
             <th>No</th>
             <th>Aproval</th>
-            <th>INV</th>
+            <th>No PO</th>
             <th>Date</th>
             <th>Ket</th>
             <th>Supplier</th>
-            <th>INV Sp</th>
+            <th>INV Supplier</th>
             <th>Payment Method</th>
             <th>Total</th>
 

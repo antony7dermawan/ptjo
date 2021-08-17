@@ -37,6 +37,7 @@ class C_t_t_t_po_print3 extends MY_Controller
     $pdf->SetFont('','',12);
 
 
+
     $read_select = $this->m_t_t_t_pembelian->select_by_id($pembelian_id);
     foreach ($read_select as $key => $value) 
     {
@@ -78,7 +79,7 @@ class C_t_t_t_po_print3 extends MY_Controller
     $total_row_1_bon = 12;
     $total_ppn = 0;
     $total_sub = 0;
-    $read_select = $this->m_t_t_t_pembelian_rincian->select($pembelian_id);
+    $read_select = $this->m_t_t_t_pembelian_rincian->select_list($pembelian_id);
     $sum_total_harga = 0;
     foreach ($read_select as $key => $value) 
     {
@@ -131,11 +132,11 @@ class C_t_t_t_po_print3 extends MY_Controller
 
         $pdf->SetFont('','B',9);
         $size[0]=10;
-        $size[1]=75;
+        $size[1]=65;
         $size[2]=20;
         $size[3]=15;
         $size[4]=25;
-        $size[5]=15;
+        $size[5]=25;
         $size[6]=30;
         
         $pdf->Cell( $size[0],5,'No.','1',0,'C');
@@ -157,8 +158,8 @@ class C_t_t_t_po_print3 extends MY_Controller
       $pdf->MultiCell($size[2], 4, $value->QTY, 'L', 'C',0,0);
       $pdf->MultiCell($size[3], 4, $value->SATUAN, 'L', 'C',0,0);
       $pdf->MultiCell($size[4], 4, number_format((floatval(round($value->HARGA*100)))/100,2, ',', '.'), 'L', 'R',0,0);
-      $pdf->MultiCell($size[5], 4, ((floatval(round($value->PPN_VALUE*10)))/10), 'L', 'R',0,0);
-      $pdf->MultiCell($size[6]-0.1, 4, number_format((floatval(round($value->SUB_TOTAL*100)))/100,2, ',', '.'), 'L', 'R',0,0);
+      $pdf->MultiCell($size[5], 4, $value->PPN_PERCENTAGE, 'L', 'R',0,0);
+      $pdf->MultiCell($size[6]-0.1, 4, number_format((floatval(round(($value->SUB_TOTAL+$value->PPN_VALUE)*100)))/100,2, ',', '.'), 'L', 'R',0,0);
       $pdf->Cell( 0.1,4,'','L',1,'R');
 
 
@@ -166,7 +167,7 @@ class C_t_t_t_po_print3 extends MY_Controller
 
       $total_sub_1 = $total_sub_1 + floatval($value->HARGA)*floatval($value->QTY);
       $total_ppn = $total_ppn+floatval($value->PPN_VALUE);
-      $total_sub = $total_sub+($value->SUB_TOTAL);
+      $total_sub = $total_sub+($value->SUB_TOTAL)+$value->PPN_VALUE;
       $dpp = $total_sub;
 
       if(($key<$total_row_1_bon and ($key+1)==$total_row_1_bon) or ($key>=$total_row_1_bon and ($rmd+1)==$total_row_1_bon))

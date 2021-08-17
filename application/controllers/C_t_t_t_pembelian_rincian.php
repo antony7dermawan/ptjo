@@ -29,13 +29,14 @@ class C_t_t_t_pembelian_rincian extends MY_Controller
     
     $data = [
       //"select_barang_with_supplier" => $this->m_t_t_t_pembelian_rincian->select_barang_with_supplier(),
-      "c_t_t_t_pembelian_rincian" => $this->m_t_t_t_pembelian_rincian->select($pembelian_id),
+      "c_t_t_t_pembelian_rincian" => $this->m_t_t_t_pembelian_rincian->select_list($pembelian_id),
       "c_t_t_t_pembelian_by_id" => $this->m_t_t_t_pembelian->select_by_id($pembelian_id),
       "c_t_m_d_barang" => $this->m_t_m_d_barang->select(),
+
       "c_t_m_d_supplier" => $this->m_t_m_d_supplier->select(),
       "pembelian_id" => $pembelian_id,
-      "title" => "Transaksi Pembelian",
-      "description" => "form Pembelian"
+      "title" => "Rincian Pembelian",
+      "description" => "form Pembelian Awal"
     ];
     $this->render_backend('template/backend/pages/t_t_t_pembelian_rincian', $data);
   }
@@ -80,7 +81,7 @@ class C_t_t_t_pembelian_rincian extends MY_Controller
     $barang_id = intval($this->input->post("barang_id"));
     $qty = floatval($this->input->post("qty"));
     $harga = floatval($this->input->post("harga"));
-    $qty_datang = floatval($this->input->post("qty_datang"));
+    //$qty_datang = floatval($this->input->post("qty_datang"));
     $ppn_percentage = floatval($this->input->post("ppn_percentage"));
 
     $sub_total = $qty * $harga;
@@ -92,6 +93,8 @@ class C_t_t_t_pembelian_rincian extends MY_Controller
     foreach ($read_select as $key => $value) 
     {
       $supplier_id = $value->SUPPLIER_ID;
+      $g_date = $value->DATE;
+      $g_time = $value->TIME;
     }
 
     $sisa_qty_tt = 0;
@@ -104,26 +107,28 @@ class C_t_t_t_pembelian_rincian extends MY_Controller
 
 
 
-    if($barang_id!=0 and $qty_datang<=$qty)
+    if($barang_id!=0 )
     {
       $data = array(
         'PEMBELIAN_ID' => $pembelian_id,
         'BARANG_ID' => $barang_id,
         'QTY' => $qty,
-        'SISA_QTY_RB' => $qty,
-        'SISA_QTY' => $qty_datang,
+        'SISA_QTY_RB' => 0,
+        'SISA_QTY' => $qty,
         'HARGA' => $harga,
         'SUB_TOTAL' => $sub_total,
         'SISA_QTY_TT' => $sisa_qty_tt,
-        'SPECIAL_CASE_ID' => 0, //nol kode barang uda jelas masuk stok
+        'SPECIAL_CASE_ID' => 123, //nol kode barang uda jelas masuk stok
         'SUPPLIER_ID' => $supplier_id,
         'CREATED_BY' => $this->session->userdata('username'),
         'UPDATED_BY' => '',
         'MARK_FOR_DELETE' => FALSE,
         'COMPANY_ID' => $this->session->userdata('company_id'),
-        'QTY_DATANG' => $qty_datang,
+        'QTY_DATANG' => 0,
         'PPN_PERCENTAGE' => $ppn_percentage,
-        'PPN_VALUE' => $ppn_value
+        'PPN_VALUE' => $ppn_value,
+        'DATE' => $g_date,
+        'TIME' => $g_time
       );
 
       $this->m_t_t_t_pembelian_rincian->tambah($data);
@@ -152,7 +157,7 @@ class C_t_t_t_pembelian_rincian extends MY_Controller
    
     $qty = floatval($this->input->post("qty"));
     $harga = floatval($this->input->post("harga"));
-    $qty_datang = floatval($this->input->post("qty_datang"));
+    //$qty_datang = floatval($this->input->post("qty_datang"));
     $ppn_percentage = floatval($this->input->post("ppn_percentage"));
 
     $sub_total = $qty * $harga;
@@ -165,25 +170,18 @@ class C_t_t_t_pembelian_rincian extends MY_Controller
 
     if($qty_datang<=$qty)
     {
-      $read_select = $this->m_t_t_t_pembelian_rincian->select_by_id($id);
-      foreach ($read_select as $key => $value) 
-      {
-        $e_qty_datang = $value->QTY_DATANG;
-        $e_sisa_qty = $value->SISA_QTY;
-      }
-
-      $update_sisa_qty = ($qty_datang-$e_qty_datang)+$e_sisa_qty;
+      
 
         $data = array(
           
           'SISA_QTY_RB' => $qty,
           'QTY' => $qty,
-          'SISA_QTY' => $update_sisa_qty,
+          'SISA_QTY' => $qty,
           'HARGA' => $harga,
           'SUB_TOTAL' => $sub_total,
           'SISA_QTY_TT' => $sisa_qty_tt,
           'UPDATED_BY' => $this->session->userdata('username'),
-          'QTY_DATANG' => $qty_datang,
+          'QTY_DATANG' => 0,
           'PPN_PERCENTAGE' => $ppn_percentage,
           'PPN_VALUE' => $ppn_value
         );

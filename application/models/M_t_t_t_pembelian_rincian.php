@@ -102,6 +102,8 @@ public function select_min_harga_barang($barang_id)
 
 
     $this->db->select("T_T_T_PEMBELIAN_RINCIAN.ID");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.DATE");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.TIME");
     $this->db->select("T_T_T_PEMBELIAN_RINCIAN.PEMBELIAN_ID");
     $this->db->select("T_T_T_PEMBELIAN_RINCIAN.BARANG_ID");
     $this->db->select("T_T_T_PEMBELIAN_RINCIAN.QTY");
@@ -218,6 +220,37 @@ public function select_sisa_qty($barang_id)
 }
 
 
+
+
+public function select_sisa_qty_in_1_inv_pembelian($barang_id,$pembelian_id)
+{
+    $this->db->select('*');
+
+
+
+
+    $this->db->from('T_T_T_PEMBELIAN_RINCIAN');
+
+    
+
+    $this->db->where('BARANG_ID',$barang_id);
+    $this->db->where('MARK_FOR_DELETE',false);
+    $this->db->where('SPECIAL_CASE_ID',123); //kode barang belum datang
+    $this->db->where('PEMBELIAN_ID',$pembelian_id);
+
+    $this->db->order_by("ID", "asc");
+
+
+
+    $akun = $this->db->get ();
+    return $akun->result ();
+}
+
+
+
+
+
+
 public function select_barang_with_supplier($barang_id)
   {
     
@@ -266,10 +299,241 @@ public function select_barang_with_supplier($barang_id)
 
 
 
+  public function select_pinlok_out($pembelian_id)
+  {
+    
 
+
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.ID");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.DATE");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.TIME");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.PEMBELIAN_ID");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.BARANG_ID");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.QTY");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.SISA_QTY");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.HARGA");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.SUB_TOTAL");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.SISA_QTY_TT");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.SPECIAL_CASE_ID");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.SUPPLIER_ID");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.CREATED_BY");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.UPDATED_BY");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.MARK_FOR_DELETE");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.QTY_DATANG");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.PPN_PERCENTAGE");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.PPN_VALUE");
+
+
+
+    $this->db->select('T_M_D_BARANG.KODE_BARANG');
+    $this->db->select('T_M_D_BARANG.BARANG');
+    $this->db->select('T_M_D_BARANG.PART_NUMBER');
+    $this->db->select('T_M_D_BARANG.MERK_BARANG');
+    $this->db->select('T_M_D_BARANG.POSISI');
+    $this->db->select('T_M_D_BARANG.MINIMUM_STOK');
+
+
+
+    $this->db->select('T_M_D_SATUAN.SATUAN');
+
+
+
+    $this->db->from('T_T_T_PEMBELIAN_RINCIAN');
+
+    
+    $this->db->join('T_M_D_BARANG', 'T_M_D_BARANG.BARANG_ID = T_T_T_PEMBELIAN_RINCIAN.BARANG_ID', 'left');
+
+    $this->db->join('T_M_D_SATUAN', 'T_M_D_BARANG.SATUAN_ID = T_M_D_SATUAN.ID', 'left');
+
+    if($this->session->userdata('t_t_t_pembelian_delete_logic')==0)
+    {
+      $this->db->where('T_T_T_PEMBELIAN_RINCIAN.MARK_FOR_DELETE',FALSE);
+    }
+    
+
+    $this->db->where("T_M_D_BARANG.COMPANY_ID={$this->session->userdata('company_id')}");
+    $this->db->where('T_T_T_PEMBELIAN_RINCIAN.PEMBELIAN_ID',$pembelian_id);
+   // $this->db->where('T_T_T_PEMBELIAN_RINCIAN.SPECIAL_CASE_ID',0); //KODE BARANG BELUM DATANG
+    $this->db->order_by("ID", "desc");
+
+    $akun = $this->db->get ();
+    return $akun->result ();
+  }
 
   
   public function select($pembelian_id)
+  {
+    
+
+
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.ID");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.DATE");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.TIME");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.PEMBELIAN_ID");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.BARANG_ID");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.QTY");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.SISA_QTY");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.HARGA");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.SUB_TOTAL");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.SISA_QTY_TT");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.SPECIAL_CASE_ID");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.SUPPLIER_ID");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.CREATED_BY");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.UPDATED_BY");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.MARK_FOR_DELETE");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.QTY_DATANG");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.PPN_PERCENTAGE");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.PPN_VALUE");
+
+
+
+    $this->db->select('T_M_D_BARANG.KODE_BARANG');
+    $this->db->select('T_M_D_BARANG.BARANG');
+    $this->db->select('T_M_D_BARANG.PART_NUMBER');
+    $this->db->select('T_M_D_BARANG.MERK_BARANG');
+    $this->db->select('T_M_D_BARANG.POSISI');
+    $this->db->select('T_M_D_BARANG.MINIMUM_STOK');
+
+
+
+    $this->db->select('T_M_D_SATUAN.SATUAN');
+
+
+
+    $this->db->from('T_T_T_PEMBELIAN_RINCIAN');
+
+    
+    $this->db->join('T_M_D_BARANG', 'T_M_D_BARANG.BARANG_ID = T_T_T_PEMBELIAN_RINCIAN.BARANG_ID', 'left');
+
+    $this->db->join('T_M_D_SATUAN', 'T_M_D_BARANG.SATUAN_ID = T_M_D_SATUAN.ID', 'left');
+
+    if($this->session->userdata('t_t_t_pembelian_delete_logic')==0)
+    {
+      $this->db->where('T_T_T_PEMBELIAN_RINCIAN.MARK_FOR_DELETE',FALSE);
+    }
+    
+
+    $this->db->where("T_M_D_BARANG.COMPANY_ID={$this->session->userdata('company_id')}");
+    $this->db->where('T_T_T_PEMBELIAN_RINCIAN.PEMBELIAN_ID',$pembelian_id);
+    $this->db->where('T_T_T_PEMBELIAN_RINCIAN.SPECIAL_CASE_ID',0); //KODE BARANG BELUM DATANG
+    $this->db->order_by("ID", "desc");
+
+    $akun = $this->db->get ();
+    return $akun->result ();
+  }
+
+
+
+
+
+
+
+
+
+
+  public function select_bon_datang($pembelian_id,$date_pilihan_bon)
+  {
+    
+
+
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.ID");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.DATE");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.TIME");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.PEMBELIAN_ID");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.BARANG_ID");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.QTY");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.SISA_QTY");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.HARGA");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.SUB_TOTAL");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.SISA_QTY_TT");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.SPECIAL_CASE_ID");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.SUPPLIER_ID");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.CREATED_BY");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.UPDATED_BY");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.MARK_FOR_DELETE");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.QTY_DATANG");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.PPN_PERCENTAGE");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.PPN_VALUE");
+
+
+
+    $this->db->select('T_M_D_BARANG.KODE_BARANG');
+    $this->db->select('T_M_D_BARANG.BARANG');
+    $this->db->select('T_M_D_BARANG.PART_NUMBER');
+    $this->db->select('T_M_D_BARANG.MERK_BARANG');
+    $this->db->select('T_M_D_BARANG.POSISI');
+    $this->db->select('T_M_D_BARANG.MINIMUM_STOK');
+
+
+
+    $this->db->select('T_M_D_SATUAN.SATUAN');
+
+
+
+    $this->db->from('T_T_T_PEMBELIAN_RINCIAN');
+
+    
+    $this->db->join('T_M_D_BARANG', 'T_M_D_BARANG.BARANG_ID = T_T_T_PEMBELIAN_RINCIAN.BARANG_ID', 'left');
+
+    $this->db->join('T_M_D_SATUAN', 'T_M_D_BARANG.SATUAN_ID = T_M_D_SATUAN.ID', 'left');
+
+    if($this->session->userdata('t_t_t_pembelian_delete_logic')==0)
+    {
+      $this->db->where('T_T_T_PEMBELIAN_RINCIAN.MARK_FOR_DELETE',FALSE);
+    }
+    
+
+    $this->db->where("T_M_D_BARANG.COMPANY_ID={$this->session->userdata('company_id')}");
+    $this->db->where('T_T_T_PEMBELIAN_RINCIAN.PEMBELIAN_ID',$pembelian_id);
+    $this->db->where('T_T_T_PEMBELIAN_RINCIAN.SPECIAL_CASE_ID',0); //KODE BARANG BELUM DATANG
+    $this->db->where('T_T_T_PEMBELIAN_RINCIAN.DATE',$date_pilihan_bon); //KODE BARANG BELUM DATANG
+    $this->db->order_by("ID", "desc");
+
+    $akun = $this->db->get ();
+    return $akun->result ();
+  }
+
+
+
+
+  public function select_barang_id($pembelian_id)
+  {
+    
+    $this->db->select('T_M_D_BARANG.BARANG_ID');
+    $this->db->select('T_M_D_BARANG.KODE_BARANG');
+    $this->db->select('T_M_D_BARANG.BARANG');
+    $this->db->select('T_M_D_BARANG.PART_NUMBER');
+    $this->db->select('T_M_D_BARANG.MERK_BARANG');
+    $this->db->select('T_M_D_BARANG.POSISI');
+    $this->db->select('T_M_D_BARANG.MINIMUM_STOK');
+
+   
+    $this->db->select('SUM_SISA_QTY');
+    $this->db->select('T_T_T_PEMBELIAN_RINCIAN.SISA_QTY_RB');
+
+    $this->db->from('T_T_T_PEMBELIAN_RINCIAN');
+
+
+
+    $this->db->join('T_M_D_BARANG', 'T_M_D_BARANG.BARANG_ID = T_T_T_PEMBELIAN_RINCIAN.BARANG_ID', 'left');
+
+    $this->db->join("(select \"BARANG_ID\",sum(\"SISA_QTY\")\"SUM_SISA_QTY\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"SPECIAL_CASE_ID\"=123 and \"MARK_FOR_DELETE\"=false and \"COMPANY_ID\"={$this->session->userdata('company_id')} and \"PEMBELIAN_ID\"={$pembelian_id} group by \"BARANG_ID\") as t_sum_1", 'T_M_D_BARANG.BARANG_ID = t_sum_1.BARANG_ID', 'left');
+
+
+    $this->db->where("T_M_D_BARANG.COMPANY_ID={$this->session->userdata('company_id')}");
+    $this->db->where('T_T_T_PEMBELIAN_RINCIAN.SPECIAL_CASE_ID',123);
+    $this->db->where('T_T_T_PEMBELIAN_RINCIAN.MARK_FOR_DELETE',FALSE);
+    $this->db->where('T_T_T_PEMBELIAN_RINCIAN.PEMBELIAN_ID',$pembelian_id);
+
+
+    $akun = $this->db->get ();
+    return $akun->result ();
+  }
+
+
+
+
+  public function select_list($pembelian_id)
   {
     
 
@@ -319,8 +583,10 @@ public function select_barang_with_supplier($barang_id)
     }
     
 
-    $this->db->where("T_M_D_BARANG.COMPANY_ID={$this->session->userdata('company_id')}");
     $this->db->where('T_T_T_PEMBELIAN_RINCIAN.PEMBELIAN_ID',$pembelian_id);
+
+    $this->db->where("T_M_D_BARANG.COMPANY_ID={$this->session->userdata('company_id')}");
+    $this->db->where('T_T_T_PEMBELIAN_RINCIAN.SPECIAL_CASE_ID',123); //KODE BARANG BELUM DATANG
     $this->db->order_by("ID", "desc");
 
     $akun = $this->db->get ();
@@ -357,11 +623,20 @@ public function select_qty_before_date($limit_date,$barang_id)
 
 public function select_by_pembelian_id_and_barang_id($pembelian_id,$barang_id)
   {
-    $this->db->select("SISA_QTY_RB");
+    $this->db->select("sum(\"SISA_QTY_RB\")\"SUM_SISA_QTY_RB\"");
+    
+
     $this->db->from('T_T_T_PEMBELIAN_RINCIAN');
 
-    $this->db->where('T_T_T_PEMBELIAN_RINCIAN.PEMBELIAN_ID',$pembelian_id);
-    $this->db->where('T_T_T_PEMBELIAN_RINCIAN.BARANG_ID',$barang_id);
+
+    $this->db->where("PEMBELIAN_ID={$pembelian_id}");
+    $this->db->where("BARANG_ID={$barang_id}");
+
+
+    $this->db->where("COMPANY_ID={$this->session->userdata('company_id')}");
+    $this->db->where('SPECIAL_CASE_ID',0);
+    $this->db->where('MARK_FOR_DELETE',FALSE);
+
 
     $akun = $this->db->get ();
     return $akun->result ();
@@ -373,6 +648,17 @@ public function select_by_pembelian_id_and_barang_id($pembelian_id,$barang_id)
     $this->db->select('SUM_SISA_QTY');
     $this->db->from('T_M_D_BARANG');
     $this->db->join("(select \"BARANG_ID\",sum(\"SISA_QTY\")\"SUM_SISA_QTY\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"SPECIAL_CASE_ID\"=0 and \"MARK_FOR_DELETE\"=false and \"COMPANY_ID\"={$this->session->userdata('company_id')} group by \"BARANG_ID\") as t_sum_1", 'T_M_D_BARANG.BARANG_ID = t_sum_1.BARANG_ID', 'left');
+    $this->db->where('T_M_D_BARANG.BARANG_ID',$barang_id);
+    $akun = $this->db->get ();
+    return $akun->result ();
+  }
+
+
+  public function select_sisa_qty_for_1_barang_id_in_1_inv_pembelian($barang_id,$pembelian_id)
+  {
+    $this->db->select('SUM_SISA_QTY');
+    $this->db->from('T_M_D_BARANG');
+    $this->db->join("(select \"BARANG_ID\",sum(\"SISA_QTY\")\"SUM_SISA_QTY\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"SPECIAL_CASE_ID\"=123 and \"MARK_FOR_DELETE\"=false and \"COMPANY_ID\"={$this->session->userdata('company_id')} and \"PEMBELIAN_ID\"={$pembelian_id}  group by \"BARANG_ID\") as t_sum_1", 'T_M_D_BARANG.BARANG_ID = t_sum_1.BARANG_ID', 'left');
     $this->db->where('T_M_D_BARANG.BARANG_ID',$barang_id);
     $akun = $this->db->get ();
     return $akun->result ();

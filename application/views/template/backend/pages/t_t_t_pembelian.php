@@ -28,13 +28,13 @@
         <thead>
           <tr>
             <th>No</th>
-            <th>INV</th>
+            <th>No PO</th>
             <th>Date</th>
             <th>Ket</th>
             <th>Supplier</th>
-            <th>INV Sp</th>
+            <th>INV Supplier</th>
             <th>Payment Method</th>
-            
+            <th>Barang Datang</th>
             <th>Total</th>
             <th>Sudah Dibayar</th>
             <th>Action</th>
@@ -57,6 +57,15 @@
 
 
               //satu button
+              echo "<td>";
+              echo "<a href='" . site_url('c_t_t_t_pembelian_rincian2/index/' . $value->ID) . "' ";
+              echo "onclick=\"return confirm('Lanjut?')\"";
+              echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
+              
+              //satu button
+    
+
+
               echo "<td>";
               echo "<a href='" . site_url('c_t_t_t_pembelian_rincian/index/' . $value->ID) . "' ";
               echo "onclick=\"return confirm('Lanjut?')\"";
@@ -93,12 +102,12 @@
               }
               
 
-
+              echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#Modal_Edit' class='btn-edit' data-id='" . $value->ID . "'>";
+              echo "<i class='icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green'></i>";
+              echo "</a>";
 
               if ($value->SUM_SUB_TOTAL == 0) {
-                echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#Modal_Edit' class='btn-edit' data-id='" . $value->ID . "'>";
-                echo "<i class='icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green'></i>";
-                echo "</a>";
+                
 
                 echo "<a href='" . site_url('c_t_t_t_pembelian/delete/' . $value->ID) . "' ";
 
@@ -135,6 +144,9 @@
 
 
               //satu button
+              echo "<td><s></td>";
+
+              
               echo "<td><s>";
               
               echo " Rp" . number_format(intval($value->SUM_SUB_TOTAL+$value->SUM_PPN)) . "</s></td>";

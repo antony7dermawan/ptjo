@@ -46,7 +46,6 @@
             <th>PPN</th>
             <th>Total</th>
             <th>Sisa Qty</th>
-            <th>Qty Datang</th>
 
             <th>Action</th>
           </tr>
@@ -70,11 +69,11 @@
               echo "<td>" . number_format(floatval(intval(($value->SUB_TOTAL+$value->PPN_VALUE)*100))/100) . "</td>";
 
               echo "<td>" . number_format(floatval(intval($value->SISA_QTY*100))/100) . "</td>";
-              echo "<td>" . number_format(floatval(intval($value->QTY_DATANG*100))/100) . "</td>";
+             
 
               
               echo "<td>";
-              if (intval($value->SISA_QTY) == intval($value->QTY_DATANG))
+              if (intval($value->SISA_QTY) == intval($value->QTY))
               {
                 echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#Modal_Edit' class='btn-edit' data-id='" . $value->ID . "'>";
                 echo "<i class='icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green'></i>";
@@ -109,11 +108,11 @@
               echo "<td><s>" . number_format(floatval(intval(($value->SUB_TOTAL+$value->PPN_VALUE)*100))/100) . "</s></td>";
 
               echo "<td><s>" . number_format(floatval(intval($value->SISA_QTY*100))/100) . "</s></td>";
-              echo "<td><s>" . number_format(floatval(intval($value->QTY_DATANG*100))/100) . "</s></td>";
+              
 
               
               echo "<td>";
-              if (intval($value->SISA_QTY) == intval($value->QTY_DATANG))
+              if (intval($value->SISA_QTY) == intval($value->QTY))
               {
                 
                 echo "<a href='".site_url('c_t_t_t_po_manual_rincian/undo_delete/'.$value->ID.'/'.$pembelian_id)."' ";
@@ -214,8 +213,7 @@
           <div class="col-md-6">
 
             <fieldset class="form-group">
-              <label>QTY Datang</label>
-              <input type='text' class='form-control' placeholder='Input Number' name='qty_datang'>
+              
             </fieldset>
 
           </div><!-- Membungkus Row Kedua !-->
@@ -371,8 +369,7 @@ console.log(reading_feedback);
           <div class="col-md-6">
 
             <fieldset class="form-group">
-              <label>QTY Datang</label>
-              <input type='text' class='form-control' placeholder='Input Number' name='qty_datang'>
+              
             </fieldset>
 
           </div><!-- Membungkus Row Kedua !-->
@@ -439,7 +436,7 @@ console.log(reading_feedback);
         HARGA : harga,
         UPDATED_BY : updated_by,
         CREATED_BY : created_by,
-        QTY_DATANG : qty_datang,
+        
         SISA_QTY : sisa_qty,
         PPN_PERCENTAGE : ppn_percentage
       } = Anjing[0];
@@ -451,7 +448,6 @@ console.log(reading_feedback);
       elModalEdit.querySelector("[name=harga]").value = harga;
       elModalEdit.querySelector("[name=updated_by]").text = updated_by;
       elModalEdit.querySelector("[name=created_by]").text = created_by;
-      elModalEdit.querySelector("[name=qty_datang]").value = qty_datang;
       elModalEdit.querySelector("[name=ppn_percentage]").value = ppn_percentage;
 
       

@@ -80,7 +80,7 @@ class C_t_t_t_po_manual_rincian extends MY_Controller
     $barang_id = intval($this->input->post("barang_id"));
     $qty = floatval($this->input->post("qty"));
     $harga = floatval($this->input->post("harga"));
-    $qty_datang = floatval($this->input->post("qty_datang"));
+    //$qty_datang = floatval($this->input->post("qty_datang"));
     $ppn_percentage = floatval($this->input->post("ppn_percentage"));
 
     $sub_total = $qty * $harga;
@@ -103,24 +103,24 @@ class C_t_t_t_po_manual_rincian extends MY_Controller
 
 
 
-    if($barang_id!=0 and $qty_datang<=$qty)
+    if($barang_id!=0 )
     {
       $data = array(
         'PEMBELIAN_ID' => $po_manual_id,
         'BARANG_ID' => $barang_id,
         'QTY' => $qty,
         'SISA_QTY_RB' => $qty,
-        'SISA_QTY' => $qty_datang,
+        'SISA_QTY' => $qty,
         'HARGA' => $harga,
         'SUB_TOTAL' => $sub_total,
         'SISA_QTY_TT' => $sisa_qty_tt,
-        'SPECIAL_CASE_ID' => 10, //nol kode barang indent
+        'SPECIAL_CASE_ID' => 123, //nol kode barang indent
         'SUPPLIER_ID' => $supplier_id,
         'CREATED_BY' => $this->session->userdata('username'),
         'UPDATED_BY' => '',
         'MARK_FOR_DELETE' => FALSE,
         'COMPANY_ID' => $this->session->userdata('company_id'),
-        'QTY_DATANG' => $qty_datang,
+        'QTY_DATANG' => 0,
         'PPN_PERCENTAGE' => $ppn_percentage,
         'PPN_VALUE' => $ppn_value
       );
@@ -151,7 +151,7 @@ class C_t_t_t_po_manual_rincian extends MY_Controller
    
     $qty = floatval($this->input->post("qty"));
     $harga = floatval($this->input->post("harga"));
-    $qty_datang = floatval($this->input->post("qty_datang"));
+    //$qty_datang = floatval($this->input->post("qty_datang"));
     $ppn_percentage = floatval($this->input->post("ppn_percentage"));
 
     $sub_total = $qty * $harga;
@@ -177,12 +177,12 @@ class C_t_t_t_po_manual_rincian extends MY_Controller
         $data = array(
           'SISA_QTY_RB' => $qty,
           'QTY' => $qty,
-          'SISA_QTY' => $update_sisa_qty,
+          'SISA_QTY' => $qty,
           'HARGA' => $harga,
           'SUB_TOTAL' => $sub_total,
           'SISA_QTY_TT' => $sisa_qty_tt,
           'UPDATED_BY' => $this->session->userdata('username'),
-          'QTY_DATANG' => $qty_datang
+          'QTY_DATANG' => 0
         );
 
         $this->m_t_t_t_po_manual_rincian->update($data,$id);
