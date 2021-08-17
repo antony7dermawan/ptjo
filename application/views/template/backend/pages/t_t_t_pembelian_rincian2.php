@@ -164,7 +164,7 @@
                   echo "<script>";
                   echo "function p_1_" . $key . "()";
                   echo "{";
-                  echo "window.open('laporan_pdf/c_t_t_t_pembelian_barang_datang_print/index/" . $value->ID .'/'.$pembelian_id."', '_blank');";
+                  echo "window.open('https://ptjpat.com/laporan_pdf/c_t_t_t_pembelian_barang_datang_print/index/" . $value->ID .'/'.$pembelian_id."', '_blank');";
                   echo "}";
                   echo "</script>";
 

@@ -45,7 +45,7 @@
             <th>Sub Total</th>
             <th>PPN</th>
             <th>Total</th>
-            <th>Sisa Qty</th>
+            <th>Belum Datang</th>
 
             <th>Action</th>
           </tr>
