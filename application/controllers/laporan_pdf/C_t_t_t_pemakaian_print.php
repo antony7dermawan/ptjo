@@ -158,7 +158,7 @@ class C_t_t_t_pemakaian_print extends MY_Controller
         $pdf->SetXY($x_value, $y_value);
         
         $pdf->SetFont('','',10);
-        $pdf->Cell(25, 6, "INV Supplier", 0, 0, 'L');
+        $pdf->Cell(25, 6, "Pemakaian Untuk", 0, 0, 'L');
         $pdf->Cell(90, 6,':  '. $inv_supplier, 0, 1, 'L');
         $pdf->Cell(25, 6, "Supplier", 0, 0, 'L');
         $pdf->Cell(90, 6,':  '. $supplier, 0, 1, 'L');

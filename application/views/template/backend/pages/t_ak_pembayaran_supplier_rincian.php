@@ -51,7 +51,7 @@
             <th>No</th>
             <th>Keterangan</th>
             <th>Tanggal Kirim</th>
-            <th>INV CBG</th>
+            <th>Nomor PO</th>
             <th>INV Supplier</th>
             
             <th>Jumlah Tagihan</th>

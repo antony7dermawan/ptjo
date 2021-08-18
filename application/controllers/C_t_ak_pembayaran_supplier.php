@@ -13,6 +13,7 @@ class C_t_ak_pembayaran_supplier extends MY_Controller
     $this->load->model('m_t_t_t_penjualan');
 
 
+    $this->load->model('m_ak_m_coa');
     $this->load->model('m_t_ak_pembayaran_supplier_metode_bayar');
     $this->load->model('m_t_m_d_company');
     $this->load->model('m_t_m_d_supplier');
@@ -36,6 +37,7 @@ class C_t_ak_pembayaran_supplier extends MY_Controller
     }
 
     $data = [
+      "no_akun_option" => $this->m_ak_m_coa->select_no_akun(),
       "c_t_ak_pembayaran_supplier" => $this->m_t_ak_pembayaran_supplier->select($this->session->userdata('date_pembayaran_supplier')),
 
       "c_t_m_d_supplier" => $this->m_t_m_d_supplier->select(),
@@ -89,6 +91,9 @@ class C_t_ak_pembayaran_supplier extends MY_Controller
       $date_move = $value->DATE;
       $time_move = $value->TIME;
 
+
+      $coa_id_supplier = $value->COA_ID;
+
       $supplier = $value->SUPPLIER;
 
       $sum_total_penjualan = $value->SUM_TOTAL_PENJUALAN;
@@ -114,7 +119,50 @@ class C_t_ak_pembayaran_supplier extends MY_Controller
 
 
 
+      
+      $coa_id_ps = $coa_id_supplier;
+      $db_k_id=1;
 
+      if($db_k_id==1)#kode 1 debit / 2 kredit
+      {
+        $data = array(
+        'DATE' => $date_move,
+        'TIME' => $time_move,
+        'CREATED_BY' => $this->session->userdata('username'),
+        'UPDATED_BY' => $this->session->userdata('username'),
+        'COA_ID' => $coa_id_ps,
+        'DEBIT' => round($sum_pembayaran_supplier),
+        'KREDIT' => 0,
+        'CATATAN' => 'Pembayaran Supplier : ' . $supplier,
+        'DEPARTEMEN' => '0',
+        'NO_VOUCER' => $no_faktur,
+        'CREATED_ID' => $created_id,
+        'CHECKED_ID' => 1,
+        'SPECIAL_ID' => 0,
+        'COMPANY_ID' => $this->session->userdata('company_id')
+        );
+      }
+      if($db_k_id==2)#kode 1 debit / 2 kredit
+      {
+        $data = array(
+        'DATE' => $date_move,
+        'TIME' => $time_move,
+        'CREATED_BY' => $this->session->userdata('username'),
+        'UPDATED_BY' => $this->session->userdata('username'),
+        'COA_ID' => $coa_id_ps,
+        'DEBIT' => 0,
+        'KREDIT' => round($sum_pembayaran_supplier),
+        'CATATAN' => 'Pembayaran Supplier : ' . $supplier,
+        'DEPARTEMEN' => '0',
+        'NO_VOUCER' => $no_faktur,
+        'CREATED_ID' => $created_id,
+        'CHECKED_ID' => 1,
+        'SPECIAL_ID' => 0,
+        'COMPANY_ID' => $this->session->userdata('company_id')
+        );
+      }
+      $this->m_t_ak_jurnal->tambah($data);
+      #.....................................................................................done jurnal dpp
 
 
 
@@ -300,60 +348,8 @@ class C_t_ak_pembayaran_supplier extends MY_Controller
 
 
 
-      $coa_id_ps = 0;
 
-      $read_select = $this->m_t_ak_pembayaran_supplier_print_setting->select_id(1);
-      foreach ($read_select as $key => $value) 
-      {
-        $setting_value=$value->SETTING_VALUE;
-      }
-      $read_select = $this->m_ak_m_coa->read_coa_id_from_no_akun($setting_value);
-      foreach ($read_select as $key => $value) 
-      {
-        $coa_id_ps=$value->ID;
-        $db_k_id=1;
-      }
 
-      if($db_k_id==1)#kode 1 debit / 2 kredit
-      {
-        $data = array(
-        'DATE' => $date_move,
-        'TIME' => $time_move,
-        'CREATED_BY' => $this->session->userdata('username'),
-        'UPDATED_BY' => $this->session->userdata('username'),
-        'COA_ID' => $coa_id_ps,
-        'DEBIT' => round($sum_pembayaran_supplier),
-        'KREDIT' => 0,
-        'CATATAN' => 'Pembayaran Supplier : ' . $supplier,
-        'DEPARTEMEN' => '0',
-        'NO_VOUCER' => $no_faktur,
-        'CREATED_ID' => $created_id,
-        'CHECKED_ID' => 1,
-        'SPECIAL_ID' => 0,
-        'COMPANY_ID' => $this->session->userdata('company_id')
-        );
-      }
-      if($db_k_id==2)#kode 1 debit / 2 kredit
-      {
-        $data = array(
-        'DATE' => $date_move,
-        'TIME' => $time_move,
-        'CREATED_BY' => $this->session->userdata('username'),
-        'UPDATED_BY' => $this->session->userdata('username'),
-        'COA_ID' => $coa_id_ps,
-        'DEBIT' => 0,
-        'KREDIT' => round($sum_pembayaran_supplier),
-        'CATATAN' => 'Pembayaran Supplier : ' . $supplier,
-        'DEPARTEMEN' => '0',
-        'NO_VOUCER' => $no_faktur,
-        'CREATED_ID' => $created_id,
-        'CHECKED_ID' => 1,
-        'SPECIAL_ID' => 0,
-        'COMPANY_ID' => $this->session->userdata('company_id')
-        );
-      }
-      $this->m_t_ak_jurnal->tambah($data);
-      #.....................................................................................done jurnal dpp
 
     }
 
@@ -375,7 +371,7 @@ class C_t_ak_pembayaran_supplier extends MY_Controller
   {
     $supplier_id = intval($this->input->post("supplier_id"));
     $keterangan = '';
-
+    $coa_id = intval($this->input->post("coa_id"));
 
     
     $date = ($this->input->post("date"));
@@ -390,7 +386,7 @@ class C_t_ak_pembayaran_supplier extends MY_Controller
     $this->session->set_userdata('date_pembayaran_supplier', $date_pembayaran_supplier);
 
 
-    if($supplier_id!=0)
+    if($supplier_id!=0 and $coa_id!=0)
     {
 
       $logic_no_faktur = 0;
@@ -431,7 +427,7 @@ class C_t_ak_pembayaran_supplier extends MY_Controller
 
           'INV_INT' =>$inv_int,
           'COMPANY_ID' => $this->session->userdata('company_id'),
-
+          'COA_ID' => $coa_id
           
         );
 

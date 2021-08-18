@@ -45,10 +45,10 @@ public function update($data, $id)
     $this->db->join('T_AK_PEMBAYARAN_SUPPLIER', 'T_AK_PEMBAYARAN_SUPPLIER.ID = T_AK_PEMBAYARAN_SUPPLIER_RINCIAN.PEMBAYARAN_SUPPLIER_ID', 'left');
 
 
-    $this->db->join("(select \"PEMBELIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_1", 'T_T_T_PEMBELIAN.ID = t_sum_1.PEMBELIAN_ID', 'left');
+    $this->db->join("(select \"PEMBELIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false and \"SPECIAL_CASE_ID\"=123 group by \"PEMBELIAN_ID\") as t_sum_1", 'T_T_T_PEMBELIAN.ID = t_sum_1.PEMBELIAN_ID', 'left');
 
 
-    $this->db->join("(select \"PEMBELIAN_ID\",sum(\"PPN_VALUE\")\"SUM_PPN\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMBELIAN_ID\") as t_sum_2", 'T_T_T_PEMBELIAN.ID = t_sum_2.PEMBELIAN_ID', 'left');
+    $this->db->join("(select \"PEMBELIAN_ID\",sum(\"PPN_VALUE\")\"SUM_PPN\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false and \"SPECIAL_CASE_ID\"=123 group by \"PEMBELIAN_ID\") as t_sum_2", 'T_T_T_PEMBELIAN.ID = t_sum_2.PEMBELIAN_ID', 'left');
 
     
     $this->db->where('T_AK_PEMBAYARAN_SUPPLIER_RINCIAN.PEMBAYARAN_SUPPLIER_ID', $id);

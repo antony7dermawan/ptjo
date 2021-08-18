@@ -113,7 +113,7 @@ class C_t_ak_pembayaran_supplier_diskon extends MY_Controller
     foreach ($read_select as $key => $value) 
     {
       $db_logic = 1;
-      $sum_total_penjualan = $sum_total_penjualan+ floatval($value->SUM_SUB_TOTAL);
+      $sum_total_penjualan = $sum_total_penjualan+ floatval($value->SUM_SUB_TOTAL)+ floatval($value->SUM_PPN);
       $sum_payment_t_saldo_awal = $sum_payment_t_saldo_awal+floatval($value->PAYMENT_T);
     }
 
@@ -208,7 +208,7 @@ class C_t_ak_pembayaran_supplier_diskon extends MY_Controller
     }
     if(($sum_payment_t_saldo_awal+$jumlah)>$sum_total_penjualan)
     {
-      $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Sukses!</strong> Kelebihan Bayar!</p></div>');
+      $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal!</strong> Kelebihan Bayar!</p></div>');
     }
     
     redirect('c_t_ak_pembayaran_supplier_diskon/index/' . $pembayaran_supplier_id . '/' . $supplier_id);

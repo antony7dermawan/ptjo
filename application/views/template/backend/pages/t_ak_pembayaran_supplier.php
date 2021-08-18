@@ -1,3 +1,4 @@
+
 <div class="card">
   <div class="card-header">
     <form action='<?php echo base_url("c_t_ak_pembayaran_supplier/date_pembayaran_supplier"); ?>' class='no_voucer_area' method="post" id=''>
@@ -28,6 +29,7 @@
             <th>No</th>
             <th>Date</th>
             <th>Supplier</th>
+            <th>Akun Supplier</th>
             <th>No Faktur</th>
             <th>Total Tagihan</th>
             <th>Sudah Dibayarkan</th>
@@ -43,6 +45,7 @@
             echo "<td>" . ($key + 1) . "</td>";
             echo "<td>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . " / ".$value->CREATED_BY. "</td>";
             echo "<td>" . $value->SUPPLIER . "</td>";
+            echo "<td>" . $value->NAMA_AKUN . "</td>";
             echo "<td>" . $value->NO_FAKTUR . "</td>";
             #echo "<td>".date('d-m-Y', strtotime($value->DATE))." / ".date('H:i', strtotime($value->TIME))." / ".$value->CREATED_BY."</td>";
 
@@ -179,6 +182,34 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+
+        <div class="modal-body">
+          <div class="form-group">
+              <label>Pilih Akun Supplier</label>
+              <select name="coa_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+              <?php
+              foreach ($no_akun_option as $key => $value) 
+              {
+                
+                if($value->NO_AKUN_3!='')
+                {
+                  $no_akun=$value->NO_AKUN_3;
+                }
+                elseif($value->NO_AKUN_2!='')
+                {
+                  $no_akun=$value->NO_AKUN_2;
+                }
+                else
+                {
+                  $no_akun=$value->NO_AKUN_1;
+                }
+                echo "<option value=".$value->ID.">".$no_akun." / ".$value->NAMA_AKUN."</option>";
+              }
+              ?>
+              </select>
+          </div>
+        </div>
+
 
         <div class="modal-body">
           <div class="form-group">

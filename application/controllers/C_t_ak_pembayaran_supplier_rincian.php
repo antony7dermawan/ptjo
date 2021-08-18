@@ -44,6 +44,7 @@ class C_t_ak_pembayaran_supplier_rincian extends MY_Controller
 
 
 
+
     $read_select = $this->m_t_t_t_pembelian->select_date($supplier_id, $date_from_select_pembelian, $date_to_select_pembelian);
     foreach ($read_select as $key => $value) {
       $pembelian_id = $value->ID;

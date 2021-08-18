@@ -21,7 +21,14 @@
     <!-- Menampilkan notif !-->
     <?= $this->session->flashdata('notif') ?>
     <!-- Tombol untuk menambah data akun !-->
-    <button data-toggle="modal" data-target="#addModal" class="btn btn-success waves-effect waves-light">New Data</button>
+    <?php
+    if($this->session->userdata('level_user_id')==1)
+    {
+      echo "'<button data-toggle='modal' data-target='#addModal' class='btn btn-success waves-effect waves-light'>New Data</button>";
+    }
+    
+
+    ?>
 
     <div class="table-responsive dt-responsive">
       <table id="dom-jqry" class="table table-striped table-bordered nowrap">
@@ -61,7 +68,7 @@
               echo "<a href='" . site_url('c_t_t_t_pembelian_rincian2/index/' . $value->ID) . "' ";
               echo "onclick=\"return confirm('Lanjut?')\"";
               echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
-              
+              echo " Rp" . number_format(intval($value->SUM_SUB_TOTAL_DATANG+$value->SUM_PPN_DATANG)) . "</td>";
               //satu button
     
 
@@ -94,7 +101,7 @@
                 echo "<script>";
                 echo "function p_1_" . $key . "()";
                 echo "{";
-                echo "window.open('laporan_pdf/c_t_t_t_pembelian_print/index/" . $value->ID . "');";
+                echo "window.open('laporan_pdf/c_t_t_t_po_print3/index/" . $value->ID . "');";
                 echo "}";
                 echo "</script>";
 
