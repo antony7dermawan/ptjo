@@ -137,7 +137,7 @@ class C_terima_pelanggan_print extends MY_Controller
     $pdf->Cell(30, 5, "Tanggal", 1, 0, 'C');
     $pdf->Cell(35, 5, "Jumlah", 1, 0, 'C');
     $pdf->Cell(35, 5, "Terutang", 1, 0, 'C');
-    $pdf->Cell(35, 5, "Total", 1, 1, 'C');
+    $pdf->Cell(35, 5, "Jumlah", 1, 1, 'C');
     $pdf->SetFont('','',9);
 
     $total_payment_t = 0;
@@ -145,6 +145,7 @@ class C_terima_pelanggan_print extends MY_Controller
     $sum_payment_t=0;
     $total_hutang = 0;
     $vivo_paymen = 0;
+    $sum_terutang_new=0;
     $read_select = $this->m_t_ak_terima_pelanggan_no_faktur->select($id);
     foreach ($read_select as $key => $value) 
     {
@@ -167,7 +168,7 @@ class C_terima_pelanggan_print extends MY_Controller
           $sum_diskon = $sum_diskon+$total_diskon;
         }
 
-        $vivo_paymen = $total_pembayaran +$total_diskon;
+        $vivo_paymen = $total_pembayaran;
       }
       
 
@@ -175,55 +176,49 @@ class C_terima_pelanggan_print extends MY_Controller
       
       $payment_t = floatval($value->PAYMENT_T);
 
-      if($payment_t>=$vivo_paymen)
-      {
-        $terutang = $payment_t - $vivo_paymen;
-        $vivo_paymen=0;
-      }
-      if($payment_t<$vivo_paymen)
-      {
-        $terutang = $vivo_paymen - $payment_t;
-        $vivo_paymen=$vivo_paymen - $payment_t;
-      }
-      $total_payment_t = $total_payment_t + $payment_t;
-
       $total_awal = floatval($value->TOTAL_PENJUALAN);
 
 
-      $sub_total_hutang = $total_awal - $terutang;
-/*    
-      if($payment_t==$total_awal)
+      if($total_awal<=$vivo_paymen )
       {
-        $total_awal = intval($value->TOTAL_PENJUALAN);
-        $vivo_paymen = $vivo_paymen - intval($value->TOTAL_PENJUALAN);
+   
+        $jumlah_end = $total_awal;
+        $vivo_paymen=$vivo_paymen-$total_awal;
       }
-      
-      if($payment_t<$total_awal)
+      if($total_awal>$vivo_paymen)
       {
-        $total_awal = intval($value->TOTAL_PENJUALAN)- ($payment_t-$vivo_paymen);
-        $vivo_paymen = $vivo_paymen - intval($value->TOTAL_PENJUALAN);
+        $jumlah_end = $vivo_paymen;
+        $vivo_paymen = 0;
       }
-      */
-      
-/*
-      if($sum_payment_t > $get_sum_metode_bayar)
-      {
-        $total_awal =  ($total_awal-($payment_t-$total_pembayaran))+$sum_diskon;
 
-        $sum_metode_bayar = $sum_metode_bayar-$total_awal;
-      }
-     */ //$total_awal = intval($value->TOTAL_PENJUALAN);
-      
+
+
+
+        $terutang_new = $total_awal - $payment_t;
+
+      $sum_terutang_new = $sum_terutang_new + $terutang_new;
+      $total_payment_t = $total_payment_t + $payment_t;
+
+
+
+
+
+
+
+
+
+
+
 
       $pdf->Cell(45, 5, $value->NO_FAKTUR, 'L', 0, 'C');
       $pdf->Cell(30, 5, $value->DATE, 'L', 0, 'C');
       $pdf->Cell(35, 5, number_format((floatval(intval($total_awal*100)))/100), 'L', 0, 'R');
-      $pdf->Cell(35, 5, number_format((floatval(intval($terutang*100)))/100), 'L', 0, 'R');
-      $pdf->Cell(35, 5, number_format((floatval(intval($sub_total_hutang*100)))/100), 'L', 0, 'R');
+      $pdf->Cell(35, 5, number_format((floatval(intval($terutang_new*100)))/100), 'L', 0, 'R');
+      $pdf->Cell(35, 5, number_format((floatval(intval($jumlah_end*100)))/100), 'L', 0, 'R');
       $pdf->Cell(0.01, 5, '', 'L', 1, 'R');
 
-      $sum_total_penjualan = $sum_total_penjualan + floatval($value->TOTAL_PENJUALAN);
-      $total_hutang = $total_hutang + floatval($sub_total_hutang);
+      $sum_total_penjualan = $sum_total_penjualan + $total_awal;
+      
     }
     $last_row = $key+1;
     if($key<$last_row)
@@ -242,7 +237,7 @@ class C_terima_pelanggan_print extends MY_Controller
         $pdf->Cell(45, 5, '', 'T', 0, 'C');
         $pdf->Cell(65, 5, '', 'T', 0, 'C');
         $pdf->Cell(35, 5, 'Total Hutang', 1, 0, 'R');
-        $pdf->Cell(35, 5, number_format((floatval(intval($total_hutang*100)))/100), 1, 1, 'R');
+        $pdf->Cell(35, 5, number_format((floatval(intval($sum_terutang_new*100)))/100), 1, 1, 'R');
 
 
     
@@ -270,7 +265,7 @@ class C_terima_pelanggan_print extends MY_Controller
         
 
        
-        $kelebihan_bayar = floatval($total_pembayaran) - (floatval($total_hutang) - floatval($total_diskon));
+        $kelebihan_bayar = floatval($sum_total_penjualan) - floatval($total_payment_t);
 
         $pdf->Cell(45, 5, '', 0, 0, 'C');
         $pdf->Cell(65, 5, '', 0, 0, 'C');

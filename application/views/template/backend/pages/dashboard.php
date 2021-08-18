@@ -183,6 +183,13 @@ if($level_user_id==1 or $level_user_id==6)
                     </thead>
                     <tbody>
                       <?php
+
+                      $sum_total_penjualan = 0;
+                      $sum_bruto = 0;
+                      $sum_neto = 0;
+                      $sum_uang_jalan = 0;
+                      $sum_trip = 0;
+                      $sum_sortase = 0;
                       foreach ($pengiriman_select as $key => $value) {
                         $total_trip = $value->SUM_TRIP;
                         if ($value->SUM_TRIP == 0) {
@@ -198,24 +205,39 @@ if($level_user_id==1 or $level_user_id==6)
                         echo "<td>" . number_format(round($value->SUM_NETO)) . "</td>";
                         echo "<td>Rp" . number_format(round($value->SUM_TOTAL_PENJUALAN)) . "</td>";
 
-
-                        /*
-            echo "<td>";
-              
-
-              echo "<a href='".site_url('c_t_ak_terima_pelanggan_no_faktur/delete/' . $value->ID)."' ";
-              
-              echo "onclick=\"return confirm('Apakah kamu yakin ingin menghapus data ini?')\"";
-
-
-              echo "> <i class='feather icon-trash-2 f-w-600 f-16 text-c-red'></i></a>";
-            echo "</td>";
-
-            echo "</tr>";
-            */
+                        $sum_total_penjualan = $sum_total_penjualan+intval($value->SUM_TOTAL_PENJUALAN);
+                        $sum_bruto = $sum_bruto + $value->SUM_BRUTO;
+                        $sum_neto = $sum_neto + (intval($value->SUM_NETO * 100) / 100);
+                        $sum_trip = $sum_trip + $value->SUM_TRIP;
+                        $sum_sortase = $sum_sortase + $sortase;
                       }
+                      $avg_sortase = $sum_sortase/($key+1);
                       ?>
                     </tbody>
+
+                    <tfoot>
+                      <tr>
+                        <th></th>
+                        <th>Total</th>
+                        <th><?=number_format(intval($sum_trip))?></th>
+                        <th><?=number_format(intval($sum_bruto))?></th>
+                        
+                        <th><?=($avg_sortase)?></th>
+                        <th><?=number_format(intval($sum_neto))?></th>
+                        <?php
+
+                        if($level_user_id<8)
+                        {
+                          ?>
+                          <th>Rp<?=number_format(intval($sum_total_penjualan))?></th>
+                          <?php
+                        }
+                        ?>
+                        
+                        
+                      </tr>
+                    </tfoot>
+
                   </table>
                 </div>
               </div>

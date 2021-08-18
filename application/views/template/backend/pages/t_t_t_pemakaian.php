@@ -66,7 +66,23 @@
               
               echo "<td>";
 
-     
+              if($value->SUM_SUB_TOTAL > 0)
+              {
+                echo "<a "; #/1 ini artinya kena pajak
+
+                echo "onclick= 'p_1_" . $key . "()'";
+         
+                  echo "> <i class='fa fa-print text-c-black'></i></a> ";
+                
+                
+
+                echo "<script>";
+                echo "function p_1_" . $key . "()";
+                echo "{";
+                echo "window.open('laporan_pdf/c_t_t_t_pemakaian_print/index/" . $value->ID . "');";
+                echo "}";
+                echo "</script>";
+              }
 
 
 
