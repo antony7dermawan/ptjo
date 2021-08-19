@@ -125,12 +125,33 @@
             </div>
 
 
+
+
             <div class="form-group">
               <label>Inv PO</label>
               <input type='text' class='form-control' placeholder='Input Text' name='inv_po'>
             </div>
 
-            
+
+            <div class="form-group">
+              <label>Inv Pindah Lokasi</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='inv_pinlok'>
+            </div>
+
+            <div class="form-group">
+              <label>Inv Pemakaian</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='inv_pemakaian'>
+            </div>
+
+            <div class="form-group">
+              <label>Inv Retur Pemakaian</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='inv_retur_pemakaian'>
+            </div>
+
+
+
+      
+
 
             
 
@@ -193,14 +214,34 @@
               <input type='text' class='form-control' placeholder='Input Text' name='inv_rj'>
             </div>
 
+  
+
 
             <div class="form-group">
               <label>Inv PO</label>
               <input type='text' class='form-control' placeholder='Input Text' name='inv_po'>
             </div>
 
-            
 
+            <div class="form-group">
+              <label>Inv Pindah Lokasi</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='inv_pinlok'>
+            </div>
+
+            <div class="form-group">
+              <label>Inv Pemakaian</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='inv_pemakaian'>
+            </div>
+
+            <div class="form-group">
+              <label>Inv Retur Pemakaian</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='inv_retur_pemakaian'>
+            </div>
+
+
+   
+
+        
 
 
           </div>
@@ -246,7 +287,14 @@
         INV_PENJUALAN : inv_jual,
         INV_RETUR_PENJUALAN : inv_rj,
         INV_PO : inv_po,
+      
         INV_PINLOK : inv_pinlok,
+        INV_PEMAKAIAN : inv_pemakaian,
+        INV_RETUR_PEMAKAIAN : inv_retur_pemakaian,
+      
+
+
+        
         CREATED_BY : created_by,
         UPDATED_BY : updated_by
       } = User[0];
@@ -261,6 +309,13 @@
       elModalEdit.querySelector("[name=inv_pinlok]").value = inv_pinlok;
       elModalEdit.querySelector("[name=created_by]").text = created_by;
       elModalEdit.querySelector("[name=updated_by]").text = updated_by;
+ 
+
+      elModalEdit.querySelector("[name=inv_pemakaian]").value = inv_pemakaian;
+      elModalEdit.querySelector("[name=inv_retur_pemakaian]").value = inv_retur_pemakaian;
+      
+
+      
 
     })
   })
