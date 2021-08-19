@@ -520,7 +520,7 @@ public function select_range_date($from_date,$to_date,$kredit_logic)
 
     $this->db->join("(select \"T_T_T_PEMBELIAN\".\"SUPPLIER_ID\",sum(\"T_T_T_PEMBELIAN_RINCIAN\".\"PPN_VALUE\")\"SUM_PPN\" from \"T_T_T_PEMBELIAN_RINCIAN\" LEFT OUTER JOIN \"T_T_T_PEMBELIAN\" on \"T_T_T_PEMBELIAN\".\"ID\"=\"T_T_T_PEMBELIAN_RINCIAN\".\"PEMBELIAN_ID\" where \"T_T_T_PEMBELIAN_RINCIAN\".\"MARK_FOR_DELETE\"=false and \"T_T_T_PEMBELIAN_RINCIAN\".\"SPECIAL_CASE_ID\"=123  group by \"T_T_T_PEMBELIAN\".\"SUPPLIER_ID\") as t_sum_1", 'T_M_D_SUPPLIER.ID = t_sum_1.SUPPLIER_ID', 'left');
 
-    $this->db->join("(select \"SUPPLIER_ID\",sum(\"PAYMENT_T\")\"SUM_PAYMENT_T\" from \"T_T_T_PEMBELIAN\" where \"MARK_FOR_DELETE\"=false and \"SPECIAL_CASE_ID\"=123 group by \"SUPPLIER_ID\") as t_sum_2", 'T_M_D_SUPPLIER.ID = t_sum_2.SUPPLIER_ID', 'left');
+    $this->db->join("(select \"SUPPLIER_ID\",sum(\"PAYMENT_T\")\"SUM_PAYMENT_T\" from \"T_T_T_PEMBELIAN\" where \"MARK_FOR_DELETE\"=false  group by \"SUPPLIER_ID\") as t_sum_2", 'T_M_D_SUPPLIER.ID = t_sum_2.SUPPLIER_ID', 'left');
 
     $this->db->where(" \"SUM_PAYMENT_T\" <> (\"SUM_SUB_TOTAL\"  + \"SUM_PPN\")");
 
