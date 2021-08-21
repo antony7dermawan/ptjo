@@ -18,14 +18,14 @@
       use PhpOffice\PhpSpreadsheet\Worksheet\ColumnDimension;
       use PhpOffice\PhpSpreadsheet\Worksheet;
 
-      class Lap_rj extends CI_Controller{
+      class Lap_pemakaian_per_lokasi extends CI_Controller{
 
             public function __construct()
             {
                 parent::__construct();
 
-                $this->load->model('m_t_t_t_retur_penjualan');
-                $this->load->model('m_t_t_t_retur_penjualan_rincian');
+                $this->load->model('m_t_t_t_pemakaian');
+                $this->load->model('m_t_t_t_pemakaian_rincian');
                 
 
             }
@@ -34,7 +34,7 @@
 
             public function index($date_from_laporan,$date_to_laporan,$barang_id,$kategori_id,$sales_id,$pelanggan_id,$supplier_id,$no_polisi_id,$anggota_id,$pemakai_id,$lokasi_id)
             {
-              $this->session->set_userdata('t_t_t_retur_penjualan_delete_logic', '0');
+              $this->session->set_userdata('t_t_t_pemakaian_delete_logic', '0');
 
               $total_day=intval(((round(abs(strtotime($date_from_laporan) - strtotime($date_to_laporan)) / (60*60*24),0))+1)/2);
 
@@ -72,7 +72,7 @@
                   $spreadsheet->getActiveSheet()->getStyle('A'.$row)->getFont()->setBold(true);
                   $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':J'.$row);
                   $sheet = $spreadsheet->getActiveSheet();
-                  $sheet->setCellValue('A'.$row, 'Laporan Retur Penjualan');
+                  $sheet->setCellValue('A'.$row, 'Laporan Pemakaian per Lokasi');
                   $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('center');
 
                   $row=$row+1;
@@ -92,9 +92,9 @@
                   $sheet->getStyle('B'.$row)->getAlignment()->setHorizontal('center');
                   $sheet->setCellValue('C'.$row, 'Keterangan');
                   $sheet->getStyle('C'.$row)->getAlignment()->setHorizontal('center');
-                  $sheet->setCellValue('D'.$row, 'INV / INV Penjualan');
+                  $sheet->setCellValue('D'.$row, 'INV');
                   $sheet->getStyle('D'.$row)->getAlignment()->setHorizontal('center');
-                  $sheet->setCellValue('E'.$row, 'Nama Pelanggan');
+                  $sheet->setCellValue('E'.$row, 'Nama Anggota');
                   $sheet->getStyle('E'.$row)->getAlignment()->setHorizontal('center');
                   $sheet->setCellValue('F'.$row, 'Sales');
                   $sheet->getStyle('F'.$row)->getAlignment()->setHorizontal('center');
@@ -140,18 +140,21 @@
 
                   $data_logic = 0;
                   $key=0;
-                  $read_select = $this->m_t_t_t_retur_penjualan->select_range_date($date_from_laporan,$date_to_laporan,0);
+
+                  $sales_id = 0;
+
+                  $read_select = $this->m_t_t_t_pemakaian->select_range_date_by_lokasi($date_from_laporan,$date_to_laporan,$lokasi_id);
                   foreach ($read_select as $key => $value) 
                   {   
                     $data_logic = 1;
                         $r_id[$key]=$value->ID;
                         $r_date[$key]=$value->DATE;
                         $r_time[$key]=$value->TIME;
-                        $r_inv[$key]=$value->INV.' / '.$value->INV_PENJUALAN;
+                        $r_inv[$key]=$value->INV_HEAD.$value->INV;
                         
                         $r_ket[$key]=$value->KET;
 
-                        $r_pelanggan[$key]=$value->PELANGGAN;
+                        $r_anggota[$key]=$value->ANGGOTA;
                         $r_sales[$key]=$value->SALES;
                         $r_no_polisi[$key]=$value->NO_POLISI;
                         $r_supir[$key]=$value->SUPIR;
@@ -180,7 +183,7 @@
                             $sheet->getStyle('C'.$row)->getAlignment()->setHorizontal('center');
                             $sheet->setCellValue('D'.$row, $r_inv[$i]);
                             $sheet->getStyle('D'.$row)->getAlignment()->setHorizontal('center');
-                            $sheet->setCellValue('E'.$row, $r_pelanggan[$i]);
+                            $sheet->setCellValue('E'.$row, $r_anggota[$i]);
                             $sheet->getStyle('E'.$row)->getAlignment()->setHorizontal('center');
                             $sheet->setCellValue('F'.$row, $r_sales[$i]);
                             $sheet->getStyle('F'.$row)->getAlignment()->setHorizontal('center');
@@ -201,7 +204,7 @@
                             $sheet->getStyle('Q'.$row)->getAlignment()->setHorizontal('center');
 
 
-                        $read_select = $this->m_t_t_t_retur_penjualan_rincian->select($r_id[$i]);
+                        $read_select = $this->m_t_t_t_pemakaian_rincian->select($r_id[$i]);
                         
                         $sum_total_harga = 0;
                         foreach ($read_select as $key => $value) 
@@ -273,7 +276,7 @@
 
 
                   $row = $row + 1;
-                            $sheet->setCellValue('M'.$row, "TOTAL RETUR PENJUALAN:");
+                            $sheet->setCellValue('M'.$row, "TOTAL PEMAKAIAN:");
                             $sheet->getStyle('M'.$row)->getAlignment()->setHorizontal('center');
                             $sheet->setCellValue('N'.$row, $sum_sum_total_harga);
                             $sheet->getStyle('N'.$row)->getAlignment()->setHorizontal('center');
@@ -302,7 +305,7 @@
 
 
                   $writer = new Xlsx($spreadsheet);
-                  $filename = 'lap_retur_penjualan';
+                  $filename = 'Lap_pemakaian_per_lokasi';
                   
                   header('Content-Type: application/vnd.ms-excel');
                   header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 

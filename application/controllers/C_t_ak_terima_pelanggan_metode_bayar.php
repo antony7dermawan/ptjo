@@ -25,8 +25,8 @@ class C_t_ak_terima_pelanggan_metode_bayar extends MY_Controller
       "no_akun_option" => $this->m_ak_m_coa->select_no_akun(),
       "select_no_faktur" => $this->m_t_ak_faktur_penjualan->select_no_faktur(),
       "pks_id" => $pks_id,
-      "title" => "Rincian Metode Bayar",
-      "description" => "Isi Rincian Metode Bayar"
+      "title" => "Rincian Metode Bayar Terima Pelanggan",
+      "description" => ""
     ];
     $this->render_backend('template/backend/pages/t_ak_terima_pelanggan_metode_bayar', $data);
   }

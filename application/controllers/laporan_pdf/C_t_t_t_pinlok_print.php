@@ -66,7 +66,9 @@ class C_t_t_t_pinlok_print extends MY_Controller
 
 
 
-    $read_select = $this->m_t_t_t_pembelian_rincian->select($pinlok_id);
+
+
+    $read_select = $this->m_t_t_t_pembelian_rincian->select_list($pinlok_id);
     foreach ($read_select as $key => $value) 
     {
       $kode_barang[$key]=$value->KODE_BARANG;

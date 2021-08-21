@@ -174,7 +174,7 @@
         <div class="form-group">
             <label>Kode Barang</label>
             <select name="barang_id" class='barang_id' id='select-state' placeholder='Pick a state...'>
-              <option value="0"></option>
+              <option value="0">Hapus Dulu!</option>
               <?php
               foreach ($c_t_m_d_barang as $key => $value) 
               {

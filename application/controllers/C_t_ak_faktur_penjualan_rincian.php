@@ -31,8 +31,8 @@ class C_t_ak_faktur_penjualan_rincian extends MY_Controller
       "c_t_m_a_divisi" => $this->m_t_m_a_divisi->select(),
       "c_t_m_a_kendaraan" => $this->m_t_m_a_kendaraan->select(),
       "c_t_m_a_supir" => $this->m_t_m_a_supir->select(),
-      "title" => "Master Uang Jalan",
-      "description" => "Lookup Uang Jalan Untuk T Penjualan PKS"
+      "title" => "Rincian Faktur Penjualan",
+      "description" => "Pilih Tanggal Transkasi Pengiriman TBS"
     ];
     $this->render_backend('template/backend/pages/t_ak_faktur_penjualan_rincian', $data);
   }

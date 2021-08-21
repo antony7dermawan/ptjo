@@ -26,8 +26,8 @@ class C_t_t_a_penjualan_pks extends MY_Controller
       "c_t_m_a_divisi" => $this->m_t_m_a_divisi->select(),
       "c_t_m_a_kendaraan" => $this->m_t_m_a_kendaraan->select(),
       "c_t_m_a_supir" => $this->m_t_m_a_supir->select(),
-      "title" => "Rincian Tagihan",
-      "description" => "Untuk PKS"
+      "title" => "Transaksi Pengiriman TBS",
+      "description" => ""
     ];
     $this->render_backend('template/backend/pages/t_t_a_penjualan_pks', $data);
   }

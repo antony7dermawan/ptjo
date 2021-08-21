@@ -41,8 +41,8 @@ class C_t_t_t_retur_pembelian_rincian extends MY_Controller
       "c_t_m_d_barang" => $this->m_t_t_t_retur_pembelian_rincian->select_barang_id($retur_pembelian_id),
       
       "retur_pembelian_id" => $retur_pembelian_id,
-      "title" => "Transaksi Pembelian",
-      "description" => "form Pembelian"
+      "title" => "Rincian Transaksi Retur Pembelian",
+      "description" => "form Retur Pembelian"
     ];
     $this->render_backend('template/backend/pages/t_t_t_retur_pembelian_rincian', $data);
   }

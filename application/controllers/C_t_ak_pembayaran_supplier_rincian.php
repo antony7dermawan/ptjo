@@ -23,8 +23,8 @@ class C_t_ak_pembayaran_supplier_rincian extends MY_Controller
       "pembayaran_supplier_id" => $id,
       "supplier_id" => $supplier_id,
       
-      "title" => "Rincian Faktur Penjualan",
-      "description" => "Faktur Penjualan"
+      "title" => "Rincian PO Pembayaran Supplier",
+      "description" => "Pilih tanggal transaksi PO"
     ];
     $this->render_backend('template/backend/pages/t_ak_pembayaran_supplier_rincian', $data);
   }

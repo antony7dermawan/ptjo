@@ -44,8 +44,8 @@ class C_t_t_t_retur_pemakaian_rincian extends MY_Controller
       "c_t_m_d_barang" => $this->m_t_t_t_retur_pemakaian_rincian->select_barang_id($retur_pemakaian_id),
       
       "retur_pemakaian_id" => $retur_pemakaian_id,
-      "title" => "Transaksi Pemakaian",
-      "description" => "form Pemakaian"
+      "title" => "Rincian Transaksi Retur Pemakaian",
+      "description" => "form Retur Pemakaian"
     ];
     $this->render_backend('template/backend/pages/t_t_t_retur_pemakaian_rincian', $data);
   }

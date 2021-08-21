@@ -43,8 +43,8 @@ public function select_range_date($from_date,$to_date)
     $this->db->select("T_M_D_PAYMENT_METHOD.PAYMENT_METHOD");
     $this->db->select("T_M_D_PELANGGAN.PELANGGAN");
     $this->db->select("T_M_D_SALES.SALES");
-    $this->db->select("T_M_D_NO_POLISI.NO_POLISI");
-    $this->db->select("T_M_D_SUPIR.SUPIR");
+    $this->db->select("T_M_A_NO_POLISI.NO_POLISI");
+    $this->db->select("T_M_A_SUPIR.SUPIR");
     $this->db->select("T_M_D_LOKASI.LOKASI");
 
 
@@ -61,9 +61,9 @@ public function select_range_date($from_date,$to_date)
     $this->db->join('T_M_D_PELANGGAN', 'T_M_D_PELANGGAN.ID = T_T_T_PEMAKAIAN.PELANGGAN_ID', 'left');
     $this->db->join('T_M_D_SALES', 'T_M_D_SALES.ID = T_T_T_PEMAKAIAN.SALES_ID', 'left');
 
-    $this->db->join('T_M_D_NO_POLISI', 'T_M_D_NO_POLISI.ID = T_T_T_PEMAKAIAN.NO_POLISI_ID', 'left');
+    $this->db->join('T_M_A_NO_POLISI', 'T_M_A_NO_POLISI.ID = T_T_T_PEMAKAIAN.NO_POLISI_ID', 'left');
 
-    $this->db->join('T_M_D_SUPIR', 'T_M_D_SUPIR.ID = T_T_T_PEMAKAIAN.SUPIR_ID', 'left');
+    $this->db->join('T_M_A_SUPIR', 'T_M_A_SUPIR.ID = T_T_T_PEMAKAIAN.SUPIR_ID', 'left');
 
     $this->db->join('T_M_D_LOKASI', 'T_M_D_LOKASI.ID = T_T_T_PEMAKAIAN.LOKASI_ID', 'left');
     
@@ -208,11 +208,13 @@ public function select_range_date($from_date,$to_date)
 
     $this->db->select("T_M_D_ANGGOTA.ANGGOTA");
     $this->db->select("T_M_D_SALES.SALES");
-    $this->db->select("T_M_D_NO_POLISI.NO_POLISI");
-    $this->db->select("T_M_D_SUPIR.SUPIR");
+    $this->db->select("T_M_A_NO_POLISI.NO_POLISI");
+    $this->db->select("T_M_A_SUPIR.SUPIR");
     $this->db->select("T_M_D_LOKASI.LOKASI");
+    $this->db->select("T_M_D_PEMAKAI.PEMAKAI");
 
     $this->db->from('T_T_T_RETUR_PEMAKAIAN');
+
 
 
 
@@ -223,14 +225,17 @@ public function select_range_date($from_date,$to_date)
     $this->db->join('T_M_D_PAYMENT_METHOD', 'T_M_D_PAYMENT_METHOD.ID = T_T_T_PEMAKAIAN.PAYMENT_METHOD_ID', 'left');
     $this->db->join('T_M_D_SALES', 'T_M_D_SALES.ID = T_T_T_PEMAKAIAN.SALES_ID', 'left');
 
-    $this->db->join('T_M_D_NO_POLISI', 'T_M_D_NO_POLISI.ID = T_T_T_PEMAKAIAN.NO_POLISI_ID', 'left');
+    $this->db->join('T_M_A_NO_POLISI', 'T_M_A_NO_POLISI.ID = T_T_T_PEMAKAIAN.NO_POLISI_ID', 'left');
 
-    $this->db->join('T_M_D_SUPIR', 'T_M_D_SUPIR.ID = T_T_T_PEMAKAIAN.SUPIR_ID', 'left');
+    $this->db->join('T_M_A_SUPIR', 'T_M_A_SUPIR.ID = T_T_T_PEMAKAIAN.SUPIR_ID', 'left');
 
     $this->db->join('T_M_D_LOKASI', 'T_M_D_LOKASI.ID = T_T_T_PEMAKAIAN.LOKASI_ID', 'left');
 
     $this->db->join('T_M_D_ANGGOTA', 'T_M_D_ANGGOTA.ID = T_T_T_PEMAKAIAN.ANGGOTA_ID', 'left');
 
+    $this->db->join('T_M_D_PEMAKAI', 'T_M_D_PEMAKAI.ID = T_T_T_PEMAKAIAN.PEMAKAI_ID', 'left');
+    
+    
     $this->db->join("(select \"RETUR_PEMAKAIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_RETUR_PEMAKAIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"RETUR_PEMAKAIAN_ID\") as t_sum_1", 'T_T_T_RETUR_PEMAKAIAN.ID = t_sum_1.RETUR_PEMAKAIAN_ID', 'left');
 
     

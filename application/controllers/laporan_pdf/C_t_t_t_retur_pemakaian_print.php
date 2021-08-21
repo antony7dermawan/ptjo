@@ -1,26 +1,26 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class C_t_t_t_pemakaian_print extends MY_Controller
+class C_t_t_t_retur_pemakaian_print extends MY_Controller
 {
 
   public function __construct()
   {
     parent::__construct();
 
-    $this->load->model('m_t_t_t_pembelian');
-
     $this->load->model('m_t_t_t_pemakaian');
 
-    $this->load->model('m_t_t_t_pemakaian_rincian'); 
+    $this->load->model('m_t_t_t_retur_pemakaian');
+
+    $this->load->model('m_t_t_t_retur_pemakaian_rincian'); 
 
     $this->load->model('m_t_m_d_supplier');
     
   }
 
-  public function index($pemakaian_id)
+  public function index($retur_pemakaian_id)
   {
-    $this->session->set_userdata('t_t_t_pemakaian_delete_logic', '0');
+    $this->session->set_userdata('t_t_t_retur_pemakaian_delete_logic', '0');
 
     $pdf = new \TCPDF();
     $pdf->SetPrintHeader(false);
@@ -33,33 +33,35 @@ class C_t_t_t_pemakaian_print extends MY_Controller
     #.............................paper head
 
 
-
     
 
 
     $pdf->SetFont('','',12);
 
-    $read_select = $this->m_t_t_t_pemakaian->select_by_id($pemakaian_id);
+    $read_select = $this->m_t_t_t_retur_pemakaian->select_by_id($retur_pemakaian_id);
     foreach ($read_select as $key => $value) 
     {
       $date = $value->DATE;
       $time = $value->TIME;
       $inv = $value->INV;
-      $pemakaian_id = $value->ID;
+      $pemakaian_id = $value->PEMAKAIAN_ID;
       $created_by = $value->CREATED_BY;
       $updated_by = $value->UPDATED_BY;
       $ket = $value->KET;
       $company = $value->COMPANY;
+      
+    }
 
+
+    $read_select = $this->m_t_t_t_pemakaian->select_by_id($pemakaian_id);
+    foreach ($read_select as $key => $value) 
+    {
       $r_anggota = $value->ANGGOTA;
       $r_no_polisi = $value->NO_POLISI;
       $r_supir = $value->SUPIR;
       $r_lokasi = $value->LOKASI;
       $r_pemakai = $value->PEMAKAI;
     }
-
-
-
 
 
    
@@ -70,7 +72,7 @@ class C_t_t_t_pemakaian_print extends MY_Controller
 
 
 
-    $read_select = $this->m_t_t_t_pemakaian_rincian->select($pemakaian_id);
+    $read_select = $this->m_t_t_t_retur_pemakaian_rincian->select($retur_pemakaian_id);
     foreach ($read_select as $key => $value) 
     {
       $kode_barang[$key]=$value->KODE_BARANG;
@@ -124,7 +126,7 @@ class C_t_t_t_pemakaian_print extends MY_Controller
 
         $pdf->SetFont('','B',11);
         $pdf->Cell(130, 6, "", 0, 0, 'C');
-        $pdf->Cell(60, 6, "SURAT PERMINTAAN PENGELUARAN BARANG (SPPB)", 0, 1, 'R');
+        $pdf->Cell(30, 6, "RETUR PEMAKAIAN", 0, 1, 'L');
 
         $pdf->SetFont('','',9);
         $pdf->Cell(130, 4, "", 0, 0, 'C');
@@ -325,7 +327,7 @@ class C_t_t_t_pemakaian_print extends MY_Controller
 
 
 
-    $pdf->Output("pembelian".$inv.".pdf");
+    $pdf->Output("pemakaian".$inv.".pdf");
   }
 
 

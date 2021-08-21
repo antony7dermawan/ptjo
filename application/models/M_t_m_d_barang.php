@@ -54,6 +54,18 @@ public function select_existing_barang_id_in_company($barang_id,$company_id)
   return $akun->result ();
 }
 
+
+
+public function select_by_barang_id($barang_id)
+{
+  $this->db->select('*');
+  $this->db->from('T_M_D_BARANG');
+  $this->db->where('BARANG_ID', $barang_id);
+  $akun = $this->db->get ();
+  return $akun->result ();
+}
+
+
 public function select_by_id_id($id)
 {
   $this->db->select('*');

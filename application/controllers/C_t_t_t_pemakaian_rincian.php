@@ -46,7 +46,7 @@ class C_t_t_t_pemakaian_rincian extends MY_Controller
       "c_t_m_d_barang" => $this->m_t_m_d_barang->select(),
       
       "pemakaian_id" => $pemakaian_id,
-      "title" => "Transaksi Pemakaian",
+      "title" => "Rincian Transaksi Pemakaian",
       "description" => "form Pemakaian"
     ];
     $this->render_backend('template/backend/pages/t_t_t_pemakaian_rincian', $data);
@@ -106,22 +106,7 @@ class C_t_t_t_pemakaian_rincian extends MY_Controller
   {
     $barang_id = intval($this->input->post("barang_id"));
     $qty = floatval($this->input->post("qty"));
-    $diskon_p_1 = 0;
-    $diskon_p_2 = 0;
-    $diskon_harga = 0;
-    $harga_jual = 0;
-
-    /* harga db
-    $read_select = $this->m_t_m_d_barang->select_by_id($barang_id);
-    foreach ($read_select as $key => $value) 
-    {
-      $harga_jual = $value->HARGA_JUAL;
-    }
-    */
-
-    $sub_total_1 = ($qty * $harga_jual) - (($qty * $harga_jual * $diskon_p_1)/100);
-    $sub_total_2 = ($sub_total_1) - (($sub_total_1 * $diskon_p_2)/100);
-    $sub_total = $sub_total_2 - $diskon_harga;
+ 
 
 
 
@@ -147,8 +132,8 @@ class C_t_t_t_pemakaian_rincian extends MY_Controller
       $read_select = $this->m_t_t_t_pembelian_rincian->select_sisa_qty($barang_id);
       foreach ($read_select as $key => $value) 
       {
-        $sub_total = floatval($value->HARGA) * $vivo_qty;
-        $harga_jual = floatval($value->HARGA);
+        $harga_jual = floatval($value->HARGA * ((100+$value->PPN_PERCENTAGE)/100) );
+        $sub_total = floatval($harga_jual) * $value->SISA_QTY;
 
         if($vivo_qty<=$value->SISA_QTY)
         {
@@ -191,8 +176,10 @@ class C_t_t_t_pemakaian_rincian extends MY_Controller
         if($vivo_qty>$value->SISA_QTY)
         {
 
-          $sub_total = floatval($value->HARGA) * $value->SISA_QTY;
-          $harga_jual = floatval($value->HARGA);
+
+          $harga_jual = floatval($value->HARGA * ((100+$value->PPN_PERCENTAGE)/100) );
+          $sub_total = floatval($harga_jual) * $value->SISA_QTY;
+          
 
 
           if($value->SISA_QTY>0)

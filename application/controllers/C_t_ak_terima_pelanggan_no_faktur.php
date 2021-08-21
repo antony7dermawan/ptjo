@@ -21,8 +21,8 @@ class C_t_ak_terima_pelanggan_no_faktur extends MY_Controller
       "terima_pelanggan_id" => $id,
       "select_no_faktur" => $this->m_t_ak_faktur_penjualan->select_no_faktur(),
       "pks_id" => $pks_id,
-      "title" => "Rincian No Faktur",
-      "description" => "Isi Rincian Nomor Faktur"
+      "title" => "Rincian No Faktur Terima Pelanggan",
+      "description" => "Pilih No Faktur Faktur Penjualan"
     ];
     $this->render_backend('template/backend/pages/t_ak_terima_pelanggan_no_faktur', $data);
   }

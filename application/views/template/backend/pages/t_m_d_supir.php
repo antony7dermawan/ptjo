@@ -19,7 +19,7 @@
         </thead>
         <tbody>
           <?php
-          foreach ($c_t_m_d_supir as $key => $value) 
+          foreach ($c_t_m_a_supir as $key => $value) 
           {
             if($value->MARK_FOR_DELETE == 'f')
             {
@@ -33,7 +33,7 @@
                 echo "<i class='icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green'></i>";
               echo "</a>";
 
-              echo "<a href='".site_url('c_t_m_d_supir/delete/' . $value->ID)."' ";
+              echo "<a href='".site_url('c_t_m_a_supir/delete/' . $value->ID)."' ";
               ?>
               onclick="return confirm('Apakah kamu yakin ingin menghapus data ini?')"
               <?php
@@ -55,7 +55,7 @@
                
               
 
-              echo "<a href='".site_url('c_t_m_d_supir/undo_delete/' . $value->ID)."' ";
+              echo "<a href='".site_url('c_t_m_a_supir/undo_delete/' . $value->ID)."' ";
               ?>
               onclick="return confirm('Apakah kamu yakin ingin mengembalikan data ini?')"
               <?php
@@ -81,7 +81,7 @@
 
 
 <!-- MODAL TAMBAH Beban! !-->
-<form action="<?php echo base_url('c_t_m_d_supir/tambah') ?>" method="post">
+<form action="<?php echo base_url('c_t_m_a_supir/tambah') ?>" method="post">
   <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -119,7 +119,7 @@
 <!-- MODAL EDIT AKUN !-->
 <div class="modal fade" id="Modal_Edit" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
-    <form action="<?php echo base_url('c_t_m_d_supir/edit_action') ?>" method="post">
+    <form action="<?php echo base_url('c_t_m_a_supir/edit_action') ?>" method="post">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">Edit Data</h4>
@@ -163,7 +163,7 @@
 
 
 <script>
-  const users = <?= json_encode($c_t_m_d_supir) ?>;
+  const users = <?= json_encode($c_t_m_a_supir) ?>;
   console.log(users);
   let elModalEdit = document.querySelector("#Modal_Edit");
   console.log(elModalEdit);

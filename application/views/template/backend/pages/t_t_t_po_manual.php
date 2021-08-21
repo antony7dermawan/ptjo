@@ -415,15 +415,8 @@
 
 
               <div class="searchable">
-                  <input type="text" name='supplier' placeholder="search" onkeyup="filterFunction(this,event)">
-                  <ul>
-                    <?php
-                    foreach ($c_t_m_d_supplier as $key => $value) 
-                    {
-                      echo "<li>".$value->SUPPLIER."</li>";
-                    }
-                    ?>
-                  </ul>
+                  <input type="text" name='supplier' placeholder="search" onkeyup="filterFunction(this,event)" readOnly='true'>
+                  
               </div>
             </fieldset>
 

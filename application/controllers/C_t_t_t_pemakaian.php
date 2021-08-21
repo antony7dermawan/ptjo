@@ -15,8 +15,8 @@ class C_t_t_t_pemakaian extends MY_Controller
     $this->load->model('m_t_m_d_anggota');
 
     $this->load->model('m_t_m_d_sales');
-    $this->load->model('m_t_m_d_no_polisi');
-    $this->load->model('m_t_m_d_supir');
+    $this->load->model('m_t_m_a_no_polisi');
+    $this->load->model('m_t_m_a_supir');
 
     $this->load->model('m_t_m_d_barang');
     $this->load->model('m_t_m_d_lokasi');
@@ -42,8 +42,8 @@ class C_t_t_t_pemakaian extends MY_Controller
     $this->session->set_userdata('t_m_d_payment_method_delete_logic', '0');
     $this->session->set_userdata('t_m_d_anggota_delete_logic', '0');
     $this->session->set_userdata('t_m_d_sales_delete_logic', '0');
-    $this->session->set_userdata('t_m_d_no_polisi_delete_logic', '0');
-    $this->session->set_userdata('t_m_d_supir_delete_logic', '0');
+    $this->session->set_userdata('t_m_a_no_polisi_delete_logic', '0');
+    $this->session->set_userdata('t_m_a_supir_delete_logic', '0');
     $this->session->set_userdata('t_m_d_lokasi_delete_logic', '0');
     $this->session->set_userdata('t_m_d_pemakai_delete_logic', '0');
 
@@ -65,8 +65,8 @@ class C_t_t_t_pemakaian extends MY_Controller
       "c_t_m_d_sales" => $this->m_t_m_d_sales->select(),
 
       "c_t_m_d_lokasi" => $this->m_t_m_d_lokasi->select(),
-      "c_t_m_d_no_polisi" => $this->m_t_m_d_no_polisi->select(),
-      "c_t_m_d_supir" => $this->m_t_m_d_supir->select(),
+      "c_t_m_a_no_polisi" => $this->m_t_m_a_no_polisi->select(),
+      "c_t_m_a_supir" => $this->m_t_m_a_supir->select(),
 
       "title" => "Transaksi Pemakaian",
       "description" => "form Pemakaian"
@@ -226,12 +226,12 @@ class C_t_t_t_pemakaian extends MY_Controller
     $payment_method_id = 0;
 
 
-    $read_select = $this->m_t_m_d_no_polisi->select_id($no_polisi);
+    $read_select = $this->m_t_m_a_no_polisi->select_id($no_polisi);
     foreach ($read_select as $key => $value) {
       $no_polisi_id = $value->ID;
     }
 
-    $read_select = $this->m_t_m_d_supir->select_id($supir);
+    $read_select = $this->m_t_m_a_supir->select_id($supir);
     foreach ($read_select as $key => $value) {
       $supir_id = $value->ID;
     }

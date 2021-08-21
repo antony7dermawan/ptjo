@@ -35,7 +35,7 @@ class C_t_t_t_po_manual_rincian extends MY_Controller
       "c_t_m_d_barang" => $this->m_t_m_d_barang->select(),
       "c_t_m_d_supplier" => $this->m_t_m_d_supplier->select(),
       "pembelian_id" => $po_manual_id,
-      "title" => "Transaksi PO Manual",
+      "title" => "Rincian Transaksi PO Manual",
       "description" => "form PO Manual"
     ];
     $this->render_backend('template/backend/pages/t_t_t_po_manual_rincian', $data);

@@ -27,8 +27,8 @@ class C_t_ak_pembayaran_supplier_diskon extends MY_Controller
       "no_akun_option" => $this->m_ak_m_coa->select_no_akun(),
       "select_no_faktur" => $this->m_t_ak_faktur_penjualan->select_no_faktur(),
       "supplier_id" => $supplier_id,
-      "title" => "Rincian Metode Bayar",
-      "description" => "Isi Rincian Metode Bayar"
+      "title" => "Rincian Diskon Pembayaran Supplier",
+      "description" => ""
     ];
     $this->render_backend('template/backend/pages/t_ak_pembayaran_supplier_diskon', $data);
   }

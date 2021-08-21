@@ -240,7 +240,7 @@
               <label>No Polisi</label>
               <select name="no_polisi_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
               <?php
-              foreach ($c_t_m_d_no_polisi as $key => $value) 
+              foreach ($c_t_m_a_no_polisi as $key => $value) 
               {
                 echo "<option value='".$value->ID."'>".$value->NO_POLISI."</option>";
 
@@ -258,7 +258,7 @@
               <label>Supir</label>
               <select name="supir_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
               <?php
-              foreach ($c_t_m_d_supir as $key => $value) 
+              foreach ($c_t_m_a_supir as $key => $value) 
               {
                 echo "<option value='".$value->ID."'>".$value->SUPIR."</option>";
 
@@ -418,7 +418,7 @@
                   <input type="text" name='no_polisi' placeholder="search" onkeyup="filterFunction(this,event)">
                   <ul>
                     <?php
-                    foreach ($c_t_m_d_no_polisi as $key => $value) 
+                    foreach ($c_t_m_a_no_polisi as $key => $value) 
                     {
                       echo "<li>".$value->NO_POLISI."</li>";
                     }
@@ -440,7 +440,7 @@
                   <input type="text" name='supir' placeholder="search" onkeyup="filterFunction(this,event)">
                   <ul>
                     <?php
-                    foreach ($c_t_m_d_supir as $key => $value) 
+                    foreach ($c_t_m_a_supir as $key => $value) 
                     {
                       echo "<li>".$value->SUPIR."</li>";
                     }

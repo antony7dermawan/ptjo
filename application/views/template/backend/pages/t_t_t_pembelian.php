@@ -227,7 +227,9 @@
             <fieldset class="form-group">
               <label>Supplier</label>
               <select name="supplier_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+                
               <?php
+
               foreach ($c_t_m_d_supplier as $key => $value) 
               {
                 echo "<option value='".$value->ID."'>".$value->SUPPLIER."</option>";

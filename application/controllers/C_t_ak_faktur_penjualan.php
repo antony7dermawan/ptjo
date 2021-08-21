@@ -35,7 +35,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
       "c_t_m_a_pks" => $this->m_t_m_a_pks->select(),
       "c_t_m_a_divisi" => $this->m_t_m_a_divisi->select(),
       "c_t_m_a_kendaraan" => $this->m_t_m_a_kendaraan->select(),
-      "title" => "Faktur Penjualan",
+      "title" => "Transaksi Faktur Penjualan",
       "description" => "Membuat Tagihan ke PKS"
     ];
     $this->render_backend('template/backend/pages/t_ak_faktur_penjualan', $data);

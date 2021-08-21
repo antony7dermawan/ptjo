@@ -15,7 +15,7 @@ class C_t_po_print_setting extends MY_Controller
   {
     $data = [
       "c_t_po_print_setting" => $this->m_t_po_print_setting->select(),
-      "title" => "Setting Print Terima Pelanggan",
+      "title" => "Setting Print PO Inventory",
       "description" => "Setting ID tidak boleh diubah-ubah ya"
     ];
     $this->render_backend('template/backend/pages/t_po_print_setting', $data);

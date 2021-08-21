@@ -46,7 +46,7 @@ class C_t_t_t_penjualan_rincian extends MY_Controller
       "c_t_m_d_barang" => $this->m_t_m_d_barang->select(),
       
       "penjualan_id" => $penjualan_id,
-      "title" => "Transaksi Penjualan",
+      "title" => "Rincian Transaksi Penjualan",
       "description" => "form Penjualan"
     ];
     $this->render_backend('template/backend/pages/t_t_t_penjualan_rincian', $data);

@@ -46,8 +46,8 @@ class C_t_t_t_pinlok_in_rincian extends MY_Controller
       "c_t_m_d_barang" => $this->m_t_m_d_barang->select(),
       
       "pinlok_in_id" => $pinlok_in_id,
-      "title" => "Transaksi Pindah Lokasi",
-      "description" => "form Pindah Lokasi"
+      "title" => "Rincian Transaksi Pindah Lokasi Masuk",
+      "description" => "form Pindah Lokasi Masuk"
     ];
     $this->render_backend('template/backend/pages/t_t_t_pinlok_in_rincian', $data);
   }

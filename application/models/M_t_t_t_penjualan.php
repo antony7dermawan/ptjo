@@ -56,8 +56,8 @@ public function select_date($pelanggan_id,$from_date,$to_date)
     $this->db->select("T_M_D_PELANGGAN.PELANGGAN");
 
     $this->db->select("T_M_D_SALES.SALES");
-    $this->db->select("T_M_D_NO_POLISI.NO_POLISI");
-    $this->db->select("T_M_D_SUPIR.SUPIR");
+    $this->db->select("T_M_A_NO_POLISI.NO_POLISI");
+    $this->db->select("T_M_A_SUPIR.SUPIR");
 
     $this->db->select("T_M_D_LOKASI.LOKASI");
 
@@ -74,9 +74,9 @@ public function select_date($pelanggan_id,$from_date,$to_date)
     $this->db->join('T_M_D_PELANGGAN', 'T_M_D_PELANGGAN.ID = T_T_T_PENJUALAN.PELANGGAN_ID', 'left');
     $this->db->join('T_M_D_SALES', 'T_M_D_SALES.ID = T_T_T_PENJUALAN.SALES_ID', 'left');
 
-    $this->db->join('T_M_D_NO_POLISI', 'T_M_D_NO_POLISI.ID = T_T_T_PENJUALAN.NO_POLISI_ID', 'left');
+    $this->db->join('T_M_A_NO_POLISI', 'T_M_A_NO_POLISI.ID = T_T_T_PENJUALAN.NO_POLISI_ID', 'left');
 
-    $this->db->join('T_M_D_SUPIR', 'T_M_D_SUPIR.ID = T_T_T_PENJUALAN.SUPIR_ID', 'left');
+    $this->db->join('T_M_A_SUPIR', 'T_M_A_SUPIR.ID = T_T_T_PENJUALAN.SUPIR_ID', 'left');
 
     $this->db->join('T_M_D_LOKASI', 'T_M_D_LOKASI.ID = T_T_T_PENJUALAN.LOKASI_ID', 'left');
 
@@ -139,8 +139,8 @@ public function select_range_date($from_date,$to_date,$kredit_logic,$sales_id,$p
     $this->db->select("T_M_D_PELANGGAN.PELANGGAN");
 
     $this->db->select("T_M_D_SALES.SALES");
-    $this->db->select("T_M_D_NO_POLISI.NO_POLISI");
-    $this->db->select("T_M_D_SUPIR.SUPIR");
+    $this->db->select("T_M_A_NO_POLISI.NO_POLISI");
+    $this->db->select("T_M_A_SUPIR.SUPIR");
 
     $this->db->select("T_M_D_LOKASI.LOKASI");
 
@@ -157,9 +157,9 @@ public function select_range_date($from_date,$to_date,$kredit_logic,$sales_id,$p
     $this->db->join('T_M_D_PELANGGAN', 'T_M_D_PELANGGAN.ID = T_T_T_PENJUALAN.PELANGGAN_ID', 'left');
     $this->db->join('T_M_D_SALES', 'T_M_D_SALES.ID = T_T_T_PENJUALAN.SALES_ID', 'left');
 
-    $this->db->join('T_M_D_NO_POLISI', 'T_M_D_NO_POLISI.ID = T_T_T_PENJUALAN.NO_POLISI_ID', 'left');
+    $this->db->join('T_M_A_NO_POLISI', 'T_M_A_NO_POLISI.ID = T_T_T_PENJUALAN.NO_POLISI_ID', 'left');
 
-    $this->db->join('T_M_D_SUPIR', 'T_M_D_SUPIR.ID = T_T_T_PENJUALAN.SUPIR_ID', 'left');
+    $this->db->join('T_M_A_SUPIR', 'T_M_A_SUPIR.ID = T_T_T_PENJUALAN.SUPIR_ID', 'left');
 
     $this->db->join('T_M_D_LOKASI', 'T_M_D_LOKASI.ID = T_T_T_PENJUALAN.LOKASI_ID', 'left');
 
@@ -238,8 +238,8 @@ public function select_range_date($from_date,$to_date,$kredit_logic,$sales_id,$p
     $this->db->select("T_M_D_PELANGGAN.PELANGGAN");
 
     $this->db->select("T_M_D_SALES.SALES");
-    $this->db->select("T_M_D_NO_POLISI.NO_POLISI");
-    $this->db->select("T_M_D_SUPIR.SUPIR");
+    $this->db->select("T_M_A_NO_POLISI.NO_POLISI");
+    $this->db->select("T_M_A_SUPIR.SUPIR");
 
 
     $this->db->select("T_M_D_LOKASI.LOKASI");
@@ -257,9 +257,9 @@ public function select_range_date($from_date,$to_date,$kredit_logic,$sales_id,$p
     $this->db->join('T_M_D_PELANGGAN', 'T_M_D_PELANGGAN.ID = T_T_T_PENJUALAN.PELANGGAN_ID', 'left');
     $this->db->join('T_M_D_SALES', 'T_M_D_SALES.ID = T_T_T_PENJUALAN.SALES_ID', 'left');
 
-    $this->db->join('T_M_D_NO_POLISI', 'T_M_D_NO_POLISI.ID = T_T_T_PENJUALAN.NO_POLISI_ID', 'left');
+    $this->db->join('T_M_A_NO_POLISI', 'T_M_A_NO_POLISI.ID = T_T_T_PENJUALAN.NO_POLISI_ID', 'left');
 
-    $this->db->join('T_M_D_SUPIR', 'T_M_D_SUPIR.ID = T_T_T_PENJUALAN.SUPIR_ID', 'left');
+    $this->db->join('T_M_A_SUPIR', 'T_M_A_SUPIR.ID = T_T_T_PENJUALAN.SUPIR_ID', 'left');
 
     $this->db->join('T_M_D_LOKASI', 'T_M_D_LOKASI.ID = T_T_T_PENJUALAN.LOKASI_ID', 'left');
 
@@ -313,8 +313,8 @@ public function select_range_date($from_date,$to_date,$kredit_logic,$sales_id,$p
     $this->db->select("T_M_D_PELANGGAN.PELANGGAN");
 
     $this->db->select("T_M_D_SALES.SALES");
-    $this->db->select("T_M_D_NO_POLISI.NO_POLISI");
-    $this->db->select("T_M_D_SUPIR.SUPIR");
+    $this->db->select("T_M_A_NO_POLISI.NO_POLISI");
+    $this->db->select("T_M_A_SUPIR.SUPIR");
     $this->db->select("T_M_D_COMPANY.COMPANY");
 
 
@@ -332,11 +332,11 @@ public function select_range_date($from_date,$to_date,$kredit_logic,$sales_id,$p
     $this->db->join('T_M_D_PELANGGAN', 'T_M_D_PELANGGAN.ID = T_T_T_PENJUALAN.PELANGGAN_ID', 'left');
     $this->db->join('T_M_D_SALES', 'T_M_D_SALES.ID = T_T_T_PENJUALAN.SALES_ID', 'left');
 
-    $this->db->join('T_M_D_NO_POLISI', 'T_M_D_NO_POLISI.ID = T_T_T_PENJUALAN.NO_POLISI_ID', 'left');
+    $this->db->join('T_M_A_NO_POLISI', 'T_M_A_NO_POLISI.ID = T_T_T_PENJUALAN.NO_POLISI_ID', 'left');
 
     $this->db->join('T_M_D_COMPANY', 'T_M_D_COMPANY.ID = T_T_T_PENJUALAN.COMPANY_ID', 'left');
 
-    $this->db->join('T_M_D_SUPIR', 'T_M_D_SUPIR.ID = T_T_T_PENJUALAN.SUPIR_ID', 'left');
+    $this->db->join('T_M_A_SUPIR', 'T_M_A_SUPIR.ID = T_T_T_PENJUALAN.SUPIR_ID', 'left');
 
     $this->db->join('T_M_D_LOKASI', 'T_M_D_LOKASI.ID = T_T_T_PENJUALAN.LOKASI_ID', 'left');
 

@@ -18,15 +18,15 @@ public function select_range_date($from_date,$to_date,$barang_id,$kategori_id)
 
     $this->db->select("T_T_T_PEMBELIAN.ID");
     $this->db->select("T_T_T_PEMBELIAN.INV");
-    $this->db->select("T_T_T_PEMBELIAN.DATE");
-    $this->db->select("T_T_T_PEMBELIAN.TIME");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.DATE");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.TIME");
     $this->db->select("T_T_T_PEMBELIAN.KET");
     $this->db->select("T_T_T_PEMBELIAN.TABLE_CODE");
 
 
-    $this->db->select("SUM_SUB_TOTAL");
-    $this->db->select("SUM_QTY");
-    $this->db->select("AVG_HARGA");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.SUB_TOTAL as SUM_SUB_TOTAL");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.QTY as SUM_QTY");
+    $this->db->select("T_T_T_PEMBELIAN_RINCIAN.HARGA as AVG_HARGA");
 
 
 
@@ -44,15 +44,13 @@ public function select_range_date($from_date,$to_date,$barang_id,$kategori_id)
     $this->db->join('T_T_T_PEMBELIAN', 'T_T_T_PEMBELIAN_RINCIAN.PEMBELIAN_ID = T_T_T_PEMBELIAN.ID', 'left');
 
 
-    $this->db->join("(select \"PEMBELIAN_ID\",avg(\"HARGA\")\"AVG_HARGA\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false and \"BARANG_ID\"='{$barang_id}' group by \"PEMBELIAN_ID\") as t_sum_3", 'T_T_T_PEMBELIAN.ID = t_sum_3.PEMBELIAN_ID', 'left');
-
-    $this->db->join("(select \"PEMBELIAN_ID\",sum(\"QTY\")\"SUM_QTY\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false and \"BARANG_ID\"='{$barang_id}' group by \"PEMBELIAN_ID\") as t_sum_2", 'T_T_T_PEMBELIAN.ID = t_sum_2.PEMBELIAN_ID', 'left');
-
-    $this->db->join("(select \"PEMBELIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false and \"BARANG_ID\"='{$barang_id}' group by \"PEMBELIAN_ID\") as t_sum_1", 'T_T_T_PEMBELIAN.ID = t_sum_1.PEMBELIAN_ID', 'left');
+    
 
 
 
     $this->db->where("(T_T_T_PEMBELIAN.T_STATUS=0 or T_T_T_PEMBELIAN.T_STATUS=1 or T_T_T_PEMBELIAN.T_STATUS=2)");
+
+    $this->db->where("(T_T_T_PEMBELIAN_RINCIAN.SPECIAL_CASE_ID=0)");
 
 
     $this->db->where("T_T_T_PEMBELIAN.DATE<='{$to_date}' and T_T_T_PEMBELIAN.DATE>='{$from_date}'");

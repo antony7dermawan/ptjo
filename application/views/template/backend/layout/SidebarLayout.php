@@ -78,12 +78,12 @@ if($level_user_id==1 or $level_user_id==6)
                 </a>
             </li>
             <li class="">
-                <a href="<?= base_url("c_t_m_d_no_polisi"); ?>" class="submenu waves-effect waves-dark">
+                <a href="<?= base_url("c_t_m_a_no_polisi"); ?>" class="submenu waves-effect waves-dark">
                     <span class="pcoded-mtext">No Polisi</span>
                 </a>
             </li>
             <li class="">
-                <a href="<?= base_url("c_t_m_d_supir"); ?>" class="submenu waves-effect waves-dark">
+                <a href="<?= base_url("c_t_m_a_supir"); ?>" class="submenu waves-effect waves-dark">
                     <span class="pcoded-mtext">Nama Supir</span>
                 </a>
             </li>

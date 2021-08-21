@@ -35,8 +35,8 @@ class C_t_t_t_pembelian_rincian extends MY_Controller
 
       "c_t_m_d_supplier" => $this->m_t_m_d_supplier->select(),
       "pembelian_id" => $pembelian_id,
-      "title" => "Rincian Pembelian",
-      "description" => "form Pembelian Awal"
+      "title" => "Rincian Transaksi Pembelian",
+      "description" => "form Pembelian"
     ];
     $this->render_backend('template/backend/pages/t_t_t_pembelian_rincian', $data);
   }

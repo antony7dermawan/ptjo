@@ -25,8 +25,8 @@ class C_t_ak_terima_pelanggan_diskon extends MY_Controller
       "no_akun_option" => $this->m_ak_m_coa->select_no_akun(),
       "select_no_faktur" => $this->m_t_ak_faktur_penjualan->select_no_faktur(),
       "pks_id" => $pks_id,
-      "title" => "Rincian Diskon",
-      "description" => "Isi Rincian Diskon"
+      "title" => "Rincian Diskon Terima Pelanggan",
+      "description" => ""
     ];
     $this->render_backend('template/backend/pages/t_ak_terima_pelanggan_diskon', $data);
   }

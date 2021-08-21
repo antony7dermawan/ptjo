@@ -7,8 +7,11 @@ class C_laporan2 extends MY_Controller {
 	{
 	    parent::__construct();
 	    $this->load->model('m_t_m_d_barang');
+	    $this->load->model('m_t_m_d_pemakai');
+	    $this->load->model('m_t_m_d_lokasi');
+
 	    $this->load->model('m_t_m_d_anggota');
-	    $this->load->model('m_t_m_d_no_polisi');
+	    $this->load->model('m_t_m_a_no_polisi');
 
     	$this->load->model('m_t_m_d_kategori');
 
@@ -20,9 +23,13 @@ class C_laporan2 extends MY_Controller {
 	public function index(){
 
 
+		$this->session->set_userdata('t_m_d_pemakai_delete_logic', '0');
+		$this->session->set_userdata('t_m_d_lokasi_delete_logic', '0');
+
+
 		$this->session->set_userdata('t_m_d_anggota_delete_logic', '0');
 
-		$this->session->set_userdata('t_m_d_no_polisi_delete_logic', '0');
+		$this->session->set_userdata('t_m_a_no_polisi_delete_logic', '0');
 
 		$this->session->set_userdata('t_m_d_supplier_delete_logic', '0');
 
@@ -40,8 +47,10 @@ class C_laporan2 extends MY_Controller {
 		
 
 		$data = [
+			"c_t_m_d_pemakai" => $this->m_t_m_d_pemakai->select(),
+			"c_t_m_d_lokasi" => $this->m_t_m_d_lokasi->select(),
 			"c_t_m_d_anggota" => $this->m_t_m_d_anggota->select(),
-			"c_t_m_d_no_polisi" => $this->m_t_m_d_no_polisi->select(),
+			"c_t_m_a_no_polisi" => $this->m_t_m_a_no_polisi->select(),
 			"c_t_m_d_barang" => $this->m_t_m_d_barang->select(),
 			"c_t_m_d_kategori" => $this->m_t_m_d_kategori->select(),
 			"c_t_m_d_pelanggan" => $this->m_t_m_d_pelanggan->select(),
