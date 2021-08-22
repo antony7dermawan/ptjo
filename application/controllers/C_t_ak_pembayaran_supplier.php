@@ -373,6 +373,7 @@ class C_t_ak_pembayaran_supplier extends MY_Controller
     $keterangan = '';
     $coa_id = intval($this->input->post("coa_id"));
 
+    $inv_manual =  substr($this->input->post("inv"), 0, 50) ;
     
     $date = ($this->input->post("date"));
 
@@ -422,7 +423,7 @@ class C_t_ak_pembayaran_supplier extends MY_Controller
           'CREATED_BY' => $this->session->userdata('username'),
           'UPDATED_BY' => $this->session->userdata('username'),
           'KETERANGAN' => $keterangan,
-          'NO_FAKTUR' => $live_inv,
+          'NO_FAKTUR' => $inv_manual,
           'ENABLE_EDIT' => 1,
 
           'INV_INT' =>$inv_int,

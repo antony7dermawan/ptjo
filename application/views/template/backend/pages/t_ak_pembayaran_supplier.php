@@ -183,6 +183,16 @@
           </button>
         </div>
 
+
+
+        <div class="modal-body">
+          <div class="form-group">
+              <label>No. Form</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='inv'>
+          
+          </div>
+        </div>
+
         <div class="modal-body">
           <div class="form-group">
               <label>Pilih Akun Supplier</label>
