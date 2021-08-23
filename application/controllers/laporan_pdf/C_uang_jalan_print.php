@@ -48,6 +48,7 @@ class C_uang_jalan_print extends MY_Controller
       $r_supir=$value->SUPIR;
       $r_no_polisi=$value->NO_POLISI;
       $r_divisi=$value->DIVISI;
+      $r_pks=$value->PKS;
 
       $r_uang_jalan=$value->UANG_JALAN;
       $r_tambahan=$value->TAMBAHAN;
@@ -74,6 +75,9 @@ class C_uang_jalan_print extends MY_Controller
 
         $pdf->Cell( 15,5,'Divisi','0',0,'L');
         $pdf->Cell( 30,5,':'.$r_divisi,'0',1,'L');
+
+        $pdf->Cell( 15,5,'PKS','0',0,'L');
+        $pdf->Cell( 30,5,':'.$r_pks,'0',1,'L');
 
 
         $pdf->Cell( 15,5,'Sejumlah','0',0,'L');

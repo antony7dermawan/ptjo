@@ -98,7 +98,7 @@ class C_t_t_t_po_print3 extends MY_Controller
 
         $pdf->Cell( 190,30,'','0',1,'C');
 
-        $pdf->SetFont('','B',10);
+        $pdf->SetFont('','B',12);
         $pdf->Cell( 190,8,'Purchase Order','0',1,'C');
 
       
