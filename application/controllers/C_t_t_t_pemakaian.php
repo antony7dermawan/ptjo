@@ -23,6 +23,7 @@ class C_t_t_t_pemakaian extends MY_Controller
 
     $this->load->model('m_t_t_t_po_auto');
     $this->load->model('m_t_m_d_pemakai');
+    $this->load->model('m_t_m_d_divisi');
   }
 
 
@@ -46,6 +47,7 @@ class C_t_t_t_pemakaian extends MY_Controller
     $this->session->set_userdata('t_m_a_supir_delete_logic', '0');
     $this->session->set_userdata('t_m_d_lokasi_delete_logic', '0');
     $this->session->set_userdata('t_m_d_pemakai_delete_logic', '0');
+    $this->session->set_userdata('t_m_d_divisi_delete_logic', '0');
 
     if($this->session->userdata('date_pemakaian')=='')
     {
@@ -59,8 +61,8 @@ class C_t_t_t_pemakaian extends MY_Controller
       "c_t_m_d_payment_method" => $this->m_t_m_d_payment_method->select(),
       "c_t_m_d_anggota" => $this->m_t_m_d_anggota->select(),
       "c_t_m_d_pemakai" => $this->m_t_m_d_pemakai->select(),
-
-
+      "c_t_m_d_divisi" => $this->m_t_m_d_divisi->select(),
+      
 
       "c_t_m_d_sales" => $this->m_t_m_d_sales->select(),
 
@@ -122,6 +124,7 @@ class C_t_t_t_pemakaian extends MY_Controller
     $no_polisi_id = intval($this->input->post("no_polisi_id"));
     $supir_id = intval($this->input->post("supir_id"));
     $pemakai_id = intval($this->input->post("pemakai_id"));
+    $divisi_id = intval($this->input->post("divisi_id"));
     $sales_id = 1;
 
     $lokasi_id = intval($this->input->post("lokasi_id"));
@@ -156,7 +159,7 @@ class C_t_t_t_pemakaian extends MY_Controller
     $date_pemakaian = $date;
     $this->session->set_userdata('date_pemakaian', $date_pemakaian);
 
-    if($anggota_id!=0 and $payment_method_id!=0 and $no_polisi_id!=0 and $supir_id!=0  and $sales_id!=0 )
+    if($anggota_id!=0 and $pemakai_id!=0 and $divisi_id!=0 and $payment_method_id!=0 and $no_polisi_id!=0 and $supir_id!=0  and $sales_id!=0 )
     {
       $data = array(
         'DATE' => $date,
@@ -179,7 +182,8 @@ class C_t_t_t_pemakaian extends MY_Controller
         'INV_HEAD' => $inv_head,
         'TABLE_CODE' => 'PEMAKAIAN',
         'ENABLE_EDIT' => 1,
-        'PEMAKAI_ID' => $pemakai_id
+        'PEMAKAI_ID' => $pemakai_id,
+        'DIVISI_ID' => $divisi_id
       );
 
       $this->m_t_t_t_pemakaian->tambah($data);
@@ -221,6 +225,7 @@ class C_t_t_t_pemakaian extends MY_Controller
     //$sales = $this->input->post("sales");
     $lokasi = $this->input->post("lokasi");
     $pemakai = $this->input->post("pemakai");
+    $divisi = $this->input->post("divisi");
 
     $supplier_id = 0;
     $payment_method_id = 0;
@@ -258,9 +263,14 @@ class C_t_t_t_pemakaian extends MY_Controller
     foreach ($read_select as $key => $value) {
       $pemakai_id = $value->ID;
     }
+
+    $read_select = $this->m_t_m_d_divisi->select_id($divisi);
+    foreach ($read_select as $key => $value) {
+      $divisi_id = $value->ID;
+    }
     //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
 
-    if($anggota_id!=0 and $payment_method_id!=0 and $no_polisi_id!=0 and $supir_id!=0  and $sales_id!=0 and $lokasi_id!=0 and $pemakai_id!=0 )
+    if($anggota_id!=0 and $payment_method_id!=0 and $no_polisi_id!=0 and $supir_id!=0  and $sales_id!=0 and $lokasi_id!=0 and $pemakai_id!=0  and $divisi_id!=0)
     {
       $data = array(
         'PAYMENT_METHOD_ID' => $payment_method_id,
@@ -272,7 +282,8 @@ class C_t_t_t_pemakaian extends MY_Controller
         'UPDATED_BY' => $this->session->userdata('username'),
         'LOKASI_ID' => $lokasi_id,
         'INV_HEAD' => $inv_head,
-        'PEMAKAI_ID' => $pemakai_id
+        'PEMAKAI_ID' => $pemakai_id,
+        'DIVISI_ID' => $divisi_id
       );
       $this->m_t_t_t_pemakaian->update($data, $id);
       $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');

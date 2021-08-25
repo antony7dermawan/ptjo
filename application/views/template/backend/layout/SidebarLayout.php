@@ -36,7 +36,7 @@
 
 <?php
 $level_user_id = $this->session->userdata('level_user_id');
-if($level_user_id==1 or $level_user_id==6)
+if($level_user_id==1 or $level_user_id==6  or $level_user_id==8  or $level_user_id==9  or $level_user_id==10 )
 {
     ?>
     
@@ -99,6 +99,12 @@ if($level_user_id==1 or $level_user_id==6)
             </li>
 
             <li class="">
+                <a href="<?= base_url("c_t_m_d_divisi"); ?>" class="submenu waves-effect waves-dark">
+                    <span class="pcoded-mtext">Divisi Pemakai</span>
+                </a>
+            </li>
+
+            <li class="">
                 <a href="<?= base_url("c_t_m_d_sales"); ?>" class="submenu waves-effect waves-dark">
                     <span class="pcoded-mtext">Nama Sales</span>
                 </a>
@@ -122,7 +128,7 @@ if($level_user_id==1 or $level_user_id==6)
 
             <li class="">
                 <a href="<?= base_url("c_t_m_d_lokasi"); ?>" class="submenu waves-effect waves-dark">
-                    <span class="pcoded-mtext">Lokasi</span>
+                    <span class="pcoded-mtext">Lokasi / Blok</span>
                 </a>
             </li>
 
@@ -157,7 +163,7 @@ if($level_user_id==1 or $level_user_id==6)
 
             <?php
 
-            if($level_user_id==1 or $level_user_id==2 or $level_user_id==7 or $level_user_id==6 )
+            if($level_user_id==1 or $level_user_id==2 or $level_user_id==7 or $level_user_id==6  or $level_user_id==8  or $level_user_id==9  or $level_user_id==10 )
             {
 
             ?>
@@ -197,7 +203,7 @@ if($level_user_id==1 or $level_user_id==6)
 
             <?php
             }
-            if($level_user_id==1 or $level_user_id==2 or $level_user_id==4 or $level_user_id==6 or $level_user_id==3)
+            if($level_user_id==1 or $level_user_id==2 or $level_user_id==4 or $level_user_id==6 or $level_user_id==3  or $level_user_id==8  or $level_user_id==9  or $level_user_id==10 )
             {
 
             ?>
@@ -298,7 +304,7 @@ if($level_user_id==1)
 
 
 <?php
-if($level_user_id==1 or $level_user_id==6)
+if($level_user_id==1 or $level_user_id==6  or $level_user_id==8  or $level_user_id==9  or $level_user_id==10 )
 {
     ?>
     <li class="pcoded-hasmenu">

@@ -132,7 +132,7 @@ class C_t_t_t_pemakaian_rincian extends MY_Controller
       $read_select = $this->m_t_t_t_pembelian_rincian->select_sisa_qty($barang_id);
       foreach ($read_select as $key => $value) 
       {
-        $harga_jual = floatval($value->HARGA * ((100+$value->PPN_PERCENTAGE)/100) );
+        $harga_jual = floatval($value->HARGA);
         $sub_total = floatval($harga_jual) * $value->SISA_QTY;
 
         if($vivo_qty<=$value->SISA_QTY)
@@ -177,7 +177,7 @@ class C_t_t_t_pemakaian_rincian extends MY_Controller
         {
 
 
-          $harga_jual = floatval($value->HARGA * ((100+$value->PPN_PERCENTAGE)/100) );
+          $harga_jual = floatval($value->HARGA);
           $sub_total = floatval($harga_jual) * $value->SISA_QTY;
           
 

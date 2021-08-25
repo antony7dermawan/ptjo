@@ -15,6 +15,7 @@ class C_t_t_t_retur_pembelian_rincian extends MY_Controller
     
     $this->load->model('m_t_t_t_pembelian_rincian'); 
     $this->load->model('m_t_t_t_retur_pembelian_rincian'); 
+    $this->load->model('m_t_t_t_pembelian'); 
   }
 
   public function index($retur_pembelian_id)
@@ -61,6 +62,7 @@ class C_t_t_t_retur_pembelian_rincian extends MY_Controller
     foreach ($read_select as $key => $value) 
     {
       $r_qty_rb = $value->QTY;
+      $r_sub_total = $value->SUB_TOTAL;
       $r_barang_id_rb = $value->BARANG_ID;
       $r_pembelian_rincian_id = $value->PEMBELIAN_RINCIAN_ID;
     }
@@ -106,6 +108,26 @@ class C_t_t_t_retur_pembelian_rincian extends MY_Controller
           $vivo_qty = $vivo_qty - $value->SISA_QTY;
         }
       }
+
+
+      $read_select = $this->m_t_t_t_retur_pembelian->select_by_id($retur_pembelian_id);
+      foreach ($read_select as $key => $value) 
+      {
+        $read_pembelian_id = $value->PEMBELIAN_ID;
+      }
+
+      $read_select = $this->m_t_t_t_pembelian->select_by_id($read_pembelian_id);
+      foreach ($read_select as $key => $value) 
+      {
+        $read_payment_t_old = $value->PAYMENT_T;
+      }
+
+      $new_payment_t = $read_payment_t_old - $r_sub_total;
+
+      $data = array(
+        'PAYMENT_T' => $new_payment_t
+      );
+      $this->m_t_t_t_pembelian->update($data,$read_pembelian_id);
 
 
     $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data Berhasil DIhapus!</p></div>');
@@ -222,6 +244,24 @@ class C_t_t_t_retur_pembelian_rincian extends MY_Controller
           $vivo_qty = $vivo_qty - $value->SISA_QTY;
         }
       }
+
+
+
+      $read_select = $this->m_t_t_t_pembelian->select_by_id($read_pembelian_id);
+      foreach ($read_select as $key => $value) 
+      {
+        $read_payment_t_old = $value->PAYMENT_T;
+      }
+
+      $new_payment_t = $read_payment_t_old + $sub_total;
+
+      $data = array(
+        'PAYMENT_T' => $new_payment_t
+      );
+      $this->m_t_t_t_pembelian->update($data,$read_pembelian_id);
+
+
+
 
       $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
     }

@@ -154,6 +154,7 @@ class C_t_ak_pembayaran_supplier_metode_bayar extends MY_Controller
       $total_db_data = $key;
 
 
+
       if($db_logic==1)
       {
         for($i=0;$i<=$total_db_data;$i++)

@@ -18,7 +18,7 @@ public function update($data, $id)
 
 public function select_id($id)
 {
-  $this->db->select('NO_POLISI_ID');
+  $this->db->select('ID');
   $this->db->from('T_M_A_NO_POLISI');
   $this->db->where('NO_POLISI', $id);
   $akun = $this->db->get ();

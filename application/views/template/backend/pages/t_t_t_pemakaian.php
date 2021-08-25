@@ -283,7 +283,7 @@
           <div class="col-md-6">
 
             <fieldset class="form-group">
-              <label>Lokasi</label>
+              <label>Lokasi / Blok</label>
               <select name="lokasi_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
               <?php
               foreach ($c_t_m_d_lokasi as $key => $value) 
@@ -294,6 +294,30 @@
               ?>
               </select>
           </div> <!-- Membungkus Row !-->
+        </div>
+
+
+
+        <div class="row">
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
+              <label>Divisi</label>
+              <select name="divisi_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+              <?php
+              foreach ($c_t_m_d_divisi as $key => $value) 
+              {
+                echo "<option value='".$value->ID."'>".$value->DIVISI."</option>";
+
+              }
+              ?>
+              </select>
+            </fieldset>
+
+          </div><!-- Membungkus Row Kedua !-->
+
+
+          
         </div>
 
 
@@ -466,7 +490,7 @@
           <div class="col-md-6">
 
             <fieldset class="form-group">
-              <label>Lokasi</label>
+              <label>Lokasi / Blok</label>
               <div class="searchable">
                   <input type="text" name='lokasi' placeholder="search" onkeyup="filterFunction(this,event)">
                   <ul>
@@ -480,6 +504,34 @@
               </div>
           </div> <!-- Membungkus Row !-->
         </div>
+
+
+
+        <div class="row">
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
+              <label>Divisi</label>
+              <div class="searchable">
+                  <input type="text" name='divisi' placeholder="search" onkeyup="filterFunction(this,event)">
+                  <ul>
+                    <?php
+                    foreach ($c_t_m_d_divisi as $key => $value) 
+                    {
+                      echo "<li>".$value->DIVISI."</li>";
+                    }
+                    ?>
+                  </ul>
+              </div>
+            </fieldset>
+
+          </div><!-- Membungkus Row Kedua !-->
+
+
+          
+        </div>
+
+
 
 
         <div class="form-group">
@@ -533,6 +585,7 @@
         NO_POLISI : no_polisi,
         SUPIR : supir,
         PEMAKAI : pemakai,
+        DIVISI : divisi,
         
         UPDATED_BY : updated_by,
         CREATED_BY : created_by,
@@ -546,6 +599,7 @@
       elModalEdit.querySelector("[name=supir]").value = supir;
 
       elModalEdit.querySelector("[name=pemakai]").value = pemakai;
+      elModalEdit.querySelector("[name=divisi]").value = divisi;
       elModalEdit.querySelector("[name=anggota]").value = anggota;
       elModalEdit.querySelector("[name=payment_method]").value = payment_method;
       elModalEdit.querySelector("[name=ket]").value = ket;

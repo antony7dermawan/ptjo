@@ -19,6 +19,15 @@ public function update($data, $id)
 
 
 
+public function select_id($id)
+{
+  $this->db->select('ID');
+  $this->db->from('T_M_A_SUPIR');
+  $this->db->where('SUPIR', $id);
+  $akun = $this->db->get ();
+  return $akun->result ();
+}
+
 
 
   public function select()

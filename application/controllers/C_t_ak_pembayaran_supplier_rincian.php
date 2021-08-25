@@ -15,6 +15,7 @@ class C_t_ak_pembayaran_supplier_rincian extends MY_Controller
   }
 
 
+
   public function index($id, $supplier_id)
   {
     $data = [

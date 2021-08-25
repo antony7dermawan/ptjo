@@ -56,6 +56,8 @@ class C_t_t_t_pemakaian_print extends MY_Controller
       $r_supir = $value->SUPIR;
       $r_lokasi = $value->LOKASI;
       $r_pemakai = $value->PEMAKAI;
+      $r_divisi = $value->DIVISI;
+      $r_lokasi = $value->LOKASI;
     }
 
 
@@ -122,7 +124,7 @@ class C_t_t_t_pemakaian_print extends MY_Controller
         $y_value =5;
         $pdf->SetXY($x_value, $y_value);
 
-        $pdf->SetFont('','B',11);
+        $pdf->SetFont('','B',10);
         $pdf->Cell(130, 6, "", 0, 0, 'C');
         $pdf->Cell(60, 6, "SURAT PERMINTAAN PENGELUARAN BARANG (SPPB)", 0, 1, 'R');
 
@@ -154,12 +156,16 @@ class C_t_t_t_pemakaian_print extends MY_Controller
         $pdf->SetFont('','',10);
         $pdf->Cell(29, 6, "Pemakaian Untuk", 0, 0, 'L');
         $pdf->Cell(90, 6,':  '. $r_pemakai, 0, 1, 'L');
+        $pdf->Cell(29, 6, "Divisi", 0, 0, 'L');
+        $pdf->Cell(90, 6,':  '. $r_divisi, 0, 1, 'L');
+        $pdf->Cell(29, 6, "Lokasi/Blok", 0, 0, 'L');
+        $pdf->Cell(90, 6,':  '. $r_lokasi, 0, 1, 'L');
+
         $pdf->Cell(29, 6, "Anggota", 0, 0, 'L');
         $pdf->Cell(90, 6,':  '. $r_anggota, 0, 1, 'L');
-        $pdf->Cell(29, 6, "No Polisi", 0, 0, 'L');
-        $pdf->MultiCell(90, 6,':  '. substr($r_no_polisi, 0, 50), '0', 'L',0,1);
-        $pdf->Cell(29, 6, "Supir", 0, 0, 'L');
-        $pdf->MultiCell(90, 6,':  '. substr($r_supir, 0, 50), '0', 'L',0,1);
+        $pdf->Cell(29, 6, "No Polisi / Supir", 0, 0, 'L');
+        $pdf->MultiCell(90, 6,':  '. substr($r_no_polisi, 0, 50) .' / '. substr($r_supir, 0, 50), '0', 'L',0,1);
+     
 
 
         $x_value = $pdf->GetX();

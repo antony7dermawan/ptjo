@@ -67,6 +67,7 @@ public function select_range_date_by_no_polisi($from_date,$to_date,$no_polisi_id
 
     $this->db->select("T_M_D_LOKASI.LOKASI");
     $this->db->select("T_M_D_PEMAKAI.PEMAKAI");
+    $this->db->select("T_M_D_DIVISI.DIVISI");
 
 
     $this->db->select("SUM_SUB_TOTAL");
@@ -89,6 +90,8 @@ public function select_range_date_by_no_polisi($from_date,$to_date,$no_polisi_id
 
     $this->db->join('T_M_D_LOKASI', 'T_M_D_LOKASI.ID = T_T_T_PEMAKAIAN.LOKASI_ID', 'left');
     $this->db->join('T_M_D_PEMAKAI', 'T_M_D_PEMAKAI.ID = T_T_T_PEMAKAIAN.PEMAKAI_ID', 'left');
+
+    $this->db->join('T_M_D_DIVISI', 'T_M_D_DIVISI.ID = T_T_T_PEMAKAIAN.DIVISI_ID', 'left');
 
 
 
@@ -161,6 +164,7 @@ public function select_range_date_by_anggota($from_date,$to_date,$anggota_id)
 
     $this->db->select("T_M_D_LOKASI.LOKASI");
     $this->db->select("T_M_D_PEMAKAI.PEMAKAI");
+    $this->db->select("T_M_D_DIVISI.DIVISI");
 
 
     $this->db->select("SUM_SUB_TOTAL");
@@ -185,6 +189,8 @@ public function select_range_date_by_anggota($from_date,$to_date,$anggota_id)
 
 
     $this->db->join('T_M_D_PEMAKAI', 'T_M_D_PEMAKAI.ID = T_T_T_PEMAKAIAN.PEMAKAI_ID', 'left');
+
+    $this->db->join('T_M_D_DIVISI', 'T_M_D_DIVISI.ID = T_T_T_PEMAKAIAN.DIVISI_ID', 'left');
 
 
     $this->db->join("(select \"PEMAKAIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMAKAIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMAKAIAN_ID\") as t_sum_1", 'T_T_T_PEMAKAIAN.ID = t_sum_1.PEMAKAIAN_ID', 'left');
@@ -261,6 +267,7 @@ public function select_range_date_by_lokasi($from_date,$to_date,$lokasi_id)
 
     $this->db->select("T_M_D_LOKASI.LOKASI");
     $this->db->select("T_M_D_PEMAKAI.PEMAKAI");
+    $this->db->select("T_M_D_DIVISI.DIVISI");
 
 
     $this->db->select("SUM_SUB_TOTAL");
@@ -285,6 +292,8 @@ public function select_range_date_by_lokasi($from_date,$to_date,$lokasi_id)
 
 
     $this->db->join('T_M_D_PEMAKAI', 'T_M_D_PEMAKAI.ID = T_T_T_PEMAKAIAN.PEMAKAI_ID', 'left');
+
+    $this->db->join('T_M_D_DIVISI', 'T_M_D_DIVISI.ID = T_T_T_PEMAKAIAN.DIVISI_ID', 'left');
 
 
     $this->db->join("(select \"PEMAKAIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMAKAIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMAKAIAN_ID\") as t_sum_1", 'T_T_T_PEMAKAIAN.ID = t_sum_1.PEMAKAIAN_ID', 'left');
@@ -353,6 +362,7 @@ public function select_range_date_by_pemakai($from_date,$to_date,$pemakai_id)
 
     $this->db->select("T_M_D_LOKASI.LOKASI");
     $this->db->select("T_M_D_PEMAKAI.PEMAKAI");
+    $this->db->select("T_M_D_DIVISI.DIVISI");
 
 
     $this->db->select("SUM_SUB_TOTAL");
@@ -377,6 +387,8 @@ public function select_range_date_by_pemakai($from_date,$to_date,$pemakai_id)
 
 
     $this->db->join('T_M_D_PEMAKAI', 'T_M_D_PEMAKAI.ID = T_T_T_PEMAKAIAN.PEMAKAI_ID', 'left');
+
+    $this->db->join('T_M_D_DIVISI', 'T_M_D_DIVISI.ID = T_T_T_PEMAKAIAN.DIVISI_ID', 'left');
 
 
     $this->db->join("(select \"PEMAKAIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMAKAIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMAKAIAN_ID\") as t_sum_1", 'T_T_T_PEMAKAIAN.ID = t_sum_1.PEMAKAIAN_ID', 'left');
@@ -447,6 +459,7 @@ public function select_date($pelanggan_id,$from_date,$to_date)
     $this->db->select("T_M_D_LOKASI.LOKASI");
     $this->db->select("T_M_D_ANGGOTA.ANGGOTA");
     $this->db->select("T_M_D_PEMAKAI.PEMAKAI");
+    $this->db->select("T_M_D_DIVISI.DIVISI");
 
 
     $this->db->select("SUM_SUB_TOTAL");
@@ -471,6 +484,8 @@ public function select_date($pelanggan_id,$from_date,$to_date)
 
 
     $this->db->join('T_M_D_PEMAKAI', 'T_M_D_PEMAKAI.ID = T_T_T_PEMAKAIAN.PEMAKAI_ID', 'left');
+
+    $this->db->join('T_M_D_DIVISI', 'T_M_D_DIVISI.ID = T_T_T_PEMAKAIAN.DIVISI_ID', 'left');
 
 
     $this->db->join("(select \"PEMAKAIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMAKAIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMAKAIAN_ID\") as t_sum_1", 'T_T_T_PEMAKAIAN.ID = t_sum_1.PEMAKAIAN_ID', 'left');
@@ -537,6 +552,7 @@ public function select_range_date($from_date,$to_date,$kredit_logic,$sales_id,$p
     $this->db->select("T_M_D_LOKASI.LOKASI");
     $this->db->select("T_M_D_ANGGOTA.ANGGOTA");
     $this->db->select("T_M_D_PEMAKAI.PEMAKAI");
+    $this->db->select("T_M_D_DIVISI.DIVISI");
 
 
     $this->db->select("SUM_SUB_TOTAL");
@@ -563,6 +579,8 @@ public function select_range_date($from_date,$to_date,$kredit_logic,$sales_id,$p
 
 
     $this->db->join('T_M_D_PEMAKAI', 'T_M_D_PEMAKAI.ID = T_T_T_PEMAKAIAN.PEMAKAI_ID', 'left');
+    
+    $this->db->join('T_M_D_DIVISI', 'T_M_D_DIVISI.ID = T_T_T_PEMAKAIAN.DIVISI_ID', 'left');
 
 
     $this->db->join("(select \"PEMAKAIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMAKAIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMAKAIAN_ID\") as t_sum_1", 'T_T_T_PEMAKAIAN.ID = t_sum_1.PEMAKAIAN_ID', 'left');
@@ -645,6 +663,7 @@ public function select_range_date($from_date,$to_date,$kredit_logic,$sales_id,$p
 
     $this->db->select("T_M_D_LOKASI.LOKASI");
     $this->db->select("T_M_D_PEMAKAI.PEMAKAI");
+    $this->db->select("T_M_D_DIVISI.DIVISI");
 
 
     $this->db->select("SUM_SUB_TOTAL");
@@ -671,6 +690,9 @@ public function select_range_date($from_date,$to_date,$kredit_logic,$sales_id,$p
 
     $this->db->join('T_M_D_PEMAKAI', 'T_M_D_PEMAKAI.ID = T_T_T_PEMAKAIAN.PEMAKAI_ID', 'left');
     
+    $this->db->join('T_M_D_DIVISI', 'T_M_D_DIVISI.ID = T_T_T_PEMAKAIAN.DIVISI_ID', 'left');
+
+
     $this->db->join("(select \"PEMAKAIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMAKAIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMAKAIAN_ID\") as t_sum_1", 'T_T_T_PEMAKAIAN.ID = t_sum_1.PEMAKAIAN_ID', 'left');
 
     
@@ -740,6 +762,7 @@ public function select_range_date($from_date,$to_date,$kredit_logic,$sales_id,$p
 
     $this->db->select("T_M_D_LOKASI.LOKASI");
     $this->db->select("T_M_D_PEMAKAI.PEMAKAI");
+    $this->db->select("T_M_D_DIVISI.DIVISI");
 
 
     $this->db->select("SUM_SUB_TOTAL");
@@ -765,6 +788,8 @@ public function select_range_date($from_date,$to_date,$kredit_logic,$sales_id,$p
     $this->db->join('T_M_D_ANGGOTA', 'T_M_D_ANGGOTA.ID = T_T_T_PEMAKAIAN.ANGGOTA_ID', 'left');
 
     $this->db->join('T_M_D_PEMAKAI', 'T_M_D_PEMAKAI.ID = T_T_T_PEMAKAIAN.PEMAKAI_ID', 'left');
+
+    $this->db->join('T_M_D_DIVISI', 'T_M_D_DIVISI.ID = T_T_T_PEMAKAIAN.DIVISI_ID', 'left');
     
     $this->db->join("(select \"PEMAKAIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMAKAIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMAKAIAN_ID\") as t_sum_1", 'T_T_T_PEMAKAIAN.ID = t_sum_1.PEMAKAIAN_ID', 'left');
 
@@ -827,6 +852,7 @@ public function select_range_date($from_date,$to_date,$kredit_logic,$sales_id,$p
 
     $this->db->select("T_M_D_LOKASI.LOKASI");
     $this->db->select("T_M_D_PEMAKAI.PEMAKAI");
+    $this->db->select("T_M_D_DIVISI.DIVISI");
 
     $this->db->select("SUM_SUB_TOTAL");
 
@@ -848,6 +874,9 @@ public function select_range_date($from_date,$to_date,$kredit_logic,$sales_id,$p
 
     $this->db->join('T_M_D_LOKASI', 'T_M_D_LOKASI.ID = T_T_T_PEMAKAIAN.LOKASI_ID', 'left');
     $this->db->join('T_M_D_PEMAKAI', 'T_M_D_PEMAKAI.ID = T_T_T_PEMAKAIAN.PEMAKAI_ID', 'left');
+
+
+    $this->db->join('T_M_D_DIVISI', 'T_M_D_DIVISI.ID = T_T_T_PEMAKAIAN.DIVISI_ID', 'left');
     
 
     $this->db->join("(select \"PEMAKAIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMAKAIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PEMAKAIAN_ID\") as t_sum_1", 'T_T_T_PEMAKAIAN.ID = t_sum_1.PEMAKAIAN_ID', 'left');
