@@ -172,7 +172,7 @@ class C_t_ak_jurnal_create extends MY_Controller
       $this->update_coa_saldo($value->COA_ID);
       $this->m_t_ak_jurnal_create->delete($value->ID);
     }
-    redirect('c_t_ak_jurnal');
+    redirect('c_t_ak_jurnal_create');
   }
 
 
