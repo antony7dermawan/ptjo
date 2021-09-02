@@ -50,6 +50,7 @@ class C_t_m_d_supplier extends MY_Controller
   }
 
 
+
   function tambah()
   {
     
@@ -59,6 +60,12 @@ class C_t_m_d_supplier extends MY_Controller
     $email = substr($this->input->post("email"), 0, 100);
     $nik = substr($this->input->post("nik"), 0, 50);
     $npwp = substr($this->input->post("npwp"), 0, 50);
+
+
+    $nama_bank = substr($this->input->post("nama_bank"), 0, 50);
+    $cabang = substr($this->input->post("cabang"), 0, 50);
+    $norek = substr($this->input->post("norek"), 0, 50);
+    $atas_nama = substr($this->input->post("atas_nama"), 0, 50);
 
     //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
     $data = array(
@@ -70,7 +77,11 @@ class C_t_m_d_supplier extends MY_Controller
       'MARK_FOR_DELETE' => FALSE,
       'EMAIL' => $email,
       'NIK' => $nik,
-      'NPWP' => $npwp
+      'NPWP' => $npwp,
+      'NAMA_BANK' => $nama_bank,
+      'CABANG' => $cabang,
+      'NOREK' => $norek,
+      'ATAS_NAMA' => $atas_nama
     );
 
     $this->m_t_m_d_supplier->tambah($data);
@@ -94,6 +105,12 @@ class C_t_m_d_supplier extends MY_Controller
     $nik = substr($this->input->post("nik"), 0, 50);
     $npwp = substr($this->input->post("npwp"), 0, 50);
 
+    $nama_bank = substr($this->input->post("nama_bank"), 0, 50);
+    $cabang = substr($this->input->post("cabang"), 0, 50);
+    $norek = substr($this->input->post("norek"), 0, 50);
+    $atas_nama = substr($this->input->post("atas_nama"), 0, 50);
+
+
     //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
     $data = array(
       'SUPPLIER' => $supplier,
@@ -104,7 +121,11 @@ class C_t_m_d_supplier extends MY_Controller
       'MARK_FOR_DELETE' => FALSE,
       'EMAIL' => $email,
       'NIK' => $nik,
-      'NPWP' => $npwp
+      'NPWP' => $npwp,
+      'NAMA_BANK' => $nama_bank,
+      'CABANG' => $cabang,
+      'NOREK' => $norek,
+      'ATAS_NAMA' => $atas_nama
     );
 
     $this->m_t_m_d_supplier->update($data, $id);

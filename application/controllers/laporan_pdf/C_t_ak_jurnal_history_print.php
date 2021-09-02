@@ -118,8 +118,8 @@ class C_t_ak_jurnal_history_print extends MY_Controller
       $pdf->Cell(25, 6, $no_akun[$i], 'L', 0, 'L');
       $pdf->Cell(35, 6, substr($nama_akun[$i], 0, 20), 'L', 0, 'L');
       $pdf->Cell(25, 6, substr($catatan[$i], 0, 10), 'L', 0, 'L');
-      $pdf->Cell(25, 6, number_format(intval($debit[$i])), 'L', 0, 'C');
-      $pdf->Cell(25, 6, number_format(intval($kredit[$i])), 'L', 0, 'C');
+      $pdf->Cell(25, 6, number_format($debit[$i])), 'L', 0, 'C');
+      $pdf->Cell(25, 6, number_format($kredit[$i])), 'L', 0, 'C');
 
       $pdf->Cell(0.01, 6, "", 'L', 1, 'C');
 
@@ -159,8 +159,8 @@ class C_t_ak_jurnal_history_print extends MY_Controller
 
     $pdf->Cell(110, 6, "", 'T', 0, 'C');
     $pdf->Cell(25, 6, "Total", 1, 0, 'R');
-    $pdf->Cell(25, 6, number_format(intval($total_debit)), 1, 0, 'C');
-    $pdf->Cell(25, 6, number_format(intval($total_kredit)), 1, 0, 'C');
+    $pdf->Cell(25, 6, number_format($total_debit)), 1, 0, 'C');
+    $pdf->Cell(25, 6, number_format($total_kredit)), 1, 0, 'C');
     $pdf->Cell(0.1, 6, "", 'L', 1, 'C');
 
     $pdf->Cell(1, 1, "", 0, 1, 'C');
@@ -192,7 +192,7 @@ class C_t_ak_jurnal_history_print extends MY_Controller
       $pdf->Cell(80, 6, $value->NAMA_AKUN, 1, 0, 'C');
       $pdf->Cell(30, 6, "1", 1, 0, 'C');
       $pdf->Cell(30, 6, "Rp", 1, 0, 'C');
-      $pdf->Cell(40, 6, number_format(intval($value->JUMLAH)), 1, 1, 'C');
+      $pdf->Cell(40, 6, number_format($value->JUMLAH)), 1, 1, 'C');
 
       $total_pembayaran = $total_pembayaran+intval($value->JUMLAH);
     }
@@ -226,7 +226,7 @@ class C_t_ak_jurnal_history_print extends MY_Controller
       $pdf->Cell(80, 6, $value->NAMA_AKUN, 1, 0, 'C');
       $pdf->Cell(30, 6, "1", 1, 0, 'C');
       $pdf->Cell(30, 6, "Rp", 1, 0, 'C');
-      $pdf->Cell(40, 6, number_format(intval($value->JUMLAH)), 1, 1, 'C');
+      $pdf->Cell(40, 6, number_format($value->JUMLAH)), 1, 1, 'C');
 
       $total_pembayaran = $total_pembayaran+intval($value->JUMLAH);
     }
@@ -267,9 +267,9 @@ class C_t_ak_jurnal_history_print extends MY_Controller
 
       $pdf->Cell(45, 6, $value->NO_FAKTUR, 'L', 0, 'C');
       $pdf->Cell(30, 6, $value->DATE, 'L', 0, 'C');
-      $pdf->Cell(35, 6, number_format(intval($value->TOTAL_PENJUALAN)), 'L', 0, 'R');
-      $pdf->Cell(35, 6, number_format(intval($terutang)), 'L', 0, 'R');
-      $pdf->Cell(35, 6, number_format(intval($total_awal)), 'L', 0, 'R');
+      $pdf->Cell(35, 6, number_format($value->TOTAL_PENJUALAN)), 'L', 0, 'R');
+      $pdf->Cell(35, 6, number_format($terutang)), 'L', 0, 'R');
+      $pdf->Cell(35, 6, number_format($total_awal)), 'L', 0, 'R');
       $pdf->Cell(0.01, 6, '', 'L', 1, 'R');
 
 
@@ -292,7 +292,7 @@ class C_t_ak_jurnal_history_print extends MY_Controller
         $pdf->Cell(45, 6, '', 'T', 0, 'C');
         $pdf->Cell(30, 6, '', 'T', 0, 'C');
         $pdf->Cell(70, 6, 'Total Hutang', 1, 0, 'R');
-        $pdf->Cell(35, 6, number_format(intval($total_hutang)), 1, 1, 'R');
+        $pdf->Cell(35, 6, number_format($total_hutang)), 1, 1, 'R');
 
 
     $total_diskon=0;
@@ -306,20 +306,20 @@ class C_t_ak_jurnal_history_print extends MY_Controller
         $pdf->Cell(45, 6, '', 0, 0, 'C');
         $pdf->Cell(30, 6, '', 0, 0, 'C');
         $pdf->Cell(70, 6, 'Total Diskon', 1, 0, 'R');
-        $pdf->Cell(35, 6, number_format(intval($total_diskon)), 1, 1, 'R');
+        $pdf->Cell(35, 6, number_format($total_diskon)), 1, 1, 'R');
 
 
         $pdf->Cell(45, 6, '', 0, 0, 'C');
         $pdf->Cell(30, 6, '', 0, 0, 'C');
         $pdf->Cell(70, 6, 'Total Pembayaran', 1, 0, 'R');
-        $pdf->Cell(35, 6, number_format(intval($total_pembayaran)), 1, 1, 'R');
+        $pdf->Cell(35, 6, number_format($total_pembayaran)), 1, 1, 'R');
 
 
         $kelebihan_bayar = intval($total_pembayaran) - (intval($total_hutang) - intval($total_diskon));
         $pdf->Cell(45, 6, '', 0, 0, 'C');
         $pdf->Cell(30, 6, '', 0, 0, 'C');
         $pdf->Cell(70, 6, 'Kelebihan Bayar', 1, 0, 'R');
-        $pdf->Cell(35, 6, number_format(intval($kelebihan_bayar)), 1, 1, 'R');
+        $pdf->Cell(35, 6, number_format($kelebihan_bayar)), 1, 1, 'R');
 
 
     $pdf->Cell(0.01, 1, 'Terbilang', 0, 1, 'L');

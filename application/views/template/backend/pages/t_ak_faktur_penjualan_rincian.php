@@ -68,8 +68,8 @@
             echo "<td>" . $value->DATE . "</td>";
             echo "<td>" . $value->NO_TIKET . "</td>";
             echo "<td>" . $value->NETO . "</td>";
-            echo "<td>" . number_format(intval($value->HARGA)) . "</td>";
-            echo "<td>" . number_format(intval($value->TOTAL_PENJUALAN)) . "</td>";
+            echo "<td>" . number_format($value->HARGA)) . "</td>";
+            echo "<td>" . number_format($value->TOTAL_PENJUALAN)) . "</td>";
 
 
             echo "<td>";

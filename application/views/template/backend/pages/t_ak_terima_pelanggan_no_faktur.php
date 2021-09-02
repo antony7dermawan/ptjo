@@ -52,9 +52,9 @@
             echo "<td>".($key + 1)."</td>";
             echo "<td>".$value->NO_FAKTUR."</td>";
             echo "<td>".date('d-m-Y', strtotime($value->DATE))."</td>";
-            echo "<td>Rp".number_format(intval($value->TOTAL_PENJUALAN))."</td>";
+            echo "<td>Rp".number_format($value->TOTAL_PENJUALAN))."</td>";
             
-            echo "<td>Rp".number_format(intval($value->PAYMENT_T))."</td>";
+            echo "<td>Rp".number_format($value->PAYMENT_T))."</td>";
           
 
             

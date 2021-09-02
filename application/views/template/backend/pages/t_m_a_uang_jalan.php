@@ -31,7 +31,7 @@
             echo "<td>".$value->PKS."</td>";
             //echo "<td>".$value->DIVISI."</td>";
             echo "<td>".$value->KENDARAAN."</td>";
-            echo "<td>Rp".number_format(intval($value->UANG_JALAN))."</td>";
+            echo "<td>Rp".number_format($value->UANG_JALAN))."</td>";
           
             echo "<td>";
              

@@ -19,6 +19,7 @@
       ?>  
 
 
+
     </form>
   </div>
   <div class="card-block">
@@ -119,7 +120,7 @@
               echo "<a href='" . site_url('c_t_t_t_po_manual_rincian/index/' . $value->ID) . "' ";
               echo "onclick=\"return confirm('Lanjut?')\"";
               echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
-              echo " Rp" . number_format(intval($value->SUM_SUB_TOTAL+$value->SUM_PPN)) . "</td>";
+              echo " Rp" . number_format($value->SUM_SUB_TOTAL+$value->SUM_PPN) . "</td>";
               //satu button
 
               
@@ -195,7 +196,7 @@
               echo "<a href='" . site_url('c_t_t_t_po_manual_rincian/index/' . $value->ID) . "' ";
               echo "onclick=\"return confirm('Lanjut?')\"";
               echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
-              echo " Rp" . number_format(intval($value->SUM_SUB_TOTAL+$value->SUM_PPN)) . "</s></td>";
+              echo " Rp" . number_format($value->SUM_SUB_TOTAL+$value->SUM_PPN) . "</s></td>";
               //satu button
 
               
@@ -261,7 +262,8 @@
 
             <fieldset class="form-group">
               <label>Supplier</label>
-              <select name="supplier_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+              <select name="supplier_id" class='supplier_id' id='select-state' placeholder='Pick a state...'>
+              <option value="0">Hapus Dulu!</option>
               <?php
               foreach ($c_t_m_d_supplier as $key => $value) 
               {
@@ -318,7 +320,7 @@
 
               <fieldset class="form-group">
                 <label>Nama Bank</label>
-                <input type='text' class='form-control' placeholder='Input Text' name='nama_bank'>  
+                <input type='text' class='form-control' placeholder='Input Text' id='nama_bank_put' name='nama_bank'>  
               </fieldset>
             </div> <!-- Membungkus Row !-->
 
@@ -327,7 +329,7 @@
 
               <fieldset class="form-group">
                 <label>Cabang</label>
-                <input type='text' class='form-control' placeholder='Input Text' name='cabang'>
+                <input type='text' class='form-control' placeholder='Input Text' id='cabang_put' name='cabang'>
               </fieldset>
 
             </div><!-- Membungkus Row Kedua !-->
@@ -340,7 +342,7 @@
 
               <fieldset class="form-group">
                 <label>Nomor Rekening</label>
-                <input type='text' class='form-control' placeholder='Input Text' name='norek'>
+                <input type='text' class='form-control' placeholder='Input Text' id='norek_put' name='norek'>
               </fieldset>
 
             </div><!-- Membungkus Row Kedua !-->
@@ -350,10 +352,11 @@
 
               <fieldset class="form-group">
                 <label>Atas Nama</label>
-                <input type='text' class='form-control' placeholder='Input Text' name='atas_nama'>  
+                <input type='text' class='form-control' placeholder='Input Text' id='atas_nama_put' name='atas_nama'>  
               </fieldset>
             </div> <!-- Membungkus Row !-->
           </div>
+
 
 
           
@@ -368,6 +371,10 @@
             <button type="Submit" class="btn btn-primary waves-effect waves-light ">Save changes</button>
           </div>
 
+          <tbody class="return_data">
+                
+          </tbody>
+
 
 
       </div>
@@ -377,6 +384,105 @@
 <!-- MODAL TAMBAH PEMASUKAN SELESAI !-->
 
 
+<script type="text/javascript">
+  
+
+$(document).ready(function()
+{
+$(".supplier_id").change(function()
+{
+var supplier_id=$(this).val();
+var post_id = 'id='+ supplier_id;
+ 
+$.ajax
+({
+type: "POST",
+url: '<?php echo base_url('c_read_supplier_info_nama_bank') ?>',
+data: post_id,
+cache: false,
+success: function(reading_feedback)
+{
+
+
+document.getElementById("nama_bank_put").value= reading_feedback;
+
+
+} 
+});
+
+
+
+
+
+
+
+ 
+$.ajax
+({
+type: "POST",
+url: '<?php echo base_url('c_read_supplier_info_norek') ?>',
+data: post_id,
+cache: false,
+success: function(reading_feedback1)
+{
+
+
+document.getElementById("norek_put").value= reading_feedback1;
+
+
+} 
+});
+
+
+
+
+
+ 
+$.ajax
+({
+type: "POST",
+url: '<?php echo base_url('c_read_supplier_info_cabang') ?>',
+data: post_id,
+cache: false,
+success: function(reading_feedback2)
+{
+
+
+document.getElementById("cabang_put").value= reading_feedback2;
+
+
+} 
+});
+
+
+
+ 
+$.ajax
+({
+type: "POST",
+url: '<?php echo base_url('c_read_supplier_info_atas_nama') ?>',
+data: post_id,
+cache: false,
+success: function(reading_feedback3)
+{
+
+
+document.getElementById("atas_nama_put").value= reading_feedback3;
+
+
+} 
+});
+
+
+
+
+ 
+});
+});
+
+
+
+</script>
 
 
 

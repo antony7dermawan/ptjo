@@ -48,7 +48,7 @@ if($level_user_id==1 or $level_user_id==6 or $level_user_id==8 or $level_user_id
 
             echo "<h4 class='m-b-0 f-w-700 text-white'>  " . $value->NAMA_AKUN . "</h3>";
             echo "<br>";
-            echo "<h6 class='m-b-5 text-white'>Rp" . number_format(intval($read_saldo)) . "</h6>";
+            echo "<h6 class='m-b-5 text-white'>Rp" . number_format($read_saldo) . "</h6>";
             echo "</div>";
             echo "<div class='col-auto'>";
             echo "<i class='fas fa-money-bill-alt text-c-" . $color . " f-18'></i>";
@@ -219,17 +219,17 @@ if($level_user_id==1 or $level_user_id==6)
                       <tr>
                         <th></th>
                         <th>Total</th>
-                        <th><?=number_format(intval($sum_trip))?></th>
-                        <th><?=number_format(intval($sum_bruto))?></th>
+                        <th><?=number_format($sum_trip)?></th>
+                        <th><?=number_format($sum_bruto)?></th>
                         
                         <th><?=($avg_sortase)?></th>
-                        <th><?=number_format(intval($sum_neto))?></th>
+                        <th><?=number_format($sum_neto)?></th>
                         <?php
 
                         if($level_user_id<8)
                         {
                           ?>
-                          <th>Rp<?=number_format(intval($sum_total_penjualan))?></th>
+                          <th>Rp<?=number_format($sum_total_penjualan)?></th>
                           <?php
                         }
                         ?>
@@ -290,7 +290,7 @@ if($level_user_id==1 or $level_user_id==6)
                         {
                           echo "<tr>";
                           echo "<td>" . $value->NAMA_AKUN . "</td>";
-                          echo "<td> Rp" . number_format(intval($read_saldo)) . "</td>";
+                          echo "<td> Rp" . number_format($read_saldo) . "</td>";
                           echo "</tr>";
                         }
                       }

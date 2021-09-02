@@ -136,6 +136,48 @@
               <input type='text' class='form-control' placeholder='Input Text' name='alamat'>
             </div>
 
+            <div class="row">
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Nama Bank</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='nama_bank'>  
+              </fieldset>
+            </div> <!-- Membungkus Row !-->
+
+
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Cabang</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='cabang'>
+              </fieldset>
+
+            </div><!-- Membungkus Row Kedua !-->
+
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Nomor Rekening</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='norek'>
+              </fieldset>
+
+            </div><!-- Membungkus Row Kedua !-->
+
+
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Atas Nama</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='atas_nama'>  
+              </fieldset>
+            </div> <!-- Membungkus Row !-->
+          </div>
+
             
 
           </div>
@@ -195,6 +237,49 @@
             </div>
 
 
+            <div class="row">
+              <div class="col-md-6">
+
+                <fieldset class="form-group">
+                  <label>Nama Bank</label>
+                  <input type='text' class='form-control' placeholder='Input Text' name='nama_bank'>  
+                </fieldset>
+              </div> <!-- Membungkus Row !-->
+
+
+              <div class="col-md-6">
+
+                <fieldset class="form-group">
+                  <label>Cabang</label>
+                  <input type='text' class='form-control' placeholder='Input Text' name='cabang'>
+                </fieldset>
+
+              </div><!-- Membungkus Row Kedua !-->
+
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-6">
+
+                <fieldset class="form-group">
+                  <label>Nomor Rekening</label>
+                  <input type='text' class='form-control' placeholder='Input Text' name='norek'>
+                </fieldset>
+
+              </div><!-- Membungkus Row Kedua !-->
+
+
+              <div class="col-md-6">
+
+                <fieldset class="form-group">
+                  <label>Atas Nama</label>
+                  <input type='text' class='form-control' placeholder='Input Text' name='atas_nama'>  
+                </fieldset>
+              </div> <!-- Membungkus Row !-->
+            </div>
+
+
           </div>
           <div class="modal-footer">
             <div class="created_form">
@@ -239,7 +324,11 @@
         UPDATED_BY : updated_by,
         EMAIL : email,
         NIK : nik,
-        NPWP : npwp
+        NPWP : npwp,
+        NAMA_BANK : nama_bank,
+        CABANG : cabang,
+        NOREK : norek,
+        ATAS_NAMA : atas_nama
       } = User[0];
 
       elModalEdit.querySelector("[name=id]").value = ID;
@@ -251,6 +340,12 @@
       elModalEdit.querySelector("[name=email]").value = email;
       elModalEdit.querySelector("[name=nik]").value = nik;
       elModalEdit.querySelector("[name=npwp]").value = npwp;
+
+
+      elModalEdit.querySelector("[name=nama_bank]").value = nama_bank;
+      elModalEdit.querySelector("[name=cabang]").value = cabang;
+      elModalEdit.querySelector("[name=norek]").value = norek;
+      elModalEdit.querySelector("[name=atas_nama]").value = atas_nama;
 
     })
   })

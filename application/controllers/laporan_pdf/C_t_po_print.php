@@ -167,7 +167,7 @@ class C_t_po_print extends MY_Controller
     $nilai_ppn = $total_ppn/($key+1);
     #.............................paper head end
     //$pdf->Cell( $size[0]+$size[1]+$size[2]+$size[3]+$size[4]+$size[5],8,'Sub Total','1',0,'R');
-    //$pdf->Cell( $size[6],8,number_format(intval($total_sub_1)),'1',1,'R');
+    //$pdf->Cell( $size[6],8,number_format($total_sub_1)),'1',1,'R');
 
     //$pdf->Cell( $size[0]+$size[1]+$size[2]+$size[3]+$size[4]+$size[5],8,'PPN('.$nilai_ppn.'%)','1',0,'R');
     //$pdf->Cell( $size[6],8,number_format((intval($total_sub_1)*$nilai_ppn)/100),'1',1,'R');

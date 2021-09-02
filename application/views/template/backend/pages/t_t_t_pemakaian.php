@@ -60,7 +60,7 @@
               echo "<a href='" . site_url('c_t_t_t_pemakaian_rincian/index/' . $value->ID) . "' ";
               echo "onclick=\"return confirm('Lanjut?')\"";
               echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
-              echo " Rp" . number_format(intval($value->SUM_SUB_TOTAL)) . "</td>";
+              echo " Rp" . number_format($value->SUM_SUB_TOTAL) . "</td>";
               //satu button
 
               
@@ -130,7 +130,7 @@
               echo "<a href='" . site_url('c_t_t_t_pemakaian_rincian/index/' . $value->ID) . "' ";
               echo "onclick=\"return confirm('Lanjut?')\"";
               echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
-              echo " Rp" . number_format(intval($value->SUM_SUB_TOTAL)) . "</s></td>";
+              echo " Rp" . number_format($value->SUM_SUB_TOTAL) . "</s></td>";
               //satu button
 
               

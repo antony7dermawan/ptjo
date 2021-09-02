@@ -66,16 +66,16 @@
               echo "<td>" . $value->KODE_BARANG . "</td>";
               echo "<td>" . $value->BARANG . "</td>";
               
-              echo "<td>" . number_format(floatval(round($value->QTY*100))/100) . "</td>";
+              echo "<td>" . number_format($value->QTY, 2, '.', ',') . "</td>";
 
-              echo "<td>" . number_format(floatval(round($value->SISA_QTY*100))/100) . "</td>";
+              echo "<td>" . number_format($value->SISA_QTY, 2, '.', ',') . "</td>";
 
-              echo "<td>" . number_format(floatval(round($value->DISKON_P_1*100))/100) . "</td>";
-              echo "<td>" . number_format(floatval(round($value->DISKON_P_2*100))/100) . "</td>";
-              echo "<td>" . number_format(floatval(round($value->DISKON_HARGA*100))/100) . "</td>";
+              echo "<td>" . number_format($value->DISKON_P_1, 2, '.', ',') . "</td>";
+              echo "<td>" . number_format($value->DISKON_P_2, 2, '.', ',') . "</td>";
+              echo "<td>" . number_format($value->DISKON_HARGA, 2, '.', ',') . "</td>";
 
-              echo "<td>" . number_format(floatval(round($value->HARGA*100))/100) . "</td>";
-              echo "<td>" . number_format(floatval(round($value->SUB_TOTAL*100))/100) . "</td>";
+              echo "<td>" . number_format($value->HARGA, 2, '.', ',') . "</td>";
+              echo "<td>" . number_format($value->SUB_TOTAL, 2, '.', ',') . "</td>";
 
               
               echo "<td>";
@@ -105,16 +105,16 @@
               echo "<td><s>" . $value->KODE_BARANG . "</s></td>";
               echo "<td><s>" . $value->BARANG . "</s></td>";
               
-              echo "<td><s>" . number_format(floatval(round($value->QTY*100))/100) . "</s></td>";
+              echo "<td><s>" . number_format($value->QTY, 2, '.', ',') . "</s></td>";
 
-              echo "<td><s>" . number_format(floatval(round($value->SISA_QTY*100))/100) . "</s></td>";
-              echo "<td><s>" . number_format(floatval(round($value->DISKON_P_1*100))/100) . "</s></td>";
-              echo "<td><s>" . number_format(floatval(round($value->DISKON_P_2*100))/100) . "</s></td>";
-              echo "<td><s>" . number_format(floatval(round($value->DISKON_HARGA*100))/100) . "</s></td>";
+              echo "<td><s>" . number_format($value->SISA_QTY, 2, '.', ',') . "</s></td>";
+              echo "<td><s>" . number_format($value->DISKON_P_1, 2, '.', ',') . "</s></td>";
+              echo "<td><s>" . number_format($value->DISKON_P_2, 2, '.', ',') . "</s></td>";
+              echo "<td><s>" . number_format($value->DISKON_HARGA, 2, '.', ',') . "</s></td>";
 
 
-              echo "<td><s>" . number_format(floatval(round($value->HARGA*100))/100) . "</s></td>";
-              echo "<td><s>" . number_format(floatval(round($value->SUB_TOTAL*100))/100) . "</s></td>";
+              echo "<td><s>" . number_format($value->HARGA, 2, '.', ',') . "</s></td>";
+              echo "<td><s>" . number_format($value->SUB_TOTAL, 2, '.', ',') . "</s></td>";
 
               
               echo "<td>";
@@ -379,6 +379,12 @@ console.log(limit_qty);
  
 });
 });
+
+
+
+
+
+
 
 mycode();
 

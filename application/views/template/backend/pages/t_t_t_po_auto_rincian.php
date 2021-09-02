@@ -65,15 +65,15 @@
               echo "<td>" . $value->KODE_BARANG . "</td>";
               echo "<td>" . $value->BARANG . "</td>";
               
-              echo "<td>" . number_format(floatval(intval($value->QTY*100))/100) . "</td>";
-              echo "<td>" . number_format(floatval(intval($value->HARGA*100))/100) . "</td>";
-              echo "<td>" . number_format(floatval(intval($value->SUB_TOTAL*100))/100) . "</td>";
+              echo "<td>" . number_format($value->QTY, 2, '.', ',') . "</td>";
+              echo "<td>" . number_format($value->HARGA, 2, '.', ',') . "</td>";
+              echo "<td>" . number_format($value->SUB_TOTAL, 2, '.', ',') . "</td>";
 
-              echo "<td>" . number_format(floatval(intval($value->PPN_VALUE*100))/100) . "</td>";
-              echo "<td>" . number_format(floatval(intval(($value->SUB_TOTAL+$value->PPN_VALUE)*100))/100) . "</td>";
+              echo "<td>" . number_format($value->PPN_VALUE, 2, '.', ',') . "</td>";
+              echo "<td>" . number_format(($value->SUB_TOTAL+$value->PPN_VALUE), 2, '.', ',') . "</td>";
               
-              echo "<td>" . number_format(floatval(intval($value->SISA_QTY*100))/100) . "</td>";
-              echo "<td>" . number_format(floatval(intval($value->QTY_DATANG*100))/100) . "</td>";
+              echo "<td>" . number_format($value->SISA_QTY, 2, '.', ',') . "</td>";
+              echo "<td>" . number_format($value->QTY_DATANG, 2, '.', ',') . "</td>";
 
               
               echo "<td>";
@@ -104,15 +104,15 @@
               echo "<td><s>" . $value->KODE_BARANG . "</s></td>";
               echo "<td><s>" . $value->BARANG . "</s></td>";
               
-              echo "<td><s>" . number_format(floatval(intval($value->QTY*100))/100) . "</s></td>";
-              echo "<td><s>" . number_format(floatval(intval($value->HARGA*100))/100) . "</s></td>";
-              echo "<td><s>" . number_format(floatval(intval($value->SUB_TOTAL*100))/100) . "</s></td>";
+              echo "<td><s>" . number_format($value->QTY, 2, '.', ',') . "</s></td>";
+              echo "<td><s>" . number_format($value->HARGA, 2, '.', ',') . "</s></td>";
+              echo "<td><s>" . number_format($value->SUB_TOTAL, 2, '.', ',') . "</s></td>";
 
-              echo "<td><s>" . number_format(floatval(intval($value->PPN_VALUE*100))/100) . "</s></td>";
-              echo "<td><s>" . number_format(floatval(intval(($value->SUB_TOTAL+$value->PPN_VALUE)*100))/100) . "</s></td>";
+              echo "<td><s>" . number_format($value->PPN_VALUE, 2, '.', ',') . "</s></td>";
+              echo "<td><s>" . number_format(($value->SUB_TOTAL+$value->PPN_VALUE), 2, '.', ',') . "</s></td>";
 
-              echo "<td><s>" . number_format(floatval(intval($value->SISA_QTY*100))/100) . "</s></td>";
-              echo "<td><s>" . number_format(floatval(intval($value->QTY_DATANG*100))/100) . "</s></td>";
+              echo "<td><s>" . number_format($value->SISA_QTY, 2, '.', ',') . "</s></td>";
+              echo "<td><s>" . number_format($value->QTY_DATANG, 2, '.', ',') . "</s></td>";
 
               
               echo "<td>";

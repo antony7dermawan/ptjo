@@ -65,7 +65,7 @@
             echo "<td>" . $value->BRUTO . "</td>";
             echo "<td>" . $value->SORTASE_PERCENTAGE . "</td>";
             echo "<td>" . (intval($value->NETO * 100) / 100) . "</td>";
-            echo "<td>Rp" . number_format(intval($value->UANG_JALAN + $value->TAMBAHAN));
+            echo "<td>Rp" . number_format($value->UANG_JALAN + $value->TAMBAHAN));
 
             if(intval($value->UANG_JALAN + $value->TAMBAHAN)>0)
             {
@@ -94,11 +94,11 @@
 
               if(intval($value->TOTAL_PENJUALAN)==0)
               {
-                echo "<td class='text-c-red'>Rp" . number_format(intval($value->TOTAL_PENJUALAN)) . "</td>";
+                echo "<td class='text-c-red'>Rp" . number_format($value->TOTAL_PENJUALAN)) . "</td>";
               }
               else
               {
-                echo "<td class='text-c-black'>Rp" . number_format(intval($value->TOTAL_PENJUALAN)) . "</td>";
+                echo "<td class='text-c-black'>Rp" . number_format($value->TOTAL_PENJUALAN)) . "</td>";
               }
             }
 
@@ -160,16 +160,16 @@
             <th></th>
             <th></th>
             <th>Total</th>
-            <th><?=number_format(intval($sum_bruto))?></th>
+            <th><?=number_format($sum_bruto))?></th>
             <th></th>
-            <th><?=number_format(intval($sum_neto))?></th>
-            <th>Rp<?=number_format(intval($sum_uang_jalan))?></th>
+            <th><?=number_format($sum_neto))?></th>
+            <th>Rp<?=number_format($sum_uang_jalan))?></th>
             <?php
 
             if($level_user_id<8)
             {
               ?>
-              <th>Rp<?=number_format(intval($sum_total_penjualan))?></th>
+              <th>Rp<?=number_format($sum_total_penjualan))?></th>
               <?php
             }
             ?>

@@ -96,7 +96,7 @@
               echo "<td>".$value->PART_NUMBER."</td>";
               echo "<td>".$value->POSISI."</td>";
               echo "<td>".$value->SATUAN."</td>";
-              echo "<td>" . number_format(floatval(intval($value->HARGA_JUAL*100))/100) . "</td>";
+              echo "<td>" . number_format($value->HARGA_JUAL, 2, '.', ',') . "</td>";
               echo "<td>".$value->MINIMUM_STOK."</td>";
               echo "<td>".$value->KATEGORI."</td>";
               echo "<td>".$value->JENIS_BARANG."</td>";

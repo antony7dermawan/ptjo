@@ -35,7 +35,7 @@
             {
               $read_saldo=$value->SUM_KREDIT-$value->SUM_DEBIT;
             }
-            echo "<td> Rp".number_format(intval($read_saldo))."</td>";
+            echo "<td> Rp".number_format($read_saldo))."</td>";
           
             echo "<td>";
              

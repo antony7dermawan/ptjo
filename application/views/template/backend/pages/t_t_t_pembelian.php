@@ -68,7 +68,7 @@
               echo "<a href='" . site_url('c_t_t_t_pembelian_rincian2/index/' . $value->ID) . "' ";
               echo "onclick=\"return confirm('Lanjut?')\"";
               echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
-              echo " Rp" . number_format(intval($value->SUM_SUB_TOTAL_DATANG+$value->SUM_PPN_DATANG)) . "</td>";
+              echo " Rp" . number_format($value->SUM_SUB_TOTAL_DATANG+$value->SUM_PPN_DATANG) . "</td>";
               //satu button
     
 
@@ -77,13 +77,13 @@
               echo "<a href='" . site_url('c_t_t_t_pembelian_rincian/index/' . $value->ID) . "' ";
               echo "onclick=\"return confirm('Lanjut?')\"";
               echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
-              echo " Rp" . number_format(intval($value->SUM_SUB_TOTAL+$value->SUM_PPN)) . "</td>";
+              echo " Rp" . number_format($value->SUM_SUB_TOTAL+$value->SUM_PPN) . "</td>";
               //satu button
 
 
               echo "<td>";
 
-              echo " Rp" . number_format(intval($value->PAYMENT_T)) . "</td>";
+              echo " Rp" . number_format($value->PAYMENT_T) . "</td>";
               
               echo "<td>";
 
@@ -137,6 +137,7 @@
 
 
 
+
             if($value->MARK_FOR_DELETE == 't')
             {
               echo "<tr>";
@@ -156,13 +157,13 @@
               
               echo "<td><s>";
               
-              echo " Rp" . number_format(intval($value->SUM_SUB_TOTAL+$value->SUM_PPN)) . "</s></td>";
+              echo " Rp" . number_format($value->SUM_SUB_TOTAL+$value->SUM_PPN) . "</s></td>";
               //satu button
 
 
               echo "<td><s>";
 
-              echo " Rp" . number_format(intval($value->PAYMENT_T)) . "<s></td>";
+              echo " Rp" . number_format($value->PAYMENT_T) . "<s></td>";
               
               echo "<td>";
 

@@ -91,8 +91,8 @@
               echo "<td class='" . $color . "'>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</td>";
               echo "<td class='" . $color . "'>" . $no_akun . "</td>";
               echo "<td class='" . $color . "'>" . $value->NAMA_AKUN . "</td>";
-              echo "<td class='" . $color . "'>Rp" . number_format(intval($value->DEBIT)) . "</td>";
-              echo "<td class='" . $color . "'>Rp" . number_format(intval($value->KREDIT)) . "</td>";
+              echo "<td class='" . $color . "'>Rp" . number_format($value->DEBIT)) . "</td>";
+              echo "<td class='" . $color . "'>Rp" . number_format($value->KREDIT)) . "</td>";
 
               echo "<td class='" . $color . "'>";
 
@@ -144,7 +144,7 @@
               echo "<td class='" . $color . "'>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</td>";
               echo "<td class='" . $color . "'>" . $no_akun . "</td>";
               echo "<td class='" . $color . "'>" . $value->NAMA_AKUN . "</td>";
-              echo "<td class='" . $color . "'>Rp" . number_format(intval($value->DEBIT));
+              echo "<td class='" . $color . "'>Rp" . number_format($value->DEBIT));
 
               echo "<a "; #/1 ini print yang baru
 
@@ -160,7 +160,7 @@
               echo "</script>";
 
               echo "</td>";
-              echo "<td class='" . $color . "'>Rp" . number_format(intval($value->KREDIT));
+              echo "<td class='" . $color . "'>Rp" . number_format($value->KREDIT));
 
               
 
@@ -247,8 +247,8 @@
             echo "<th></th>";
             echo "<th></th>";
             echo "<th class='text_red'>TOTAL</th>";
-            echo "<th class='text_red'>Rp" . number_format(intval($total_debit)) . "</th>";
-            echo "<th class='text_red'>Rp" . number_format(intval($total_kredit)) . "</th>";
+            echo "<th class='text_red'>Rp" . number_format($total_debit)) . "</th>";
+            echo "<th class='text_red'>Rp" . number_format($total_kredit)) . "</th>";
             echo "<th></th>";
 
             echo "</tfoot>";
@@ -261,8 +261,8 @@
             echo "<th></th>";
             echo "<th></th>";
             echo "<th class='text_black'>TOTAL</th>";
-            echo "<th class='text_black'>Rp" . number_format(intval($total_debit)) . "</th>";
-            echo "<th class='text_black'>Rp" . number_format(intval($total_kredit)) . "</th>";
+            echo "<th class='text_black'>Rp" . number_format($total_debit)) . "</th>";
+            echo "<th class='text_black'>Rp" . number_format($total_kredit)) . "</th>";
 
             echo "<th></th>";
 

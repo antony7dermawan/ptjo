@@ -266,7 +266,7 @@ for ($i = $starter_loop; $i <= $end_loop; $i++)
       {
         if($x==$kolom_total or $x==6)
         {
-          $pdf->Cell($width[$x] ,5,number_format(intval($colom_data[$x][$i])),'',0,'C');
+          $pdf->Cell($width[$x] ,5,number_format($colom_data[$x][$i])),'',0,'C');
         }
         elseif($x==1) 
         {
@@ -369,7 +369,7 @@ if($total_bon==$a)
   $pdf->Cell(0.1 ,5,'','L',0,'C');
   $pdf->Cell($width_total_b ,5,'TOTAL BIAYA','T',0,'R');
   $pdf->Cell(0.1 ,5,'','L',0,'C');
-  $pdf->Cell($width[$kolom_total] ,5,number_format(intval($total_biaya)),'T',0,'C');
+  $pdf->Cell($width[$kolom_total] ,5,number_format($total_biaya)),'T',0,'C');
   $pdf->Cell(0.1 ,5,'','L',0,'C');
   $pdf->Cell(($width_total_a-0.3) ,5,'','T',0,'C');
   $pdf->Cell(0.1 ,5,'','L',1,'C');

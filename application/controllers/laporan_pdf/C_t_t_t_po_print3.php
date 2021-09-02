@@ -96,7 +96,7 @@ class C_t_t_t_po_print3 extends MY_Controller
         }
         
 
-        $pdf->Cell( 190,30,'','0',1,'C');
+        $pdf->Cell( 190,15,'','0',1,'C');
 
         $pdf->SetFont('','B',12);
         $pdf->Cell( 190,8,'Purchase Order','0',1,'C');
@@ -204,20 +204,20 @@ class C_t_t_t_po_print3 extends MY_Controller
     $nilai_ppn = $total_ppn/($key+1);
     #.............................paper head end
     //$pdf->Cell( $size[0]+$size[1]+$size[2]+$size[3]+$size[4]+$size[5],8,'Sub Total','1',0,'R');
-    //$pdf->Cell( $size[6],8,number_format(intval($total_sub_1)),'1',1,'R');
+    //$pdf->Cell( $size[6],8,number_format($total_sub_1)),'1',1,'R');
 
     //$pdf->Cell( $size[0]+$size[1]+$size[2]+$size[3]+$size[4]+$size[5],8,'PPN('.$nilai_ppn.'%)','1',0,'R');
     //$pdf->Cell( $size[6],8,number_format((intval($total_sub_1)*$nilai_ppn)/100),'1',1,'R');
 
-    $pdf->Cell( $size[0]+$size[1]+$size[2]+$size[3]+$size[4]+$size[5],8,'Total DPP','1',0,'R');
-    $pdf->Cell( $size[6],8,number_format((floatval(round($total_sub*100)))/100,2, ',', '.'),'1',1,'R');
+    $pdf->Cell( $size[0]+$size[1]+$size[2]+$size[3]+$size[4]+$size[5],6,'Total DPP','1',0,'R');
+    $pdf->Cell( $size[6],6,number_format((floatval(round($total_sub*100)))/100,2, ',', '.'),'1',1,'R');
 
 
-    $pdf->Cell( $size[0]+$size[1]+$size[2]+$size[3]+$size[4]+$size[5],8,'PPN','1',0,'R');
-    $pdf->Cell( $size[6],8,number_format((floatval(round($total_ppn*100)))/100,2, ',', '.'),'1',1,'R');
+    $pdf->Cell( $size[0]+$size[1]+$size[2]+$size[3]+$size[4]+$size[5],6,'PPN','1',0,'R');
+    $pdf->Cell( $size[6],6,number_format((floatval(round($total_ppn*100)))/100,2, ',', '.'),'1',1,'R');
 
-    $pdf->Cell( $size[0]+$size[1]+$size[2]+$size[3]+$size[4]+$size[5],8,'Total','1',0,'R');
-    $pdf->Cell( $size[6],8,number_format((floatval(round(($total_sub+$total_ppn)*100)))/100,2, ',', '.'),'1',1,'R');
+    $pdf->Cell( $size[0]+$size[1]+$size[2]+$size[3]+$size[4]+$size[5],6,'Total','1',0,'R');
+    $pdf->Cell( $size[6],6,number_format((floatval(round(($total_sub+$total_ppn)*100)))/100,2, ',', '.'),'1',1,'R');
 
         $pdf->Cell( 80,5,'','0',1,'L');
         $pdf->Cell( 80,5,'Pembayaran','B',1,'L');

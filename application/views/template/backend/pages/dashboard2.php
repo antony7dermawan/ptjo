@@ -82,13 +82,13 @@ if($level_user_id>=1)
                           //satu button
                           echo "<td>";
                         
-                          echo " Rp" . number_format(intval($value->SUM_SUB_TOTAL + $value->SUM_PPN)) . "</td>";
+                          echo " Rp" . number_format($value->SUM_SUB_TOTAL + $value->SUM_PPN) . "</td>";
                           //satu button
 
 
                           echo "<td>";
 
-                          echo " Rp" . number_format(intval($value->PAYMENT_T)) . "</td>";
+                          echo " Rp" . number_format($value->PAYMENT_T) . "</td>";
                           
                    
 
@@ -158,9 +158,9 @@ if($level_user_id>=1)
                           echo "<td>" . $value->SUPPLIER. "</td>";
                          
 
-                          echo "<td> Rp" . number_format(intval($value->SUM_SUB_TOTAL+$value->SUM_PPN)) . "</td>";
-                          echo "<td> Rp" . number_format(intval($value->SUM_PAYMENT_T)) . "</td>";
-                          echo "<td> Rp" . number_format(intval($value->SUM_SUB_TOTAL+$value->SUM_PPN)-($value->SUM_PAYMENT_T)) . "</td>";
+                          echo "<td> Rp" . number_format($value->SUM_SUB_TOTAL+$value->SUM_PPN) . "</td>";
+                          echo "<td> Rp" . number_format($value->SUM_PAYMENT_T) . "</td>";
+                          echo "<td> Rp" . number_format(($value->SUM_SUB_TOTAL+$value->SUM_PPN)-($value->SUM_PAYMENT_T)) . "</td>";
 
 
 
