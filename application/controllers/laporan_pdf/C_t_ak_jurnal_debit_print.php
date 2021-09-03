@@ -190,8 +190,8 @@ class C_t_ak_jurnal_debit_print extends MY_Controller
 
       $pdf->MultiCell(25, 8, $no_akun[$i], 'L', 'L',0,0);
       $pdf->MultiCell(50, 8, substr($nama_akun[$i], 0, 60), 'L', 'L',0,0);
-      $pdf->MultiCell(30, 8, number_format($debit[$i])), 'L', 'C',0,0);
-      $pdf->MultiCell(30, 8, number_format($kredit[$i])), 'L', 'C',0,0);
+      $pdf->MultiCell(30, 8, number_format($debit[$i]), 'L', 'C',0,0);
+      $pdf->MultiCell(30, 8, number_format($kredit[$i]), 'L', 'C',0,0);
       $pdf->MultiCell(50, 8, substr($catatan[$i], 0, 60), 'L', 'L',0,0);
       $pdf->Cell(0.01, 8, "", 'L', 1, 'C');
 
@@ -229,8 +229,8 @@ class C_t_ak_jurnal_debit_print extends MY_Controller
 
     $pdf->Cell(25, 6, "", 'T', 0, 'C');
     $pdf->Cell(50, 6, "Total", 1, 0, 'R');
-    $pdf->Cell(30, 6, number_format($total_debit)), 1, 0, 'C');
-    $pdf->Cell(30, 6, number_format($total_kredit)), 1, 0, 'C');
+    $pdf->Cell(30, 6, number_format($total_debit), 1, 0, 'C');
+    $pdf->Cell(30, 6, number_format($total_kredit), 1, 0, 'C');
     $pdf->Cell(50, 6, "", 'T', 1, 'C');
 
     $pdf->Cell(1, 1, "", 0, 1, 'C');
