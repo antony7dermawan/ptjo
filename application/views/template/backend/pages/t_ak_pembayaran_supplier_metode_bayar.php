@@ -62,8 +62,8 @@
             echo "<td>".$no_akun."</td>";
             echo "<td>".$value->NAMA_AKUN."</td>";
             
-            echo "<td>Rp".number_format($value->JUMLAH))."</td>";
-            echo "<td>Rp".number_format($value->ADM_BANK))."</td>";
+            echo "<td>Rp".number_format($value->JUMLAH)."</td>";
+            echo "<td>Rp".number_format($value->ADM_BANK)."</td>";
 
             echo "<td>";
               

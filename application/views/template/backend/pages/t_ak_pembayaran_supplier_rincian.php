@@ -100,6 +100,7 @@
 
 
 
+
 <!-- MODAL TAMBAH PEMASUKAN! !-->
 <form action="<?php echo base_url('c_t_ak_pembayaran_supplier_rincian/tambah') ?>" method="post">
   <div class="modal fade" id="addModal" tabindex="-1" role="dialog">

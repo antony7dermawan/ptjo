@@ -94,8 +94,8 @@
               echo "<td>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</td>";
               echo "<td>".$no_akun."</td>";
               echo "<td>".$value->NAMA_AKUN."</td>";
-              echo "<td>Rp".number_format($value->DEBIT))."</td>";
-              echo "<td>Rp".number_format($value->KREDIT))."</td>";
+              echo "<td>Rp".number_format($value->DEBIT)."</td>";
+              echo "<td>Rp".number_format($value->KREDIT)."</td>";
               echo "<td>".$value->CATATAN."</td>";
 
               echo "<td>".$value->NO_VOUCER."</td>";
@@ -124,8 +124,8 @@
             echo "<th></th>";
             echo "<th></th>";
             echo "<th class='text_red'>TOTAL</th>";
-            echo "<th class='text_red'>Rp".number_format($total_debit))."</th>";
-            echo "<th class='text_red'>Rp".number_format($total_kredit))."</th>";
+            echo "<th class='text_red'>Rp".number_format($total_debit)."</th>";
+            echo "<th class='text_red'>Rp".number_format($total_kredit)."</th>";
             echo "<th></th>";
             echo "<th></th>";
             echo "<th></th>";
@@ -142,8 +142,8 @@
             echo "<th></th>";
             echo "<th></th>";
             echo "<th class='text_black'>TOTAL</th>";
-            echo "<th class='text_black'>Rp".number_format($total_debit))."</th>";
-            echo "<th class='text_black'>Rp".number_format($total_kredit))."</th>";
+            echo "<th class='text_black'>Rp".number_format($total_debit)."</th>";
+            echo "<th class='text_black'>Rp".number_format($total_kredit)."</th>";
             echo "<th>";
 
             echo "<form action=".base_url('c_t_ak_jurnal_create/move')." method='post'>";
