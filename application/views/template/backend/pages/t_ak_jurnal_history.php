@@ -92,11 +92,11 @@
               echo "<td class='" . $color . "'>" . $no_akun . "</td>";
 
               echo "<td class='" . $color . "'>" . $value->NO_VOUCER . "</td>";
-              echo "<td class='" . $color . "'>Rp" . number_format($value->DEBIT)) . "</td>";
-              echo "<td class='" . $color . "'>Rp" . number_format($value->KREDIT)) . "</td>";
+              echo "<td class='" . $color . "'>Rp" . number_format($value->DEBIT) . "</td>";
+              echo "<td class='" . $color . "'>Rp" . number_format($value->KREDIT) . "</td>";
 
               $saldo_awal = $saldo_awal + $value->DEBIT - $value->KREDIT;
-              echo "<td class='" . $color . "'>Rp" . number_format($saldo_awal)) . "</td>";
+              echo "<td class='" . $color . "'>Rp" . number_format($saldo_awal) . "</td>";
 
               echo "<td class='" . $color . "'>";
 
@@ -128,7 +128,7 @@
               echo "<td class='" . $color . "'>" . $value->NO_VOUCER . "</td>";
               echo "<td class='" . $color . "'></td>";
               echo "<td class='" . $color . "'></td>";
-              echo "<td class='" . $color . "'>Rp" . number_format($saldo_awal)) . "</td>";
+              echo "<td class='" . $color . "'>Rp" . number_format($saldo_awal) . "</td>";
 
               $color = 'background-white text-c-black';
               echo "<td class='" . $color . "'>";
@@ -197,11 +197,11 @@
               echo "<td class='" . $color . "'>" . $no_akun . "</td>";
 
               echo "<td class='" . $color . "'>" . $value->NO_VOUCER . "</td>";
-              echo "<td class='" . $color . "'>Rp" . number_format($value->DEBIT)) . "</td>";
-              echo "<td class='" . $color . "'>Rp" . number_format($value->KREDIT)) . "</td>";
+              echo "<td class='" . $color . "'>Rp" . number_format($value->DEBIT) . "</td>";
+              echo "<td class='" . $color . "'>Rp" . number_format($value->KREDIT) . "</td>";
 
               $saldo_awal = $saldo_awal + $value->DEBIT - $value->KREDIT;
-              echo "<td class='" . $color . "'>Rp" . number_format($saldo_awal)) . "</td>";
+              echo "<td class='" . $color . "'>Rp" . number_format($saldo_awal) . "</td>";
 
               echo "<td class='" . $color . "'>";
 
@@ -235,8 +235,8 @@
             <th></th>
             <th></th>
             <th>Total</th>
-            <th>Rp <?= number_format($total_debit)) ?></th>
-            <th>Rp <?= number_format($total_kredit)) ?></th>
+            <th>Rp <?= number_format($total_debit) ?></th>
+            <th>Rp <?= number_format($total_kredit) ?></th>
             <th></th>
           </tr>
         </tfoot>
