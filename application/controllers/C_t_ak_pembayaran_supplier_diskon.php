@@ -124,8 +124,8 @@ class C_t_ak_pembayaran_supplier_diskon extends MY_Controller
 
 
 
-    if(($sum_payment_t_saldo_awal+$jumlah)<=$sum_total_penjualan)
-    {
+    // if(($sum_payment_t_saldo_awal+$jumlah)<=$sum_total_penjualan)
+    // {
       $data = array(
         'PEMBAYARAN_SUPPLIER_ID' => $pembayaran_supplier_id,
         'COA_ID' => $coa_id,
@@ -205,11 +205,11 @@ class C_t_ak_pembayaran_supplier_diskon extends MY_Controller
       
       $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
       
-    }
-    if(($sum_payment_t_saldo_awal+$jumlah)>$sum_total_penjualan)
-    {
-      $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal!</strong> Kelebihan Bayar!</p></div>');
-    }
+    // }
+    // if(($sum_payment_t_saldo_awal+$jumlah)>$sum_total_penjualan)
+    // {
+    //   $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal!</strong> Kelebihan Bayar!</p></div>');
+    // }
     
     redirect('c_t_ak_pembayaran_supplier_diskon/index/' . $pembayaran_supplier_id . '/' . $supplier_id);
   }
