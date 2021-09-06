@@ -273,7 +273,7 @@ class C_terima_pelanggan_print extends MY_Controller
         
 
        
-        $kelebihan_bayar = floatval($sum_total_penjualan) - floatval($total_payment_t);
+        $kelebihan_bayar = (floatval($sum_total_penjualan) - floatval($total_payment_t))*-1;
 
         $pdf->Cell(45, 5, '', 0, 0, 'C');
         $pdf->Cell(65, 5, '', 0, 0, 'C');
