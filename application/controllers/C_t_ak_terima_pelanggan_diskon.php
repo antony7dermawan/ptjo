@@ -104,8 +104,8 @@ class C_t_ak_terima_pelanggan_diskon extends MY_Controller
       $sum_payment_t_saldo_awal = $sum_payment_t_saldo_awal+intval($value->PAYMENT_T);
     }
 
-    if(($sum_payment_t_saldo_awal+$jumlah)<=$sum_total_penjualan)
-    {
+    // if(($sum_payment_t_saldo_awal+$jumlah)<=$sum_total_penjualan)
+    // {
       $data = array(
         'TERIMA_PELANGGAN_ID' => $terima_pelanggan_id,
         'COA_ID' => $coa_id,
@@ -169,11 +169,11 @@ class C_t_ak_terima_pelanggan_diskon extends MY_Controller
 
       $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
       
-    }
-    if(($sum_payment_t_saldo_awal+$jumlah)>$sum_total_penjualan)
-    {
-      $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal!</strong> Input Lebih Besar Dari Total Tagihan!</p></div>');
-    }
+    // }
+    // if(($sum_payment_t_saldo_awal+$jumlah)>$sum_total_penjualan)
+    // {
+      // $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal!</strong> Input Lebih Besar Dari Total Tagihan!</p></div>');
+    // }
     redirect('c_t_ak_terima_pelanggan_diskon/index/' . $terima_pelanggan_id . '/' . $pks_id);
     
   }
