@@ -208,7 +208,10 @@ class C_terima_pelanggan_print extends MY_Controller
 
 
 
-
+      if($terutang_new<0)
+      {
+        $terutang_new = 0;
+      }
 
       $pdf->Cell(45, 5, $value->NO_FAKTUR, 'L', 0, 'C');
       $pdf->Cell(30, 5, $value->DATE, 'L', 0, 'C');
@@ -234,6 +237,11 @@ class C_terima_pelanggan_print extends MY_Controller
       }
     }
 
+
+    if($sum_terutang_new < 0)
+    {
+      $sum_terutang_new = 0;
+    }
         $pdf->Cell(45, 5, '', 'T', 0, 'C');
         $pdf->Cell(65, 5, '', 'T', 0, 'C');
         $pdf->Cell(35, 5, 'Total Hutang', 1, 0, 'R');
