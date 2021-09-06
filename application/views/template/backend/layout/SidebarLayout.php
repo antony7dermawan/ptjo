@@ -473,6 +473,11 @@ if($level_user_id==1 or $level_user_id==6 )
                 </a>
             </li>
             <li class="">
+                <a href="<?= base_url("c_ak_m_sub"); ?>" class="submenu waves-effect waves-dark">
+                    <span class="pcoded-mtext">Master Sub</span>
+                </a>
+            </li>
+            <li class="">
                 <a href="<?= base_url("c_ak_m_coa"); ?>" class="submenu waves-effect waves-dark">
                     <span class="pcoded-mtext">Master COA</span>
                 </a>

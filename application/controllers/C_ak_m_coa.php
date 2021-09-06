@@ -13,6 +13,7 @@ class C_ak_m_coa extends MY_Controller
     $this->load->model('m_ak_m_family');
     $this->load->model('m_ak_m_type');
     $this->load->model('m_t_ak_jurnal');
+    $this->load->model('m_ak_m_sub');
   }
 
 
@@ -23,6 +24,7 @@ class C_ak_m_coa extends MY_Controller
       "c_ak_m_db_k" => $this->m_ak_m_db_k->select(),
       "c_ak_m_family" => $this->m_ak_m_family->select(),
       "c_ak_m_type" => $this->m_ak_m_type->select(),
+      "c_ak_m_sub" => $this->m_ak_m_sub->select(),
       "c_t_ak_jurnal" => $this->m_t_ak_jurnal->select('2020-01-01', '2100-01-01'),
       "title" => "Master Coa",
       "description" => "Coa untuk Accounting"
@@ -134,24 +136,42 @@ class C_ak_m_coa extends MY_Controller
 
 
     $nama_akun = ($this->input->post("nama_akun"));
-
+    $sub = $this->input->post("sub");
 
     $cash_flow = $this->input->post("cash_flow");
+
+    $read_select = $this->m_ak_m_sub->select_id($sub);
+    foreach ($read_select as $key => $value) {
+      $sub_id = $value->SUB_ID;
+    }
 
     if($cash_flow==null)
     {
       $cash_flow = false;
     }
     //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
-    $data = array(
+
+    if($sub_id!=0)
+    {
+      $data = array(
       'NO_AKUN_1' => $no_akun_1,
       'NAMA_AKUN' => $nama_akun,
       'NO_AKUN_2' => $no_akun_2,
       'NO_AKUN_3' => $no_akun_3,
-      'CASH_FLOW' => $cash_flow
-    );
-    $this->m_ak_m_coa->update($data, $id);
-    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');
+      'CASH_FLOW' => $cash_flow,
+      'SUB_ID' => $sub_id
+      );
+      $this->m_ak_m_coa->update($data, $id);
+      $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');
+      
+    }
+
+    if($sub_id==0)
+    {
+      $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal!</strong> Data Tidak Lengkap!</p></div>');
+    }
+
     redirect('/c_ak_m_coa');
+    
   }
 }

@@ -16,6 +16,7 @@
             <th>NO AKUN</th>
             <th>Nama Akun</th>
             <th>Type</th>
+            <th>Sub</th>
             
             <th>Db/K</th>
             <th>Family</th>
@@ -44,6 +45,7 @@
               }
               echo "<td class='parent_1'>".$value->NAMA_AKUN."</td>";
               echo "<td class='parent_1'>".$value->TYPE."</td>";
+              echo "<td class='parent_1'>".$value->SUB."</td>";
               //echo "<td class='parent_1'>Rp".number_format($value->SALDO))."</td>";
               echo "<td class='parent_1'>".$value->DB_K."</td>";
               echo "<td class='parent_1'>".$value->FAMILY."</td>";
@@ -65,6 +67,7 @@
               }
               echo "<td class='parent_2'>".$value->NAMA_AKUN."</td>";
               echo "<td class='parent_2'>".$value->TYPE."</td>";
+              echo "<td class='parent_2'>".$value->SUB."</td>";
               //echo "<td class='parent_2'>Rp".number_format($value->SALDO))."</td>";
               echo "<td class='parent_2'>".$value->DB_K."</td>";
               echo "<td class='parent_2'>".$value->FAMILY."</td>";
@@ -87,6 +90,7 @@
               
               echo "<td class='parent_3'>".$value->NAMA_AKUN."</td>";
               echo "<td class='parent_3'>".$value->TYPE."</td>";
+              echo "<td class='parent_3'>".$value->SUB."</td>";
               //echo "<td class='parent_3'>Rp".number_format($value->SALDO))."</td>";
               echo "<td class='parent_3'>".$value->DB_K."</td>";
               echo "<td class='parent_3'>".$value->FAMILY."</td>";
@@ -170,6 +174,17 @@
               foreach ($c_ak_m_type as $key => $value) 
               {
                 echo "<option value='".$value->TYPE_ID."'>".$value->TYPE."</option>";
+
+              }
+              ?>
+              </select>
+
+              <label>Sub</label>
+              <select name="sub_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+              <?php
+              foreach ($c_ak_m_sub as $key => $value) 
+              {
+                echo "<option value='".$value->SUB_ID."'>".$value->SUB."</option>";
 
               }
               ?>
@@ -260,6 +275,22 @@
               <input type='text' class='form-control' placeholder='Input Text' name='nama_akun'>
             </div>
 
+
+            <div class="form-group">
+              <label>Sub</label>
+              <div class="searchable">
+                  <input type="text" name='sub' placeholder="search" onkeyup="filterFunction(this,event)">
+                  <ul>
+                    <?php
+                    foreach ($c_ak_m_sub as $key => $value) 
+                    {
+                      echo "<li>".$value->SUB."</li>";
+                    }
+                    ?>
+                  </ul>
+              </div>
+            </div>
+
             <div class="form-group">
               <input type="checkbox" name="cash_flow" >
               <label>Include Cash Flow</label>
@@ -296,7 +327,8 @@
         NO_AKUN_1 : no_akun_1,
         NO_AKUN_2 : no_akun_2,
         NO_AKUN_3 : no_akun_3,
-        CASH_FLOW : cash_flow
+        CASH_FLOW : cash_flow,
+        SUB : sub
       } = User[0];
 
       elModalEdit.querySelector("[name=id]").value = ID;
@@ -306,6 +338,7 @@
       elModalEdit.querySelector("[name=no_akun_1]").value = no_akun_1;
       elModalEdit.querySelector("[name=no_akun_2]").value = no_akun_2;
       elModalEdit.querySelector("[name=no_akun_3]").value = no_akun_3;
+      elModalEdit.querySelector("[name=sub]").value = sub;
       elModalEdit.querySelector("[name=cash_flow]").checked = cash_flow;
 
   
@@ -336,14 +369,14 @@
 
 <style type="text/css">
     div.searchable {
-    width: 90%;
-    margin: 0 15px;
+    width: 100%;
+    
 }
 
 .searchable input {
     width: 100%;
-    height: 25px;
-    font-size: 12px;
+    height: 30px;
+    font-size: 14px;
     padding: 10px;
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
     -moz-box-sizing: border-box; /* Firefox, other Gecko */
@@ -360,7 +393,8 @@
     background: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E") no-repeat right .75rem center/8px 10px;
 }
 
-.searchable ul {
+
+  .searchable ul {
     display: none;
     list-style-type: none;
     background-color: #fff;
@@ -372,19 +406,19 @@
     overflow-y: scroll;
     overflow-x: hidden;
     padding: 0;
-}
+  }
 
-.searchable ul li {
+  .searchable ul li {
     padding: 7px 9px;
     border-bottom: 1px solid #e1e1e1;
     cursor: pointer;
     color: #6e6e6e;
-}
+  }
 
-.searchable ul li.selected {
+  .searchable ul li.selected {
     background-color: #e8e8e8;
     color: #333;
-}
+  }
 </style>
 
 
