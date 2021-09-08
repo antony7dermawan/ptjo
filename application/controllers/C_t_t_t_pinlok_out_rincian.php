@@ -196,7 +196,7 @@ class C_t_t_t_pinlok_out_rincian extends MY_Controller
       foreach ($read_select as $key => $value) 
       {
         $harga_jual = floatval($value->HARGA);
-        $sub_total = floatval($harga_jual) * $value->SISA_QTY;
+        $sub_total = floatval($harga_jual) * $vivo_qty;
 
         if($vivo_qty<=$value->SISA_QTY)
         {
