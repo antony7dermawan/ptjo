@@ -4,7 +4,7 @@
 
       <label>Pilih Laporan:</label>
 
-      <select name="pilih_laporan" class='custom_width' id='id_pilih_laporan' placeholder='Pick a state...'>
+      <select name="pilih_laporan" class='pilih_laporan' id='id_pilih_laporan' placeholder='Pick a state...'>
         <?php
 
         $level_user_id = $this->session->userdata('level_user_id');
@@ -14,6 +14,8 @@
           echo "<option value='laporan_excel/lap_laba_rugi/index/' >Laporan Laba Rugi</option>";
           echo "<option value='laporan_excel/lap_neraca/index/' >Laporan Neraca</option>";
           echo "<option value='laporan_excel/lap_penjualan_pks/index/' >Laporan Penjualan TBS</option>";
+          echo "<option value='laporan_excel/lap_jurnal/index/' >Laporan Jurnal</option>";
+          echo "<option value='laporan_excel/lap_jurnal_per_sub_akun/index/' >Laporan Jurnal per Sub Akun</option>";
         }
           
           echo "<option value='laporan_excel/lap_po/index/' >Laporan PO</option>";
@@ -21,6 +23,22 @@
         
         ?>
       </select>
+
+      <div class='sub' id='sub'>
+        <label>Sub Akun</label>
+            <select name="sub_id" class='sub_id' id='sub_id' placeholder='Pick a state...'>
+              
+              <?php
+              foreach ($c_ak_m_sub as $key => $value) 
+              {
+                echo "<option value='".$value->SUB_ID."'>".$value->SUB."</option>";
+
+              }
+              ?>
+            </select>
+      </div>
+
+
       <table>
         <tr>
           <th>Periode:</th>
@@ -57,13 +75,47 @@
 
 
 <script type="text/javascript">
+
+$(document).ready(function()
+{
+  $(".pilih_laporan").change(function()
+  {
+    var pilih_laporan=$(this).val();
+    console.log(pilih_laporan);
+    
+    if(pilih_laporan=="laporan_excel/lap_jurnal_per_sub_akun/index/")
+    {
+      document.getElementById('sub').style.display = 'block';
+
+    }
+
+
+
+
+    else
+    {
+      document.getElementById('sub').style.display = 'none';
+    }
+    
+  });
+
+
+});
+
+
+
+</script>
+
+
+<script type="text/javascript">
   function call_download() {
     var link_1 = document.getElementById("id_pilih_laporan").value;
     var link_2 = document.getElementById("date_from_laporan").value;
     var link_3 = document.getElementById("date_to_laporan").value;
+    var link_4 = parseInt(document.getElementById("sub_id").value);
     var slash = "/";
 
-    var link = link_1.concat(link_2, slash, link_3);
+    var link = link_1.concat(link_2, slash, link_3, slash, link_4);
     window.open(link);
   }
 </script>
@@ -80,6 +132,15 @@
 
 
 <style type="text/css">
+
+  .sub
+  {
+    display: none;
+  }
+
+
+
+
   div.searchable {
     width: 90%;
     margin: 0 15px;

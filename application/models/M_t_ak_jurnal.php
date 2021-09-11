@@ -177,6 +177,73 @@ public function select_created_id($created_id)
     return $akun->result ();
   }
 
+
+
+
+
+
+
+
+
+
+  public function select_by_sub_akun($date_from_select_jurnal,$date_to_select_jurnal,$sub_id)
+  {
+    $level_user_id = $this->session->userdata('level_user_id');
+    $username = $this->session->userdata('username');
+
+    $this->db->select("T_AK_JURNAL.ID");
+    $this->db->select("AK_M_COA.NO_AKUN_1");
+    $this->db->select("AK_M_COA.NO_AKUN_2");
+    $this->db->select("AK_M_COA.NO_AKUN_3");
+    $this->db->select("AK_M_COA.NAMA_AKUN");
+    $this->db->select("AK_M_COA.FAMILY_ID");
+    $this->db->select("AK_M_COA.DB_K_ID");
+    $this->db->select("T_AK_JURNAL.COA_ID");
+    $this->db->select("T_AK_JURNAL.DEBIT");
+    $this->db->select("T_AK_JURNAL.KREDIT");
+    $this->db->select("T_AK_JURNAL.CATATAN");
+    $this->db->select("T_AK_JURNAL.DEPARTEMEN");
+    $this->db->select("T_AK_JURNAL.NO_VOUCER");
+    $this->db->select("T_AK_JURNAL.DATE");
+    $this->db->select("T_AK_JURNAL.TIME");
+    $this->db->select("T_AK_JURNAL.CREATED_BY");
+    $this->db->select("T_AK_JURNAL.UPDATED_BY");
+    $this->db->select("T_AK_JURNAL.CREATED_ID");
+
+    $this->db->select("T_AK_JURNAL.CHECKED_ID");
+    $this->db->select("T_AK_JURNAL.SPECIAL_ID");
+    $this->db->select("T_AK_JURNAL.COMPANY_ID");
+
+    $this->db->from('T_AK_JURNAL');
+    $this->db->join('AK_M_COA', 'AK_M_COA.ID = T_AK_JURNAL.COA_ID', 'left');
+    $this->db->where("T_AK_JURNAL.DATE>='{$date_from_select_jurnal}'");
+    $this->db->where("T_AK_JURNAL.DATE<='{$date_to_select_jurnal}'");
+
+    $this->db->where("AK_M_COA.SUB_ID='{$sub_id}'");
+
+    if($level_user_id==4 or $level_user_id==9)
+    {
+        $this->db->where("T_AK_JURNAL.CREATED_BY='{$username}'");
+    }
+
+    if($level_user_id>=8)
+    {
+        $this->db->where("T_AK_JURNAL.COMPANY_ID='{$this->session->userdata('company_id')}'");
+    }
+
+
+    
+    $this->db->order_by("T_AK_JURNAL.DATE,T_AK_JURNAL.TIME", "asc");
+
+    $akun = $this->db->get ();
+    return $akun->result ();
+  }
+
+
+
+
+
+
   public function delete($created_id)
   {
     $this->db->where('CREATED_ID',$created_id);

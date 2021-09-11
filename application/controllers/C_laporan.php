@@ -8,11 +8,12 @@ class C_laporan extends MY_Controller {
     parent::__construct();
 
     $this->load->model('m_laporan');
+    $this->load->model('m_ak_m_sub');
   }
 
 	public function index(){
 		$data = [
-			
+      		"c_ak_m_sub" => $this->m_ak_m_sub->select(),
 			"title" => "Laporan",
 			"description" => "Pilih Detail"
 		  ];
