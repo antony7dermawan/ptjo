@@ -204,7 +204,7 @@
 
 
         <?php
-        if($level_user_id==1)
+        if($level_user_id>=1)
         {
         ?>
         <div class="history_pembelian">
