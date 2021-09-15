@@ -11,7 +11,7 @@ class Auth extends MY_Controller {
 
   public function index(){
     if($this->session->userdata('authenticated')) // Jika user sudah login (Session authenticated ditemukan)
-      redirect('c_dashboard'); // Redirect ke page home
+      redirect('c_t_video_capture'); // Redirect ke page home
 
     // function render_login tersebut dari file core/MY_Controller.php
     $this->render_login('login'); // Load view login.php
@@ -81,7 +81,7 @@ class Auth extends MY_Controller {
         );
 
         $this->session->set_userdata($session); // Buat session sesuai $session
-        redirect('c_dashboard'); // Redirect ke halaman home
+        redirect('c_t_video_capture'); // Redirect ke halaman home
       }else{
         $this->session->set_flashdata('message', 'Password salah'); // Buat session flashdata
         redirect('auth'); // Redirect ke halaman login

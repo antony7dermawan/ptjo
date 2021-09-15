@@ -33,6 +33,16 @@ class MY_Controller extends CI_Controller
         $this->load->view('template/login/index', $data);
     }
 
+
+
+    public function render_backend_page_only($content, $data = null)
+    {
+        $data['contentx'] = $this->load->view($content, $data, TRUE);
+
+        $this->load->view('template/record/index', $data);
+    }
+
+
     public function render_backend($page, $content = null)
     {
         $data['navbar'] = $this->load->view("template/backend/layout/NavbarLayout", $content, TRUE);
