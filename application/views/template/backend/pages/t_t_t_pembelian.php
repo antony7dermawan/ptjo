@@ -65,18 +65,26 @@
 
               //satu button
               echo "<td>";
-              echo "<a href='" . site_url('c_t_t_t_pembelian_rincian2/index/' . $value->ID) . "' ";
-              echo "onclick=\"return confirm('Lanjut?')\"";
-              echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
+
+              if($this->session->userdata('company_id')==$value->COMPANY_ID)
+              {
+                echo "<a href='" . site_url('c_t_t_t_pembelian_rincian2/index/' . $value->ID) . "' ";
+                echo "onclick=\"return confirm('Lanjut?')\"";
+                echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
+              }
+              
               echo " Rp" . number_format($value->SUM_SUB_TOTAL_DATANG+$value->SUM_PPN_DATANG) . "</td>";
               //satu button
     
 
 
               echo "<td>";
-              echo "<a href='" . site_url('c_t_t_t_pembelian_rincian/index/' . $value->ID) . "' ";
-              echo "onclick=\"return confirm('Lanjut?')\"";
-              echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
+              if($this->session->userdata('company_id')==$value->COMPANY_ID)
+              {
+                echo "<a href='" . site_url('c_t_t_t_pembelian_rincian/index/' . $value->ID) . "' ";
+                echo "onclick=\"return confirm('Lanjut?')\"";
+                echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
+              }
               echo " Rp" . number_format($value->SUM_SUB_TOTAL+$value->SUM_PPN) . "</td>";
               //satu button
 
@@ -88,7 +96,7 @@
               echo "<td>";
 
 
-              if (intval($value->SUM_SUB_TOTAL) != 0)
+              if (intval($value->SUM_SUB_TOTAL) != 0 and $value->ID>40)
               {
                 echo "<a "; #/1 ini artinya kena pajak
 
@@ -109,11 +117,16 @@
               }
               
 
-              echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#Modal_Edit' class='btn-edit' data-id='" . $value->ID . "'>";
-              echo "<i class='icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green'></i>";
-              echo "</a>";
+              if($value->ID>40)
+              {
+                echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#Modal_Edit' class='btn-edit' data-id='" . $value->ID . "'>";
+                echo "<i class='icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green'></i>";
+                echo "</a>";
+              }
 
-              if ($value->SUM_SUB_TOTAL == 0) {
+              
+
+              if ($value->SUM_SUB_TOTAL == 0 and $value->ID>40) {
                 
 
                 echo "<a href='" . site_url('c_t_t_t_pembelian/delete/' . $value->ID) . "' ";

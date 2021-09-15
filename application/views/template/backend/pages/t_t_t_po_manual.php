@@ -117,9 +117,14 @@
 
               //satu button
               echo "<td>";
-              echo "<a href='" . site_url('c_t_t_t_po_manual_rincian/index/' . $value->ID) . "' ";
-              echo "onclick=\"return confirm('Lanjut?')\"";
-              echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
+              if($this->session->userdata('company_id')==$value->COMPANY_ID)
+              {
+                echo "<a href='" . site_url('c_t_t_t_po_manual_rincian/index/' . $value->ID) . "' ";
+                echo "onclick=\"return confirm('Lanjut?')\"";
+                echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
+              }
+
+
               echo " Rp" . number_format($value->SUM_SUB_TOTAL+$value->SUM_PPN) . "</td>";
               //satu button
 
@@ -193,9 +198,12 @@
 
               //satu button
               echo "<td><s>";
-              echo "<a href='" . site_url('c_t_t_t_po_manual_rincian/index/' . $value->ID) . "' ";
-              echo "onclick=\"return confirm('Lanjut?')\"";
-              echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
+              if($this->session->userdata('company_id')==$value->COMPANY_ID)
+              {
+                echo "<a href='" . site_url('c_t_t_t_po_manual_rincian/index/' . $value->ID) . "' ";
+                echo "onclick=\"return confirm('Lanjut?')\"";
+                echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
+              }
               echo " Rp" . number_format($value->SUM_SUB_TOTAL+$value->SUM_PPN) . "</s></td>";
               //satu button
 

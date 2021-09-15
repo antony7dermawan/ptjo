@@ -595,7 +595,12 @@ public function select_range_date($from_date,$to_date,$kredit_logic)
 
     $this->db->where("T_T_T_PEMBELIAN.DATE<='{$date_pembelian}' and T_T_T_PEMBELIAN.DATE>='{$date_before}'");
 
-    $this->db->where("T_T_T_PEMBELIAN.COMPANY_ID={$this->session->userdata('company_id')}");
+
+    if($this->session->userdata('company_id')>1)
+    {
+        $this->db->where("T_T_T_PEMBELIAN.COMPANY_ID={$this->session->userdata('company_id')}");
+    }
+    
     $this->db->order_by("ID", "desc");
 
     $akun = $this->db->get ();
@@ -667,6 +672,7 @@ public function select_range_date($from_date,$to_date,$kredit_logic)
     {
       $this->db->where('T_T_T_PEMBELIAN.MARK_FOR_DELETE',FALSE);
     }
+
 
     
     $this->db->where('T_T_T_PEMBELIAN.ID',$id);

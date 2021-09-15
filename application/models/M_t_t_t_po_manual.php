@@ -74,8 +74,10 @@ public function select_inv_pembelian()
 
     $this->db->where("T_T_T_PEMBELIAN.NEW_DATE<='{$date_po_manual}' and T_T_T_PEMBELIAN.NEW_DATE>='{$date_before}'");
 
-    
-    $this->db->where("T_T_T_PEMBELIAN.COMPANY_ID={$this->session->userdata('company_id')}");
+    if($this->session->userdata('company_id')>1)
+    {
+        $this->db->where("T_T_T_PEMBELIAN.COMPANY_ID={$this->session->userdata('company_id')}");
+    }
     $this->db->order_by("ID", "desc");
 
     $akun = $this->db->get ();

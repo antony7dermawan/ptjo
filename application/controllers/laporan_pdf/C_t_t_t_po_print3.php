@@ -73,7 +73,13 @@ class C_t_t_t_po_print3 extends MY_Controller
 
 
 
-
+        $size[0]=10;
+        $size[1]=65;
+        $size[2]=20;
+        $size[3]=15;
+        $size[4]=25;
+        $size[5]=25;
+        $size[6]=30;
 
     $total_sub_1 = 0;
     $total_row_1_bon = 12;
@@ -131,13 +137,7 @@ class C_t_t_t_po_print3 extends MY_Controller
         $pdf->Cell( 100,3,'','0',1,'L');
 
         $pdf->SetFont('','B',9);
-        $size[0]=10;
-        $size[1]=65;
-        $size[2]=20;
-        $size[3]=15;
-        $size[4]=25;
-        $size[5]=25;
-        $size[6]=30;
+        
         
         $pdf->Cell( $size[0],5,'No.','1',0,'C');
         $pdf->Cell( $size[1],5,'Nama/Jenis/Ukuran','1',0,'C');
