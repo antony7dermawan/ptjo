@@ -94,36 +94,36 @@
             }
 
 
-            if($value->MARK_FOR_DELETE == 't')
-            {
-              echo "<tr>";
-              echo "<td><s>" . ($key + 1) . "</s></td>";
-              echo "<td><s>" . $value->KODE_BARANG . "</s></td>";
-              echo "<td><s>" . $value->BARANG . "</s></td>";
+            // if($value->MARK_FOR_DELETE == 't')
+            // {
+            //   echo "<tr>";
+            //   echo "<td><s>" . ($key + 1) . "</s></td>";
+            //   echo "<td><s>" . $value->KODE_BARANG . "</s></td>";
+            //   echo "<td><s>" . $value->BARANG . "</s></td>";
               
-              echo "<td><s>" . number_format($value->QTY, 2, '.', ',') . "</s></td>";
+            //   echo "<td><s>" . number_format($value->QTY, 2, '.', ',') . "</s></td>";
 
-              echo "<td><s>" . number_format($value->SISA_QTY, 2, '.', ',') . "</s></td>";
+            //   echo "<td><s>" . number_format($value->SISA_QTY, 2, '.', ',') . "</s></td>";
 
 
 
-              echo "<td><s>" . number_format($value->HARGA, 2, '.', ',') . "</s></td>";
-              echo "<td><s>" . number_format($value->SUB_TOTAL, 2, '.', ',') . "</s></td>";
+            //   echo "<td><s>" . number_format($value->HARGA, 2, '.', ',') . "</s></td>";
+            //   echo "<td><s>" . number_format($value->SUB_TOTAL, 2, '.', ',') . "</s></td>";
 
               
-              echo "<td>";
+            //   echo "<td>";
              
-                echo "<a";
+            //     echo "<a";
                
-                echo "> <i class='fa fa-refresh f-w-600 f-16 text-c-red'></i></a>";
+            //     echo "> <i class='fa fa-refresh f-w-600 f-16 text-c-red'></i></a>";
 
-                echo ' '.$value->UPDATED_BY;
+            //     echo ' '.$value->UPDATED_BY;
               
-              echo "</td>";
+            //   echo "</td>";
 
 
-              echo "</tr>";
-            }
+            //   echo "</tr>";
+            // }
 
 
 

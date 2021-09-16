@@ -108,42 +108,40 @@
 
 
 
-            if($value->MARK_FOR_DELETE == 't')
-            {
-              echo "<tr>";
-              echo "<td><s>" . ($key + 1) . "</s></td>";
-              echo "<td><s>" . $value->INV . "</td>";
-              echo "<td><s>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</s></td>";
-              echo "<td><s>" . $value->KET . "</s></td>";
-              echo "<td><s>" . $value->INV_PEMAKAIAN . "</s></td>";
+            // if($value->MARK_FOR_DELETE == 't')
+            // {
+            //   echo "<tr>";
+            //   echo "<td><s>" . ($key + 1) . "</s></td>";
+            //   echo "<td><s>" . $value->INV . "</td>";
+            //   echo "<td><s>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</s></td>";
+            //   echo "<td><s>" . $value->KET . "</s></td>";
+            //   echo "<td><s>" . $value->INV_PEMAKAIAN . "</s></td>";
 
 
 
-              //satu button
-              echo "<td><s>";
-              echo "<a href='" . site_url('c_t_t_t_retur_pemakaian_rincian/index/' . $value->ID) . "' ";
-              echo "onclick=\"return confirm('Lanjut?')\"";
-              echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
-              echo " Rp" . number_format($value->SUM_SUB_TOTAL) . "</s></td>";
-              //satu button
+            //   //satu button
+            //   echo "<td><s>";
+            //   echo "<a href='" . site_url('c_t_t_t_retur_pemakaian_rincian/index/' . $value->ID) . "' ";
+            //   echo "onclick=\"return confirm('Lanjut?')\"";
+            //   echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
+            //   echo " Rp" . number_format($value->SUM_SUB_TOTAL) . "</s></td>";
+            //   //satu button
 
               
-              echo "<td>";
+            //   echo "<td>";
 
-              echo "<a href='".site_url('c_t_t_t_retur_pemakaian/undo_delete/' . $value->ID)."' ";
-              ?>
-              onclick="return confirm('Apakah kamu yakin ingin mengembalikan data ini?')"
-              <?php
-              echo "> <i class='fa fa-refresh f-w-600 f-16 text-c-red'></i></a>";
+            //   echo "<a href='".site_url('c_t_t_t_retur_pemakaian/undo_delete/' . $value->ID)."' ";
+            //   
+            //   echo "> <i class='fa fa-refresh f-w-600 f-16 text-c-red'></i></a>";
 
-              echo ' '.$value->UPDATED_BY;
+            //   echo ' '.$value->UPDATED_BY;
           
 
-              echo "</td>";
+            //   echo "</td>";
 
 
-              echo "</tr>";
-            }
+            //   echo "</tr>";
+            // }
 
           }
           ?>

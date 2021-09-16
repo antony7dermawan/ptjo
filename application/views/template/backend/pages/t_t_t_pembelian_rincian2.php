@@ -95,36 +95,39 @@
               }
 
 
-              if($value->MARK_FOR_DELETE == 't')
-              {
-                echo "<tr>";
-                echo "<td class='" . $color . "'><s>" . ($key + 1) . "</s></td>";
-                echo "<td class='" . $color . "'><s>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</s></td>";
-                echo "<td class='" . $color . "'><s>" . $value->KODE_BARANG . "</s></td>";
-                echo "<td class='" . $color . "'><s>" . $value->BARANG . "</s></td>";
+              // if($value->MARK_FOR_DELETE == 't')
+              // {
+              //   echo "<tr>";
+              //   echo "<td class='" . $color . "'><s>" . ($key + 1) . "</s></td>";
+              //   echo "<td class='" . $color . "'><s>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</s></td>";
+              //   echo "<td class='" . $color . "'><s>" . $value->KODE_BARANG . "</s></td>";
+              //   echo "<td class='" . $color . "'><s>" . $value->BARANG . "</s></td>";
                 
-                echo "<td class='" . $color . "'><s>" . number_format($value->QTY, 2, '.', ',') . "</s></td>";
-                echo "<td class='" . $color . "'><s>" . number_format($value->HARGA, 2, '.', ',') . "</s></td>";
-                echo "<td class='" . $color . "'><s>" . number_format($value->SUB_TOTAL, 2, '.', ',') . "</s></td>";
-                echo "<td class='" . $color . "'><s>" . number_format($value->PPN_VALUE, 2, '.', ',') . "</s></td>";
-                echo "<td class='" . $color . "'><s>" . number_format(($value->SUB_TOTAL+$value->PPN_VALUE), 2, '.', ',') . "</s></td>";
-                echo "<td class='" . $color . "'><s>" . number_format($value->SISA_QTY, 2, '.', ',') . "</s></td>";
+              //   echo "<td class='" . $color . "'><s>" . number_format($value->QTY, 2, '.', ',') . "</s></td>";
+              //   echo "<td class='" . $color . "'><s>" . number_format($value->HARGA, 2, '.', ',') . "</s></td>";
+              //   echo "<td class='" . $color . "'><s>" . number_format($value->SUB_TOTAL, 2, '.', ',') . "</s></td>";
+              //   echo "<td class='" . $color . "'><s>" . number_format($value->PPN_VALUE, 2, '.', ',') . "</s></td>";
+              //   echo "<td class='" . $color . "'><s>" . number_format(($value->SUB_TOTAL+$value->PPN_VALUE), 2, '.', ',') . "</s></td>";
+              //   echo "<td class='" . $color . "'><s>" . number_format($value->SISA_QTY, 2, '.', ',') . "</s></td>";
                
                 
-                echo "<td>";
-                if (intval($value->QTY) == intval($value->SISA_QTY))
-                {
+              //   echo "<td>";
+              //   if (intval($value->QTY) == intval($value->SISA_QTY))
+              //   {
                   
-                  echo "<a ";
-                  echo "> <i class='fa fa-refresh f-w-600 f-16 text-c-red'></i></a>";
+              //     echo "<a ";
+              //     echo "> <i class='fa fa-refresh f-w-600 f-16 text-c-red'></i></a>";
 
-                  echo ' '.$value->UPDATED_BY;
-                }
-                echo "</td>";
+              //     echo ' '.$value->UPDATED_BY;
+              //   }
+              //   echo "</td>";
 
 
-                echo "</tr>";
-              }
+              //   echo "</tr>";
+              // }
+
+
+              
             }
 
 
@@ -183,36 +186,36 @@
               }
 
 
-              if($value->MARK_FOR_DELETE == 't')
-              {
-                echo "<tr>";
-                echo "<td class='" . $color . "'><s>" . ($key + 1) . "</s></td>";
-                echo "<td class='" . $color . "'><s>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</s></td>";
-                echo "<td class='" . $color . "'><s>" . $value->KODE_BARANG . "</s></td>";
-                echo "<td class='" . $color . "'><s>" . $value->BARANG . "</s></td>";
+              // if($value->MARK_FOR_DELETE == 't')
+              // {
+              //   echo "<tr>";
+              //   echo "<td class='" . $color . "'><s>" . ($key + 1) . "</s></td>";
+              //   echo "<td class='" . $color . "'><s>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</s></td>";
+              //   echo "<td class='" . $color . "'><s>" . $value->KODE_BARANG . "</s></td>";
+              //   echo "<td class='" . $color . "'><s>" . $value->BARANG . "</s></td>";
                 
-                echo "<td class='" . $color . "'><s>" . number_format($value->QTY, 2, '.', ',') . "</s></td>";
-                echo "<td class='" . $color . "'><s>" . number_format($value->HARGA, 2, '.', ',') . "</s></td>";
-                echo "<td class='" . $color . "'><s>" . number_format($value->SUB_TOTAL, 2, '.', ',') . "</s></td>";
-                echo "<td class='" . $color . "'><s>" . number_format($value->PPN_VALUE, 2, '.', ',') . "</s></td>";
-                echo "<td class='" . $color . "'><s>" . number_format(($value->SUB_TOTAL+$value->PPN_VALUE), 2, '.', ',') . "</s></td>";
-                echo "<td class='" . $color . "'><s>" . number_format($value->SISA_QTY, 2, '.', ',') . "</s></td>";
+              //   echo "<td class='" . $color . "'><s>" . number_format($value->QTY, 2, '.', ',') . "</s></td>";
+              //   echo "<td class='" . $color . "'><s>" . number_format($value->HARGA, 2, '.', ',') . "</s></td>";
+              //   echo "<td class='" . $color . "'><s>" . number_format($value->SUB_TOTAL, 2, '.', ',') . "</s></td>";
+              //   echo "<td class='" . $color . "'><s>" . number_format($value->PPN_VALUE, 2, '.', ',') . "</s></td>";
+              //   echo "<td class='" . $color . "'><s>" . number_format(($value->SUB_TOTAL+$value->PPN_VALUE), 2, '.', ',') . "</s></td>";
+              //   echo "<td class='" . $color . "'><s>" . number_format($value->SISA_QTY, 2, '.', ',') . "</s></td>";
                
                 
-                echo "<td>";
-                if (intval($value->QTY) == intval($value->SISA_QTY))
-                {
+              //   echo "<td>";
+              //   if (intval($value->QTY) == intval($value->SISA_QTY))
+              //   {
                   
-                  echo "<a ";
-                  echo "> <i class='fa fa-refresh f-w-600 f-16 text-c-red'></i></a>";
+              //     echo "<a ";
+              //     echo "> <i class='fa fa-refresh f-w-600 f-16 text-c-red'></i></a>";
 
-                  echo ' '.$value->UPDATED_BY;
-                }
-                echo "</td>";
+              //     echo ' '.$value->UPDATED_BY;
+              //   }
+              //   echo "</td>";
 
 
-                echo "</tr>";
-              }
+              //   echo "</tr>";
+              // }
 
 
             }

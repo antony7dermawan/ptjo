@@ -97,41 +97,39 @@
             }
 
 
-            if($value->MARK_FOR_DELETE == 't')
-            {
-              echo "<tr>";
-              echo "<td><s>" . ($key + 1) . "</s></td>";
-              echo "<td><s>" . $value->KODE_BARANG . "</s></td>";
-              echo "<td><s>" . $value->BARANG . "</s></td>";
+            // if($value->MARK_FOR_DELETE == 't')
+            // {
+            //   echo "<tr>";
+            //   echo "<td><s>" . ($key + 1) . "</s></td>";
+            //   echo "<td><s>" . $value->KODE_BARANG . "</s></td>";
+            //   echo "<td><s>" . $value->BARANG . "</s></td>";
               
-              echo "<td><s>" . number_format($value->QTY, 2, '.', ',') . "</s></td>";
-              echo "<td><s>" . number_format($value->HARGA, 2, '.', ',') . "</s></td>";
-              echo "<td><s>" . number_format($value->SUB_TOTAL, 2, '.', ',') . "</s></td>";
+            //   echo "<td><s>" . number_format($value->QTY, 2, '.', ',') . "</s></td>";
+            //   echo "<td><s>" . number_format($value->HARGA, 2, '.', ',') . "</s></td>";
+            //   echo "<td><s>" . number_format($value->SUB_TOTAL, 2, '.', ',') . "</s></td>";
 
-              echo "<td><s>" . number_format($value->PPN_VALUE, 2, '.', ',') . "</s></td>";
-              echo "<td><s>" . number_format(($value->SUB_TOTAL+$value->PPN_VALUE), 2, '.', ',') . "</s></td>";
+            //   echo "<td><s>" . number_format($value->PPN_VALUE, 2, '.', ',') . "</s></td>";
+            //   echo "<td><s>" . number_format(($value->SUB_TOTAL+$value->PPN_VALUE), 2, '.', ',') . "</s></td>";
 
-              echo "<td><s>" . number_format($value->SISA_QTY, 2, '.', ',') . "</s></td>";
-              echo "<td><s>" . number_format($value->QTY_DATANG, 2, '.', ',') . "</s></td>";
+            //   echo "<td><s>" . number_format($value->SISA_QTY, 2, '.', ',') . "</s></td>";
+            //   echo "<td><s>" . number_format($value->QTY_DATANG, 2, '.', ',') . "</s></td>";
 
               
-              echo "<td>";
-              if (intval($value->QTY) == intval($value->SISA_QTY))
-              {
+            //   echo "<td>";
+            //   if (intval($value->QTY) == intval($value->SISA_QTY))
+            //   {
                 
-                echo "<a href='".site_url('c_t_t_t_po_auto_rincian/undo_delete/'.$value->ID.'/'.$pembelian_id)."' ";
-                ?>
-                onclick="return confirm('Apakah kamu yakin ingin mengembalikan data ini?')"
-                <?php
-                echo "> <i class='fa fa-refresh f-w-600 f-16 text-c-red'></i></a>";
+            //     echo "<a href='".site_url('c_t_t_t_po_auto_rincian/undo_delete/'.$value->ID.'/'.$pembelian_id)."' ";
+            //     
+            //     echo "> <i class='fa fa-refresh f-w-600 f-16 text-c-red'></i></a>";
 
-                echo ' '.$value->UPDATED_BY;
-              }
-              echo "</td>";
+            //     echo ' '.$value->UPDATED_BY;
+            //   }
+            //   echo "</td>";
 
 
-              echo "</tr>";
-            }
+            //   echo "</tr>";
+            // }
 
 
 

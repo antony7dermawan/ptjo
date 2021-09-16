@@ -175,7 +175,7 @@ class C_t_t_t_pembelian_rincian2 extends MY_Controller
             if($qty_tambah>0)
             {
               $harga = $value->HARGA;
-              $sub_total = intval($value->HARGA)*$vivo_qty;
+              $sub_total = floatval($value->HARGA)*$vivo_qty;
               $ppn_percentage = $value->PPN_PERCENTAGE;
               $ppn_value = ($sub_total*$value->PPN_PERCENTAGE)/100;
               $data = array(
@@ -219,7 +219,7 @@ class C_t_t_t_pembelian_rincian2 extends MY_Controller
             if($qty_tambah>0)
             {
               $harga = $value->HARGA;
-              $sub_total = intval($value->HARGA)*$vivo_qty;
+              $sub_total = floatval($value->HARGA)*$vivo_qty;
               $ppn_percentage = $value->PPN_PERCENTAGE;
               $ppn_value = ($sub_total*$value->PPN_PERCENTAGE)/100;
               $data = array(

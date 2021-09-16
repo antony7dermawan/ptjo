@@ -205,6 +205,8 @@ public function select_range_date($from_date,$to_date)
     $this->db->from('T_T_T_RETUR_PENJUALAN');
     $this->db->where("COMPANY_ID={$this->session->userdata('company_id')}");
     $this->db->where("DATE>='{$this_year}'");
+
+    $this->db->where('MARK_FOR_DELETE',false);
     $this->db->order_by("ID", "desc");
 
     $akun = $this->db->get ();

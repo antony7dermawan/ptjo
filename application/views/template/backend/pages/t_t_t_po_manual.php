@@ -182,48 +182,46 @@
 
 
 
-            if($value->MARK_FOR_DELETE == 't')
-            {
-              echo "<tr>";
-              echo "<td><s>" . ($key + 1) . "</s></td>";
-              echo "<td><s> </s></td>";
-              echo "<td><s>" . $value->INV . "</s></td>";
-              echo "<td><s>" . date('d-m-Y', strtotime($value->NEW_DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</s></td>";
-              echo "<td><s>" . $value->KET . "</s></td>";
-              echo "<td><s>" . $value->SUPPLIER . "</s></td>";
-              echo "<td><s>" . $value->INV_SUPPLIER . "</s></td>";
-              echo "<td><s>" . $value->PAYMENT_METHOD . "</s></td>";
+            // if($value->MARK_FOR_DELETE == 't')
+            // {
+            //   echo "<tr>";
+            //   echo "<td><s>" . ($key + 1) . "</s></td>";
+            //   echo "<td><s> </s></td>";
+            //   echo "<td><s>" . $value->INV . "</s></td>";
+            //   echo "<td><s>" . date('d-m-Y', strtotime($value->NEW_DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</s></td>";
+            //   echo "<td><s>" . $value->KET . "</s></td>";
+            //   echo "<td><s>" . $value->SUPPLIER . "</s></td>";
+            //   echo "<td><s>" . $value->INV_SUPPLIER . "</s></td>";
+            //   echo "<td><s>" . $value->PAYMENT_METHOD . "</s></td>";
 
 
 
-              //satu button
-              echo "<td><s>";
-              if($this->session->userdata('company_id')==$value->COMPANY_ID)
-              {
-                echo "<a href='" . site_url('c_t_t_t_po_manual_rincian/index/' . $value->ID) . "' ";
-                echo "onclick=\"return confirm('Lanjut?')\"";
-                echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
-              }
-              echo " Rp" . number_format($value->SUM_SUB_TOTAL+$value->SUM_PPN) . "</s></td>";
-              //satu button
+            //   //satu button
+            //   echo "<td><s>";
+            //   if($this->session->userdata('company_id')==$value->COMPANY_ID)
+            //   {
+            //     echo "<a href='" . site_url('c_t_t_t_po_manual_rincian/index/' . $value->ID) . "' ";
+            //     echo "onclick=\"return confirm('Lanjut?')\"";
+            //     echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
+            //   }
+            //   echo " Rp" . number_format($value->SUM_SUB_TOTAL+$value->SUM_PPN) . "</s></td>";
+            //   //satu button
 
               
-              echo "<td>";
+            //   echo "<td>";
 
-              echo "<a href='".site_url('c_t_t_t_po_manual/undo_delete/' . $value->ID)."' ";
-              ?>
-              onclick="return confirm('Apakah kamu yakin ingin mengembalikan data ini?')"
-              <?php
-              echo "> <i class='fa fa-refresh f-w-600 f-16 text-c-red'></i></a>";
+            //   echo "<a href='".site_url('c_t_t_t_po_manual/undo_delete/' . $value->ID)."' ";
+            //   
+            //   echo "> <i class='fa fa-refresh f-w-600 f-16 text-c-red'></i></a>";
 
-              echo ' '.$value->UPDATED_BY;
+            //   echo ' '.$value->UPDATED_BY;
           
 
-              echo "</td>";
+            //   echo "</td>";
 
 
-              echo "</tr>";
-            }
+            //   echo "</tr>";
+            // }
 
           }
           ?>

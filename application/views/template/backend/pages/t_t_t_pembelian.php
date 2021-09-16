@@ -151,49 +151,47 @@
 
 
 
-            if($value->MARK_FOR_DELETE == 't')
-            {
-              echo "<tr>";
-              echo "<td><s>" . ($key + 1) . "</s></td>";
-              echo "<td><s>" . $value->INV . "</td>";
-              echo "<td><s>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</s></td>";
-              echo "<td><s>" . $value->KET . "</s></td>";
-              echo "<td><s>" . $value->SUPPLIER . "</s></td>";
-              echo "<td><s>" . $value->INV_SUPPLIER . "</s></td>";
-              echo "<td><s>" . $value->PAYMENT_METHOD . "</s></td>";
+            // if($value->MARK_FOR_DELETE == 't')
+            // {
+            //   echo "<tr>";
+            //   echo "<td><s>" . ($key + 1) . "</s></td>";
+            //   echo "<td><s>" . $value->INV . "</td>";
+            //   echo "<td><s>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</s></td>";
+            //   echo "<td><s>" . $value->KET . "</s></td>";
+            //   echo "<td><s>" . $value->SUPPLIER . "</s></td>";
+            //   echo "<td><s>" . $value->INV_SUPPLIER . "</s></td>";
+            //   echo "<td><s>" . $value->PAYMENT_METHOD . "</s></td>";
 
 
 
-              //satu button
-              echo "<td><s></td>";
+            //   //satu button
+            //   echo "<td><s></td>";
 
               
-              echo "<td><s>";
+            //   echo "<td><s>";
               
-              echo " Rp" . number_format($value->SUM_SUB_TOTAL+$value->SUM_PPN) . "</s></td>";
-              //satu button
+            //   echo " Rp" . number_format($value->SUM_SUB_TOTAL+$value->SUM_PPN) . "</s></td>";
+            //   //satu button
 
 
-              echo "<td><s>";
+            //   echo "<td><s>";
 
-              echo " Rp" . number_format($value->PAYMENT_T) . "<s></td>";
+            //   echo " Rp" . number_format($value->PAYMENT_T) . "<s></td>";
               
-              echo "<td>";
+            //   echo "<td>";
 
-              echo "<a href='".site_url('c_t_t_t_pembelian/undo_delete/' . $value->ID)."' ";
-              ?>
-              onclick="return confirm('Apakah kamu yakin ingin mengembalikan data ini?')"
-              <?php
-              echo "> <i class='fa fa-refresh f-w-600 f-16 text-c-red'></i></a>";
+            //   echo "<a href='".site_url('c_t_t_t_pembelian/undo_delete/' . $value->ID)."' ";
+            //  
+            //   echo "> <i class='fa fa-refresh f-w-600 f-16 text-c-red'></i></a>";
 
-              echo ' '.$value->UPDATED_BY;
+            //   echo ' '.$value->UPDATED_BY;
           
 
-              echo "</td>";
+            //   echo "</td>";
 
 
-              echo "</tr>";
-            }
+            //   echo "</tr>";
+            // }
 
           }
           ?>
