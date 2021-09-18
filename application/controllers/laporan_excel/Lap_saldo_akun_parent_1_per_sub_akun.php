@@ -374,7 +374,7 @@
                 }
 
 
-                
+
 
                   $row=$row+1;
                   $baris_1_page = $baris_1_page+1;
@@ -413,7 +413,7 @@
 
 
                   $writer = new Xlsx($spreadsheet);
-                  $filename = 'lap_neraca';
+                  $filename = 'lap_saldo_akun_parent_1_per_sub_akun';
                   
                   header('Content-Type: application/vnd.ms-excel');
                   header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
