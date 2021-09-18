@@ -16,6 +16,9 @@
           echo "<option value='laporan_excel/lap_penjualan_pks/index/' >Laporan Penjualan TBS</option>";
           echo "<option value='laporan_excel/lap_jurnal/index/' >Laporan Jurnal</option>";
           echo "<option value='laporan_excel/lap_jurnal_per_sub_akun/index/' >Laporan Jurnal per Sub Akun</option>";
+
+
+          echo "<option value='laporan_excel/lap_saldo_akun_parent_1_per_sub_akun/index/' >Laporan Saldo Akun Parent 1 per Sub Akun</option>";
         }
           
           echo "<option value='laporan_excel/lap_po/index/' >Laporan PO</option>";
@@ -83,7 +86,7 @@ $(document).ready(function()
     var pilih_laporan=$(this).val();
     console.log(pilih_laporan);
     
-    if(pilih_laporan=="laporan_excel/lap_jurnal_per_sub_akun/index/")
+    if(pilih_laporan=="laporan_excel/lap_jurnal_per_sub_akun/index/" || pilih_laporan=="laporan_excel/lap_saldo_akun_parent_1_per_sub_akun/index/")
     {
       document.getElementById('sub').style.display = 'block';
 

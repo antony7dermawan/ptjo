@@ -185,6 +185,52 @@ public function update($data, $id)
   }
 
 
+
+
+
+  public function select_type_sub_akun($type_id,$from_date,$to_date,$sub_id)
+  {
+    $this->db->select("AK_M_COA.ID");
+    $this->db->select("AK_M_COA.NO_AKUN_1");
+    $this->db->select("AK_M_COA.NO_AKUN_2");
+    $this->db->select("AK_M_COA.NO_AKUN_3");
+    $this->db->select("AK_M_COA.NAMA_AKUN");
+    $this->db->select("AK_M_COA.CASH_FLOW");
+    
+    $this->db->select("AK_M_SUB.SUB_ID");
+    $this->db->select("AK_M_SUB.SUB");
+    $this->db->select("AK_M_TYPE.TYPE_ID");
+    $this->db->select("AK_M_TYPE.TYPE");
+    $this->db->select("AK_M_DB_K.DB_K_ID");
+    $this->db->select("AK_M_DB_K.DB_K");
+    $this->db->select("AK_M_FAMILY.FAMILY_ID");
+    $this->db->select("AK_M_FAMILY.FAMILY");
+
+
+
+
+    $this->db->from('AK_M_COA');
+    $this->db->join('AK_M_SUB', 'AK_M_SUB.SUB_ID = AK_M_COA.SUB_ID', 'left');
+    $this->db->join('AK_M_TYPE', 'AK_M_TYPE.TYPE_ID = AK_M_COA.TYPE_ID', 'left');
+    $this->db->join('AK_M_DB_K', 'AK_M_DB_K.DB_K_ID = AK_M_COA.DB_K_ID', 'left');
+    $this->db->join('AK_M_FAMILY', 'AK_M_FAMILY.FAMILY_ID = AK_M_COA.FAMILY_ID', 'left');
+
+
+    
+    $this->db->where(" AK_M_COA.TYPE_ID={$type_id}");
+
+
+    $this->db->where(" AK_M_COA.SUB_ID={$sub_id}");
+    
+
+    $this->db->order_by("AK_M_COA.NO_AKUN_1,AK_M_COA.NO_AKUN_2,AK_M_COA.NO_AKUN_3", "asc");
+
+    $akun = $this->db->get ();
+    return $akun->result ();
+  }
+
+
+
   public function select_sum_family_id_3($coa_id,$from_date,$to_date)
   {
     $this->db->select("SUM_DEBIT");
