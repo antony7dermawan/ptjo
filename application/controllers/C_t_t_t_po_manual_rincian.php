@@ -183,7 +183,9 @@ class C_t_t_t_po_manual_rincian extends MY_Controller
           'SUB_TOTAL' => $sub_total,
           'SISA_QTY_TT' => $sisa_qty_tt,
           'UPDATED_BY' => $this->session->userdata('username'),
-          'QTY_DATANG' => 0
+          'QTY_DATANG' => 0,
+          'PPN_PERCENTAGE' => $ppn_percentage,
+          'PPN_VALUE' => $ppn_value
         );
 
         $this->m_t_t_t_po_manual_rincian->update($data,$id);
