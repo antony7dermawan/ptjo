@@ -577,10 +577,9 @@ public function select_barang_with_supplier($barang_id)
 
     $this->db->join('T_M_D_SATUAN', 'T_M_D_BARANG.SATUAN_ID = T_M_D_SATUAN.ID', 'left');
 
-    if($this->session->userdata('t_t_t_pembelian_delete_logic')==0)
-    {
+    
       $this->db->where('T_T_T_PEMBELIAN_RINCIAN.MARK_FOR_DELETE',FALSE);
-    }
+    
     
 
     $this->db->where('T_T_T_PEMBELIAN_RINCIAN.PEMBELIAN_ID',$pembelian_id);
