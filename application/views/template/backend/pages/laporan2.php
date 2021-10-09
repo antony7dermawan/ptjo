@@ -34,6 +34,8 @@
         echo "<option value='laporan_excel/lap_penjualan_per_pelanggan/index/' >Laporan Penjualan Per Pelanggan</option>";
 
 
+        echo "<option value='laporan_excel/lap_pemakaian_full/index/' >Laporan Pemakaian Keseluruhan</option>";
+
 
         echo "<option value='laporan_excel/lap_pemakaian_per_pemakai/index/' >Laporan Pemakaian Per Pemakai</option>";
 
