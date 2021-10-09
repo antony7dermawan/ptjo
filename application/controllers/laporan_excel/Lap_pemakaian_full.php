@@ -72,7 +72,7 @@
                   $spreadsheet->getActiveSheet()->getStyle('A'.$row)->getFont()->setBold(true);
                   $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':J'.$row);
                   $sheet = $spreadsheet->getActiveSheet();
-                  $sheet->setCellValue('A'.$row, 'Laporan Pemakaian per Anggota');
+                  $sheet->setCellValue('A'.$row, 'Laporan Pemakaian Keseluruhan');
                   $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('center');
 
                   $row=$row+1;
@@ -305,7 +305,7 @@
 
 
                   $writer = new Xlsx($spreadsheet);
-                  $filename = 'Lap_pemakaian_per_anggota';
+                  $filename = 'Lap_pemakaian_keseluruhan';
                   
                   header('Content-Type: application/vnd.ms-excel');
                   header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
