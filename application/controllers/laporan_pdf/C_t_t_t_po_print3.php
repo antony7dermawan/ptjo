@@ -170,11 +170,12 @@ class C_t_t_t_po_print3 extends MY_Controller
       $total_sub = $total_sub+($value->SUB_TOTAL);
      
 
-      if(($key<$total_row_1_bon and ($key+1)==$total_row_1_bon) or ($key>=$total_row_1_bon and ($rmd+1)==$total_row_1_bon))
-      {
-        $pdf->Cell( 120,90,'','0',1,'L');
-        $pdf->Cell( 120,5,'Hal.'.$pages.'/'.$total_sheet,'0',1,'L');
-      }
+      // if(($key<$total_row_1_bon and ($key+1)==$total_row_1_bon) or ($key>=$total_row_1_bon and ($rmd+1)==$total_row_1_bon))
+      // {
+      //   $pdf->Cell( 120,90,'','0',1,'L');
+      //   $pdf->Cell( 120,5,'Hal.'.$pages.'/'.$total_sheet,'0',1,'L');
+      // }
+      
       
     }
 
