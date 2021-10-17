@@ -82,7 +82,7 @@ class C_t_t_t_po_print3 extends MY_Controller
         $size[6]=30;
 
     $total_sub_1 = 0;
-    $total_row_1_bon = 12;
+    $total_row_1_bon = 15;
     $total_ppn = 0;
     $total_sub = 0;
     $read_select = $this->m_t_t_t_pembelian_rincian->select_list($pembelian_id);

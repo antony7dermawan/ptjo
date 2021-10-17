@@ -18,14 +18,14 @@
       use PhpOffice\PhpSpreadsheet\Worksheet\ColumnDimension;
       use PhpOffice\PhpSpreadsheet\Worksheet;
 
-      class Lap_pemakaian_full extends CI_Controller{
+      class Lap_beli_semua_gudang extends CI_Controller{
 
             public function __construct()
             {
                 parent::__construct();
 
-                $this->load->model('m_t_t_t_pemakaian');
-                $this->load->model('m_t_t_t_pemakaian_rincian');
+                $this->load->model('m_t_t_t_pembelian');
+                $this->load->model('m_t_t_t_pembelian_rincian');
                 
 
             }
@@ -34,7 +34,7 @@
 
             public function index($date_from_laporan,$date_to_laporan,$barang_id,$kategori_id,$sales_id,$pelanggan_id,$supplier_id,$no_polisi_id,$anggota_id,$pemakai_id,$lokasi_id)
             {
-              $this->session->set_userdata('t_t_t_pemakaian_delete_logic', '0');
+              $this->session->set_userdata('t_t_t_pembelian_delete_logic', '0');
 
               $total_day=intval(((round(abs(strtotime($date_from_laporan) - strtotime($date_to_laporan)) / (60*60*24),0))+1)/2);
 
@@ -48,7 +48,7 @@
 
 
                   $alp='A';
-                  $total_colom=21;
+                  $total_colom=18;
                   for($x=0;$x<=$total_colom;$x++)
                   {
                     $spreadsheet->getActiveSheet()
@@ -72,7 +72,7 @@
                   $spreadsheet->getActiveSheet()->getStyle('A'.$row)->getFont()->setBold(true);
                   $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':J'.$row);
                   $sheet = $spreadsheet->getActiveSheet();
-                  $sheet->setCellValue('A'.$row, 'Laporan Pemakaian Keseluruhan per Gudang');
+                  $sheet->setCellValue('A'.$row, 'Laporan Pembelian Semua Gudang');
                   $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('center');
 
                   $row=$row+1;
@@ -94,36 +94,29 @@
                   $sheet->getStyle('C'.$row)->getAlignment()->setHorizontal('center');
                   $sheet->setCellValue('D'.$row, 'INV');
                   $sheet->getStyle('D'.$row)->getAlignment()->setHorizontal('center');
-                  $sheet->setCellValue('E'.$row, 'Nama Anggota');
+                  $sheet->setCellValue('E'.$row, 'Nama Supplier');
                   $sheet->getStyle('E'.$row)->getAlignment()->setHorizontal('center');
-                  $sheet->setCellValue('F'.$row, 'Sales');
+                  $sheet->setCellValue('F'.$row, 'INV Supplier');
                   $sheet->getStyle('F'.$row)->getAlignment()->setHorizontal('center');
-                  $sheet->setCellValue('G'.$row, 'No Polisi');
+                  $sheet->setCellValue('G'.$row, 'Kode');
                   $sheet->getStyle('G'.$row)->getAlignment()->setHorizontal('center');
-                  $sheet->setCellValue('H'.$row, 'Supir');
+                  $sheet->setCellValue('H'.$row, 'Nama Barang');
                   $sheet->getStyle('H'.$row)->getAlignment()->setHorizontal('center');
-                  $sheet->setCellValue('I'.$row, 'Lokasi');
+                  $sheet->setCellValue('I'.$row, 'Banyaknya');
                   $sheet->getStyle('I'.$row)->getAlignment()->setHorizontal('center');
-
-                  $sheet->setCellValue('J'.$row, 'Kode');
+                  $sheet->setCellValue('J'.$row, 'Harga');
                   $sheet->getStyle('J'.$row)->getAlignment()->setHorizontal('center');
-                  $sheet->setCellValue('K'.$row, 'Nama Barang');
+                  $sheet->setCellValue('K'.$row, 'Sub Total');
                   $sheet->getStyle('K'.$row)->getAlignment()->setHorizontal('center');
-                  $sheet->setCellValue('L'.$row, 'Banyaknya');
+                  $sheet->setCellValue('L'.$row, 'Payment Method');
                   $sheet->getStyle('L'.$row)->getAlignment()->setHorizontal('center');
-                  $sheet->setCellValue('M'.$row, 'Harga');
+                  $sheet->setCellValue('M'.$row, 'Created By');
                   $sheet->getStyle('M'.$row)->getAlignment()->setHorizontal('center');
-                  $sheet->setCellValue('N'.$row, 'Sub Total');
+                  $sheet->setCellValue('N'.$row, 'Updated By');
                   $sheet->getStyle('N'.$row)->getAlignment()->setHorizontal('center');
-                  $sheet->setCellValue('O'.$row, 'Payment Method');
-                  $sheet->getStyle('O'.$row)->getAlignment()->setHorizontal('center');
-                  $sheet->setCellValue('P'.$row, 'Created By');
-                  $sheet->getStyle('P'.$row)->getAlignment()->setHorizontal('center');
-                  $sheet->setCellValue('Q'.$row, 'Updated By');
-                  $sheet->getStyle('Q'.$row)->getAlignment()->setHorizontal('center');
 
                         $alp='A';
-                        $total_alp=16;
+                        $total_alp=13;
                         for($n=0;$n<=$total_alp;$n++)
                         {
                               $area = $alp.$row;
@@ -140,25 +133,17 @@
 
                   $data_logic = 0;
                   $key=0;
-
-                  $sales_id = 0;
-
-                  $read_select = $this->m_t_t_t_pemakaian->select_range_date_by_full($date_from_laporan,$date_to_laporan);
+                  $read_select = $this->m_t_t_t_pembelian->select_range_date_semua_gudang($date_from_laporan,$date_to_laporan,0);
                   foreach ($read_select as $key => $value) 
                   {   
                     $data_logic = 1;
                         $r_id[$key]=$value->ID;
                         $r_date[$key]=$value->DATE;
                         $r_time[$key]=$value->TIME;
-                        $r_inv[$key]=$value->INV_HEAD.$value->INV;
-                        
+                        $r_inv[$key]=$value->INV;
+                        $r_inv_supplier[$key]=$value->INV_SUPPLIER;
                         $r_ket[$key]=$value->KET;
-
-                        $r_anggota[$key]=$value->ANGGOTA;
-                        $r_sales[$key]=$value->SALES;
-                        $r_no_polisi[$key]=$value->NO_POLISI;
-                        $r_supir[$key]=$value->SUPIR;
-                        $r_lokasi[$key]=$value->LOKASI;
+                        $r_supplier[$key]=$value->SUPPLIER;
 
                         $r_created_by[$key]=$value->CREATED_BY;
                         $r_updated_by[$key]=$value->UPDATED_BY;
@@ -183,28 +168,22 @@
                             $sheet->getStyle('C'.$row)->getAlignment()->setHorizontal('center');
                             $sheet->setCellValue('D'.$row, $r_inv[$i]);
                             $sheet->getStyle('D'.$row)->getAlignment()->setHorizontal('center');
-                            $sheet->setCellValue('E'.$row, $r_anggota[$i]);
+                            $sheet->setCellValue('E'.$row, $r_supplier[$i]);
                             $sheet->getStyle('E'.$row)->getAlignment()->setHorizontal('center');
-                            $sheet->setCellValue('F'.$row, $r_sales[$i]);
+                            $sheet->setCellValue('F'.$row, $r_inv_supplier[$i]);
                             $sheet->getStyle('F'.$row)->getAlignment()->setHorizontal('center');
-                            $sheet->setCellValue('G'.$row, $r_no_polisi[$i]);
-                            $sheet->getStyle('G'.$row)->getAlignment()->setHorizontal('center');
-                            $sheet->setCellValue('H'.$row, $r_supir[$i]);
-                            $sheet->getStyle('H'.$row)->getAlignment()->setHorizontal('center');
-                            $sheet->setCellValue('I'.$row, $r_lokasi[$i]);
-                            $sheet->getStyle('I'.$row)->getAlignment()->setHorizontal('center');
 
 
-                            $sheet->setCellValue('O'.$row, $r_payment_method[$i]);
-                            $sheet->getStyle('O'.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->setCellValue('L'.$row, $r_payment_method[$i]);
+                            $sheet->getStyle('L'.$row)->getAlignment()->setHorizontal('center');
 
-                            $sheet->setCellValue('P'.$row, $r_created_by[$i]);
-                            $sheet->getStyle('P'.$row)->getAlignment()->setHorizontal('center');
-                            $sheet->setCellValue('Q'.$row, $r_updated_by[$i]);
-                            $sheet->getStyle('Q'.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->setCellValue('M'.$row, $r_created_by[$i]);
+                            $sheet->getStyle('M'.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->setCellValue('N'.$row, $r_updated_by[$i]);
+                            $sheet->getStyle('N'.$row)->getAlignment()->setHorizontal('center');
 
 
-                        $read_select = $this->m_t_t_t_pemakaian_rincian->select($r_id[$i]);
+                        $read_select = $this->m_t_t_t_pembelian_rincian->select($r_id[$i]);
                         
                         $sum_total_harga = 0;
                         foreach ($read_select as $key => $value) 
@@ -213,29 +192,27 @@
                             $row=$row+1;
                             
                             
-                            $sheet->setCellValue('J'.$row, $value->KODE_BARANG);
+                            $sheet->setCellValue('G'.$row, $value->KODE_BARANG);
+                            $sheet->getStyle('G'.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->setCellValue('H'.$row, $value->BARANG);
+                            $sheet->getStyle('H'.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->setCellValue('I'.$row, $value->QTY);
+                            $sheet->getStyle('I'.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->setCellValue('J'.$row, $value->HARGA);
                             $sheet->getStyle('J'.$row)->getAlignment()->setHorizontal('center');
-                            $sheet->setCellValue('K'.$row, $value->BARANG);
+                            $sheet->setCellValue('K'.$row, $value->SUB_TOTAL);
                             $sheet->getStyle('K'.$row)->getAlignment()->setHorizontal('center');
-                            $sheet->setCellValue('L'.$row, $value->QTY);
-                            $sheet->getStyle('L'.$row)->getAlignment()->setHorizontal('center');
-                            $sheet->setCellValue('M'.$row, $value->HARGA);
+                            $sheet->setCellValue('M'.$row, $value->CREATED_BY);
                             $sheet->getStyle('M'.$row)->getAlignment()->setHorizontal('center');
-                            $sheet->setCellValue('N'.$row, $value->SUB_TOTAL);
+                            $sheet->setCellValue('N'.$row, $value->UPDATED_BY);
                             $sheet->getStyle('N'.$row)->getAlignment()->setHorizontal('center');
-
-
-                            $sheet->setCellValue('P'.$row, $value->CREATED_BY);
-                            $sheet->getStyle('P'.$row)->getAlignment()->setHorizontal('center');
-                            $sheet->setCellValue('Q'.$row, $value->UPDATED_BY);
-                            $sheet->getStyle('Q'.$row)->getAlignment()->setHorizontal('center');
                           
 
                           $sum_total_harga = $sum_total_harga + $value->SUB_TOTAL;
 
 
                           $spreadsheet->getActiveSheet()
-                                  ->getStyle('L'.$row.':N'.$row)
+                                  ->getStyle('I'.$row.':K'.$row)
                                   ->getNumberFormat()
                                   ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
 
@@ -244,15 +221,15 @@
                         $row = $row + 1;
 
 
-                            $sheet->setCellValue('M'.$row, "TOTAL");
-                            $sheet->getStyle('M'.$row)->getAlignment()->setHorizontal('center');
-                            $sheet->setCellValue('N'.$row, $sum_total_harga);
-                            $sheet->getStyle('N'.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->setCellValue('J'.$row, "TOTAL");
+                            $sheet->getStyle('J'.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->setCellValue('K'.$row, $sum_total_harga);
+                            $sheet->getStyle('K'.$row)->getAlignment()->setHorizontal('center');
 
                         $sum_sum_total_harga = $sum_sum_total_harga + $sum_total_harga;
 
                         $alp='A';
-                        $total_alp=16;
+                        $total_alp=13;
                         for($n=0;$n<=$total_alp;$n++)
                         {
                               $area = $alp.$row;
@@ -265,7 +242,7 @@
                         }
 
                           $spreadsheet->getActiveSheet()
-                                  ->getStyle('N'.$row.':N'.$row)
+                                  ->getStyle('K'.$row.':K'.$row)
                                   ->getNumberFormat()
                                   ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
 
@@ -276,13 +253,13 @@
 
 
                   $row = $row + 1;
-                            $sheet->setCellValue('M'.$row, "TOTAL PEMAKAIAN:");
-                            $sheet->getStyle('M'.$row)->getAlignment()->setHorizontal('center');
-                            $sheet->setCellValue('N'.$row, $sum_sum_total_harga);
-                            $sheet->getStyle('N'.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->setCellValue('J'.$row, "TOTAL PEMBELIAN:");
+                            $sheet->getStyle('J'.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->setCellValue('K'.$row, $sum_sum_total_harga);
+                            $sheet->getStyle('K'.$row)->getAlignment()->setHorizontal('center');
 
                         $alp='A';
-                        $total_alp=16;
+                        $total_alp=13;
                         for($n=0;$n<=$total_alp;$n++)
                         {
                               $area = $alp.$row;
@@ -295,7 +272,7 @@
                         }
 
                           $spreadsheet->getActiveSheet()
-                                  ->getStyle('N'.$row.':N'.$row)
+                                  ->getStyle('K'.$row.':K'.$row)
                                   ->getNumberFormat()
                                   ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
                   
@@ -305,7 +282,7 @@
 
 
                   $writer = new Xlsx($spreadsheet);
-                  $filename = 'Lap_pemakaian_keseluruhan_per_gudang';
+                  $filename = 'lap_pembelian_semua_gudang';
                   
                   header('Content-Type: application/vnd.ms-excel');
                   header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 

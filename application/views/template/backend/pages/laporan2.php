@@ -7,6 +7,7 @@
       <select name="pilih_laporan" class='pilih_laporan' id='id_pilih_laporan' placeholder='Pick a state...'>
         <?php
         echo "<option value='laporan_excel/lap_beli/index/' >Laporan Pembelian</option>";
+        echo "<option value='laporan_excel/lap_beli_semua_gudang/index/' >Laporan Pembelian Semua Gudang</option>";
 
         echo "<option value='laporan_excel/lap_rb/index/' >Laporan Retur Pembelian</option>";
 
@@ -34,6 +35,10 @@
         echo "<option value='laporan_excel/lap_penjualan_per_pelanggan/index/' >Laporan Penjualan Per Pelanggan</option>";
 
 
+
+
+        echo "<option value='laporan_excel/lap_pemakaian_full_semua_gudang/index/' >Laporan Pemakaian Keseluruhan per Gudang</option>";
+
         echo "<option value='laporan_excel/lap_pemakaian_full/index/' >Laporan Pemakaian Keseluruhan</option>";
 
 
@@ -42,6 +47,7 @@
         echo "<option value='laporan_excel/lap_pemakaian_per_lokasi/index/' >Laporan Pemakaian Per Lokasi</option>";
 
         echo "<option value='laporan_excel/lap_pemakaian_per_no_polisi/index/' >Laporan Pemakaian Per No Polisi</option>";
+        echo "<option value='laporan_excel/lap_pemakaian_per_no_polisi_per_item/index/' >Laporan Pemakaian Per No Polisi per Item</option>";
 
         echo "<option value='laporan_excel/lap_pemakaian_per_anggota/index/' >Laporan Pemakaian Per Anggota</option>";
 
@@ -247,6 +253,25 @@ $(document).ready(function()
       document.getElementById('lokasi').style.display = 'none';
       document.getElementById('pemakai').style.display = 'none';
     }
+    
+    else if(pilih_laporan=="laporan_excel/lap_pemakaian_per_no_polisi_per_item/index/")
+    {
+      document.getElementById('barang').style.display = 'block';
+      document.getElementById('kategori').style.display = 'none';
+      document.getElementById('supplier').style.display = 'none';
+
+      document.getElementById('sales').style.display = 'none';
+      document.getElementById('pelanggan').style.display = 'none';
+
+
+      document.getElementById('no_polisi').style.display = 'block';
+      document.getElementById('anggota').style.display = 'none';
+
+      document.getElementById('lokasi').style.display = 'none';
+      document.getElementById('pemakai').style.display = 'none';
+    }
+    
+
 
     else if(pilih_laporan=="laporan_excel/lap_beli_per_supplier/index/")
     {

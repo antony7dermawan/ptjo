@@ -312,7 +312,7 @@ class C_t_t_t_pembelian_barang_datang_print extends MY_Controller
         $pdf->Cell(10, 6, "", 0, 0, 'C');
         $pdf->Cell(40, 6, "", 0, 0, 'C');
         $pdf->Cell(10, 6, "", 0, 0, 'C');
-        $pdf->Cell(40, 6, "HORMAT KAMI:", 0, 1, 'C');
+        $pdf->Cell(40, 6, "DIKETAHUI OLEH:", 0, 1, 'C');
 
         $pdf->Cell(40, 12, "", 0, 0, 'C');
         $pdf->Cell(10, 12, "", 0, 0, 'C');

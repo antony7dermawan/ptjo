@@ -18,7 +18,7 @@
       use PhpOffice\PhpSpreadsheet\Worksheet\ColumnDimension;
       use PhpOffice\PhpSpreadsheet\Worksheet;
 
-      class Lap_pemakaian_full extends CI_Controller{
+      class Lap_pemakaian_per_no_polisi_per_item extends CI_Controller{
 
             public function __construct()
             {
@@ -72,7 +72,7 @@
                   $spreadsheet->getActiveSheet()->getStyle('A'.$row)->getFont()->setBold(true);
                   $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':J'.$row);
                   $sheet = $spreadsheet->getActiveSheet();
-                  $sheet->setCellValue('A'.$row, 'Laporan Pemakaian Keseluruhan per Gudang');
+                  $sheet->setCellValue('A'.$row, 'Laporan Pemakaian per No Polisi per Item');
                   $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('center');
 
                   $row=$row+1;
@@ -143,7 +143,7 @@
 
                   $sales_id = 0;
 
-                  $read_select = $this->m_t_t_t_pemakaian->select_range_date_by_full($date_from_laporan,$date_to_laporan);
+                  $read_select = $this->m_t_t_t_pemakaian->select_range_date_by_no_polisi($date_from_laporan,$date_to_laporan,$no_polisi_id);
                   foreach ($read_select as $key => $value) 
                   {   
                     $data_logic = 1;
@@ -169,6 +169,7 @@
 
 
                   $sum_sum_total_harga=0;
+                  $sum_sum_total_qty=0;
 
                   if($data_logic==1)
                   {
@@ -204,9 +205,10 @@
                             $sheet->getStyle('Q'.$row)->getAlignment()->setHorizontal('center');
 
 
-                        $read_select = $this->m_t_t_t_pemakaian_rincian->select($r_id[$i]);
+                        $read_select = $this->m_t_t_t_pemakaian_rincian->select_lap_barang_id($r_id[$i],$barang_id);
                         
                         $sum_total_harga = 0;
+                        $sum_total_qty = 0;
                         foreach ($read_select as $key => $value) 
                         {
                          
@@ -232,6 +234,7 @@
                           
 
                           $sum_total_harga = $sum_total_harga + $value->SUB_TOTAL;
+                          $sum_total_qty = $sum_total_qty + $value->QTY;
 
 
                           $spreadsheet->getActiveSheet()
@@ -244,12 +247,15 @@
                         $row = $row + 1;
 
 
-                            $sheet->setCellValue('M'.$row, "TOTAL");
-                            $sheet->getStyle('M'.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->setCellValue('K'.$row, "TOTAL");
+                            $sheet->getStyle('K'.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->setCellValue('L'.$row, $sum_total_qty);
+                            $sheet->getStyle('L'.$row)->getAlignment()->setHorizontal('center');
                             $sheet->setCellValue('N'.$row, $sum_total_harga);
                             $sheet->getStyle('N'.$row)->getAlignment()->setHorizontal('center');
 
                         $sum_sum_total_harga = $sum_sum_total_harga + $sum_total_harga;
+                        $sum_sum_total_qty = $sum_sum_total_qty + $sum_total_qty;
 
                         $alp='A';
                         $total_alp=16;
@@ -265,7 +271,7 @@
                         }
 
                           $spreadsheet->getActiveSheet()
-                                  ->getStyle('N'.$row.':N'.$row)
+                                  ->getStyle('L'.$row.':N'.$row)
                                   ->getNumberFormat()
                                   ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
 
@@ -276,8 +282,10 @@
 
 
                   $row = $row + 1;
-                            $sheet->setCellValue('M'.$row, "TOTAL PEMAKAIAN:");
-                            $sheet->getStyle('M'.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->setCellValue('K'.$row, "TOTAL PEMAKAIAN:");
+                            $sheet->getStyle('K'.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->setCellValue('L'.$row, $sum_sum_total_qty);
+                            $sheet->getStyle('L'.$row)->getAlignment()->setHorizontal('center');
                             $sheet->setCellValue('N'.$row, $sum_sum_total_harga);
                             $sheet->getStyle('N'.$row)->getAlignment()->setHorizontal('center');
 
@@ -295,7 +303,7 @@
                         }
 
                           $spreadsheet->getActiveSheet()
-                                  ->getStyle('N'.$row.':N'.$row)
+                                  ->getStyle('L'.$row.':N'.$row)
                                   ->getNumberFormat()
                                   ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
                   
@@ -305,7 +313,7 @@
 
 
                   $writer = new Xlsx($spreadsheet);
-                  $filename = 'Lap_pemakaian_keseluruhan_per_gudang';
+                  $filename = 'Lap_pemakaian_per_no_polisi_per_item';
                   
                   header('Content-Type: application/vnd.ms-excel');
                   header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 

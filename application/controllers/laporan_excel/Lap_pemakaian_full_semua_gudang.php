@@ -18,7 +18,7 @@
       use PhpOffice\PhpSpreadsheet\Worksheet\ColumnDimension;
       use PhpOffice\PhpSpreadsheet\Worksheet;
 
-      class Lap_pemakaian_full extends CI_Controller{
+      class Lap_pemakaian_full_semua_gudang extends CI_Controller{
 
             public function __construct()
             {
@@ -72,7 +72,7 @@
                   $spreadsheet->getActiveSheet()->getStyle('A'.$row)->getFont()->setBold(true);
                   $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':J'.$row);
                   $sheet = $spreadsheet->getActiveSheet();
-                  $sheet->setCellValue('A'.$row, 'Laporan Pemakaian Keseluruhan per Gudang');
+                  $sheet->setCellValue('A'.$row, 'Laporan Pemakaian Keseluruhan Semua Gudang');
                   $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('center');
 
                   $row=$row+1;
@@ -143,7 +143,7 @@
 
                   $sales_id = 0;
 
-                  $read_select = $this->m_t_t_t_pemakaian->select_range_date_by_full($date_from_laporan,$date_to_laporan);
+                  $read_select = $this->m_t_t_t_pemakaian->select_range_date_by_full_semua_gudang($date_from_laporan,$date_to_laporan);
                   foreach ($read_select as $key => $value) 
                   {   
                     $data_logic = 1;
@@ -305,7 +305,7 @@
 
 
                   $writer = new Xlsx($spreadsheet);
-                  $filename = 'Lap_pemakaian_keseluruhan_per_gudang';
+                  $filename = 'Lap_pemakaian_keseluruhan_semua_gudang';
                   
                   header('Content-Type: application/vnd.ms-excel');
                   header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 

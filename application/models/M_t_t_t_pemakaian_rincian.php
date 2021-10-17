@@ -9,6 +9,75 @@ public function update($data, $id)
     return $this->db->update('T_T_T_PEMAKAIAN_RINCIAN', $data);
 }
 
+
+
+
+public function select_lap_barang_id($pemakaian_id,$barang_id)
+  {
+    
+
+
+    $this->db->select("T_T_T_PEMAKAIAN_RINCIAN.ID");
+    $this->db->select("T_T_T_PEMAKAIAN_RINCIAN.PEMAKAIAN_ID");
+    $this->db->select("T_T_T_PEMAKAIAN_RINCIAN.BARANG_ID");
+    $this->db->select("T_T_T_PEMAKAIAN_RINCIAN.QTY");
+    $this->db->select("T_T_T_PEMAKAIAN_RINCIAN.SISA_QTY");
+    $this->db->select("T_T_T_PEMAKAIAN_RINCIAN.HARGA");
+    $this->db->select("T_T_T_PEMAKAIAN_RINCIAN.SUB_TOTAL");
+    $this->db->select("T_T_T_PEMAKAIAN_RINCIAN.SISA_QTY_TT");
+    $this->db->select("T_T_T_PEMAKAIAN_RINCIAN.CREATED_BY");
+    $this->db->select("T_T_T_PEMAKAIAN_RINCIAN.UPDATED_BY");
+    $this->db->select("T_T_T_PEMAKAIAN_RINCIAN.MARK_FOR_DELETE");
+
+
+
+
+    $this->db->select('T_M_D_BARANG.KODE_BARANG');
+    $this->db->select('T_M_D_BARANG.BARANG');
+    $this->db->select('T_M_D_BARANG.PART_NUMBER');
+    $this->db->select('T_M_D_BARANG.MERK_BARANG');
+    $this->db->select('T_M_D_BARANG.POSISI');
+    $this->db->select('T_M_D_BARANG.MINIMUM_STOK');
+
+
+    $this->db->select('T_M_D_SATUAN.SATUAN');
+   
+
+
+    $this->db->from('T_T_T_PEMAKAIAN_RINCIAN');
+
+
+    $this->db->join('T_M_D_BARANG', 'T_M_D_BARANG.BARANG_ID = T_T_T_PEMAKAIAN_RINCIAN.BARANG_ID', 'left');
+
+    $this->db->join('T_M_D_SATUAN', 'T_M_D_BARANG.SATUAN_ID = T_M_D_SATUAN.ID', 'left');
+
+    
+    $this->db->where("T_M_D_BARANG.COMPANY_ID=T_T_T_PEMAKAIAN_RINCIAN.COMPANY_ID");
+
+
+
+    if($this->session->userdata('t_t_t_pemakaian_delete_logic')==0)
+    {
+      $this->db->where('T_T_T_PEMAKAIAN_RINCIAN.MARK_FOR_DELETE',FALSE);
+    }
+
+    
+    $this->db->where('T_T_T_PEMAKAIAN_RINCIAN.PEMAKAIAN_ID',$pemakaian_id);
+
+    $this->db->where('T_T_T_PEMAKAIAN_RINCIAN.BARANG_ID',$barang_id);
+
+    
+
+
+    $this->db->order_by("ID", "desc");
+
+    $akun = $this->db->get ();
+    return $akun->result ();
+  }
+
+
+
+
   public function select($pemakaian_id)
   {
     
@@ -49,7 +118,7 @@ public function update($data, $id)
     $this->db->join('T_M_D_SATUAN', 'T_M_D_BARANG.SATUAN_ID = T_M_D_SATUAN.ID', 'left');
 
     
-    $this->db->where("T_M_D_BARANG.COMPANY_ID={$this->session->userdata('company_id')}");
+    $this->db->where("T_M_D_BARANG.COMPANY_ID=T_T_T_PEMAKAIAN_RINCIAN.COMPANY_ID");
 
 
 
