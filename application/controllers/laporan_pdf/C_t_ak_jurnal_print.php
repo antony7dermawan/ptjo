@@ -110,11 +110,11 @@ class c_t_ak_jurnal_print extends MY_Controller
         $pdf->AddPage('P', 'mm', 'A4');
         $total_kertas = $total_kertas +1;
 
-        $pdf->SetFont('','B',12);
+        $pdf->SetFont('','B',10);
         $pdf->Cell(90, 11, "PT. JO PERDANA AGRI TECHNOLOGY", 0, 0, 'L');
         $pdf->SetFont('','B',18);
         $pdf->Cell(90, 11, "Bukti Jurnal", 0, 1, 'R');
-        $pdf->SetFont('','',12);
+        $pdf->SetFont('','',10);
 
         $pdf->Cell(30, 6, "No Voucer", 1, 0, 'C');
         $pdf->Cell(40, 6, $no_voucer, 1, 1, 'L');
@@ -196,7 +196,7 @@ class c_t_ak_jurnal_print extends MY_Controller
     {
       $rmd=(float)($i/$total_baris_1_bon);
       $rmd=($rmd-(int)$rmd)*$total_baris_1_bon;
-      for($x=0;$x<($total_baris_1_bon-$rmd);$x++)
+      for($x=0;$x<($total_baris_1_bon-$rmd-1);$x++)
       {
         $pdf->Cell(25, 8, "", 'L', 0, 'C');
         $pdf->Cell(50, 8, "", 'L', 0, 'R');

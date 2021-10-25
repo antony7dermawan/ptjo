@@ -215,7 +215,7 @@ class C_t_t_t_pembelian_barang_datang_print extends MY_Controller
 
       $pdf->MultiCell($colom_width[2], $baris_height, substr($kode_barang[$i], 0, 12), 'L', 'L',0,0);
       $pdf->MultiCell($colom_width[3], $baris_height, substr($barang[$i], 0, 20), 'L', 'L',0,0);
-      $pdf->MultiCell($colom_width[4], $baris_height, number_format(round($qty[$i])).' '.$satuan[$i], 'L', 'C',0,0);
+      $pdf->MultiCell($colom_width[4], $baris_height, number_format(($qty[$i]), 2, '.', ',').' '.$satuan[$i], 'L', 'C',0,0);
 
 
       
@@ -230,7 +230,7 @@ class C_t_t_t_pembelian_barang_datang_print extends MY_Controller
       {
         $pdf->MultiCell(150, 8, 'Terbilang : #'.ucwords($this->terbilang($total_all)).' Rupiah#' , 'T', 'L',0,0);
         $pdf->MultiCell(15, 8, 'Total' , 'T', 'R',0,0);
-        $pdf->MultiCell(25, 8, number_format(round($total_all)) , 'T', 'R',0,1);
+        $pdf->MultiCell(25, 8, number_format(($total_all), 2, '.', ',') , 'T', 'R',0,1);
         $total_all=0;
         
         $pdf->Cell(40, 6, "NB: Barang yang sudah dibeli tidak dapat ditukar/dikembalikan", 0, 1, 'L');

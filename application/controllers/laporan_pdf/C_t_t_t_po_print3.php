@@ -151,6 +151,7 @@ class C_t_t_t_po_print3 extends MY_Controller
       
       $pdf->SetFont('','',8);
      
+     
 
 
       $pdf->MultiCell($size[0], 4, $key+1, 'L', 'C',0,0);
@@ -188,18 +189,18 @@ class C_t_t_t_po_print3 extends MY_Controller
       $added_row = $total_row_1_bon-$rmd;
     }
 
-    for($i=0;$i<=$added_row;$i++)
-    {
-      $pdf->Cell( $size[0],6,'','L',0,'C');
-      $pdf->Cell( $size[1],6,'','L',0,'L');
-      $pdf->Cell( $size[2],6,'','L',0,'C');
-      $pdf->Cell( $size[3],6,'','L',0,'C');
-      $pdf->Cell( $size[4],6,'','L',0,'C');
-      $pdf->Cell( $size[5],6,'','L',0,'C');
+    // for($i=0;$i<=$added_row;$i++)
+    // {
+    //   $pdf->Cell( $size[0],6,'','L',0,'C');
+    //   $pdf->Cell( $size[1],6,'','L',0,'L');
+    //   $pdf->Cell( $size[2],6,'','L',0,'C');
+    //   $pdf->Cell( $size[3],6,'','L',0,'C');
+    //   $pdf->Cell( $size[4],6,'','L',0,'C');
+    //   $pdf->Cell( $size[5],6,'','L',0,'C');
 
-      $pdf->Cell( $size[6]-0.1,6,'','L',0,'R');
-      $pdf->Cell( 0.1,6,'','L',1,'R'); 
-    }
+    //   $pdf->Cell( $size[6]-0.1,6,'','L',0,'R');
+    //   $pdf->Cell( 0.1,6,'','L',1,'R'); 
+    // }
 
 
     $nilai_ppn = $total_ppn/($key+1);
