@@ -71,7 +71,7 @@ public function select_barang_with_supplier($barang_id)
     $this->db->where("T_M_D_BARANG.COMPANY_ID={$this->session->userdata('company_id')}");
     $this->db->where("T_T_T_PEMBELIAN_RINCIAN.COMPANY_ID={$this->session->userdata('company_id')}");
     $this->db->where('T_M_D_BARANG.BARANG_ID',$barang_id);
-
+    $this->db->where("T_M_D_BARANG.MARK_FOR_DELETE=FALSE");
 
     $this->db->order_by("ID", "desc");
 
@@ -127,6 +127,7 @@ public function select_barang_with_supplier($barang_id)
 
 
     $this->db->where("T_M_D_BARANG.COMPANY_ID={$this->session->userdata('company_id')}");
+    $this->db->where("T_M_D_BARANG.MARK_FOR_DELETE=FALSE");
     
     $this->db->where('T_T_T_PEMBELIAN_RINCIAN.SPECIAL_CASE_ID',123);
     $this->db->where('T_T_T_PEMBELIAN_RINCIAN.PEMBELIAN_ID',$pembelian_id);

@@ -59,6 +59,7 @@ public function update($data, $id)
     
 
     $this->db->where("T_M_D_BARANG.COMPANY_ID={$company_id}");
+    $this->db->where("T_M_D_BARANG.MARK_FOR_DELETE=FALSE");
     $this->db->where('T_T_T_PEMBELIAN_RINCIAN.PEMBELIAN_ID',$pembelian_id);
     $this->db->order_by("ID", "desc");
 
@@ -146,7 +147,7 @@ public function select_min_harga_barang($barang_id)
     $this->db->join('T_M_D_SATUAN', 'T_M_D_BARANG.SATUAN_ID = T_M_D_SATUAN.ID', 'left');
 
    
-
+    $this->db->where("T_M_D_BARANG.MARK_FOR_DELETE=FALSE");
 
     $this->db->where('T_T_T_PEMBELIAN_RINCIAN.ID',$pembelian_rincian_id);
 
@@ -287,7 +288,7 @@ public function select_barang_with_supplier($barang_id)
     $this->db->where('T_T_T_PEMBELIAN_RINCIAN.SPECIAL_CASE_ID',0);
     $this->db->where('T_T_T_PEMBELIAN_RINCIAN.MARK_FOR_DELETE',false);
     $this->db->where('T_M_D_BARANG.BARANG_ID',$barang_id);
-
+    $this->db->where("T_M_D_BARANG.MARK_FOR_DELETE=FALSE");
 
     $this->db->order_by("ID", "desc");
 
@@ -353,6 +354,7 @@ public function select_barang_with_supplier($barang_id)
 
     $this->db->where("T_M_D_BARANG.COMPANY_ID={$this->session->userdata('company_id')}");
     $this->db->where('T_T_T_PEMBELIAN_RINCIAN.PEMBELIAN_ID',$pembelian_id);
+    $this->db->where("T_M_D_BARANG.MARK_FOR_DELETE=FALSE");
    // $this->db->where('T_T_T_PEMBELIAN_RINCIAN.SPECIAL_CASE_ID',0); //KODE BARANG BELUM DATANG
     $this->db->order_by("ID", "desc");
 
@@ -414,6 +416,7 @@ public function select_barang_with_supplier($barang_id)
     
 
     $this->db->where("T_M_D_BARANG.COMPANY_ID=T_T_T_PEMBELIAN_RINCIAN.COMPANY_ID");
+    $this->db->where("T_M_D_BARANG.MARK_FOR_DELETE=FALSE");
     $this->db->where('T_T_T_PEMBELIAN_RINCIAN.PEMBELIAN_ID',$pembelian_id);
     $this->db->where('T_T_T_PEMBELIAN_RINCIAN.SPECIAL_CASE_ID',0); //KODE BARANG BELUM DATANG
     $this->db->order_by("ID", "desc");
@@ -484,6 +487,7 @@ public function select_barang_with_supplier($barang_id)
     
 
     $this->db->where("T_M_D_BARANG.COMPANY_ID={$this->session->userdata('company_id')}");
+    $this->db->where("T_M_D_BARANG.MARK_FOR_DELETE=FALSE");
     $this->db->where('T_T_T_PEMBELIAN_RINCIAN.PEMBELIAN_ID',$pembelian_id);
     $this->db->where('T_T_T_PEMBELIAN_RINCIAN.SPECIAL_CASE_ID',0); //KODE BARANG BELUM DATANG
     $this->db->where('T_T_T_PEMBELIAN_RINCIAN.DATE',$date_pilihan_bon); //KODE BARANG BELUM DATANG
@@ -521,6 +525,7 @@ public function select_barang_with_supplier($barang_id)
 
 
     $this->db->where("T_M_D_BARANG.COMPANY_ID={$this->session->userdata('company_id')}");
+    $this->db->where("T_M_D_BARANG.MARK_FOR_DELETE=FALSE");
     $this->db->where('T_T_T_PEMBELIAN_RINCIAN.SPECIAL_CASE_ID',123);
     $this->db->where('T_T_T_PEMBELIAN_RINCIAN.MARK_FOR_DELETE',FALSE);
     $this->db->where('T_T_T_PEMBELIAN_RINCIAN.PEMBELIAN_ID',$pembelian_id);
@@ -585,6 +590,7 @@ public function select_barang_with_supplier($barang_id)
     $this->db->where('T_T_T_PEMBELIAN_RINCIAN.PEMBELIAN_ID',$pembelian_id);
 
     $this->db->where("T_M_D_BARANG.COMPANY_ID=T_T_T_PEMBELIAN_RINCIAN.COMPANY_ID");
+    $this->db->where("T_M_D_BARANG.MARK_FOR_DELETE=FALSE");
     $this->db->where('T_T_T_PEMBELIAN_RINCIAN.SPECIAL_CASE_ID',123); //KODE BARANG BELUM DATANG
     $this->db->order_by("ID", "desc");
 
