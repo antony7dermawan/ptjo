@@ -162,12 +162,19 @@ class C_t_t_t_pembelian extends MY_Controller
   public function edit_action()
   {
     $id = $this->input->post("id");
+
+    $date_pembelian = $this->input->post("date");
     $ket = substr($this->input->post("ket"), 0, 200);
     $supplier = $this->input->post("supplier");
     $payment_method = $this->input->post("payment_method");
     $inv_supplier = substr($this->input->post("inv_supplier"), 0, 50);
 
-    
+    if($date_pembelian=='')
+    {
+      $date_pembelian = date('Y-m-d');
+    }
+
+    $this->session->set_userdata('date_pembelian', $date_pembelian);
     $supplier_id = 0;
     $payment_method_id = 0;
 
@@ -190,7 +197,8 @@ class C_t_t_t_pembelian extends MY_Controller
         'SUPPLIER_ID' => $supplier_id,
         'KET' => $ket,
         'UPDATED_BY' => $this->session->userdata('username'),
-        'INV_SUPPLIER' => $inv_supplier
+        'INV_SUPPLIER' => $inv_supplier,
+        'DATE' => $date_pembelian
       );
       $this->m_t_t_t_pembelian->update($data, $id);
 

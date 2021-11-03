@@ -537,6 +537,9 @@ public function select_range_date($from_date,$to_date,$kredit_logic)
 
     $this->db->select("SUM_SUB_TOTAL");
     $this->db->select("SUM_PPN");
+    
+    $this->db->select("SUM_SUB_TOTAL_DATANG");
+    $this->db->select("SUM_PPN_DATANG");
 
    
 
@@ -547,10 +550,15 @@ public function select_range_date($from_date,$to_date,$kredit_logic)
     $this->db->join('T_M_D_PAYMENT_METHOD', 'T_M_D_PAYMENT_METHOD.ID = T_T_T_PEMBELIAN.PAYMENT_METHOD_ID', 'left');
     $this->db->join('T_M_D_SUPPLIER', 'T_M_D_SUPPLIER.ID = T_T_T_PEMBELIAN.SUPPLIER_ID', 'left');
 
+
+
     $this->db->join("(select \"PEMBELIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false and \"SPECIAL_CASE_ID\"=123 group by \"PEMBELIAN_ID\") as t_sum_1", 'T_T_T_PEMBELIAN.ID = t_sum_1.PEMBELIAN_ID', 'left');
 
     $this->db->join("(select \"PEMBELIAN_ID\",sum(\"PPN_VALUE\")\"SUM_PPN\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false and \"SPECIAL_CASE_ID\"=123 group by \"PEMBELIAN_ID\") as t_sum_2", 'T_T_T_PEMBELIAN.ID = t_sum_2.PEMBELIAN_ID', 'left');
 
+     $this->db->join("(select \"PEMBELIAN_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL_DATANG\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false  and \"SPECIAL_CASE_ID\"=0 group by \"PEMBELIAN_ID\") as t_sum_3", 'T_T_T_PEMBELIAN.ID = t_sum_3.PEMBELIAN_ID', 'left');
+
+    $this->db->join("(select \"PEMBELIAN_ID\",sum(\"PPN_VALUE\")\"SUM_PPN_DATANG\" from \"T_T_T_PEMBELIAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false  and \"SPECIAL_CASE_ID\"=0 group by \"PEMBELIAN_ID\") as t_sum_4", 'T_T_T_PEMBELIAN.ID = t_sum_4.PEMBELIAN_ID', 'left');
 
     $this->db->where("(T_T_T_PEMBELIAN.T_STATUS=0 or T_T_T_PEMBELIAN.T_STATUS=10 or T_T_T_PEMBELIAN.T_STATUS=1 or T_T_T_PEMBELIAN.T_STATUS=2)");
 
@@ -589,9 +597,16 @@ public function select_range_date($from_date,$to_date,$kredit_logic)
     $this->db->select("SUM_SUB_TOTAL");
     $this->db->select("SUM_PPN");
     $this->db->select("SUM_PAYMENT_T");
+    $this->db->select("SUM_SUB_TOTAL_DATANG");
+    $this->db->select("SUM_PPN_DATANG");
+
+
 
     $this->db->from('T_M_D_SUPPLIER');
 
+    $this->db->join("(select \"T_T_T_PEMBELIAN\".\"SUPPLIER_ID\",sum(\"T_T_T_PEMBELIAN_RINCIAN\".\"SUB_TOTAL\")\"SUM_SUB_TOTAL_DATANG\" from \"T_T_T_PEMBELIAN_RINCIAN\" LEFT OUTER JOIN \"T_T_T_PEMBELIAN\" on \"T_T_T_PEMBELIAN\".\"ID\"=\"T_T_T_PEMBELIAN_RINCIAN\".\"PEMBELIAN_ID\" where \"T_T_T_PEMBELIAN_RINCIAN\".\"MARK_FOR_DELETE\"=false and \"T_T_T_PEMBELIAN_RINCIAN\".\"SPECIAL_CASE_ID\"=0   group by \"T_T_T_PEMBELIAN\".\"SUPPLIER_ID\") as t_sum_3", 'T_M_D_SUPPLIER.ID = t_sum_3.SUPPLIER_ID', 'left');
+
+    $this->db->join("(select \"T_T_T_PEMBELIAN\".\"SUPPLIER_ID\",sum(\"T_T_T_PEMBELIAN_RINCIAN\".\"PPN_VALUE\")\"SUM_PPN_DATANG\" from \"T_T_T_PEMBELIAN_RINCIAN\" LEFT OUTER JOIN \"T_T_T_PEMBELIAN\" on \"T_T_T_PEMBELIAN\".\"ID\"=\"T_T_T_PEMBELIAN_RINCIAN\".\"PEMBELIAN_ID\" where \"T_T_T_PEMBELIAN_RINCIAN\".\"MARK_FOR_DELETE\"=false and \"T_T_T_PEMBELIAN_RINCIAN\".\"SPECIAL_CASE_ID\"=0   group by \"T_T_T_PEMBELIAN\".\"SUPPLIER_ID\") as t_sum_7", 'T_M_D_SUPPLIER.ID = t_sum_7.SUPPLIER_ID', 'left');
 
     $this->db->join("(select \"T_T_T_PEMBELIAN\".\"SUPPLIER_ID\",sum(\"T_T_T_PEMBELIAN_RINCIAN\".\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PEMBELIAN_RINCIAN\" LEFT OUTER JOIN \"T_T_T_PEMBELIAN\" on \"T_T_T_PEMBELIAN\".\"ID\"=\"T_T_T_PEMBELIAN_RINCIAN\".\"PEMBELIAN_ID\" where \"T_T_T_PEMBELIAN_RINCIAN\".\"MARK_FOR_DELETE\"=false and \"T_T_T_PEMBELIAN_RINCIAN\".\"SPECIAL_CASE_ID\"=123   group by \"T_T_T_PEMBELIAN\".\"SUPPLIER_ID\") as t_sum_5", 'T_M_D_SUPPLIER.ID = t_sum_5.SUPPLIER_ID', 'left');
 

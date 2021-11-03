@@ -59,7 +59,8 @@ if($level_user_id>=1)
                         <th>INV Sp</th>
                         <th>Payment Method</th>
                         
-                        <th>Total</th>
+                        <th>Total Pembelian</th>
+                        <th>Total Kedatangan</th>
                         <th>Sudah Dibayar</th>
                       </tr>
                     </thead>
@@ -79,11 +80,11 @@ if($level_user_id>=1)
 
 
 
-                          //satu button
-                          echo "<td>";
                         
-                          echo " Rp" . number_format($value->SUM_SUB_TOTAL + $value->SUM_PPN) . "</td>";
-                          //satu button
+                          echo "<td> Rp" . number_format($value->SUM_SUB_TOTAL + $value->SUM_PPN) . "</td>";
+
+
+                          echo "<td> Rp" . number_format($value->SUM_SUB_TOTAL_DATANG + $value->SUM_PPN_DATANG) . "</td>";                          //satu button
 
 
                           echo "<td>";
@@ -145,6 +146,7 @@ if($level_user_id>=1)
                         <th>No</th>
                         <th>Supplier</th>
                         <th>Total Pembelian</th>
+                        <th>Total Kedatangan</th>
                         <th>Sudah Dibayarkan</th>
                         <th>Sisa Utang</th>
                       </tr>
@@ -159,6 +161,7 @@ if($level_user_id>=1)
                          
 
                           echo "<td> Rp" . number_format($value->SUM_SUB_TOTAL+$value->SUM_PPN) . "</td>";
+                          echo "<td> Rp" . number_format($value->SUM_SUB_TOTAL_DATANG + $value->SUM_PPN_DATANG) . "</td>";  
                           echo "<td> Rp" . number_format($value->SUM_PAYMENT_T) . "</td>";
                           echo "<td> Rp" . number_format(($value->SUM_SUB_TOTAL+$value->SUM_PPN)-($value->SUM_PAYMENT_T)) . "</td>";
 

@@ -310,7 +310,10 @@
     <form action="<?php echo base_url('c_t_t_t_pembelian/edit_action') ?>" method="post" autocomplete="off" id='edit_data'>
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Edit Data</h4>
+          <h4 class="modal-title">Tanggal Transaksi:
+            <form action='/action_page.php'>
+              <input type='date' class='form-control' name='date' value='<?= $this->session->userdata('date_pembelian') ?>'>
+          </h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
