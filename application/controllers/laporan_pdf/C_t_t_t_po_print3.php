@@ -156,7 +156,7 @@ class C_t_t_t_po_print3 extends MY_Controller
 
       $pdf->MultiCell($size[0], 4, $key+1, 'L', 'C',0,0);
       $pdf->MultiCell($size[1], 4, $value->BARANG, 'L', 'L',0,0);
-      $pdf->MultiCell($size[2], 4, $value->QTY, 'L', 'C',0,0);
+      $pdf->MultiCell($size[2], 4, number_format(($value->QTY),2,'.',','), 'L', 'C',0,0);
       $pdf->MultiCell($size[3], 4, $value->SATUAN, 'L', 'C',0,0);
       $pdf->MultiCell($size[4], 4, number_format((floatval(round($value->HARGA*100)))/100,2, ',', '.'), 'L', 'R',0,0);
       $pdf->MultiCell($size[5], 4, $value->PPN_PERCENTAGE, 'L', 'R',0,0);
