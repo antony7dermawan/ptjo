@@ -13,6 +13,11 @@ class C_t_info_stock extends MY_Controller
     $this->load->model('m_t_m_d_barang');
     $this->load->model('m_t_m_d_kategori');
     $this->load->model('m_t_m_d_satuan');
+
+
+
+    $this->load->model('m_t_m_d_supplier');
+    $this->load->model('m_t_t_t_pembelian_rincian'); 
   }
 
   public function index()
@@ -26,6 +31,7 @@ class C_t_info_stock extends MY_Controller
       "c_t_info_stock" => $this->m_t_m_d_barang->select_info_stock(),
       "c_t_m_d_kategori" => $this->m_t_m_d_kategori->select_option(),
       "c_t_m_d_satuan" => $this->m_t_m_d_satuan->select_option(),
+      "c_t_m_d_barang" => $this->m_t_m_d_barang->select(),
       "title" => "Info Stock",
       "description" => "Data Barang Semua Gudang"
     ];

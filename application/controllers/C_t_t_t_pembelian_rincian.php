@@ -5,6 +5,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class C_t_t_t_pembelian_rincian extends MY_Controller
 {
 
+
   public function __construct()
   {
     parent::__construct();
@@ -21,7 +22,6 @@ class C_t_t_t_pembelian_rincian extends MY_Controller
 
     $this->session->set_userdata('t_t_t_pembelian_delete_logic', '1');
     
-    $this->session->set_userdata('t_m_d_barang_delete_logic', '0');
     $this->session->set_userdata('t_m_d_barang_delete_logic', '0');
 
     $this->session->set_userdata('master_barang_kategori_id', '0');

@@ -300,6 +300,58 @@ public function select_barang_with_supplier($barang_id)
 
 
 
+
+
+
+
+public function select_barang_with_supplier_info_stok($barang_id)
+  {
+    
+
+    $this->db->limit(20);
+    $this->db->distinct("T_M_D_BARANG.ID");
+    $this->db->select("T_M_D_BARANG.ID");
+    $this->db->select('T_M_D_BARANG.KODE_BARANG');
+    $this->db->select('T_M_D_BARANG.BARANG');
+    $this->db->select('T_M_D_BARANG.PART_NUMBER');
+    $this->db->select('T_M_D_BARANG.MERK_BARANG');
+    $this->db->select('T_M_D_BARANG.POSISI');
+    $this->db->select('T_M_D_BARANG.MINIMUM_STOK');
+
+
+    $this->db->select('T_M_D_SUPPLIER.SUPPLIER');
+    $this->db->select('T_T_T_PEMBELIAN_RINCIAN.HARGA');
+
+
+    $this->db->select('T_T_T_PEMBELIAN.DATE');
+   
+
+
+    $this->db->from('T_M_D_BARANG');
+
+    $this->db->join('T_T_T_PEMBELIAN_RINCIAN', 'T_M_D_BARANG.BARANG_ID = T_T_T_PEMBELIAN_RINCIAN.BARANG_ID', 'left');
+    $this->db->join('T_M_D_SUPPLIER', 'T_M_D_SUPPLIER.ID = T_T_T_PEMBELIAN_RINCIAN.SUPPLIER_ID', 'left');
+
+    $this->db->join('T_T_T_PEMBELIAN', 'T_T_T_PEMBELIAN.ID = T_T_T_PEMBELIAN_RINCIAN.PEMBELIAN_ID', 'left');
+
+
+    $this->db->where("T_M_D_BARANG.COMPANY_ID={$this->session->userdata('master_barang_company_id')}");
+    $this->db->where("T_T_T_PEMBELIAN_RINCIAN.COMPANY_ID={$this->session->userdata('master_barang_company_id')}");
+    $this->db->where('T_T_T_PEMBELIAN_RINCIAN.SPECIAL_CASE_ID',0);
+    $this->db->where('T_T_T_PEMBELIAN_RINCIAN.MARK_FOR_DELETE',false);
+    $this->db->where('T_M_D_BARANG.BARANG_ID',$barang_id);
+    $this->db->where("T_M_D_BARANG.MARK_FOR_DELETE=FALSE");
+
+    $this->db->order_by("ID", "desc");
+
+
+
+    $akun = $this->db->get ();
+    return $akun->result ();
+  }
+
+
+
   public function select_pinlok_out($pembelian_id)
   {
     

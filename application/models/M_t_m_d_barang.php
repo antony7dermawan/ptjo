@@ -186,7 +186,14 @@ public function select_by_id_id($id)
     $this->db->join('T_M_D_SATUAN', 'T_M_D_SATUAN.ID = T_M_D_BARANG.SATUAN_ID', 'left');
 
 
+    //$this->db->join("T_T_T_PEMBELIAN_RINCIAN", "T_T_T_PEMBELIAN_RINCIAN.BARANG_ID = T_M_D_BARANG.BARANG_ID limit 1", 'left');
+
+
     $this->db->join("(select \"BARANG_ID\",sum(\"SISA_QTY\")\"SUM_SISA_QTY\" from \"T_T_T_PEMBELIAN_RINCIAN\" where  \"SPECIAL_CASE_ID\"=0 and \"MARK_FOR_DELETE\"=false and \"COMPANY_ID\"='{$this->session->userdata('master_barang_company_id')}' group by \"BARANG_ID\") as t_sum_1", 'T_M_D_BARANG.BARANG_ID = t_sum_1.BARANG_ID', 'left');
+
+
+
+
 
 
     if($this->session->userdata('master_barang_kategori_id')!=0)

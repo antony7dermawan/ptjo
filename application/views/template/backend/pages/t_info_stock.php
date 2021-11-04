@@ -63,6 +63,7 @@
     <?= $this->session->flashdata('notif') ?>
     <!-- Tombol untuk menambah data akun !-->
     
+    <button data-toggle="modal" data-target="#addModal" class="btn btn-success waves-effect waves-light">History Pembelian</button>
 
     <div class="table-responsive dt-responsive">
       <table id="dom-jqry" class="table table-striped table-bordered nowrap">
@@ -130,6 +131,123 @@
 
 
 
+
+<!-- MODAL TAMBAH PEMASUKAN! !-->
+<form action="" method="post" id='add_data'>
+  <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">History Pembelian
+            
+          </h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          
+        
+
+        <div class="form-group">
+            <label>Kode Barang</label>
+            <select name="barang_id" class='barang_id' id='select-state' placeholder='Pick a state...'>
+              <option value="0">Hapus Dulu!</option>
+              <?php
+              foreach ($c_t_m_d_barang as $key => $value) 
+              {
+                echo "<option value='".$value->BARANG_ID."'>".$value->KODE_BARANG."/".$value->BARANG."/".$value->MERK_BARANG."/".$value->PART_NUMBER."</option>";
+
+              }
+              ?>
+            </select>
+        </div>
+
+
+    
+      
+
+
+        
+        <div class="history_pembelian">
+            <label></label>
+            <table name="" class="table table-xs">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nama Toko</th>
+                  <th>Harga</th>
+                  <th>Tanggal</th>
+                </tr>
+              </thead>
+              <tbody class="return_data">
+                
+              </tbody>
+            </table>
+        </div>
+        <style type="text/css">
+          .history_pembelian
+          {
+            overflow: scroll;
+          }
+        </style>
+       
+
+
+
+        </div>
+
+          <div class="modal-footer">
+
+
+
+
+
+
+            <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+          </div>
+
+
+
+      </div>
+    </div>
+  </div>
+
+  
+
+</script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+$(".barang_id").change(function()
+{
+var barang_id=$(this).val();
+var post_id = 'id='+ barang_id;
+ 
+$.ajax
+({
+type: "POST",
+url: '<?php echo base_url('c_read_barang_with_supplier_info_stok') ?>',
+data: post_id,
+cache: false,
+success: function(reading_feedback)
+{
+$(".return_data").html(reading_feedback);
+
+
+console.log(reading_feedback);
+} 
+});
+ 
+});
+});
+
+</script>
+
+
+</form>
+<!-- MODAL TAMBAH PEMASUKAN SELESAI !-->
 
 
 
