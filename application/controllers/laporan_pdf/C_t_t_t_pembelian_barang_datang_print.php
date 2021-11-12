@@ -206,15 +206,15 @@ class C_t_t_t_pembelian_barang_datang_print extends MY_Controller
 
 
 
-      $pdf->SetFont('','',8);
+      $pdf->SetFont('','',10);
 
       $pdf->MultiCell($colom_width[0], $baris_height, ($i+1).'.', '0', 'C',0,0);
 
       $pdf->MultiCell($colom_width[1], $baris_height, date('d-m-Y',(strtotime ($date_datang[$i]))), 'L', 'L',0,0);
 
 
-      $pdf->MultiCell($colom_width[2], $baris_height, substr($kode_barang[$i], 0, 12), 'L', 'L',0,0);
-      $pdf->MultiCell($colom_width[3], $baris_height, substr($barang[$i], 0, 20), 'L', 'L',0,0);
+      $pdf->MultiCell($colom_width[2], $baris_height, substr($kode_barang[$i], 0, 25), 'L', 'L',0,0);
+      $pdf->MultiCell($colom_width[3], $baris_height, substr($barang[$i], 0, 50), 'L', 'L',0,0);
       $pdf->MultiCell($colom_width[4], $baris_height, number_format(($qty[$i]), 2, '.', ',').' '.$satuan[$i], 'L', 'C',0,0);
 
 
