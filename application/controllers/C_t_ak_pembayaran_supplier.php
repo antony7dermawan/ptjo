@@ -103,7 +103,11 @@ class C_t_ak_pembayaran_supplier extends MY_Controller
       $sum_diskon = round($value->SUM_DISKON);
 
 
-      $sum_pembayaran_supplier = $sum_jumlah + $sum_adm_bank - $sum_diskon;
+
+      $sum_pembayaran_supplier = $sum_jumlah + $sum_adm_bank + $sum_diskon;
+
+
+      $sum_ppn = ($sum_jumlah + $sum_adm_bank + $sum_diskon) - $sum_total_penjualan;
       $no_faktur = $value->NO_FAKTUR;
 
       $enable_edit= $value->ENABLE_EDIT;
@@ -114,10 +118,6 @@ class C_t_ak_pembayaran_supplier extends MY_Controller
     if($enable_edit==1)
     {
       $created_id = strtotime(date('Y-m-d H:i:s'));
-
-
-
-
 
       
       $coa_id_ps = $coa_id_supplier;
@@ -131,7 +131,7 @@ class C_t_ak_pembayaran_supplier extends MY_Controller
         'CREATED_BY' => $this->session->userdata('username'),
         'UPDATED_BY' => $this->session->userdata('username'),
         'COA_ID' => $coa_id_ps,
-        'DEBIT' => round($sum_pembayaran_supplier),
+        'DEBIT' => round($sum_total_penjualan),
         'KREDIT' => 0,
         'CATATAN' => 'Pembayaran Supplier : ' . $supplier,
         'DEPARTEMEN' => '0',
@@ -151,7 +151,58 @@ class C_t_ak_pembayaran_supplier extends MY_Controller
         'UPDATED_BY' => $this->session->userdata('username'),
         'COA_ID' => $coa_id_ps,
         'DEBIT' => 0,
-        'KREDIT' => round($sum_pembayaran_supplier),
+        'KREDIT' => round($sum_total_penjualan),
+        'CATATAN' => 'Pembayaran Supplier : ' . $supplier,
+        'DEPARTEMEN' => '0',
+        'NO_VOUCER' => $no_faktur,
+        'CREATED_ID' => $created_id,
+        'CHECKED_ID' => 1,
+        'SPECIAL_ID' => 0,
+        'COMPANY_ID' => $this->session->userdata('company_id')
+        );
+      }
+      $this->m_t_ak_jurnal->tambah($data);
+      #.....................................................................................done jurnal dpp
+
+
+
+
+
+
+
+
+      $coa_id_ppn = 2821;
+      $db_k_id=1;
+
+      if($db_k_id==1)#kode 1 debit / 2 kredit
+      {
+        $data = array(
+        'DATE' => $date_move,
+        'TIME' => $time_move,
+        'CREATED_BY' => $this->session->userdata('username'),
+        'UPDATED_BY' => $this->session->userdata('username'),
+        'COA_ID' => $coa_id_ppn,
+        'DEBIT' => round($sum_ppn),
+        'KREDIT' => 0,
+        'CATATAN' => 'Pembayaran Supplier : ' . $supplier,
+        'DEPARTEMEN' => '0',
+        'NO_VOUCER' => $no_faktur,
+        'CREATED_ID' => $created_id,
+        'CHECKED_ID' => 1,
+        'SPECIAL_ID' => 0,
+        'COMPANY_ID' => $this->session->userdata('company_id')
+        );
+      }
+      if($db_k_id==2)#kode 1 debit / 2 kredit
+      {
+        $data = array(
+        'DATE' => $date_move,
+        'TIME' => $time_move,
+        'CREATED_BY' => $this->session->userdata('username'),
+        'UPDATED_BY' => $this->session->userdata('username'),
+        'COA_ID' => $coa_id_ppn,
+        'DEBIT' => 0,
+        'KREDIT' => round($sum_ppn),
         'CATATAN' => 'Pembayaran Supplier : ' . $supplier,
         'DEPARTEMEN' => '0',
         'NO_VOUCER' => $no_faktur,
@@ -296,28 +347,7 @@ class C_t_ak_pembayaran_supplier extends MY_Controller
         foreach ($read_select_in as $key_in => $value_in) 
         {
           
-          if ($db_k_id == 1) #kode 1 debit / 2 kredit
-          {
-            $data = array(
-              'DATE' => $date_move,
-              'TIME' => $time_move,
-              'CREATED_BY' => $this->session->userdata('username'),
-              'UPDATED_BY' => '',
-              'COA_ID' => $coa_id,
-              'DEBIT' => round($jumlah_per_diskon),
-              'KREDIT' => 0,
-              'CATATAN' => 'Pembayaran Supplier : ' . $supplier,
-              'DEPARTEMEN' => '0',
-              'NO_VOUCER' => $no_faktur,
-              'CREATED_ID' => $created_id,
-              'CHECKED_ID' => 1,
-              'SPECIAL_ID' => 0,
-              'COMPANY_ID' => $this->session->userdata('company_id')
-            );
-            $sum_all_diskon = floatval($sum_all_diskon) + floatval($jumlah_per_diskon);
-          }
-          if ($db_k_id == 2) #kode 1 debit / 2 kredit
-          {
+         
             $data = array(
               'DATE' => $date_move,
               'TIME' => $time_move,
@@ -334,8 +364,8 @@ class C_t_ak_pembayaran_supplier extends MY_Controller
               'SPECIAL_ID' => 0,
               'COMPANY_ID' => $this->session->userdata('company_id')
             );
-            $sum_all_diskon = floatval($sum_all_diskon) - floatval($jumlah_per_diskon);
-          }
+            $sum_all_diskon = floatval($sum_all_diskon) + floatval($jumlah_per_diskon);
+          
           $this->m_t_ak_jurnal->tambah($data);
           
         }
