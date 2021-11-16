@@ -96,7 +96,7 @@
               echo "<td>".$value->MERK_BARANG."</td>";
               echo "<td>".$value->PART_NUMBER."</td>";
               echo "<td>".$value->POSISI."</td>";
-              echo "<td>".number_format($value->SUM_SISA_QTY).' '.$value->SATUAN."</td>";
+              echo "<td>".number_format($value->SUM_SISA_QTY, 2, '.', ',').' '.$value->SATUAN."</td>";
               echo "<td>" . number_format($value->HARGA_JUAL, 2, '.', ',') . "</td>";
               echo "<td>".$value->MINIMUM_STOK."</td>";
               echo "<td>".$value->MAXIMUM_STOK."</td>";
