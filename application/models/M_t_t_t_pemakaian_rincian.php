@@ -120,6 +120,8 @@ public function select_lap_barang_id($pemakaian_id,$barang_id)
     
     $this->db->where("T_M_D_BARANG.COMPANY_ID=T_T_T_PEMAKAIAN_RINCIAN.COMPANY_ID");
 
+    $this->db->where("T_M_D_BARANG.MARK_FOR_DELETE=FALSE");
+
 
 
     if($this->session->userdata('t_t_t_pemakaian_delete_logic')==0)
