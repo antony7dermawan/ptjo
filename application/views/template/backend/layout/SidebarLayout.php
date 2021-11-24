@@ -608,6 +608,14 @@ if($level_user_id==1 or $level_user_id==2 or $level_user_id==4 or $level_user_id
                     </a>
                 </li>
             </ul>
+
+
+        <?php
+        }
+        if($level_user_id==1 or $level_user_id==2 or $level_user_id==5 or $level_user_id==6 or $level_user_id==8 or $level_user_id==9)
+        {
+        ?>
+
             <ul class="pcoded-submenu">
                 <li class="">
                     <a href="<?= base_url("c_t_ak_pembayaran_supplier"); ?>" class="submenu waves-effect waves-dark">
@@ -616,11 +624,10 @@ if($level_user_id==1 or $level_user_id==2 or $level_user_id==4 or $level_user_id
                 </li>
             </ul>
 
-
-            <?php
+        <?php
         }
-
         ?>
+            
 
         
     </li>
