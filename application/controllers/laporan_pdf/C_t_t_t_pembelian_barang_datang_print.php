@@ -90,10 +90,10 @@ class C_t_t_t_pembelian_barang_datang_print extends MY_Controller
 
 
     $colom_width[0] = 10;
-    $colom_width[1] = 40;
-    $colom_width[2] = 40;
-    $colom_width[3] = 65;
-    $colom_width[4] = 35;
+    $colom_width[1] = 25;
+    $colom_width[2] = 25;
+    $colom_width[3] = 105;
+    $colom_width[4] = 25;
     
 
 
@@ -197,7 +197,7 @@ class C_t_t_t_pembelian_barang_datang_print extends MY_Controller
 
         $pdf->SetFont('','',8);
         $pdf->Cell($colom_width[0], 8, "NO", 'B', 0, 'C');
-        $pdf->Cell($colom_width[1], 8, "TANGGAL DATANG", 'BL', 0, 'C');
+        $pdf->Cell($colom_width[1], 8, "TGL DATANG", 'BL', 0, 'C');
         $pdf->Cell($colom_width[2], 8, "KODE", 'BL', 0, 'C');
         $pdf->Cell($colom_width[3], 8, "NAMA BARANG", 'BL', 0, 'C');
         $pdf->Cell($colom_width[4], 8, "BANYAKNYA", 'BL', 1, 'C');

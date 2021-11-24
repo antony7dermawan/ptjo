@@ -216,7 +216,7 @@ class C_t_ak_jurnal_debit_print extends MY_Controller
     {
       $rmd=(float)($i/$total_baris_1_bon);
       $rmd=($rmd-(int)$rmd)*$total_baris_1_bon;
-      for($x=0;$x<($rmd);$x++)
+      for($x=0;$x<($total_baris_1_bon-$rmd);$x++)
       {
         $pdf->Cell(25, 8, "", 'L', 0, 'C');
         $pdf->Cell(50, 8, "", 'L', 0, 'R');
