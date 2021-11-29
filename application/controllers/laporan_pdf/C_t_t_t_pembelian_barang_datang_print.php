@@ -23,7 +23,7 @@ class C_t_t_t_pembelian_barang_datang_print extends MY_Controller
     $pdf = new \TCPDF();
     $pdf->SetPrintHeader(false);
     $pdf->SetPrintFooter(false);
-    $pdf->AddPage('L',  array(210,148));
+    $pdf->AddPage('P', 'mm', 'A4');
     $pdf->SetAutoPageBreak(true, 0);
  
         // Add Header
@@ -113,7 +113,8 @@ class C_t_t_t_pembelian_barang_datang_print extends MY_Controller
         {
           $pdf->SetPrintHeader(false);
           $pdf->SetPrintFooter(false);
-          $pdf->AddPage('L',  array(210,148));
+          //$pdf->AddPage('L',  array(210,148));
+          $pdf->AddPage('P', 'mm', 'A4');
         }
         
 
