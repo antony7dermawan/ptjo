@@ -7,6 +7,12 @@
       <select name="pilih_laporan" class='pilih_laporan' id='id_pilih_laporan' placeholder='Pick a state...'>
         <?php
         echo "<option value='laporan_excel/lap_beli/index/' >Laporan Pembelian</option>";
+
+
+        echo "<option value='laporan_excel/lap_beli_per_item/index/' >Laporan Pembelian per Item</option>";
+
+
+        
         echo "<option value='laporan_excel/lap_beli_semua_gudang/index/' >Laporan Pembelian Semua Gudang</option>";
 
         echo "<option value='laporan_excel/lap_rb/index/' >Laporan Retur Pembelian</option>";
@@ -237,7 +243,28 @@ $(document).ready(function()
     var pilih_laporan=$(this).val();
     console.log(pilih_laporan);
     
+
+    
+
     if(pilih_laporan=="laporan_excel/lap_flow_barang_per_item/index/")
+    {
+      document.getElementById('barang').style.display = 'block';
+      document.getElementById('kategori').style.display = 'none';
+      document.getElementById('supplier').style.display = 'none';
+      document.getElementById('sales').style.display = 'none';
+      document.getElementById('pelanggan').style.display = 'none';
+
+
+      document.getElementById('no_polisi').style.display = 'none';
+      document.getElementById('anggota').style.display = 'none';
+
+
+      document.getElementById('lokasi').style.display = 'none';
+      document.getElementById('pemakai').style.display = 'none';
+    }
+
+
+    else if(pilih_laporan=="laporan_excel/lap_beli_per_item/index/")
     {
       document.getElementById('barang').style.display = 'block';
       document.getElementById('kategori').style.display = 'none';
@@ -489,7 +516,7 @@ $(document).ready(function()
 
 .barang
 {
-  display: none;
+  display: block;
 }
 
 .kategori
