@@ -115,6 +115,7 @@ class C_t_t_t_po_manual extends MY_Controller
 
 
 
+
     $inv_int = 0;
     $read_select = $this->m_t_t_t_po_manual->select_inv_int();
     foreach ($read_select as $key => $value) 
