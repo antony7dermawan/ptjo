@@ -290,7 +290,7 @@ class C_t_t_t_penjualan_rincian extends MY_Controller
               'PPN_VALUE' => $new_ppn_value
             );
 
-            $this->m_t_t_t_pembelian_rincian->tambah($data);
+            //$this->m_t_t_t_pembelian_rincian->tambah($data);
           }
             
         }
@@ -318,7 +318,7 @@ class C_t_t_t_penjualan_rincian extends MY_Controller
             'ENABLE_EDIT' => 1 //MASI BISA EDIT
           );
 
-          $this->m_t_t_t_pembelian->tambah($data);
+          //$this->m_t_t_t_pembelian->tambah($data);
 
           $new_qty = $maximum_stok - ($sisa_qty_tt-$qty);
           $new_sub_total = $new_qty * $harga_minimal;
@@ -345,7 +345,7 @@ class C_t_t_t_penjualan_rincian extends MY_Controller
               'PPN_VALUE' => $new_ppn_value
             );
 
-            $this->m_t_t_t_pembelian_rincian->tambah($data);
+            //$this->m_t_t_t_pembelian_rincian->tambah($data);
           }
 
           

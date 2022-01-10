@@ -181,15 +181,11 @@ if($level_user_id==1 or $level_user_id==6  or $level_user_id==8  or $level_user_
             </li>
 
 
-            <li class="">
-                <a href="<?= base_url("c_t_t_t_po_auto"); ?>" class="submenu waves-effect waves-dark">
-                    <span class="pcoded-mtext">PO Auto</span>
-                </a>
-            </li>
+            
             
             <li class="">
                 <a href="<?= base_url("c_t_t_t_po_manual"); ?>" class="submenu waves-effect waves-dark">
-                    <span class="pcoded-mtext">PO Manual</span>
+                    <span class="pcoded-mtext">PO</span>
                 </a>
             </li>
 
