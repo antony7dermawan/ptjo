@@ -96,7 +96,7 @@
                   $spreadsheet->getActiveSheet()->getStyle('A'.$row)->getFont()->setBold(true);
                   $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':J'.$row);
                   $sheet = $spreadsheet->getActiveSheet();
-                  $sheet->setCellValue('A'.$row, 'Laporan Flow Barang Per Item');
+                  $sheet->setCellValue('A'.$row, 'Laporan Pembelian Per Item');
                   $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('center');
 
                   $row=$row+1;
@@ -454,7 +454,7 @@
 
 
                   $writer = new Xlsx($spreadsheet);
-                  $filename = 'Lap_flow_barang_per_item';
+                  $filename = 'Lap_pembelian_per_item';
                   
                   header('Content-Type: application/vnd.ms-excel');
                   header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
