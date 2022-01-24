@@ -55,6 +55,7 @@ public function select_inv_pembelian()
    
 
 
+
     $this->db->from('T_T_T_PEMBELIAN');
 
 

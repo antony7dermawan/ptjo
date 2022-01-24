@@ -132,6 +132,7 @@
               echo "<td>";
 
 
+
               if (intval($value->SUM_SUB_TOTAL) != 0 and $value->PRINTED=='t')
               {
                 echo "<a "; #/1 ini artinya kena pajak

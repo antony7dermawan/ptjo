@@ -152,16 +152,21 @@ class C_t_t_t_po_print3 extends MY_Controller
       $pdf->SetFont('','',8);
      
      
+      $cell_height = 4;
 
+      if( strlen($value->BARANG)>=40)
+      {
+        $cell_height = 8;
+      }
 
-      $pdf->MultiCell($size[0], 4, $key+1, 'L', 'C',0,0);
-      $pdf->MultiCell($size[1], 4, $value->BARANG, 'L', 'L',0,0);
-      $pdf->MultiCell($size[2], 4, number_format(($value->QTY),2,'.',','), 'L', 'C',0,0);
-      $pdf->MultiCell($size[3], 4, $value->SATUAN, 'L', 'C',0,0);
-      $pdf->MultiCell($size[4], 4, number_format((floatval(round($value->HARGA*100)))/100,2, ',', '.'), 'L', 'R',0,0);
-      $pdf->MultiCell($size[5], 4, $value->PPN_PERCENTAGE, 'L', 'R',0,0);
-      $pdf->MultiCell($size[6]-0.1, 4, number_format((floatval(round(($value->SUB_TOTAL)*100)))/100,2, ',', '.'), 'L', 'R',0,0);
-      $pdf->Cell( 0.1,4,'','L',1,'R');
+      $pdf->MultiCell($size[0], $cell_height, $key+1, 'L', 'C',0,0);
+      $pdf->MultiCell($size[1], $cell_height, $value->BARANG, 'L', 'L',0,0);
+      $pdf->MultiCell($size[2], $cell_height, number_format(($value->QTY),2,'.',','), 'L', 'C',0,0);
+      $pdf->MultiCell($size[3], $cell_height, $value->SATUAN, 'L', 'C',0,0);
+      $pdf->MultiCell($size[4], $cell_height, number_format((floatval(round($value->HARGA*100)))/100,2, ',', '.'), 'L', 'R',0,0);
+      $pdf->MultiCell($size[5], $cell_height, $value->PPN_PERCENTAGE, 'L', 'R',0,0);
+      $pdf->MultiCell($size[6]-0.1, $cell_height, number_format((floatval(round(($value->SUB_TOTAL)*100)))/100,2, ',', '.'), 'L', 'R',0,0);
+      $pdf->Cell( 0.1,$cell_height,'','L',1,'R');
 
 
 
