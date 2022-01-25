@@ -117,17 +117,18 @@ class C_t_t_t_po_print3 extends MY_Controller
         $pdf->Cell( 75,5,':'.date('d-m-Y', strtotime($r_date)),'0',1,'L');
 
 
-        $pdf->MultiCell(20, 5, 'Alamat', '0', 'L',0,0);
-        $pdf->MultiCell(85, 5,':'.substr($r_alamat_supplier, 0, 200), '0', 'L',0,0);
+        $pdf->Cell( 20,5,'Telp','0',0,'L');
+        $pdf->Cell( 85,5,':'.$r_telp_supplier,'0',0,'L');
+        
         $pdf->Cell( 20,5,'NO PO','0',0,'L');
         $pdf->Cell( 75,5,':'.$r_no_po,'0',1,'L');
 
 
 
-        $pdf->Cell( 20,5,'Telp','0',0,'L');
-        $pdf->Cell( 85,5,':'.$r_telp_supplier,'0',0,'L');
-        $pdf->Cell( 20,5,'Penerima','0',0,'L');
-        $pdf->Cell( 75,5,':'.$r_nama_penerima,'0',1,'L');
+        $pdf->MultiCell(20, 15, 'Alamat', '0', 'L',0,0);
+        $pdf->MultiCell(85, 15,':'.substr($r_alamat_supplier, 0, 200), '0', 'L',0,0);
+        $pdf->Cell( 20,15,'Penerima','0',0,'L');
+        $pdf->Cell( 75,15,':'.$r_nama_penerima,'0',1,'L');
 
         //$pdf->Cell( 20,5,'Lainnya','0',0,'L');
         //$pdf->MultiCell(100, 5, ':'.substr($r_lainnya, 0, 200), 0, 'L',0,1);

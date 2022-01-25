@@ -255,7 +255,7 @@ public function select_range_date($from_date,$to_date)
   public function select_inv_int()
   {
     
-    $date_before = date('Y-m',(strtotime ( '-1 day' , strtotime ( date('Y-m-d')) ) ));
+    $date_before = date('Y-m',(strtotime ( '-20 day' , strtotime ( date('Y-m-d')) ) ));
     $this_year = $date_before.'-01';
     $this->db->limit(1);
     $this->db->select("INV_INT");
