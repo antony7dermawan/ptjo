@@ -4,7 +4,7 @@
       <table>
         <tr>
           <th>
-            Tanggal Tagihan:
+            Tgl Tagihan:
           </th>
           <th>
             <form action='/action_page.php'>
