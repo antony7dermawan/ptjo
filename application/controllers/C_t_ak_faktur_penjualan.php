@@ -156,7 +156,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
       $ppn=0;
       if($ppn_logic==1)
       {
-        $ppn = (intval($sum_total_penjualan) * 10)/100;
+        $ppn = (intval($sum_total_penjualan) * 11)/100;
       }
       if($db_k_id==1)#kode 1 debit / 2 kredit
       {

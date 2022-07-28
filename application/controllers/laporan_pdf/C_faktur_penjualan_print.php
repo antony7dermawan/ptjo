@@ -182,7 +182,7 @@ class c_faktur_penjualan_print extends MY_Controller
     $pdf->Cell( 0.1,8,'','L',1,'R');
 
 
-    $ppn = (10 * floatval($dpp))/100;
+    $ppn = (11 * floatval($dpp))/100;
     $pdf->Cell( 0.1,8,'','L',0,'R');
     $pdf->Cell( $size[0]+$size[1]-0.1,8,'PPN','T',0,'L');
     $pdf->Cell( $size[2],8,':','T',0,'L');
